@@ -1,5 +1,5 @@
 import store from "../redux/store";
-import "@styles/global.scss";
+import "../domains/common/components/styles/global.scss";
 import "antd/dist/antd.css";
 import { AppProps } from "next/app";
 import { Provider } from "react-redux";
