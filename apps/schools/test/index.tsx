@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
  * please visit https://testing-library.com/docs/react-testing-library/setup
  */
 
-export const AllTheProviders = ({ children }) => {
+export const AllTheProviders = ({ children }: {children: JSX.Element}) => {
   return (
     <>
       <Provider store={store}>{children}</Provider>

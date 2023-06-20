@@ -1,3 +1,3 @@
-const withPlugins = require("next-compose-plugins");
+const withPlugins = require('next-compose-plugins')
 
-module.exports = withPlugins([], {});
+module.exports = withPlugins([], {})
