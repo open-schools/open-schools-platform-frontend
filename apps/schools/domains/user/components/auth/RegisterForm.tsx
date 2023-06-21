@@ -5,7 +5,7 @@ import {Button} from "../../../common/components";
 export const RegisterForm = () => {
     return (
         <Form>
-            <Button
+            <Button></Button>
         </Form>
     )
 }

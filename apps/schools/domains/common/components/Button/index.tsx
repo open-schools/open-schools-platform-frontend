@@ -10,7 +10,11 @@ interface CustomButtonProps {
     onClick?: () => void,
 }
 
-const buttonStyleDictionary = {
+interface dictionary {
+    [key: string]: any;
+}
+
+const buttonStyleDictionary : dictionary = {
     'defaultStyles': defaultStyles,
     'gradientStyles': gradientStyles,
 }
@@ -20,8 +24,8 @@ export const Button: React.FC<CustomButtonProps> = (props) => {
 
     if (!typeButton.includes(type)) {
         return <DefaultButton className={defaultStyles.button} type={antdType} onClick={onClick} data-testid="btn" />
-    } else if (buttonStyleDictionary[]){
-        return <DefaultButton className={} type={antdType} onClick={onClick} data-testid="btn" />
     }
-
+    else if (type in buttonStyleDictionary) {
+        return <DefaultButton className={buttonStyleDictionary[type]} type={antdType} onClick={onClick} data-testid="btn" />
+    }
 }
