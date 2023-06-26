@@ -42,6 +42,7 @@
     "react-dom": "^18.2.0",
     "react-fittext": "^1.0.0",
     "react-markdown": "^8.0.7",
+    "react-phone-input-2": "^2.15.1",
     "react-redux": "^7.2.4",
     "react-responsive": "^9.0.2",
     "react-test-renderer": "^18.2.0",
