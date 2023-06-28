@@ -21,7 +21,7 @@ mkdir apps/_back01keystone
 
 # 1. create package.json, index.js and initial-data.js (check exampe)
 # 2. define your schema by following https://www.keystonejs.com/tutorials/add-lists
-# and use GQLListSchema wrappers for style checking and easy test writing
+# and use GQLListSchema wrappers for styles checking and easy test writing
 
 # Link new package and Install dependencies
 yarn

@@ -10,10 +10,10 @@ import { withAuth } from '@core/next/auth'
 import { withIntl } from '@core/next/intl'
 import { useOrganization, withOrganization } from '@core/next/organization'
 
-import GlobalStyle from '@app/ex02front/containers/GlobalStyle'
-import GoogleAnalytics from '@app/ex02front/containers/GoogleAnalytics'
-import BaseLayout from '@app/ex02front/containers/BaseLayout'
-import GlobalErrorBoundary from '@app/ex02front/containers/GlobalErrorBoundery'
+// import GlobalStyle from '@app/ex02front/containers/GlobalStyle'
+// import GoogleAnalytics from '@app/ex02front/containers/GoogleAnalytics'
+// import BaseLayout from '@app/ex02front/containers/BaseLayout'
+// import GlobalErrorBoundary from '@app/ex02front/containers/GlobalErrorBoundery'
 
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
     whyDidYouRender(React, {
