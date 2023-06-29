@@ -1,7 +1,7 @@
 import { Button as DefaultButton, ButtonProps } from 'antd'
 import React from 'react'
-import defaultStyles from '../styles/default.module.scss'
-import gradientStyles from '../styles/gradient.module.scss'
+import defaultStyles from './styles/default.module.scss'
+import gradientStyles from './styles/gradient.module.scss'
 import { typeButton } from '../../constants/Button'
 
 interface CustomButtonProps {
@@ -19,15 +19,23 @@ const buttonStyleDictionary : Dictionary = {
     'gradientStyles': gradientStyles,
 }
 
+const textButton = () => {
+    return (
+        <div>
+            Hello world!
+        </div>
+    )
+}
+
 export const Button: React.FC<CustomButtonProps> = (props) => {
     const { type = 'schoolDefault', antdType, onClick } = props
 
     if (!typeButton.includes(type)) {
-        return <DefaultButton className={defaultStyles.button} type={antdType} onClick={onClick} data-testid="btn" />
+        return <DefaultButton className={defaultStyles.button} children={textButton()} type={antdType} onClick={onClick} data-testid="btn" />
     }
-    else if (type in buttonStyleDictionary) {
-        return <DefaultButton className={buttonStyleDictionary[type]} type={antdType} onClick={onClick} data-testid="btn" />
+    else //if (type in buttonStyleDictionary) {
+    {
+        return <DefaultButton className={buttonStyleDictionary[type]} children={textButton()} type={antdType} onClick={onClick} data-testid="btn" />
     }
-    return null
 }
 
