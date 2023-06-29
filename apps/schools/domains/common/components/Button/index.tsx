@@ -8,6 +8,7 @@ interface CustomButtonProps {
     type?: 'schoolDefault' | 'schoolGradient',
     antdType?: ButtonProps['type'],
     onClick?: () => void,
+    text?: string,
 }
 
 interface Dictionary {
@@ -15,27 +16,19 @@ interface Dictionary {
 }
 
 const buttonStyleDictionary : Dictionary = {
-    'defaultStyles': defaultStyles,
-    'gradientStyles': gradientStyles,
-}
-
-const textButton = () => {
-    return (
-        <div>
-            Hello world!
-        </div>
-    )
+    'schoolDefault': defaultStyles,
+    'schoolGradient': gradientStyles,
 }
 
 export const Button: React.FC<CustomButtonProps> = (props) => {
-    const { type = 'schoolDefault', antdType, onClick } = props
+    const { type = 'schoolDefault', antdType = 'primary', onClick , text } = props
 
     if (!typeButton.includes(type)) {
-        return <DefaultButton className={defaultStyles.button} children={textButton()} type={antdType} onClick={onClick} data-testid="btn" />
+        return <DefaultButton className={defaultStyles.button} children={text} type={antdType} onClick={onClick} data-testid="btn" />
     }
     else //if (type in buttonStyleDictionary) {
     {
-        return <DefaultButton className={buttonStyleDictionary[type]} children={textButton()} type={antdType} onClick={onClick} data-testid="btn" />
+        return <DefaultButton className={buttonStyleDictionary[type]?.button} children={text} type={antdType} onClick={onClick} data-testid="btn" />
     }
 }
 
