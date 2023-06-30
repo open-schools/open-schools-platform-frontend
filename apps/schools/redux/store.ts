@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { useDispatch } from 'react-redux'
 import { commonApi } from '../http/api'
 import rootReducer from './reducers'
+import { useDispatch, useSelector } from 'react-redux'
+import type { TypedUseSelectorHook } from 'react-redux'
 
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
 setupListeners(store.dispatch)
 
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
 export const useAppDispatch = () => useDispatch<AppDispatch>()
-
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export default store
