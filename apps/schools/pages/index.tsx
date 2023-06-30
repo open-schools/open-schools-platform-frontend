@@ -1,11 +1,10 @@
 import React from 'react'
-
-import { Button } from '../domains/common/components'
+import { RegisterForm } from '../domains/user/components/auth/RegisterForm'
 
 const Home: React.FC = () => {
     return (
         <div>
-            <Button />
+            <RegisterForm/>
         </div>
     )
 }
