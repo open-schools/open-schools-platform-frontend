@@ -1,10 +1,11 @@
 import { message } from 'antd'
 
-export const errorHandler = (error: any) => {
-    if (error && 'message' in error) {
-        
-        message.error(error.data.error.message)
-        return
+export const errorHandler = (error: any, data: any) => {
+    if (data !== undefined) {
+        if (error) {
+            message.error(error?.data?.error.message)
+            return
+        }
+        message.success('asd')
     }
-    message.success('Вы успешно подтянули кружки')
 }

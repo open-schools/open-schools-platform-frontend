@@ -1,4 +1,4 @@
-import store from '../redux/store'
+import store from '../store/store'
 import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'

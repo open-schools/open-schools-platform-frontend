@@ -3,11 +3,11 @@ import React from 'react'
 import defaultStyles from './styles/default.module.scss'
 import gradientStyles from './styles/gradient.module.scss'
 import { typeButton } from '../../constants/Button'
+import { ButtonHTMLAttributes } from 'react'
 
-interface CustomButtonProps {
-    type?: 'schoolDefault' | 'schoolGradient',
-    antdType?: ButtonProps['type'],
-    onClick?: () => void,
+interface CustomButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+    type?: 'schoolDefault' | 'schoolGradient';
+    antdType?: ButtonProps['type'];
 }
 
 interface Dictionary {
@@ -28,14 +28,27 @@ const textButton = () => {
 }
 
 export const Button: React.FC<CustomButtonProps> = (props) => {
-    const { type = 'schoolDefault', antdType, onClick } = props
+    const { type = 'schoolDefault', antdType, ...restProps } = props
 
     if (!typeButton.includes(type)) {
-        return <DefaultButton className={defaultStyles.button} children={textButton()} type={antdType} onClick={onClick} data-testid="btn" />
-    }
-    else //if (type in buttonStyleDictionary) {
-    {
-        return <DefaultButton className={buttonStyleDictionary[type]} children={textButton()} type={antdType} onClick={onClick} data-testid="btn" />
+        return (
+            <DefaultButton
+                className={defaultStyles.button}
+                children={textButton()}
+                type={antdType}
+                data-testid="btn"
+                {...restProps}
+            />
+        )
+    } else {
+        return (
+            <DefaultButton
+                className={buttonStyleDictionary[type]}
+                children={textButton()}
+                type={antdType}
+                data-testid="btn"
+                {...restProps}
+            />
+        )
     }
 }
-

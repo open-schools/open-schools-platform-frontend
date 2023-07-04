@@ -1,20 +1,19 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Form, Select } from 'antd'
 import { Button } from '../../../common/components'
-import { useFetchAllCirclesQuery } from '../../../../http/api/rtk query/circles'
-import { errorHandler } from '../../bin/RegisterForm/errorHandler'
+import { useCirclesQuery } from '../../redux/circlesApi'
+import { errorHandler } from '../../../user/bin/RegisterForm/errorHandler'
 
-export const RegisterForm = () => {
+export const CirclesMain = () => {
     const [skip, setSkip] = useState(true)
     const [organization, setOrganization] = useState('')
 
-    const { data, error, isLoading } = useFetchAllCirclesQuery({ organization: organization }, { skip: skip })
-
-    errorHandler(error)
+    const { data, error } = useCirclesQuery({ organization: organization }, { skip: skip })
+    errorHandler(error, data)
 
     return (
         <Form>
-            <Button onClick={() => setOrganization('90')}/>
+            <Button style={{ marginTop: '200px' }} onClick={() => setOrganization('90')}/>
             <Button onClick={() => setSkip(prevState => !prevState)}/>
             <Select
                 style={{ width: '1000px' }}

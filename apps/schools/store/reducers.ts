@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { commonApi } from '../http/api'
+import { commonApi } from './commonApi'
+import { combineReducers } from '@reduxjs/toolkit'
 
 const rootReducer = combineReducers({
     [commonApi.reducerPath]: commonApi.reducer,

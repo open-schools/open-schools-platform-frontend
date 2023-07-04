@@ -1,10 +1,12 @@
 import React from 'react'
-import { RegisterForm } from '../domains/user/components/auth/RegisterForm'
+import { CirclesMain } from '../domains/circles/components/main/CirclesMain'
+import { RegistrationForm } from '../domains/user/components/main/RegistrationForm'
 
 const Home: React.FC = () => {
     return (
         <div>
-            <RegisterForm/>
+            <CirclesMain/>
+            <RegistrationForm/>
         </div>
     )
 }

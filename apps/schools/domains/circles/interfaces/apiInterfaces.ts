@@ -1,13 +1,11 @@
-import { commonApi } from '../index'
-
-export interface ReturnedData<T> {
+interface ReturnedData<T> {
     count: number,
     next: string,
     previous: string,
     results: T,
 }
 
-export interface Circle {
+interface Circle {
     id: string,
     name: string,
     organization: CircleOrganization,
@@ -18,7 +16,7 @@ export interface Circle {
     longitude: string,
 }
 
-export interface CircleOrganization {
+interface CircleOrganization {
     id: string,
     name: string,
 }
@@ -39,16 +37,4 @@ interface AllCirclesParams {
     'student_profile'?: string,
 }
 
-const circlesServiceApi = commonApi.injectEndpoints({
-    endpoints: build => ({
-        fetchAllCircles: build.query<ReturnedData<Circle[]>, AllCirclesParams>({
-            query: (params) => ({
-                url: '/organization-management/circles',
-                method: 'GET',
-                params: params,
-            }),
-        }),
-    }),
-})
-
-export const { useFetchAllCirclesQuery } = circlesServiceApi
+export type { AllCirclesParams, CircleOrganization, Circle, ReturnedData }
