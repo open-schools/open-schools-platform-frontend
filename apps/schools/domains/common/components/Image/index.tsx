@@ -1,16 +1,43 @@
+import { typeImage } from 'domains/common/constants/Image'
+import fullScreen from './styles/fullScreen.module.scss'
+import {Image, ImageProps} from 'antd'
 import React from 'react'
-import styles from './styles/image.module.scss'
-import Image from 'next/image'
 
-interface CustomImageProps {
-    width?: number,
-    height?: number,
-    type?: 'imageDefault',
+interface CustomImageProps extends ImageProps {
+    type?: 'fullScreen',
+    onClick?: () => void,
 }
 
-export const Images: React.FC<CustomImageProps> = (props) => {
-    const { width, height, type } = props
+interface Dictionary {
+    [key: string]: any;
+}
 
-    return <Image width={width} height={height} className={styles.image} src={'/image/authImage.jpg'} alt={'Image'} />
+const imageStyleDictionary: Dictionary = {
+    'fullScreen': fullScreen,
+}
+
+export const CustomImage: React.FC<CustomImageProps> = (props) => {
+    const { type = 'schoolDefault', onClick, ...restProps } = props
+
+    if (!typeImage.includes(type)) {
+        return <Image
+            onClick={onClick}
+            {...restProps}
+        />
+    } else //if (type in buttonStyleDictionary) {
+    {
+        if (type === 'fullScreen')
+            return <div
+                className={imageStyleDictionary[type]?.image}
+                style={{ backgroundImage: `url(${restProps.src})` }}
+                onClick={onClick}
+            />
+
+        return <Image
+            className={imageStyleDictionary[type]?.image}
+            onClick={onClick}
+            {...restProps}
+        />
+    }
 }
 
