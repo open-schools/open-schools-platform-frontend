@@ -1,16 +1,16 @@
 import { commonApi } from '../../../store/commonApi'
-import { CreationToken, VerifyResponse, TokenResponse, UserRegister } from '../interfaces/tokenInterfaces'
+import { CreationData, VerifyResponse, TokenResponse, UserRegister, verifyData } from '../interfaces/tokenInterfaces'
 
-const registrationApi = commonApi.injectEndpoints({
+const usersApi = commonApi.injectEndpoints({
     endpoints: build => ({
-        token: build.mutation<TokenResponse, CreationToken>({
+        token: build.mutation<TokenResponse, CreationData>({
             query: (data) => ({
                 url: '/user-management/users/token',
                 method: 'POST',
                 body: data,
             }),
         }),
-        verify: build.mutation<VerifyResponse, { otp: string, token: string }>({
+        verify: build.mutation<VerifyResponse, verifyData>({
             query: (data) => ({
                 url: `/user-management/users/token/${data.token}/verify`,
                 method: 'PATCH',
@@ -27,4 +27,4 @@ const registrationApi = commonApi.injectEndpoints({
     }),
 })
 
-export const { useTokenMutation, useVerifyMutation, useUsersMutation } = registrationApi
+export const { useTokenMutation, useVerifyMutation, useUsersMutation } = usersApi

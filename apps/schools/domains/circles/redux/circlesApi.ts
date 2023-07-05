@@ -4,10 +4,10 @@ import { AllCirclesParams, Circle, ReturnedData } from '../interfaces/apiInterfa
 const circlesApi = commonApi.injectEndpoints({
     endpoints: build => ({
         circles: build.query<ReturnedData<Circle[]>, AllCirclesParams>({
-            query: (params) => ({
+            query: (data) => ({
                 url: '/organization-management/circles',
                 method: 'GET',
-                params: params,
+                data: data,
             }),
         }),
     }),

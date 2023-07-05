@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Select } from 'antd'
 import { Button } from '../../../common/components'
 import { useCirclesQuery } from '../../redux/circlesApi'
-import { errorHandler } from '../../../user/bin/RegisterForm/errorHandler'
+import { errorHandler } from '../../../common/handlers/errorHandlers/errorHandler'
 
 export const CirclesMain = () => {
     const [skip, setSkip] = useState(true)

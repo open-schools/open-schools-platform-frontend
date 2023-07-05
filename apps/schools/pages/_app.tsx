@@ -3,11 +3,14 @@ import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
+import { TokenProvider } from '../store/providers/authProvider'
 
 function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
     return (
         <Provider store={store}>
-            <Component {...pageProps} />
+            <TokenProvider>
+                <Component {...pageProps} />
+            </TokenProvider>
         </Provider>
     )
 }

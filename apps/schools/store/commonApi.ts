@@ -1,17 +1,6 @@
 import Cookies from 'universal-cookie'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-
-export interface ErrorType {
-    data: {
-        error: {
-            code: string,
-            message?: string,
-            'violation_fields': any,
-            violations: [string]
-        }
-    },
-    status: number,
-}
+import { ErrorType } from './types'
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -29,7 +18,8 @@ export const commonApi = createApi({
             const jwtToken = localStorage.getItem('jwtToken');
             if (jwtToken) {
                 headers.set('Authorization', `Bearer ${jwtToken}`);
-            }headers.set('Content-Type', 'application/json;charset=UTF-8')
+            }
+            headers.set('Content-Type', 'application/json;charset=UTF-8')
             return headers
         },
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
