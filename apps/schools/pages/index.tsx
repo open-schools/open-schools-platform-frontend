@@ -1,30 +1,19 @@
 import React from 'react'
 
-import { Anchor } from '../domains/common/components/Anchor'
-import { Input } from '../domains/common/components/Input'
-import { Link } from '../domains/common/components/Link'
-import { Button } from '../domains/common/components'
-import { CustomImage } from '../domains/common/components/Image'
-import { SignInForm } from '../domains/user/components/auth/SignInForm';
-import {Col, Row} from "antd";
+import {Row} from "antd";
+import AuthLayout, {IAuthLayoutProps} from "../domains/user/components/containers/AuthLayout";
+import {ContainerPage} from "./_app";
+import {FormContainer} from "../domains/user/components/auth/FormContainer";
 
-const Home: React.FC = () => {
+const SignInPage: ContainerPage<IAuthLayoutProps> = (props) => {
     return (
-        <div>
-            {/*<CustomImage src={'/image/authImage.svg'} type={'fullScreen'} preview={false}/>*/}
-            <Row justify='center'>
-                {/*<Anchor />*/}
-                {/*<Input type={'inputPhone'} label={'Телефон'}/>*/}
-                {/*<Input type={'inputPassword'} placeholder={'Пароль'} label={'Пароль'}/>*/}
-                {/*<Link text={'Забыли пароль? Сбросить'}/>*/}
-                {/*<Button text={'Войти'}/>*/}
-                <Col>
-                    <SignInForm/>
-                </Col>
+        <div style={{height: '100%'}}>
+            <Row justify='center' align="middle" style={{height: '100%'}}>
+                <FormContainer/>
             </Row>
         </div>
     )
 }
 
-Home.container = AuthLayout
-export default Home
+SignInPage.container = AuthLayout
+export default SignInPage
