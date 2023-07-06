@@ -3,6 +3,7 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/tool
 import { ErrorType } from './types'
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
+const cookies = new Cookies()
 
 export const commonApi = createApi({
     reducerPath: 'api',
@@ -10,14 +11,13 @@ export const commonApi = createApi({
         baseUrl: BASE_API_URL,
         credentials: 'include',
         prepareHeaders: headers => {
-            const cookies = new Cookies()
             const csrfToken = cookies.get('csrftoken')
             if (csrfToken) {
                 headers.set('X-CSRFToken', csrfToken)
             }
-            const jwtToken = localStorage.getItem('jwtToken');
+            const jwtToken = localStorage.getItem('jwtToken')
             if (jwtToken) {
-                headers.set('Authorization', `Bearer ${jwtToken}`);
+                headers.set('Authorization', `Bearer ${jwtToken}`)
             }
             headers.set('Content-Type', 'application/json;charset=UTF-8')
             return headers

@@ -3,7 +3,7 @@ import { UserProfiles } from '../interfaces/userProfile'
 
 const meApi = commonApi.injectEndpoints({
     endpoints: build => ({
-        me: build.query<UserProfiles, {}>({
+        me: build.query<{ user: UserProfiles }, {}>({
             query: (data) => ({
                 url: '/user-management/auth/me',
                 method: 'GET',

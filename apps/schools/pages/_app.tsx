@@ -3,7 +3,7 @@ import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import { TokenProvider } from '../store/providers/authProvider'
+import { TokenProvider } from './providers/authProvider'
 
 function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
     return (
