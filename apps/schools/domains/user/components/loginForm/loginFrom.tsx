@@ -14,7 +14,7 @@ export const LoginFrom = () => {
         <Form>
             <div style={{ marginLeft: '10px', marginTop: '100px' }}>Login</div>
             <Input style={{ margin: '10px' }} onChange={(value) => setPhone(value.target.value)} placeholder={'phone'}/>
-            <Input style={{ margin: '10px' }} onChange={(value) => setPassword(value.target.value)} placeholder={'password'}/>
+            <Input style={{ margin: '10px' }} onChange={(value) => setPassword(value.target.value)} placeholder={'password'} type={'password'}/>
             <Button style={{ margin: '10px' }} onClick={() => loginHandler(phone, password, login)} />
         </Form>
     )
