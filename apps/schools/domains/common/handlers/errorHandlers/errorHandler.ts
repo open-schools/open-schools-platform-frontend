@@ -6,6 +6,6 @@ export const errorHandler = (error: any, data: any) => {
             message.error(error?.data?.error.message)
             return
         }
-        message.success('asd')
+        message.success('Упс, что-то пошло не так...')
     }
 }
