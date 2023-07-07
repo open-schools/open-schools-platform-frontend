@@ -5,7 +5,7 @@ import Router, {useRouter} from 'next/router'
 import React, {useState} from 'react'
 import {isSafeUrl} from "../../../../common/utils/url.utils";
 import {Input} from "../../../../common/components/Input";
-import styles from './styles/styles.module.scss'
+import styles from '../styles/formStyles.module.scss'
 
 import {Button} from "../../../../common/components";
 
@@ -20,6 +20,19 @@ export const SignInForm = (): React.ReactElement => {
     // const { refetch } = useAuth()
     const [isLoading, setIsLoading] = useState(false)
     // const [signinByPhoneAndPassword] = useMutation(SIGNIN_BY_PHONE_AND_PASSWORD_MUTATION)
+
+    // const ErrorToFormFieldMsgMapping = useMemo(() => {
+    //     return {
+    //         [WRONG_PHONE_ERROR]: {
+    //             name: 'signinError',
+    //             errors: [PasswordOrPhoneMismatch],
+    //         },
+    //         [WRONG_PASSWORD_ERROR]: {
+    //             name: 'signinError',
+    //             errors: [PasswordOrPhoneMismatch],
+    //         },
+    //     }
+    // }, [intl])
 
     // const onFormSubmit = useCallback((values) => {
     //     setIsLoading(true)
@@ -47,7 +60,7 @@ export const SignInForm = (): React.ReactElement => {
                     <Row>
                         <Col span={24}>
                             <Form.Item
-                                name='telephone'
+                                name='phone'
                                 label={"Телефон"}
                                 rules={[{required: true, message: "Необходимо заполнить"}]}
                                 data-cy='signin-phone-item'
@@ -69,7 +82,6 @@ export const SignInForm = (): React.ReactElement => {
                             <Form.Item>
                                 Забыли пароль?&nbsp;
                                 <Typography.Link
-                                    tabIndex={3}
                                     className={styles.black}
                                     onClick={() => Router.push('/auth/forgot')}>
                                     {"Сбросить"}

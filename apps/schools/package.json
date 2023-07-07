@@ -36,6 +36,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-i18next": "^7.0.1",
     "next-transpile-modules": "^10.0.0",
+    "phone": "^3.1.37",
     "qs": "^6.11.2",
     "rc-queue-anim": "^2.0.0",
     "react": "^18.2.0",
