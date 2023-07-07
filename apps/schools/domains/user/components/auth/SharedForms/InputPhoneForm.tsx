@@ -12,9 +12,11 @@ import {normalizePhone} from "../../../../common/utils/phone";
 
 interface IInputPhoneFormProps {
     onFinish: () => void
+    nextUrl: string,
+    title: string,
 }
 
-export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish }) => {
+export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish, nextUrl, title }) => {
     const {publicRuntimeConfig: {hasSbbolAuth}} = getConfig()
 
     const [form] = Form.useForm()
@@ -75,7 +77,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish }) => 
         //     form,
         //     ErrorToFormFieldMsgMapping,
         // })
-        Router.push(`/auth/register?token=${37128937218937}`);
+        Router.push(`/auth/${nextUrl}?token=${37128937218937}`);
         onFinish();
     }, [form, /*handleReCaptchaVerify*/ /*setPhone*/ setIsLoading, /*onFinish*/])
 
@@ -93,6 +95,9 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish }) => 
             <Row className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
                     <Row>
+                        <Col span={24}>
+                            <Typography.Title level={2}>{title}</Typography.Title>
+                        </Col>
                         <Col span={24}>
                             <Form.Item
                                 name='phone'

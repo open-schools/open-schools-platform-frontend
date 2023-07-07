@@ -7,10 +7,10 @@ import {ContainerPage} from "../_app";
 import AuthLayout, {IAuthLayoutProps} from "../../domains/user/components/containers/AuthLayout";
 import {CentralizingContainer} from "../../domains/common/components/CentralizingContainer";
 import {FormContainer} from "../../domains/user/components/auth/FormContainer";
-import {InputPhoneForm} from "../../domains/user/components/auth/RegisterForms/InputPhoneForm";
+import {InputPhoneForm} from "../../domains/user/components/auth/SharedForms/InputPhoneForm";
 import {TabsAuthAction} from "../../domains/user/components/auth/HeaderActions";
-import {ValidatePhoneForm} from "../../domains/user/components/auth/RegisterForms/ValidatePhoneForm";
-import {RegisterForm} from "../../domains/user/components/auth/RegisterForms/RegisterForm";
+import {ValidatePhoneForm} from "../../domains/user/components/auth/SharedForms/ValidatePhoneForm";
+import {RegisterForm} from "../../domains/user/components/auth/RegisterForm/RegisterForm";
 
 
 // const HeaderAction = () => {
@@ -76,7 +76,11 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = () => {
     const steps: Dictionary<JSX.Element> = {
         "inputPhone": <>
             <TabsAuthAction currentActiveKey='/auth/register'/>
-            <InputPhoneForm onFinish={() => setStep('validatePhone')}/>
+            <InputPhoneForm
+                title={"Регистрация"}
+                nextUrl={"register"}
+                onFinish={() => setStep('validatePhone')}
+            />
         </>,
         "validatePhone": <ValidatePhoneForm
             onFinish={() => setStep('register')}
