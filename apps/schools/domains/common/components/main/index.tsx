@@ -23,13 +23,6 @@ export const Main: React.FC = () => {
           The frontend boilerplate with superpowers!
                 </p>
                 <Button type="schoolDefault">
-                    <a
-                        data-test="docs-btn-anchor"
-                        href="https://pankod.github.io/superplate/"
-                        target="_blank" rel="noreferrer"
-                    >
-            Docs
-                    </a>
                 </Button>
             </div>
             <div
