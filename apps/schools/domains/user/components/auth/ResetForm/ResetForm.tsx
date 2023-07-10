@@ -1,10 +1,10 @@
-import {Col, Form, Row, RowProps, Typography} from 'antd'
-import React, {PropsWithChildren, useCallback, useState} from 'react'
+import { Col, Form, Row, RowProps, Typography } from 'antd'
+import React, { PropsWithChildren, useCallback, useState } from 'react'
 
-import styles from "../styles/formStyles.module.scss";
-import {ResponsiveCol} from "../../containers/ResponsiveCol";
-import {Input} from "../../../../common/components/Input";
-import {Button} from "../../../../common/components";
+import styles from '../styles/formStyles.module.scss'
+import { ResponsiveCol } from '../../containers/ResponsiveCol'
+import { Input } from '../../../../common/components/Input'
+import { Button } from '../../../../common/components'
 
 
 interface IResetFormProps {
@@ -23,16 +23,16 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
 
 import { useResetFormValidators } from './hooks'
 
-export const ResetForm: React.FC<IResetFormProps> = ({onFinish}) => {
+export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
     const validators = useResetFormValidators()
 
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
-    const {phone, token} = /*useContext(ResetContext)*/{phone: "+7999998899", token: "329180382190"}
-    const {signInByPhone} = /*useContext(AuthLayoutContext)*/{
+    const { phone, token } = /*useContext(ResetContext)*/{ phone: '+7999998899', token: '329180382190' }
+    const { signInByPhone } = /*useContext(AuthLayoutContext)*/{
         signInByPhone: () => {
-        }
-    };
+        },
+    }
 
     const resetComplete = useCallback(async () => {
         // const resetExtraData = {
@@ -64,7 +64,7 @@ export const ResetForm: React.FC<IResetFormProps> = ({onFinish}) => {
         // })
     }, [form, signInByPhone, token])
 
-    const initialValues = {phone}
+    const initialValues = { phone }
 
     return (
         <Form
@@ -87,12 +87,12 @@ export const ResetForm: React.FC<IResetFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='password'
-                                    label={"Придумайте новый пароль"}
+                                    label={'Придумайте новый пароль'}
                                     rules={validators.password}
                                     data-cy='reset-password-item'
                                     validateFirst
                                 >
-                                    <Input type={"inputPassword"} placeholder={"Пароль"}/>
+                                    <Input type={'inputPassword'} placeholder={'Пароль'}/>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
@@ -100,13 +100,13 @@ export const ResetForm: React.FC<IResetFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='confirm'
-                                    label={"Повторите пароль"}
+                                    label={'Повторите пароль'}
                                     dependencies={['password']}
                                     rules={validators.confirm}
                                     data-cy='reset-confirmpassword-item'
                                     validateFirst
                                 >
-                                    <Input type={"inputPassword"} placeholder={"Пароль"}/>
+                                    <Input type={'inputPassword'} placeholder={'Пароль'}/>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>

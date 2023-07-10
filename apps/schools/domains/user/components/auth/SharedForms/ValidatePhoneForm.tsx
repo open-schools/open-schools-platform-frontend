@@ -1,35 +1,35 @@
-import {Col, Form, Row, Space, Typography as DefaultTypography, RowProps} from 'antd'
-import React, {CSSProperties, useCallback, useEffect, useMemo, useState} from 'react'
+import { Col, Form, Row, Space, Typography as DefaultTypography, RowProps } from 'antd'
+import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react'
 
-import styles from "../styles/formStyles.module.scss";
-import {formatPhone} from "../../../../common/utils/helpers";
-import {ResponsiveCol} from "../../containers/ResponsiveCol";
-import {Input} from "../../../../common/components/Input";
-import {CountDownTimer} from "../../../../common/components/CountDownTimer";
+import styles from '../styles/formStyles.module.scss'
+import { formatPhone } from '../../../../common/utils/helpers'
+import { ResponsiveCol } from '../../containers/ResponsiveCol'
+import { Input } from '../../../../common/components/Input'
+import { CountDownTimer } from '../../../../common/components/CountDownTimer'
 
 interface IValidatePhoneFormProps {
-    onFinish: () => void
-    onReset: () => void
-    title: string
+    onFinish: () => void,
+    onReset: () => void,
+    title: string,
 }
 
 const SMS_CODE_CLEAR_REGEX = /[^0-9]/g
 const BUTTON_FORM_GUTTER: RowProps['gutter'] = [0, 40]
 const FORM_ITEMS_GUTTER: RowProps['gutter'] = [0, 24]
-const INPUT_STYLE: CSSProperties = {maxWidth: '120px'}
+const INPUT_STYLE: CSSProperties = { maxWidth: '120px' }
 
-export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({onFinish, onReset, title}) => {
+export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({ onFinish, onReset, title }) => {
     const [form] = Form.useForm()
-    const {token, phone, handleReCaptchaVerify} = /*useContext(RegisterContext)*/ {token: "2313123213",phone: "+79999988999",handleReCaptchaVerify: () => {}}
+    const { token, phone, handleReCaptchaVerify } = /*useContext(RegisterContext)*/ { token: '2313123213',phone: '+79999988999',handleReCaptchaVerify: () => {} }
     const [showPhone, setShowPhone] = useState(phone)
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
     const [phoneValidateError, setPhoneValidateError] = useState(null)
     // const [resendSmsMutation] = useMutation(RESEND_CONFIRM_PHONE_SMS_MUTATION)
     // const [completeConfirmPhoneMutation] = useMutation(COMPLETE_CONFIRM_PHONE_MUTATION)
-    const PhoneToggleLabel = isPhoneVisible ? "Показать" : "Скрыть"
+    const PhoneToggleLabel = isPhoneVisible ? 'Показать' : 'Скрыть'
 
     const SMS_VALIDATOR = useCallback(() => ({
-        validator() {
+        validator () {
             if (!phoneValidateError) {
                 return Promise.resolve()
             }
@@ -38,7 +38,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({onFinish, 
     }), [phoneValidateError])
 
     const SMS_CODE_VALIDATOR_RULES = useMemo(() => [
-        {required: true, message: "Необходимо заполнить"}, SMS_VALIDATOR], ["Необходимо заполнить", SMS_VALIDATOR])
+        { required: true, message: 'Необходимо заполнить' }, SMS_VALIDATOR], ['Необходимо заполнить', SMS_VALIDATOR])
 
     const resendSms = useCallback(async () => {
         // const sender = getClientSideSenderInfo()
@@ -78,7 +78,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({onFinish, 
         setPhoneValidateError(null)
         let smsCode = (form.getFieldValue('smsCode') || '').toString()
         smsCode = smsCode.replace(SMS_CODE_CLEAR_REGEX, '')
-        form.setFieldsValue({smsCode})
+        form.setFieldsValue({ smsCode })
         if (smsCode.length < /*SMS_CODE_LENGTH*/4) {
             return
         }
@@ -99,7 +99,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({onFinish, 
         setShowPhone(phoneVisible)
     }, [isPhoneVisible, phone, setShowPhone])
 
-    const initialValues = {smsCode: ''}
+    const initialValues = { smsCode: '' }
 
     return (
         <Form
@@ -120,11 +120,11 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({onFinish, 
                         </Col>
                         <Col span={24}>
                             Отправили SMS-код на номер
-                            <span style={{whiteSpace: 'nowrap'}}>
-                                                {`${formatPhone(showPhone)} `}
+                            <span style={{ whiteSpace: 'nowrap' }}>
+                                {`${formatPhone(showPhone)} `}
                                 <DefaultTypography.Link
                                     underline
-                                    style={{color: 'black'}}
+                                    style={{ color: 'black' }}
                                     onClick={() => setIsPhoneVisible(!isPhoneVisible)}
                                 >
                                     ({PhoneToggleLabel})
@@ -139,7 +139,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({onFinish, 
                         <Col span={24}>
                             <Form.Item
                                 name='smsCode'
-                                label={"Код из СМС"}
+                                label={'Код из СМС'}
                                 data-cy='register-smscode-item'
                                 rules={SMS_CODE_VALIDATOR_RULES}
                             >

@@ -3,7 +3,7 @@ import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import React, {PropsWithChildren} from "react";
+import React, { PropsWithChildren } from 'react'
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>

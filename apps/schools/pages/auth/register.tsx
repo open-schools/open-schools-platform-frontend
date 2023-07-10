@@ -1,16 +1,16 @@
 import Head from 'next/head'
 import Router from 'next/router'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {Dictionary} from "@reduxjs/toolkit";
-import {ContainerPage} from "../_app";
-import AuthLayout, {IAuthLayoutProps} from "../../domains/user/components/containers/AuthLayout";
-import {CentralizingContainer} from "../../domains/common/components/CentralizingContainer";
-import {FormContainer} from "../../domains/user/components/auth/FormContainer";
-import {InputPhoneForm} from "../../domains/user/components/auth/SharedForms/InputPhoneForm";
-import {TabsAuthAction} from "../../domains/user/components/auth/HeaderActions";
-import {ValidatePhoneForm} from "../../domains/user/components/auth/SharedForms/ValidatePhoneForm";
-import {RegisterForm} from "../../domains/user/components/auth/RegisterForm/RegisterForm";
+import { Dictionary } from '@reduxjs/toolkit'
+import { ContainerPage } from '../_app'
+import AuthLayout, { IAuthLayoutProps } from '../../domains/user/components/containers/AuthLayout'
+import { CentralizingContainer } from '../../domains/common/components/CentralizingContainer'
+import { FormContainer } from '../../domains/user/components/auth/FormContainer'
+import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
+import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
+import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
+import { RegisterForm } from '../../domains/user/components/auth/RegisterForm/RegisterForm'
 
 
 // const HeaderAction = () => {
@@ -74,23 +74,23 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = () => {
     // }
 
     const steps: Dictionary<JSX.Element> = {
-        "inputPhone": <>
+        'inputPhone': <>
             <TabsAuthAction currentActiveKey='/auth/register'/>
             <InputPhoneForm
-                title={"Регистрация"}
-                nextUrl={"register"}
+                title={'Регистрация'}
+                nextUrl={'register'}
                 onFinish={() => setStep('validatePhone')}
             />
         </>,
-        "validatePhone": <ValidatePhoneForm
+        'validatePhone': <ValidatePhoneForm
             onFinish={() => setStep('register')}
             onReset={() => {
                 setStep('inputPhone')
                 Router.push('/auth/register')
             }}
-            title={"Регистрация"}
+            title={'Регистрация'}
         />,
-        "register": <>
+        'register': <>
             <TabsAuthAction currentActiveKey='/auth/register'/>
             <RegisterForm onFinish={() => {}}/>
         </>,

@@ -11,8 +11,8 @@ interface ITabsActionsProps {
 export const TabsAuthAction: React.FC<ITabsActionsProps> = (props) => {
     const { currentActiveKey } = props
 
-    const registerTab = "Регистрация"
-    const signInTab = "Вход"
+    const registerTab = 'Регистрация'
+    const signInTab = 'Вход'
 
     return (
         <div className={styles.removeTabLine}>
@@ -21,7 +21,7 @@ export const TabsAuthAction: React.FC<ITabsActionsProps> = (props) => {
                 onChange={(activeKey) => Router.push(activeKey)}
                 centered
                 animated={false}
-                size={"large"}
+                size={'large'}
             >
                 <Tabs.TabPane key='/auth/register?step=inputPhone' tab={registerTab}/>
                 <Tabs.TabPane key='/auth/signin' tab={signInTab}/>

@@ -8,7 +8,7 @@ type ValidatorsMap = {
 export const useRegisterFormValidators = () => {
 
     return useMemo<ValidatorsMap>(() => {
-        return {};
+        return {}
         // return {
         //     phone: [{ required: true }],
         //     name: [

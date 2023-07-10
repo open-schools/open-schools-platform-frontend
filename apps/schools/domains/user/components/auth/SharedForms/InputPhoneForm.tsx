@@ -1,27 +1,27 @@
-import {Col, Form, Row, Typography} from 'antd'
-import {ResponsiveCol} from 'domains/user/components/containers/ResponsiveCol';
+import { Col, Form, Row, Typography } from 'antd'
+import { ResponsiveCol } from 'domains/user/components/containers/ResponsiveCol'
 import getConfig from 'next/config'
-import Router, {useRouter} from 'next/router'
-import React, {useCallback, useState} from 'react'
-import {isSafeUrl} from "../../../../common/utils/url.utils";
-import {Input} from "../../../../common/components/Input";
+import Router, { useRouter } from 'next/router'
+import React, { useCallback, useState } from 'react'
+import { isSafeUrl } from '../../../../common/utils/url.utils'
+import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
-import {Button} from "../../../../common/components";
-import {normalizePhone} from "../../../../common/utils/phone";
+import { Button } from '../../../../common/components'
+import { normalizePhone } from '../../../../common/utils/phone'
 
 interface IInputPhoneFormProps {
-    onFinish: () => void
+    onFinish: () => void,
     nextUrl: string,
     title: string,
 }
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish, nextUrl, title }) => {
-    const {publicRuntimeConfig: {hasSbbolAuth}} = getConfig()
+    const { publicRuntimeConfig: { hasSbbolAuth } } = getConfig()
 
     const [form] = Form.useForm()
     const router = useRouter()
-    const {query: {next}} = router
+    const { query: { next } } = router
     const redirectUrl = (next && !Array.isArray(next) && isSafeUrl(next)) ? next : '/'
     // const { refetch } = useAuth()
     const [isLoading, setIsLoading] = useState(false)
@@ -30,15 +30,15 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish, nextU
 
     const startConfirmPhone = useCallback(async (...args) => {
         let { phone: inputPhone } = form.getFieldsValue(['phone'])
-        inputPhone = '+' + inputPhone;
-        console.log(inputPhone);
+        inputPhone = '+' + inputPhone
+        console.log(inputPhone)
         const phone = normalizePhone(inputPhone)
-        console.log(phone);
+        console.log(phone)
         if (!phone) {
             form.setFields([
                 {
                     name: 'phone',
-                    errors: ["Неверный формат телефона"],
+                    errors: ['Неверный формат телефона'],
                 },
             ])
             return
@@ -77,11 +77,11 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish, nextU
         //     form,
         //     ErrorToFormFieldMsgMapping,
         // })
-        Router.push(`/auth/${nextUrl}?token=${37128937218937}`);
-        onFinish();
-    }, [form, /*handleReCaptchaVerify*/ /*setPhone*/ setIsLoading, /*onFinish*/])
+        Router.push(`/auth/${nextUrl}?token=${37128937218937}`)
+        onFinish()
+    }, [form, /*handleReCaptchaVerify*/ /*setPhone*/ setIsLoading /*onFinish*/])
 
-    const initialValues = {password: '', phone: ''}
+    const initialValues = { password: '', phone: '' }
 
     return (
         <Form
@@ -101,8 +101,8 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ onFinish, nextU
                         <Col span={24}>
                             <Form.Item
                                 name='phone'
-                                label={"Телефон"}
-                                rules={[{required: true, message: "Необходимо заполнить"}]}
+                                label={'Телефон'}
+                                rules={[{ required: true, message: 'Необходимо заполнить' }]}
                                 data-cy='register-phone-item'
                             >
                                 <Input type={'inputPhone'}/>

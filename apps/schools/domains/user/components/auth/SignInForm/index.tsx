@@ -1,21 +1,21 @@
-import {Col, Form, Row, Typography} from 'antd'
-import {ResponsiveCol} from 'domains/user/components/containers/ResponsiveCol';
+import { Col, Form, Row, Typography } from 'antd'
+import { ResponsiveCol } from 'domains/user/components/containers/ResponsiveCol'
 import getConfig from 'next/config'
-import Router, {useRouter} from 'next/router'
-import React, {useState} from 'react'
-import {isSafeUrl} from "../../../../common/utils/url.utils";
-import {Input} from "../../../../common/components/Input";
+import Router, { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { isSafeUrl } from '../../../../common/utils/url.utils'
+import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
-import {Button} from "../../../../common/components";
+import { Button } from '../../../../common/components'
 
 
 export const SignInForm = (): React.ReactElement => {
-    const {publicRuntimeConfig: {hasSbbolAuth}} = getConfig()
+    const { publicRuntimeConfig: { hasSbbolAuth } } = getConfig()
 
     const [form] = Form.useForm()
     const router = useRouter()
-    const {query: {next}} = router
+    const { query: { next } } = router
     const redirectUrl = (next && !Array.isArray(next) && isSafeUrl(next)) ? next : '/'
     // const { refetch } = useAuth()
     const [isLoading, setIsLoading] = useState(false)
@@ -44,7 +44,7 @@ export const SignInForm = (): React.ReactElement => {
     //     })
     // }, [form])
 
-    const initialValues = {password: '', phone: ''}
+    const initialValues = { password: '', phone: '' }
 
     return (
         <Form
@@ -61,8 +61,8 @@ export const SignInForm = (): React.ReactElement => {
                         <Col span={24}>
                             <Form.Item
                                 name='phone'
-                                label={"Телефон"}
-                                rules={[{required: true, message: "Необходимо заполнить"}]}
+                                label={'Телефон'}
+                                rules={[{ required: true, message: 'Необходимо заполнить' }]}
                                 data-cy='signin-phone-item'
                             >
                                 <Input type={'inputPhone'}/>
@@ -71,8 +71,8 @@ export const SignInForm = (): React.ReactElement => {
                         <Col span={24}>
                             <Form.Item
                                 name='password'
-                                label={"Пароль"}
-                                rules={[{required: true, message: "Необходимо заполнить"}]}
+                                label={'Пароль'}
+                                rules={[{ required: true, message: 'Необходимо заполнить' }]}
                                 data-cy='signin-password-item'
                             >
                                 <Input type={'inputPassword'}/>
@@ -84,7 +84,7 @@ export const SignInForm = (): React.ReactElement => {
                                 <Typography.Link
                                     className={styles.black}
                                     onClick={() => Router.push('/auth/forgot')}>
-                                    {"Сбросить"}
+                                    {'Сбросить'}
                                 </Typography.Link>
                             </Form.Item>
                         </Col>

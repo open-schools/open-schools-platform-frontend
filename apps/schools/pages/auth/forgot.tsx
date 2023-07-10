@@ -1,15 +1,15 @@
 import Head from 'next/head'
 import Router from 'next/router'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {Dictionary} from "@reduxjs/toolkit";
-import {ContainerPage} from "../_app";
-import AuthLayout, {IAuthLayoutProps} from "../../domains/user/components/containers/AuthLayout";
-import {CentralizingContainer} from "../../domains/common/components/CentralizingContainer";
-import {InputPhoneForm} from "../../domains/user/components/auth/SharedForms/InputPhoneForm";
-import {ValidatePhoneForm} from "../../domains/user/components/auth/SharedForms/ValidatePhoneForm";
-import {ResetForm} from "../../domains/user/components/auth/ResetForm/ResetForm";
-import {FormContainer} from "../../domains/user/components/auth/FormContainer";
+import { Dictionary } from '@reduxjs/toolkit'
+import { ContainerPage } from '../_app'
+import AuthLayout, { IAuthLayoutProps } from '../../domains/user/components/containers/AuthLayout'
+import { CentralizingContainer } from '../../domains/common/components/CentralizingContainer'
+import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
+import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
+import { ResetForm } from '../../domains/user/components/auth/ResetForm/ResetForm'
+import { FormContainer } from '../../domains/user/components/auth/FormContainer'
 
 
 // const HeaderAction = () => {
@@ -73,22 +73,22 @@ const ResetPage: ContainerPage<IAuthLayoutProps> = () => {
     // }
 
     const steps: Dictionary<JSX.Element> = {
-        "inputPhone": <>
+        'inputPhone': <>
             <InputPhoneForm
-                title={"Восстановление пароля"}
+                title={'Восстановление пароля'}
                 onFinish={() => setStep('validatePhone')}
-                nextUrl={"forgot"}
+                nextUrl={'forgot'}
             />
         </>,
-        "validatePhone": <ValidatePhoneForm
+        'validatePhone': <ValidatePhoneForm
             onFinish={() => setStep('reset')}
             onReset={() => {
                 setStep('inputPhone')
                 Router.push('/auth/forgot')
             }}
-            title={"Восстановление пароля"}
+            title={'Восстановление пароля'}
         />,
-        "reset": <>
+        'reset': <>
             <ResetForm onFinish={() => {}}/>
         </>,
     }

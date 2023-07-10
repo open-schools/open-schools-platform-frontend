@@ -1,10 +1,10 @@
-import {Col, Form, Row, RowProps} from 'antd'
-import React, {PropsWithChildren, useCallback, useState} from 'react'
+import { Col, Form, Row, RowProps } from 'antd'
+import React, { PropsWithChildren, useCallback, useState } from 'react'
 
-import styles from "../styles/formStyles.module.scss";
-import {ResponsiveCol} from "../../containers/ResponsiveCol";
-import {Input} from "../../../../common/components/Input";
-import {Button} from "../../../../common/components";
+import styles from '../styles/formStyles.module.scss'
+import { ResponsiveCol } from '../../containers/ResponsiveCol'
+import { Input } from '../../../../common/components/Input'
+import { Button } from '../../../../common/components'
 
 
 interface IRegisterFormProps {
@@ -23,16 +23,16 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
 
 import { useRegisterFormValidators } from './hooks'
 
-export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
+export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
     const validators = useRegisterFormValidators()
 
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
-    const {phone, token} = /*useContext(RegisterContext)*/{phone: "+7999998899", token: "329180382190"}
-    const {signInByPhone} = /*useContext(AuthLayoutContext)*/{
+    const { phone, token } = /*useContext(RegisterContext)*/{ phone: '+7999998899', token: '329180382190' }
+    const { signInByPhone } = /*useContext(AuthLayoutContext)*/{
         signInByPhone: () => {
-        }
-    };
+        },
+    }
 
     const registerComplete = useCallback(async () => {
         // const registerExtraData = {
@@ -64,7 +64,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
         // })
     }, [form, signInByPhone, token])
 
-    const initialValues = {phone}
+    const initialValues = { phone }
 
     return (
         <Form
@@ -87,7 +87,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='phone'
-                                    label={"Телефон"}
+                                    label={'Телефон'}
                                     rules={validators.phone}
                                     validateFirst
                                 >
@@ -99,12 +99,12 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='name'
-                                    label={"ФИО"}
+                                    label={'ФИО'}
                                     rules={validators.name}
                                     data-cy='register-name-item'
                                     validateFirst
                                 >
-                                    <RequiredFlagWrapper><Input placeholder={"Иванов Сергей Владимирович"}/></RequiredFlagWrapper>
+                                    <RequiredFlagWrapper><Input placeholder={'Иванов Сергей Владимирович'}/></RequiredFlagWrapper>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
@@ -112,12 +112,12 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='email'
-                                    label={"Эл. почта"}
+                                    label={'Эл. почта'}
                                     rules={validators.email}
                                     data-cy='register-email-item'
                                     validateFirst
                                 >
-                                    <Input autoComplete='chrome-off' placeholder={"email@example.com"}/>
+                                    <Input autoComplete='chrome-off' placeholder={'email@example.com'}/>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
@@ -125,12 +125,12 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='password'
-                                    label={"Придумайте пароль"}
+                                    label={'Придумайте пароль'}
                                     rules={validators.password}
                                     data-cy='register-password-item'
                                     validateFirst
                                 >
-                                    <Input type={"inputPassword"} autoComplete='new-password'/>
+                                    <Input type={'inputPassword'} autoComplete='new-password'/>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
@@ -138,13 +138,13 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({onFinish}) => {
                             <RequiredFlagWrapper>
                                 <Form.Item
                                     name='confirm'
-                                    label={"Повторите пароль"}
+                                    label={'Повторите пароль'}
                                     dependencies={['password']}
                                     rules={validators.confirm}
                                     data-cy='register-confirmpassword-item'
                                     validateFirst
                                 >
-                                    <Input type={"inputPassword"}/>
+                                    <Input type={'inputPassword'}/>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
