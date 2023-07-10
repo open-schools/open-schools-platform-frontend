@@ -22,8 +22,6 @@ export const Main: React.FC = () => {
                 <p style={{ fontSize: 18 }}>
           The frontend boilerplate with superpowers!
                 </p>
-                <Button type="schoolDefault">
-                </Button>
             </div>
             <div
                 style={{
