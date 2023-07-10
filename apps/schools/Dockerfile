@@ -1,15 +1,16 @@
-FROM node:12-alpine
+FROM node:16-alpine AS runner
 
-WORKDIR /opt/app
+RUN node -v
 
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 ENV NODE_ENV production
-
-COPY package*.json ./
-
-RUN npm ci 
+ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY . /opt/app
 
-RUN npm install --dev && npm run build
+WORKDIR /opt/app
 
-CMD [ "npm", "start" ]
+RUN yarn install
+
+RUN ["chmod", "+x", "/opt/app/setEnv.sh"]
+CMD /bin/sh -c 'source /opt/app/setEnv.sh'; yarn build; yarn start
