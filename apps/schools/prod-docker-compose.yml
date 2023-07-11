@@ -1,15 +1,15 @@
 version: '3.9'
 services:
   app:
-    image: 'openschools-dev'
+    image: 'openschools-prod'
     restart: always
     ports:
       - "3000:3000"
-    container_name: nextjs-dev
+    container_name: nextjs-prod
     environment:
       - NEXT_PUBLIC_BASE_URL=http://localhost:9000
       - PORT=3000
     deploy:
       placement:
         constraints:
-          - "node.labels.TAG==dev"
+          - "node.labels.TAG==prod"
