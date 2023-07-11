@@ -35,8 +35,11 @@ jobs:
             echo '--- Upgrade repo ---';
             git pull;                    
             
+            echo '--- cd in schools dir ---';
+            cd apps/schools;
+            
             echo '--- Create prod image ---';
-            docker build -f apps/schools/prod.Dockerfile -t nextjs-prod .;
+            docker build -f prod.Dockerfile -t nextjs-prod .;
             
             echo '--- Force updating services ---';
             sh force-update-services.sh "prod";
