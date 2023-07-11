@@ -1,6 +1,6 @@
 name: CI build
 on:
-#  workflow_call:
+  workflow_call:
 #    secrets:
 #      GOOGLE_API_KEY:
 #        required: true
