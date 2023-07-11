@@ -76,4 +76,4 @@ jobs:
         with:
           files: apps/
       - name: Yarn build
-        run: yarn build
+        run: cd apps/schools && yarn build
