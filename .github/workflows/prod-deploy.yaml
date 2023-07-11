@@ -41,6 +41,9 @@ jobs:
             echo '--- Create prod image ---';
             docker build -f prod.Dockerfile -t nextjs-prod .;
             
+            echo '--- cd in schools dir ---';
+            cd /opt/open-schools-platform-frontend;
+            
             echo '--- Force updating services ---';
             sh force-update-services.sh "prod";
             

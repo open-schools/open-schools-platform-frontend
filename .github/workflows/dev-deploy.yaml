@@ -40,6 +40,9 @@ jobs:
             
             echo '--- Create schools dev image ---';
             docker build -f dev.Dockerfile -t nextjs-dev .;
+            
+            echo '--- cd in schools dir ---';
+            cd /opt/open-schools-platform-frontend;            
                         
             echo '--- Force updating services ---';
             sh force-update-services.sh "dev";
