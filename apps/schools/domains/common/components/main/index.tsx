@@ -22,15 +22,6 @@ export const Main: React.FC = () => {
                 <p style={{ fontSize: 18 }}>
           The frontend boilerplate with superpowers!
                 </p>
-                <Button type="primary" size="large">
-                    <a
-                        data-test="docs-btn-anchor"
-                        href="https://pankod.github.io/superplate/"
-                        target="_blank" rel="noreferrer"
-                    >
-            Docs
-                    </a>
-                </Button>
             </div>
             <div
                 style={{
