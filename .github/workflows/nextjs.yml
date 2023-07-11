@@ -1,7 +1,7 @@
 name: CI build
 on:
-  workflow_call:
-    secrets:
+#  workflow_call:
+#    secrets:
 #      GOOGLE_API_KEY:
 #        required: true
 #      GOOGLE_MAPS_API_KEY:
