@@ -44,7 +44,7 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
-          file: docker/dev.Dockerfile
+          file: dev.Dockerfile
           load: true
           tags: nextjs-dev
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -64,6 +64,8 @@ jobs:
         with:
           node-version: 16
       - uses: stefanoeb/eslint-action@1.0.2
+        with:
+          files: apps/
       - name: Install yarn globally
         run: npm install -g yarn
       - name: Create env file
