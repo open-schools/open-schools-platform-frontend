@@ -15,7 +15,7 @@ on:
       - '!dev'
 
 jobs:
-  docker_build:
+  schools_docker_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -44,7 +44,7 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
-          file: dev.Dockerfile
+          file: apps/schools/dev.Dockerfile
           load: true
           tags: nextjs-dev
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -56,7 +56,7 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  build:
+  schools_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
