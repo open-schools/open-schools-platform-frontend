@@ -1,11 +1,10 @@
-@import "../../../../common/components/styles/abstracts/colors";
-
-.container {
-  background-size: cover;
-  background-position: top;
-  min-height: 100%;
+.background {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  overflow: hidden;
   position: absolute;
 }
 
+.container {
+  position: absolute;
+}

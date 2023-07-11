@@ -4,12 +4,13 @@ import React, { useState } from 'react'
 
 import { Dictionary } from '@reduxjs/toolkit'
 import { ContainerPage } from '../_app'
-import AuthLayout, { IAuthLayoutProps } from '../../domains/user/components/containers/AuthLayout'
+import AuthLayout from '../../domains/user/components/containers/AuthLayout'
 import { CentralizingContainer } from '../../domains/common/components/CentralizingContainer'
 import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
 import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
 import { ResetForm } from '../../domains/user/components/auth/ResetForm/ResetForm'
 import { FormContainer } from '../../domains/user/components/auth/FormContainer'
+import { IAuthLayoutProps } from '../../domains/user/interfaces/auth/interfaces'
 
 
 // const HeaderAction = () => {

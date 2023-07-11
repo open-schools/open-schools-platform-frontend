@@ -1,52 +1,19 @@
-import getConfig from 'next/config'
 import React from 'react'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import styles from './styles/styles.module.scss'
-
-
-
-const { publicRuntimeConfig: { googleCaptcha } } = getConfig()
-
-export interface IAuthLayoutProps {
-    headerAction: React.ReactElement,
-    children: JSX.Element,
-}
-
-interface IGoogleReCaptchaContainer {
-    element: string | HTMLElement;
-    parameters: {
-        badge?: 'inline' | 'bottomleft' | 'bottomright';
-        theme?: 'dark' | 'light';
-        tabindex?: number;
-        callback?: () => void;
-        expiredCallback?: () => void;
-        errorCallback?: () => void;
-    }
-}
-interface IGoogleReCaptchaScriptProps {
-    nonce?: string;
-    defer?: boolean;
-    async?: boolean;
-    appendTo?: 'head' | 'body';
-    id?: string;
-    onLoadCallbackName?: string;
-}
-const GOOGLE_RECAPTCHA_CONTAINER: IGoogleReCaptchaContainer = {
-    element: 'ReCaptchaContainer',
-    parameters: {
-        badge: 'inline',
-    },
-}
-const GOOGLE_RECAPTCHA_SCRIPT_PROPS: IGoogleReCaptchaScriptProps = {
-    async: true,
-    defer: true,
-    appendTo: 'body',
-}
+import { IAuthLayoutProps } from '../../interfaces/auth/interfaces'
+import { GOOGLE_RECAPTCHA_CONTAINER, GOOGLE_RECAPTCHA_SCRIPT_PROPS, googleCaptcha } from '../../constants/auth/googleRecapcha'
 
 // #TODO: take this variables from env
 const {
     publicRuntimeConfig: { HelpRequisites: { support_email: SUPPORT_EMAIL = null, support_phone: SUPPORT_PHONE = null } },
 } /* = getConfig() */ = { publicRuntimeConfig: { HelpRequisites: { support_email: 'openschools@education', support_phone: '+79999999999' } } }
+
+const Index = () => (
+    <div className={styles.background}>
+        <object type="image/svg+xml" data="/image/authImageFinal.svg">svg-animation</object>
+    </div>
+)
 
 const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
     const { children, ...otherProps } = props
@@ -60,10 +27,8 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
             scriptProps={GOOGLE_RECAPTCHA_SCRIPT_PROPS}>
 
             <div id='ReCaptchaContainer'/>
-            <div
-                className={styles.container}
-                style={{ backgroundImage: 'url(/image/authImage.svg)' }}
-            >
+            <Index />
+            <div className={styles.container}>
                 {children}
             </div>
         </GoogleReCaptchaProvider>
