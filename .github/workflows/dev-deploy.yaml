@@ -26,7 +26,7 @@ jobs:
             echo '--- START WORK ON REMOTE SERVER ---';
             set -e;
             
-            echo '--- CD ---';
+            echo '--- cd in project root ---';
             cd /opt/open-schools-platform-frontend;
                        
             echo '--- CHECKOUT ON BRANCH ---';
@@ -35,8 +35,8 @@ jobs:
             echo '--- Upgrade repo ---';
             git pull;                    
             
-            echo '--- Create dev image ---';
-            docker build -f docker/dev.Dockerfile -t nextjs-dev .;
+            echo '--- Create schools dev image ---';
+            docker build -f apps/schools/dev.Dockerfile -t nextjs-dev .;
                         
             echo '--- Force updating services ---';
             sh force-update-services.sh "dev";
