@@ -7,7 +7,7 @@ import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
-import { Button } from '../../../../common/components'
+import { Button } from '../../../../common/components/Button'
 import { normalizePhone } from '../../../../common/utils/phone'
 import { IInputPhoneFormProps } from './interfaces'
 import { FORM_ITEMS_GUTTER } from '../constants/styles'
