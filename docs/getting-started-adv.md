@@ -1,4 +1,4 @@
-# Some advanced topics # 
+# Some advanced topics
 
 ## Update from 8iq repo
 
@@ -143,6 +143,7 @@ yarn workspace @app/_example01app add antd
 You need to set `DATABASE_URL` like `mongodb://mongo:mongo@127.0.0.1/main?authSource=admin`.
 Check is your database really running? or run it by docker `docker-compose up -d mongodb`.
 Then, create tables.
+
 ```bash
 yarn workspace @app/ex02back keystone create-tables
 ```
@@ -153,6 +154,7 @@ You need to set `DATABASE_URL` like `postgresql://postgres:postgres@127.0.0.1/ma
 Check is your database really running? or run it by docker `docker-compose up -d postgresdb`.
 
 Then, create tables.
+
 ```bash
 yarn workspace @app/ex02back migrate
 ```
@@ -177,6 +179,7 @@ python3 -m pip install psycopg2-binary
 ```
 
 Add to `package.json`:
+
 ```js
   ...
   "scripts": {
@@ -191,15 +194,16 @@ Run by `yarn makemigrations` and `yarn migrate`
 ## Upgrade packages versions
 
 ```bash
-# just run the command, and select packages for update (this command will fix the package.json files) 
+# just run the command, and select packages for update (this command will fix the package.json files)
 yarn upgrade-interactive --latest
 ```
 
 ## TESTS_FAKE_CLIENT_MODE
 
 `@core/keystone/test.utils` can work in two modes:
- 1. Real client mode. Allow sending HTTP/1.1 requests to a remote server
- 2. Fake client mode. Allow using fake express requests by `supertest` lib 
+
+1.  Real client mode. Allow sending HTTP/1.1 requests to a remote server
+2.  Fake client mode. Allow using fake express requests by `supertest` lib
 
 The Real mode is better for end-to-end testing. You can also use it to test your production.
 
@@ -207,17 +211,19 @@ The Fake mode is better for debugging. Because it uses one process for the whole
 It's better for TDD like development process and to easy debug end-to-end request/response process.
 
 You can use `TESTS_FAKE_CLIENT_MODE` to change test mode. This option setup the express app and the fake client in one process.
-This allows you to put debugger breakpoints in any part of the request/response process. 
+This allows you to put debugger breakpoints in any part of the request/response process.
 And use IDE integrations for easy debugging.
 
 ## Debug database queries
 
 For postgres you can set env `DEBUG=knex:query,knex:tx`. Example:
+
 ```bash
 DEBUG=knex:query,knex:tx yarn workspace @app/ex02back dev
 ```
 
 For mongo you can set env `DEBUG_MONGOOSE=1`. Example:
+
 ```bash
 DEBUG_MONGOOSE=1 yarn workspace @app/ex02back dev
 ```
@@ -227,8 +233,9 @@ DEBUG_MONGOOSE=1 yarn workspace @app/ex02back dev
 You can use `bin/run-multiple-apps` to run more then one app.
 
 Example:
+
 ```bash
-node ./bin/run-multiple-apps @app/ex02back @app/ex02front @app/ex03sockeio 
+node ./bin/run-multiple-apps @app/ex02back @app/ex02front @app/ex03sockeio
 ```
 
 Every app should have `multi-app-support.js` file. Check `ex02back`, `ex02front` and `ex02sockio` examples.
@@ -237,11 +244,11 @@ Every app should have `multi-app-support.js` file. Check `ex02back`, `ex02front`
 
 ### yarn add
 
- - `yarn add <package> -W` -- add package for all apps (`yarn add react react-dom -W`)
- - `yarn workspace @app/<name> add <package>` -- add package for special app (`yarn workspace @app/web add react react-dom`)
+- `yarn add <package> -W` -- add package for all apps (`yarn add react react-dom -W`)
+- `yarn workspace @app/<name> add <package>` -- add package for special app (`yarn workspace @app/web add react react-dom`)
 
 ### yarn <command>
 
- - `yarn <command>` -- run command (`yarn dev`)
- - `yarn workspace @app/<name> <command>` -- run command inside workspace (`yarn workspace @app/web dev`)
- - `yarn --cwd <app-path-name> <command>` -- run command inside app (`yarn --cwd apps/web dev`)
+- `yarn <command>` -- run command (`yarn dev`)
+- `yarn workspace @app/<name> <command>` -- run command inside workspace (`yarn workspace @app/web dev`)
+- `yarn --cwd <app-path-name> <command>` -- run command inside app (`yarn --cwd apps/web dev`)

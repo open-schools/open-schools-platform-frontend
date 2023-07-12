@@ -1,1 +1,1 @@
-export const CENTRALIZED = "centralized";
+export const CENTRALIZED = 'centralized'

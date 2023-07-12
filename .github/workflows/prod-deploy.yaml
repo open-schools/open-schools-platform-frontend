@@ -7,9 +7,9 @@ on:
 jobs:
   build:
     uses: LamArt/open-schools-platform-frontend/.github/workflows/nextjs.yml@dev
-#    secrets:
-#      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-#      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+  #    secrets:
+  #      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+  #      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -25,26 +25,26 @@ jobs:
           command: |
             echo '--- START WORK ON REMOTE SERVER ---';
             set -e;
-            
+
             echo '--- cd in project root ---';
             cd /opt/open-schools-platform-frontend;
-            
+
             echo '--- CHECKOUT ON BRANCH ---';
             git checkout main;
-            
+
             echo '--- Upgrade repo ---';
             git pull;                    
-            
+
             echo '--- cd in schools dir ---';
             cd apps/schools;
-            
+
             echo '--- Create prod image ---';
             docker build -f prod.Dockerfile -t nextjs-prod .;
-            
+
             echo '--- cd in schools dir ---';
             cd /opt/open-schools-platform-frontend;
-            
+
             echo '--- Force updating services ---';
             sh force-update-services.sh "prod";
-            
+
             echo '--- Success! ---';
