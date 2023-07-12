@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-    app:
+    nextjs:
         image: 'nextjs-dev'
         restart: always
         ports:
