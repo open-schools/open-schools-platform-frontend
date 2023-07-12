@@ -2,12 +2,12 @@
   box-shadow: none;
   font-weight: 700;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: #795656;
     border-color: #9c0d0d;
     color: #815656;
   }
-
 
   &:active {
     background-color: #795656;
@@ -15,7 +15,8 @@
     opacity: 70%;
   }
 
-  &:disabled, &:hover:disabled {
+  &:disabled,
+  &:hover:disabled {
     background-color: #795656;
     border-color: #815656;
     color: #9c0d0d;

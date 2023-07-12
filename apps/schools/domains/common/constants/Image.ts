@@ -1,1 +1,1 @@
-export const typeImage = ['fullScreen']
+export const typeImage = ["fullScreen"];

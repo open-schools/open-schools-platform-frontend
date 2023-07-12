@@ -1,1 +1,1 @@
-export const typeLink = ['linkUnderlining']
+export const typeLink = ["linkUnderlining"];

@@ -1,31 +1,37 @@
 @import "../../../../common/components/styles/abstracts/colors";
 
-.container{
+.container {
   padding: 48px;
   width: 560px;
   border-radius: 16px;
-  background: #FFF;
-  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.10);
+  background: #fff;
+  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
-.rowStyles{
+.rowStyles {
   justify-content: center;
   align-items: center;
 }
 
-.black{
+.black {
   color: $color-black;
 }
 
 .requiredField {
-  & .ant-form-item > .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after{
+  &
+    .ant-form-item
+    > .ant-form-item-label
+    > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
     display: inline-block;
     margin-right: 4px;
     color: $color-red;
     font-size: 14px;
-    content: '*';
+    content: "*";
   }
-  & .ant-form-item > .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before{
+  &
+    .ant-form-item
+    > .ant-form-item-label
+    > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
     display: none;
   }
   & .ant-form-item > .ant-form-item-label > label {

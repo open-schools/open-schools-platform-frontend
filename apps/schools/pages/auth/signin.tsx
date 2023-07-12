@@ -1,26 +1,31 @@
-import React from 'react'
+import React from "react";
 
-import AuthLayout, { IAuthLayoutProps } from '../../domains/user/components/containers/AuthLayout'
-import { ContainerPage } from '../_app'
-import { FormContainer } from '../../domains/user/components/auth/FormContainer'
-import { SignInForm } from '../../domains/user/components/auth/SignInForm'
-import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
-import { CentralizingContainer } from '../../domains/common/components/CentralizingContainer'
-import Head from 'next/head'
+import AuthLayout, {
+  IAuthLayoutProps,
+} from "../../domains/user/components/containers/AuthLayout";
+import { ContainerPage } from "../_app";
+import { FormContainer } from "../../domains/user/components/auth/FormContainer";
+import { SignInForm } from "../../domains/user/components/auth/SignInForm";
+import { TabsAuthAction } from "../../domains/user/components/auth/HeaderActions";
+import Head from "next/head";
+import { CENTRALIZED } from "../../domains/common/components/styles/constantStyles";
+import { Row } from "antd";
 
 const SignInPage: ContainerPage<IAuthLayoutProps> = (props) => {
-    return (
-        <>
-            <Head><title>Вход</title></Head>
-            <CentralizingContainer>
-                <FormContainer>
-                    <TabsAuthAction currentActiveKey='/auth/signin'/>
-                    <SignInForm/>
-                </FormContainer>
-            </CentralizingContainer>
-        </>
-    )
-}
+  return (
+    <>
+      <Head>
+        <title>Вход</title>
+      </Head>
+      <Row className={CENTRALIZED}>
+        <FormContainer>
+          <TabsAuthAction currentActiveKey="/auth/signin" />
+          <SignInForm />
+        </FormContainer>
+      </Row>
+    </>
+  );
+};
 
-SignInPage.container = AuthLayout
-export default SignInPage
+SignInPage.container = AuthLayout;
+export default SignInPage;
