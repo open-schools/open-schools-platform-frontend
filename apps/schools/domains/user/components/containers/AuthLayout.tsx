@@ -9,12 +9,6 @@ const {
     publicRuntimeConfig: { HelpRequisites: { support_email: SUPPORT_EMAIL = null, support_phone: SUPPORT_PHONE = null } },
 } /* = getConfig() */ = { publicRuntimeConfig: { HelpRequisites: { support_email: 'openschools@education', support_phone: '+79999999999' } } }
 
-const Index = () => (
-    <div className={styles.background}>
-        <object type="image/svg+xml" data="/image/authImageFinal.svg">svg-animation</object>
-    </div>
-)
-
 const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
     const { children, ...otherProps } = props
     // const { isAuthenticated } = useAuth()
@@ -27,7 +21,9 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
             scriptProps={GOOGLE_RECAPTCHA_SCRIPT_PROPS}>
 
             <div id='ReCaptchaContainer'/>
-            <Index />
+            <div className={styles.background}>
+                <object type="image/svg+xml" data="/image/authImage1.svg">svg-animation</object>
+            </div>
             <div className={styles.container}>
                 {children}
             </div>
