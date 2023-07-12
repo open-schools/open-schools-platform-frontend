@@ -1,0 +1,5 @@
+.removeTabLine {
+    & .ant-tabs-nav::before {
+        content: none;
+    }
+}

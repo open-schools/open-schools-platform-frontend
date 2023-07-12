@@ -8,12 +8,11 @@ export const store = configureStore({
     reducer: {
         rootReducer,
     },
-}
-)
+})
 
 setupListeners(store.dispatch)
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export default store

@@ -1,1 +1,1 @@
-module.exports = require('@app/ex02back/schema/Organization')
+module.exports = require("@app/ex02back/schema/Organization");

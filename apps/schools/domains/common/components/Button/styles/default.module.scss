@@ -1,26 +1,9 @@
 .button {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  color: #9c0d0d;
-  border: none;
-  height: auto;
-  box-shadow: none;
-
-
-  &:hover, &:focus {
-    color: #795656;
-  }
-
-  &:active {
-    color: #9c0d0d;
-    opacity: 80%;
-  }
-
-  &:disabled, &:hover:disabled {
-    color: #815656;
-    opacity: 60%;
-    background-color: transparent;
-  }
+    width: 100%;
+    height: 47px;
+    border-radius: 12px;
+    font: {
+        family: OpenSans, sans-serif;
+        size: 16px;
+    }
 }

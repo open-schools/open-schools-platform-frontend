@@ -1,18 +1,18 @@
 name: CI build
 on:
   workflow_call:
-#    secrets:
-#      GOOGLE_API_KEY:
-#        required: true
-#      GOOGLE_MAPS_API_KEY:
-#        required: true
+  #    secrets:
+  #      GOOGLE_API_KEY:
+  #        required: true
+  #      GOOGLE_MAPS_API_KEY:
+  #        required: true
   push:
     branches:
-      - '*'
-      - '*/*'
-      - '**'
-      - '!main'
-      - '!dev'
+      - "*"
+      - "*/*"
+      - "**"
+      - "!main"
+      - "!dev"
 
 jobs:
   schools_docker_build:
@@ -35,8 +35,8 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-#          echo GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} >> .env
-#          echo GOOGLE_MAPS_API_KEY=${{secrets.GOOGLE_MAPS_API_KEY}} >> .env
+      #          echo GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} >> .env
+      #          echo GOOGLE_MAPS_API_KEY=${{secrets.GOOGLE_MAPS_API_KEY}} >> .env
       - name: Look up existing images
         run: docker image ls
       - name: Build local image
