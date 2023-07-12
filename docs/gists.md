@@ -3,6 +3,7 @@
 ## GQL Apollo logging plugin
 
 `inedx.js`
+
 ```
 const { Keystone } = require('@keystonejs/keystone')
 
@@ -70,6 +71,7 @@ module.exports = {
 ## Express logging plugin
 
 `inedx.js`
+
 ```
 const express = require('express')
 const { Keystone } = require('@keystonejs/keystone')
@@ -125,6 +127,7 @@ module.exports = {
 ## Customize express
 
 `index.js`
+
 ```
 ...
 

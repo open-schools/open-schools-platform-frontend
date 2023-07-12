@@ -14,7 +14,5 @@ module.exports = {
     // moduleNameMapper: {
     //     '^(@core)/(.*?)/(.*?)$': `${__dirname}/../../packages/$1.$2/$3`
     // },
-    transformIgnorePatterns: [
-        'node_modules', '.next',
-    ],
+    transformIgnorePatterns: ['node_modules', '.next'],
 }

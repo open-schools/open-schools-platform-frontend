@@ -1,6 +1,6 @@
 module.exports = function (api) {
-    api.cache(true)
-    return {
-        'presets': ['next/babel'],
-    }
-}
+  api.cache(true);
+  return {
+    presets: ["next/babel"],
+  };
+};

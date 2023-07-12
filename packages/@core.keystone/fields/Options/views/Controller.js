@@ -1,39 +1,47 @@
-import FieldController from '@keystonejs/fields/Controller'
+import FieldController from "@keystonejs/fields/Controller";
 
 class OptionsController extends FieldController {
-    constructor (config, ...args) {
-        const defaultValue = config.defaultValue
-        super({ ...config, defaultValue }, ...args)
-    }
+  constructor(config, ...args) {
+    const defaultValue = config.defaultValue;
+    super({ ...config, defaultValue }, ...args);
+  }
 
-    deserialize = data => {
-        const { path } = this
-        if (!data || !data[path]) {
-            // Forcibly return null if empty string
-            return null
-        }
-        return this.config.options.reduce((prev, next) => ({ ...prev, [next]: data[path][next] }), {})
+  deserialize = (data) => {
+    const { path } = this;
+    if (!data || !data[path]) {
+      // Forcibly return null if empty string
+      return null;
     }
+    return this.config.options.reduce(
+      (prev, next) => ({ ...prev, [next]: data[path][next] }),
+      {}
+    );
+  };
 
-    serialize = data => {
-        const { path } = this
-        if (!data || !data[path]) {
-            // Forcibly return null if empty string
-            return null
-        }
-        return this.config.options.reduce((prev, next) => ({ ...prev, [next]: data[path][next] }), {})
+  serialize = (data) => {
+    const { path } = this;
+    if (!data || !data[path]) {
+      // Forcibly return null if empty string
+      return null;
     }
+    return this.config.options.reduce(
+      (prev, next) => ({ ...prev, [next]: data[path][next] }),
+      {}
+    );
+  };
 
-    getQueryFragment = () => {
-        return `
+  getQueryFragment = () => {
+    return `
             ${this.path} {
-               ${this.config.options.join(' ')}
+               ${this.config.options.join(" ")}
             }
-        `
-    }
+        `;
+  };
 
-    // For simplicity let's disable filtering on this field (PRs welcome)
-    getFilterTypes = () => { return [] }
+  // For simplicity let's disable filtering on this field (PRs welcome)
+  getFilterTypes = () => {
+    return [];
+  };
 }
 
-export default OptionsController
+export default OptionsController;
