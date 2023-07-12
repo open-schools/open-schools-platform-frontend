@@ -2,7 +2,7 @@ import React from 'react'
 
 import AuthLayout, {
     IAuthLayoutProps,
-} from '../../domains/user/components/containers/AuthLayout'
+} from '../../domains/user/components/auth/containers/AuthLayout'
 import { ContainerPage } from '../_app'
 import { FormContainer } from '../../domains/user/components/auth/FormContainer'
 import { SignInForm } from '../../domains/user/components/auth/SignInForm'

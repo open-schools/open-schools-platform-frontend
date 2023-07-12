@@ -1,5 +1,5 @@
 import { Col, Form, Row, Typography } from 'antd'
-import { ResponsiveCol } from 'domains/user/components/containers/ResponsiveCol'
+import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import getConfig from 'next/config'
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'

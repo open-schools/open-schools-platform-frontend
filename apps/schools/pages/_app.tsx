@@ -4,7 +4,7 @@ import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import React, { PropsWithChildren } from 'react'
-import { IAuthLayoutProps } from '../domains/user/components/containers/AuthLayout'
+import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>

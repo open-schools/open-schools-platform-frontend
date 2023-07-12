@@ -3,16 +3,16 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
-import { ResponsiveCol } from '../../containers/ResponsiveCol'
+import { ResponsiveCol } from '../containers/ResponsiveCol'
 import { Input } from '../../../../common/components/Input'
 import { CountDownTimer } from '../../../../common/components/CountDownTimer'
 import { IValidatePhoneFormProps } from './interfaces'
 import {
-    BUTTON_FORM_GUTTER,
+    BUTTON_FORM_GUTTER_40,
     FORM_ITEMS_GUTTER,
-    INPUT_STYLE,
     SMS_CODE_CLEAR_REGEX,
-} from './constants'
+    SMS_INPUT_STYLE,
+} from '../constants/styles'
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     onFinish,
@@ -132,7 +132,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
             requiredMark={false}
             layout="vertical"
         >
-            <Row gutter={BUTTON_FORM_GUTTER} className={styles.rowStyles}>
+            <Row gutter={BUTTON_FORM_GUTTER_40} className={styles.rowStyles}>
                 <ResponsiveCol span={24} className={styles.textCenter}>
                     <Row gutter={FORM_ITEMS_GUTTER}>
                         <Col span={24}>
@@ -183,7 +183,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                     label={'Код из СМС'}
                                     pattern="[0-9]*"
                                     onChange={handleVerifyCode}
-                                    style={INPUT_STYLE}
+                                    style={SMS_INPUT_STYLE}
                                 />
                             </Form.Item>
                         </Col>

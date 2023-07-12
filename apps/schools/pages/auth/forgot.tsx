@@ -6,10 +6,10 @@ import { Dictionary } from '@reduxjs/toolkit'
 import { ContainerPage } from '../_app'
 import AuthLayout, {
     IAuthLayoutProps,
-} from '../../domains/user/components/containers/AuthLayout'
+} from '../../domains/user/components/auth/containers/AuthLayout'
 import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
 import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
-import { ResetForm } from '../../domains/user/components/auth/ResetForm/ResetForm'
+import { ResetForm } from '../../domains/user/components/auth/ResetForm'
 import { FormContainer } from '../../domains/user/components/auth/FormContainer'
 import { CENTRALIZED } from '../../domains/common/components/styles/constantStyles'
 import { Row } from 'antd'

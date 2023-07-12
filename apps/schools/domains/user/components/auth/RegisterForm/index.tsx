@@ -2,12 +2,12 @@ import { Col, Form, Row } from 'antd'
 import React, { PropsWithChildren, useCallback, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
-import { ResponsiveCol } from '../../containers/ResponsiveCol'
+import { ResponsiveCol } from '../containers/ResponsiveCol'
 import { Input } from '../../../../common/components/Input'
 import { Button } from '../../../../common/components'
 import { useRegisterFormValidators } from './hooks'
 import { IRegisterFormProps } from './interfaces'
-import { BUTTON_FORM_GUTTER } from './constants'
+import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -68,7 +68,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
             layout="vertical"
             validateTrigger={['onBlur', 'onSubmit']}
         >
-            <Row gutter={BUTTON_FORM_GUTTER} className={styles.rowStyles}>
+            <Row gutter={BUTTON_FORM_GUTTER_20} className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
                     <Row>
                         {/*<Col span={24}>*/}

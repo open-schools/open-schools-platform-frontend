@@ -6,12 +6,12 @@ import { Dictionary } from '@reduxjs/toolkit'
 import { ContainerPage } from '../_app'
 import AuthLayout, {
     IAuthLayoutProps,
-} from '../../domains/user/components/containers/AuthLayout'
+} from '../../domains/user/components/auth/containers/AuthLayout'
 import { FormContainer } from '../../domains/user/components/auth/FormContainer'
 import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
 import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
 import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
-import { RegisterForm } from '../../domains/user/components/auth/RegisterForm/RegisterForm'
+import { RegisterForm } from '../../domains/user/components/auth/RegisterForm'
 import { CENTRALIZED } from '../../domains/common/components/styles/constantStyles'
 import { Row } from 'antd'
 import {

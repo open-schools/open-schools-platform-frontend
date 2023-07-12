@@ -1,5 +1,5 @@
 import { Col, Form, Row, Typography } from 'antd'
-import { ResponsiveCol } from 'domains/user/components/containers/ResponsiveCol'
+import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import getConfig from 'next/config'
 import Router, { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
@@ -10,8 +10,7 @@ import styles from '../styles/formStyles.module.scss'
 import { Button } from '../../../../common/components'
 import { normalizePhone } from '../../../../common/utils/phone'
 import { IInputPhoneFormProps } from './interfaces'
-import { RegistrationPhoneButtonLabel } from '../constants/labels'
-import { FORM_ITEMS_GUTTER } from './constants'
+import { FORM_ITEMS_GUTTER } from '../constants/styles'
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     onFinish,
