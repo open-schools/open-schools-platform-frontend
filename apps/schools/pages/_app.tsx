@@ -3,7 +3,7 @@ import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import { TokenProvider } from './auth/authProvider'
+import { TokenProvider } from '../pagesProviders/authProvider'
 import React, { PropsWithChildren } from 'react'
 import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
 

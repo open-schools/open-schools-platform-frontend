@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useMeQuery } from '../../domains/common/redux/meApi'
+import { useMeQuery } from '../domains/common/redux/meApi'
 
 export const TokenContext = createContext('')
 
