@@ -2,7 +2,7 @@ import { Form, Input } from 'antd'
 import { Button } from '../../../common/components'
 import React, { useState } from 'react'
 import { useTokenMutation, useUsersMutation, useVerifyMutation } from '../../redux/usersApi'
-import { otpHandler, registrationHandler, tokenHandler } from '../../handlers/registrationFormHandlers/handlers'
+import { otpHandler, registrationHandler, tokenHandler } from '../../handlers/registrationForm'
 
 export const RegistrationForm = () => {
     const [phone, setPhone] = useState('')

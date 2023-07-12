@@ -1,5 +1,5 @@
 import { commonApi } from '../../../store/commonApi'
-import { AllCirclesParams, Circle, ReturnedData } from '../interfaces/apiInterfaces'
+import { AllCirclesParams, Circle, ReturnedData } from './interfaces'
 
 const circlesApi = commonApi.injectEndpoints({
     endpoints: build => ({

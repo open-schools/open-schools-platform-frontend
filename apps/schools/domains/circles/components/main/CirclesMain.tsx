@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Form, Select } from 'antd'
 import { Button } from '../../../common/components'
 import { useCirclesQuery } from '../../redux/circlesApi'
-import { errorHandler } from '../../../common/handlers/errorHandlers/errorHandler'
+import { index } from '../../../common/handlers/errorHandlers'
 
 export const CirclesMain = () => {
     const [skip, setSkip] = useState(true)
     const [organization, setOrganization] = useState('')
 
     const { data, error } = useCirclesQuery({ organization: organization }, { skip: skip })
-    errorHandler(error, data)
+    index(error, data)
 
     return (
         <Form>

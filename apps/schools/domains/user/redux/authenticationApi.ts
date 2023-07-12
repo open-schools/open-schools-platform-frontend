@@ -1,5 +1,5 @@
 import { commonApi } from '../../../store/commonApi'
-import { jwtTokenResponse, LoginData } from '../interfaces/tokenInterfaces'
+import { jwtTokenResponse, LoginData } from './interfaces'
 
 const authentication = commonApi.injectEndpoints({
     endpoints: build => ({

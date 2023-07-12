@@ -1,5 +1,5 @@
 import { commonApi } from '../../../store/commonApi'
-import { CreationData, VerifyResponse, TokenResponse, UserRegister, verifyData } from '../interfaces/tokenInterfaces'
+import { CreationData, VerifyResponse, TokenResponse, UserRegister, verifyData } from './interfaces'
 
 const usersApi = commonApi.injectEndpoints({
     endpoints: build => ({

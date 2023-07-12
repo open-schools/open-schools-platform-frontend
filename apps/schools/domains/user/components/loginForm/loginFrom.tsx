@@ -1,7 +1,7 @@
 import { Form, Input } from 'antd'
 import React, { useState } from 'react'
 import { useLoginMutation } from '../../redux/authenticationApi'
-import { loginHandler } from '../../handlers/loginFormHandlers/handlers'
+import { loginHandler } from '../../handlers/loginForm'
 import { Button } from '../../../common/components'
 
 export const LoginFrom = () => {
