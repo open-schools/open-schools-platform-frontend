@@ -37,6 +37,9 @@ jobs:
 
             echo '--- cd in schools dir ---';
             cd apps/schools;
+            
+            echo '--- Delete unused docker files ---';
+            docker system prune --all --force;
 
             echo '--- Create schools dev image ---';
             docker build -f dev.Dockerfile -t nextjs-dev .;
