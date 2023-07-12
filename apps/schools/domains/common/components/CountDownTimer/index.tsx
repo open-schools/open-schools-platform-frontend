@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { extractRootDomain } from '../../utils/url.utils'
 import { timer } from '../../utils/timer'
-import { DEFAULT_TIMEOUT } from './constants'
+import { DEFAULT_TIMEOUT } from '../../constants/CountDownTimer'
 import { ICountDownTimer } from './interfaces'
 
 const setCountDownDate = (date: Date, countDownId: string) => {
