@@ -21,9 +21,9 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     description,
     disclaimer,
 }) => {
-    const {
-        publicRuntimeConfig: { hasSbbolAuth },
-    } = getConfig()
+    // const {
+    //     publicRuntimeConfig: { hasSbbolAuth },
+    // } = getConfig()
 
     const [form] = Form.useForm()
     const router = useRouter()

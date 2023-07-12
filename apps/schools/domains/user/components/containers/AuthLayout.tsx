@@ -3,9 +3,11 @@ import React from 'react'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import styles from './styles/styles.module.scss'
 
-const {
-    publicRuntimeConfig: { googleCaptcha },
-} = getConfig()
+// const {
+//     publicRuntimeConfig: { googleCaptcha },
+// } = getConfig()
+
+const googleCaptcha = { SITE_KEY: '' }
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement
@@ -23,6 +25,7 @@ interface IGoogleReCaptchaContainer {
         errorCallback?: () => void
     }
 }
+
 interface IGoogleReCaptchaScriptProps {
     nonce?: string
     defer?: boolean
@@ -31,6 +34,7 @@ interface IGoogleReCaptchaScriptProps {
     id?: string
     onLoadCallbackName?: string
 }
+
 const GOOGLE_RECAPTCHA_CONTAINER: IGoogleReCaptchaContainer = {
     element: 'ReCaptchaContainer',
     parameters: {

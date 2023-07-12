@@ -26,7 +26,7 @@ import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions
 //     )
 // }
 
-const ResetPage: ContainerPage<IAuthLayoutProps> = () => {
+const ResetPage: ContainerPage<IAuthLayoutProps> = (props) => {
     // const intl = useIntl()
     // const RegistrationTitleMsg = intl.formatMessage({ id: 'pages.auth.RegistrationTitle' })
     // const PhoneConfirmTokenErrorLabel = intl.formatMessage({ id: 'pages.auth.register.PhoneConfirmTokenErrorLabel' })

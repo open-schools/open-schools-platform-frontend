@@ -26,7 +26,7 @@ import {
 //     )
 // }
 
-const RegisterPage: ContainerPage<IAuthLayoutProps> = () => {
+const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
     // const intl = useIntl()
     // const RegistrationTitleMsg = intl.formatMessage({ id: 'pages.auth.RegistrationTitle' })
     // const PhoneConfirmTokenErrorLabel = intl.formatMessage({ id: 'pages.auth.register.PhoneConfirmTokenErrorLabel' })

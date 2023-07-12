@@ -10,9 +10,9 @@ import styles from '../styles/formStyles.module.scss'
 import { Button } from '../../../../common/components'
 
 export const SignInForm = (): React.ReactElement => {
-    const {
-        publicRuntimeConfig: { hasSbbolAuth },
-    } = getConfig()
+    // const {
+    //     publicRuntimeConfig: { hasSbbolAuth },
+    // } = getConfig()
 
     const [form] = Form.useForm()
     const router = useRouter()
