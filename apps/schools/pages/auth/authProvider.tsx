@@ -4,7 +4,11 @@ import { useMeQuery } from '../../domains/common/redux/meApi'
 
 export const TokenContext = createContext('')
 
-export const TokenProvider: React.FC = ({ children }) => {
+interface TokenProviderProps {
+    children: React.ReactNode;
+}
+
+export const TokenProvider: React.FC<TokenProviderProps> = ({ children }) => {
     const router = useRouter()
     const [token, setToken] = useState('')
 
@@ -16,14 +20,14 @@ export const TokenProvider: React.FC = ({ children }) => {
         if (jwtToken) {
             setToken(jwtToken)
         } else {
-            router.push('/')
+            router.push('/auth/signin')
         }
     }, [])
 
     useEffect(() => {
         if (error !== undefined) {
             if ('data' in error) {
-                router.push('/')
+                router.push('/auth/signin')
             }
         }
     }, [error])

@@ -1,9 +1,9 @@
-import store from '../redux/store'
+import store from '../store/store'
 import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import { TokenProvider } from './providers/authProvider'
+import { TokenProvider } from './auth/authProvider'
 import React, { PropsWithChildren } from 'react'
 import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
 
@@ -21,7 +21,7 @@ const BaseLayout: React.FC<IAuthLayoutProps> = (props) => {
     return <>{children}</>
 }
 
-function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
+function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     const LayoutComponent = Component.container || BaseLayout //BaseComponent
 
     return (
