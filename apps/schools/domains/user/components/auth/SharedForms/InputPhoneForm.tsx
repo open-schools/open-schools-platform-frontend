@@ -1,6 +1,5 @@
 import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
-import getConfig from 'next/config'
 import Router, { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import { isSafeUrl } from '../../../../common/utils/url.utils'
@@ -39,9 +38,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     const startConfirmPhone = useCallback(async () => {
         let { phone: inputPhone } = form.getFieldsValue(['phone'])
         inputPhone = '+' + inputPhone
-        console.log(inputPhone)
         const phone = normalizePhone(inputPhone)
-        console.log(phone)
         if (!phone) {
             form.setFields([
                 {
