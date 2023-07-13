@@ -8,6 +8,8 @@ services:
         environment:
             - NEXT_PUBLIC_BASE_URL=http://localhost:9000
             - PORT=3000
+        volumes:
+            -  /var/www/nextjs/.next:/opt/app/.next
         deploy:
             placement:
                 constraints:
