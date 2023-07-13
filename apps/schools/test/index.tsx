@@ -1,12 +1,12 @@
 import {
-    render as baseRender,
-    RenderOptions,
-    RenderResult,
+  render as baseRender,
+  RenderOptions,
+  RenderResult,
 } from '@testing-library/react'
 import { ReactElement } from 'react'
 
-import store from '../redux/store'
-import { Provider } from 'react-redux'
+import store from "../store/store";
+import { Provider } from "react-redux";
 
 /**
  * Custom renderer example with @testing-library/react
@@ -17,11 +17,11 @@ import { Provider } from 'react-redux'
  */
 
 export const AllTheProviders = ({ children }: { children: JSX.Element }) => {
-    return (
-        <>
-            <Provider store={store}>{children}</Provider>
-        </>
-    )
+  return (
+      <>
+        <Provider store={store}>{children}</Provider>
+      </>
+  )
 }
 
 const render = (ui: ReactElement, options?: Omit<RenderOptions, 'queries'>) =>
