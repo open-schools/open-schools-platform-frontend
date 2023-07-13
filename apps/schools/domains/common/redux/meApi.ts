@@ -1,5 +1,5 @@
 import { commonApi } from '../../../store/commonApi'
-import { UserProfile } from '../interfaces/differentRolesProfiles'
+import { UserProfile } from '../../user/redux/entities'
 
 const meApi = commonApi.injectEndpoints({
     endpoints: build => ({

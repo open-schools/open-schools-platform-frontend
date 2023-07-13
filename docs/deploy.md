@@ -74,7 +74,7 @@ dokku config:set --no-restart ${APP} SERVER_URL=https://${APP}.dok.8iq.dev
 dokku config:set --no-restart ${APP} DOKKU_DOCKERFILE_START_CMD="${START_COMMAND}"
 dokku config:set --no-restart ${APP} COOKIE_SECRET=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 dokku checks:disable ${APP}
-dokku proxy:ports-set ${APP} store:80:5000
+dokku proxy:ports-set ${APP} http:80:5000
 dokku nginx:set ${APP} hsts false
 dokku nginx:set ${APP} hsts-include-subdomains false
 

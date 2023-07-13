@@ -1,4 +1,3 @@
-import getConfig from 'next/config'
 import React from 'react'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import styles from './styles/styles.module.scss'
@@ -10,29 +9,29 @@ import styles from './styles/styles.module.scss'
 const googleCaptcha = { SITE_KEY: '' }
 
 export interface IAuthLayoutProps {
-    headerAction: React.ReactElement
-    children: JSX.Element
+    headerAction: React.ReactElement,
+    children: JSX.Element,
 }
 
 interface IGoogleReCaptchaContainer {
-    element: string | HTMLElement
+    element: string | HTMLElement,
     parameters: {
-        badge?: 'inline' | 'bottomleft' | 'bottomright'
-        theme?: 'dark' | 'light'
-        tabindex?: number
-        callback?: () => void
-        expiredCallback?: () => void
-        errorCallback?: () => void
+        badge?: 'inline' | 'bottomleft' | 'bottomright',
+        theme?: 'dark' | 'light',
+        tabindex?: number,
+        callback?: () => void,
+        expiredCallback?: () => void,
+        errorCallback?: () => void,
     }
 }
 
 interface IGoogleReCaptchaScriptProps {
-    nonce?: string
-    defer?: boolean
-    async?: boolean
-    appendTo?: 'head' | 'body'
-    id?: string
-    onLoadCallbackName?: string
+    nonce?: string,
+    defer?: boolean,
+    async?: boolean,
+    appendTo?: 'head' | 'body',
+    id?: string,
+    onLoadCallbackName?: string,
 }
 
 const GOOGLE_RECAPTCHA_CONTAINER: IGoogleReCaptchaContainer = {

@@ -1,6 +1,18 @@
 import Cookies from 'universal-cookie'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-import { ErrorType } from './interfaces'
+
+export interface ErrorType {
+    data: {
+        error: {
+            code: string,
+            message?: string,
+            'violation_fields': any,
+            violations: [string]
+        }
+    },
+    status: number,
+}
+
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
 const cookies = new Cookies()

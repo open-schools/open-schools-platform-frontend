@@ -1,14 +1,14 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useMeQuery } from '../domains/common/redux/meApi'
+import { useMeQuery } from '../../common/redux/meApi'
 
 export const TokenContext = createContext('')
 
-interface TokenProviderProps {
+interface AuthProviderProps {
     children: React.ReactNode;
 }
 
-export const TokenProvider: React.FC<TokenProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const router = useRouter()
     const [token, setToken] = useState('')
 
@@ -25,10 +25,8 @@ export const TokenProvider: React.FC<TokenProviderProps> = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        if (error !== undefined) {
-            if ('data' in error) {
-                router.push('/auth/signin')
-            }
+        if (error !== undefined && 'data' in error) {
+            router.push('/auth/signin')
         }
     }, [error])
 

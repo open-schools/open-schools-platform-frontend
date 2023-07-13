@@ -3,7 +3,7 @@ import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import { TokenProvider } from '../pagesProviders/authProvider'
+import { AuthProvider } from '../domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
 import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
 
@@ -26,11 +26,11 @@ function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
 
     return (
         <Provider store={store}>
-            <TokenProvider>
+            <AuthProvider>
                 <LayoutComponent>
                     <Component {...pageProps} />
                 </LayoutComponent>
-            </TokenProvider>
+            </AuthProvider>
         </Provider>
     )
 }
