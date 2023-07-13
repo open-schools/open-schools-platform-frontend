@@ -1,5 +1,5 @@
 import { Row } from 'antd'
-import getC
+import getConfig from "next/config";
 import React from 'react'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import styles from './styles/styles.module.scss'
