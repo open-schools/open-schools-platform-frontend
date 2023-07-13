@@ -1,17 +1,23 @@
 import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
-import getConfig from 'next/config'
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 import { Button } from '../../../../common/components/Button'
+import { loginHandler } from '../../../handlers/auth/signin'
+import { useLoginMutation } from '../../../redux/authenticationApi'
 
 export const SignInForm = (): React.ReactElement => {
     // const {
     //     publicRuntimeConfig: { hasSbbolAuth },
     // } = getConfig()
+
+    const [phone, setPhone] = useState('')
+    const [password, setPassword] = useState('')
+
+    const [login, { error, isLoading: isLoadingMutation }] = useLoginMutation()
 
     const [form] = Form.useForm()
     const router = useRouter()
@@ -73,7 +79,10 @@ export const SignInForm = (): React.ReactElement => {
                                 ]}
                                 data-cy="signin-phone-item"
                             >
-                                <Input type={'inputPhone'} />
+                                <Input
+                                    onChange={(value: any) => setPhone(value.target.value)}
+                                    type={'inputPhone'}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={24}>
@@ -88,7 +97,10 @@ export const SignInForm = (): React.ReactElement => {
                                 ]}
                                 data-cy="signin-password-item"
                             >
-                                <Input type={'inputPassword'} />
+                                <Input
+                                    onChange={(value: any) => setPassword(value.target.value)}
+                                    type={'inputPassword'}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={24}>
@@ -110,6 +122,7 @@ export const SignInForm = (): React.ReactElement => {
                                     loading={isLoading}
                                     block
                                     data-cy="signin-button"
+                                    onClick={() => loginHandler(phone, password, login)}
                                 >
                                     Войти
                                 </Button>

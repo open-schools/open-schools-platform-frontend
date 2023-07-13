@@ -1,11 +1,12 @@
 import { Col, Form, Row, Space, Typography as DefaultTypography } from 'antd'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
 import { Input } from '../../../../common/components/Input'
 import { CountDownTimer } from '../../../../common/components/CountDownTimer'
+import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { IValidatePhoneFormProps } from './interfaces'
 import {
     BUTTON_FORM_GUTTER_40,
@@ -23,12 +24,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const {
         token,
         phone,
-        handleReCaptchaVerify,
-    } = /*useContext(RegisterContext)*/ {
-        token: '2313123213',
-        phone: '+79999988999',
-        handleReCaptchaVerify: () => {},
-    }
+    } = useContext(FirebaseReCaptchaContext)
     const [showPhone, setShowPhone] = useState(phone)
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
     const [phoneValidateError, setPhoneValidateError] = useState(null)
@@ -57,19 +53,19 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     )
 
     const resendSms = useCallback(async () => {
-        // const sender = getClientSideSenderInfo()
-        // const captcha = await handleReCaptchaVerify('resend_sms')
-        // const variables = {data: {token, sender, captcha, dv: 1}}
-        // return runMutation({
-        //     mutation: resendSmsMutation,
-        //     variables,
-        //     intl,
-        //     form,
-        //     ErrorToFormFieldMsgMapping,
-        // }).catch(error => {
-        //     console.error(error)
-        // })
-    }, [form, handleReCaptchaVerify])
+    //     const sender = getClientSideSenderInfo()
+    //     const captcha = await handleReCaptchaVerify('resend_sms')
+    //     const variables = {data: {token, sender, captcha, dv: 1}}
+    //     return runMutation({
+    //         mutation: resendSmsMutation,
+    //         variables,
+    //         intl,
+    //         form,
+    //         ErrorToFormFieldMsgMapping,
+    //     }).catch(error => {
+    //         console.error(error)
+    //     })
+    }, [form/*, handleReCaptchaVerify*/])
 
     const confirmPhone = useCallback(async () => {
         // const sender = getClientSideSenderInfo()

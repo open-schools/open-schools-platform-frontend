@@ -22,7 +22,6 @@ const BUTTON_INPUT_PHONE_STYLE: React.CSSProperties = {
 export const Input: React.FC<CustomInputProps> = (props) => {
     const {
         type = 'inputDefault',
-        onChange,
         placeholder,
         label,
         ...restProps
@@ -36,7 +35,6 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     className={defaultStyles.input}
                     {...restProps}
                     placeholder={placeholder}
-                    onChange={onChange}
                     data-testid="input"
                 />
             </div>
@@ -46,9 +44,13 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             <div className={defaultStyles.inputContainer}>
                 <label>{label}</label>
                 <PhoneInput
+                    onChange={(value, data, event, formattedValue) => {
+                        if (typeof restProps.onChange === 'function') {
+                            restProps.onChange(event)
+                        }
+                    }}
                     country={'ru'}
                     placeholder={placeholder}
-                    onChange={onChange}
                     buttonStyle={BUTTON_INPUT_PHONE_STYLE}
                     inputStyle={INPUT_PHONE_STYLE}
                 />
@@ -62,7 +64,6 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     className={inputStyleDictionary[type]?.input}
                     {...restProps}
                     placeholder={placeholder}
-                    onChange={onChange}
                     data-testid="input"
                 />
             </div>
