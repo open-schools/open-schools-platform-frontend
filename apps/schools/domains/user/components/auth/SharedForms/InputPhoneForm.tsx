@@ -94,7 +94,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                             >
                                 <Input
                                     onChange={(value) => setPhone(value.target.value)}
-                                    type={'inputPhone'} />
+                                    customType={'inputPhone'} />
                             </Form.Item>
                         </Col>
                         {disclaimer && <Col span={24}>{disclaimer}</Col>}

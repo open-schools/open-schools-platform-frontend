@@ -182,7 +182,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                 <Input
                                     placeholder=""
                                     inputMode="numeric"
-                                    type={'inputCenter'}
+                                    customType={'inputCenter'}
                                     label={'Код из СМС'}
                                     pattern="[0-9]*"
                                     value={smsCode}

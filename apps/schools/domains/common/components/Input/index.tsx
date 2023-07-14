@@ -22,13 +22,13 @@ const BUTTON_INPUT_PHONE_STYLE: React.CSSProperties = {
 export const Input: React.FC<CustomInputProps> = (props) => {
     const {
         disabled = false,
-        type = 'inputDefault',
+        customType = 'inputDefault',
         placeholder,
         label,
         ...restProps
     } = props
 
-    if (!typeInput.includes(type)) {
+    if (!typeInput.includes(customType)) {
         return (
             <div className={defaultStyles.inputContainer}>
                 <label>{label}</label>
@@ -40,7 +40,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 />
             </div>
         )
-    } else if (type === 'inputPhone') {
+    } else if (customType === 'inputPhone') {
         return (
             <div className={defaultStyles.inputContainer}>
                 <label>{label}</label>
@@ -60,10 +60,10 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         )
     } else {
         return (
-            <div className={inputStyleDictionary[type]?.inputContainer}>
+            <div className={inputStyleDictionary[customType]?.inputContainer}>
                 <label>{label}</label>
                 <BaseInput
-                    className={inputStyleDictionary[type]?.input}
+                    className={inputStyleDictionary[customType]?.input}
                     {...restProps}
                     placeholder={placeholder}
                     data-testid="input"

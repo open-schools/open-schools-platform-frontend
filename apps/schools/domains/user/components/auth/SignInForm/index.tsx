@@ -82,7 +82,7 @@ export const SignInForm = (): React.ReactElement => {
                             >
                                 <Input
                                     onChange={(value: any) => setPhone(value.target.value)}
-                                    type={'inputPhone'}
+                                    customType={'inputPhone'}
                                 />
                             </Form.Item>
                         </Col>
@@ -100,7 +100,8 @@ export const SignInForm = (): React.ReactElement => {
                             >
                                 <Input
                                     onChange={(value: any) => setPassword(value.target.value)}
-                                    type={'inputPassword'}
+                                    customType={'inputPassword'}
+                                    type={'password'}
                                 />
                             </Form.Item>
                         </Col>
