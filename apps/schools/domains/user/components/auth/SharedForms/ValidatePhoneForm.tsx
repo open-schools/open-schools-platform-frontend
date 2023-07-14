@@ -14,6 +14,8 @@ import {
     SMS_CODE_CLEAR_REGEX,
     SMS_INPUT_STYLE,
 } from '../constants/styles'
+import { otpHandler } from '../../../handlers/auth/register'
+import { useVerifyMutation } from '../../../redux/usersApi'
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     onFinish,
@@ -25,7 +27,9 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         token,
         phone,
     } = useContext(FirebaseReCaptchaContext)
+    const [verifyCode] = useVerifyMutation()
     const [showPhone, setShowPhone] = useState(phone)
+    const [smsCode, setSmsCode] = useState('')
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
     const [phoneValidateError, setPhoneValidateError] = useState(null)
     // const [resendSmsMutation] = useMutation(RESEND_CONFIRM_PHONE_SMS_MUTATION)
@@ -34,7 +38,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
 
     const SMS_VALIDATOR = useCallback(
         () => ({
-            validator() {
+            validator () {
                 if (!phoneValidateError) {
                     return Promise.resolve()
                 }
@@ -47,27 +51,30 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const SMS_CODE_VALIDATOR_RULES = useMemo(
         () => [
             { required: true, message: 'Необходимо заполнить' },
+            { len: SMS_CODE_LENGTH, message: `Код должен содержать ${SMS_CODE_LENGTH} цифры` },
             SMS_VALIDATOR,
         ],
         ['Необходимо заполнить', SMS_VALIDATOR]
     )
 
+    const SMS_CODE_LENGTH = 6
+
     const resendSms = useCallback(async () => {
-    //     const sender = getClientSideSenderInfo()
-    //     const captcha = await handleReCaptchaVerify('resend_sms')
-    //     const variables = {data: {token, sender, captcha, dv: 1}}
-    //     return runMutation({
-    //         mutation: resendSmsMutation,
-    //         variables,
-    //         intl,
-    //         form,
-    //         ErrorToFormFieldMsgMapping,
-    //     }).catch(error => {
-    //         console.error(error)
-    //     })
+        //     const sender = getClientSideSenderInfo()
+        //     const captcha = await handleReCaptchaVerify('resend_sms')
+        //     const variables = {data: {token, sender, captcha, dv: 1}}
+        //     return runMutation({
+        //         mutation: resendSmsMutation,
+        //         variables,
+        //         intl,
+        //         form,
+        //         ErrorToFormFieldMsgMapping,
+        //     }).catch(error => {
+        //         console.error(error)
+        //     })
     }, [form/*, handleReCaptchaVerify*/])
 
-    const confirmPhone = useCallback(async () => {
+    const confirmPhone = useCallback(async (smsCode: string) => {
         // const sender = getClientSideSenderInfo()
         // const smsCode = Number(form.getFieldValue('smsCode'))
         // if (isNaN(smsCode)) {
@@ -84,6 +91,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         //     OnCompletedMsg: null,
         //     ErrorToFormFieldMsgMapping,
         // })
+        otpHandler(smsCode, verifyCode, onFinish)
     }, [form])
 
     const handleVerifyCode = useCallback(async () => {
@@ -91,15 +99,14 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         let smsCode = (form.getFieldValue('smsCode') || '').toString()
         smsCode = smsCode.replace(SMS_CODE_CLEAR_REGEX, '')
         form.setFieldsValue({ smsCode })
-        if (smsCode.length < /*SMS_CODE_LENGTH*/ 4) {
+        if (smsCode.length !== SMS_CODE_LENGTH) {
             return
         }
         // if (smsCode.length > SMS_CODE_LENGTH) {
         //     return setPhoneValidateError(SMSCodeMismatchError)
         // }
         try {
-            await confirmPhone()
-            onFinish()
+            await confirmPhone(smsCode)
         } catch (error) {
             console.error(error)
         }
@@ -110,12 +117,12 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         const phoneVisible = isPhoneVisible
             ? formattedPhone
             : `${formattedPhone.substring(0, 9)}***${formattedPhone.substring(
-                  12
-              )}`
+                12
+            )}`
         setShowPhone(phoneVisible)
     }, [isPhoneVisible, phone, setShowPhone])
 
-    const initialValues = { smsCode: '' }
+    const initialValues = { smsCode: smsCode }
 
     return (
         <Form
@@ -178,8 +185,16 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                     type={'inputCenter'}
                                     label={'Код из СМС'}
                                     pattern="[0-9]*"
-                                    onChange={handleVerifyCode}
+                                    value={smsCode}
+                                    onChange={(e) => {
+                                        const value = e.target.value
+                                        if (value.length <= 6) {
+                                            setSmsCode(value)
+                                            handleVerifyCode()
+                                        }
+                                    }}
                                     style={SMS_INPUT_STYLE}
+                                    maxLength={SMS_CODE_LENGTH}
                                 />
                             </Form.Item>
                         </Col>

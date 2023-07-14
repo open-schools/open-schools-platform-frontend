@@ -1,5 +1,5 @@
 import { Col, Form, Row } from 'antd'
-import React, { PropsWithChildren, useCallback, useState } from 'react'
+import React, { PropsWithChildren, useCallback, useContext, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
@@ -8,6 +8,9 @@ import { Button } from '../../../../common/components/Button'
 import { useRegisterFormValidators } from './hooks'
 import { IRegisterFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
+import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
+import { registrationHandler } from '../../../handlers/auth/register'
+import { useUsersMutation } from '../../../redux/usersApi'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -16,12 +19,26 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
 export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
     const validators = useRegisterFormValidators()
 
+    validators.confirm = [
+        ...(validators.confirm || []),
+        ({ getFieldValue }) => ({
+            validator (_, value) {
+                if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve()
+                }
+                return Promise.reject(new Error('Пароли не совпадают'))
+            },
+        }),
+    ]
+
+
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
-    const { phone, token } = /*useContext(RegisterContext)*/ {
-        phone: '+7999998899',
-        token: '329180382190',
-    }
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [userRegistration] = useUsersMutation()
+    const {
+        phone,
+    } = useContext(FirebaseReCaptchaContext)
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
@@ -31,7 +48,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
         //     dv: 1,
         //     sender: getClientSideSenderInfo(),
         // }
-        // const {name, email: inputEmail, password} = form.getFieldsValue(['name', 'email', 'password'])
+        const { password } = form.getFieldsValue(['password'])
         //
         // const email = inputEmail ? inputEmail.toLowerCase().trim() : ''
         // const data = {name, email, password, ...registerExtraData, confirmPhoneActionToken: token}
@@ -53,7 +70,8 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
         // }).catch(() => {
         //     setIsLoading(false)
         // })
-    }, [form, signInByPhone, token])
+        registrationHandler(phone, password, userRegistration, onFinish)
+    }, [form, signInByPhone])
 
     const initialValues = { phone }
 
@@ -84,7 +102,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
                                 >
                                     <Input
                                         type={'inputPhone'}
-                                        disabled={true}
+                                        readOnly={true}
                                     />
                                 </Form.Item>
                             </RequiredFlagWrapper>
@@ -150,7 +168,11 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
                                     data-cy="register-confirmpassword-item"
                                     validateFirst
                                 >
-                                    <Input type={'inputPassword'} />
+                                    <Input
+                                        type={'inputPassword'}
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                    />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
