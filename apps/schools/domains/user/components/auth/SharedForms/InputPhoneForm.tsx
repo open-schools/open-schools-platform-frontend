@@ -1,7 +1,7 @@
 import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import { useRouter } from 'next/router'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect } from 'react'
 import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'

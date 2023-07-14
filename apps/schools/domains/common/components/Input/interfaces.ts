@@ -4,6 +4,7 @@ import passwordStyle from './styles/password.module.scss'
 import centerStyle from './styles/center.module.scss'
 
 export interface CustomInputProps extends InputProps {
+    disabled?: boolean,
     type?: 'inputDefault' | 'inputPhone' | 'inputPassword' | 'inputCenter',
     placeholder?: string,
     label?: string,

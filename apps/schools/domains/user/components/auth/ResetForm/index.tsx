@@ -8,6 +8,8 @@ import { Button } from '../../../../common/components/Button'
 import { useResetFormValidators } from './hooks'
 import { IResetFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
+import { resetHandler } from '../../../handlers/auth/forgot'
+import { useResetPasswordMutation } from '../../../redux/usersApi'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -16,12 +18,21 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
 export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
     const validators = useResetFormValidators()
 
+    validators.confirm = [
+        ...(validators.confirm || []),
+        ({ getFieldValue }) => ({
+            validator (_, value) {
+                if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve()
+                }
+                return Promise.reject(new Error('Пароли не совпадают'))
+            },
+        }),
+    ]
+
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
-    const { phone, token } = /*useContext(ResetContext)*/ {
-        phone: '+7999998899',
-        token: '329180382190',
-    }
+    const [reset] = useResetPasswordMutation()
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
@@ -53,16 +64,15 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
         // }).catch(() => {
         //     setIsLoading(false)
         // })
-    }, [form, signInByPhone, token])
-
-    const initialValues = { phone }
+        const { password } = form.getFieldsValue(['password'])
+        resetHandler(password, reset, onFinish)
+    }, [form, signInByPhone])
 
     return (
         <Form
             form={form}
             name="reset"
             onFinish={resetComplete}
-            initialValues={initialValues}
             colon={false}
             requiredMark={true}
             layout="vertical"
@@ -99,6 +109,7 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
                                 >
                                     <Input
                                         type={'inputPassword'}
+
                                         placeholder={'Пароль'}
                                     />
                                 </Form.Item>

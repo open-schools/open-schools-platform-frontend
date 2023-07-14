@@ -11,14 +11,19 @@ export interface VerifyResponse {
     detail: string,
 }
 
-export interface verifyData {
+export interface VerifyData {
     otp: string,
     token: string,
 }
 
-export interface UserRegister {
+export interface UserData {
     token: string,
     name: string,
+    password: string,
+}
+
+export interface ResetPasswordData {
+    token: string,
     password: string,
 }
 

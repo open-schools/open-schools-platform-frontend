@@ -98,7 +98,7 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
             <>
                 <TabsAuthAction currentActiveKey="/auth/register" />
                 <RegisterForm onFinish={(userId) =>
-                    Router.push(`/auth/signin/${userId}`)} />
+                    Router.push('../auth/signin/')} />
             </>
         ),
     }

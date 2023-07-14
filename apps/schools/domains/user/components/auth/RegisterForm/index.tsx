@@ -101,7 +101,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
                                     validateFirst
                                 >
                                     <Input
-                                        type={'inputPhone'}
+                                        disabled={true}
                                         readOnly={true}
                                     />
                                 </Form.Item>
@@ -116,13 +116,11 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
                                     data-cy="register-name-item"
                                     validateFirst
                                 >
-                                    <RequiredFlagWrapper>
-                                        <Input
-                                            placeholder={
-                                                'Иванов Сергей Владимирович'
-                                            }
-                                        />
-                                    </RequiredFlagWrapper>
+                                    <Input
+                                        placeholder={
+                                            'Иванов Сергей Владимирович'
+                                        }
+                                    />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>

@@ -21,6 +21,7 @@ const BUTTON_INPUT_PHONE_STYLE: React.CSSProperties = {
 
 export const Input: React.FC<CustomInputProps> = (props) => {
     const {
+        disabled = false,
         type = 'inputDefault',
         placeholder,
         label,
@@ -49,6 +50,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                             restProps.onChange(event)
                         }
                     }}
+                    disabled={disabled}
                     country={'ru'}
                     placeholder={placeholder}
                     buttonStyle={BUTTON_INPUT_PHONE_STYLE}
