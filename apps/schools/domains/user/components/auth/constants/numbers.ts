@@ -1,0 +1,1 @@
+export const SMS_CODE_LENGTH = 6

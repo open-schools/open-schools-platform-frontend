@@ -18,6 +18,7 @@ import {
     ResetPhoneButtonLabel,
 } from '../../domains/user/components/auth/constants/labels'
 import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
+import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptchaProvider'
 
 // const HeaderAction = () => {
 //     const router = useRouter()
@@ -128,7 +129,9 @@ const ResetPage: ContainerPage<IAuthLayoutProps> = (props) => {
                 <title>Регистрация</title>
             </Head>
             <Row className={CENTRALIZED}>
-                <FormContainer>{steps[step]}</FormContainer>
+                <FirebaseReCaptcha>
+                    <FormContainer>{steps[step]}</FormContainer>
+                </FirebaseReCaptcha>
             </Row>
         </>
     )

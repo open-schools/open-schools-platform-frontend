@@ -4,10 +4,10 @@ import passwordStyle from './styles/password.module.scss'
 import centerStyle from './styles/center.module.scss'
 
 export interface CustomInputProps extends InputProps {
-    type?: 'inputDefault' | 'inputPhone' | 'inputPassword' | 'inputCenter'
-    onChange?: () => void
-    placeholder?: string
-    label?: string
+    disabled?: boolean,
+    type?: 'inputDefault' | 'inputPhone' | 'inputPassword' | 'inputCenter',
+    placeholder?: string,
+    label?: string,
 }
 
 export interface Dictionary {

@@ -1,25 +1,32 @@
 import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
-import getConfig from 'next/config'
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { isSafeUrl } from '../../../../common/utils/url.utils'
+// import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 import { Button } from '../../../../common/components/Button'
+import { loginHandler } from '../../../handlers/auth/signin'
+import { useLoginMutation } from '../../../redux/authenticationApi'
+import { NeedConfirmField } from '../constants/message'
 
 export const SignInForm = (): React.ReactElement => {
     // const {
     //     publicRuntimeConfig: { hasSbbolAuth },
     // } = getConfig()
 
+    const [phone, setPhone] = useState('')
+    const [password, setPassword] = useState('')
+
+    const [login] = useLoginMutation()
+
     const [form] = Form.useForm()
     const router = useRouter()
     const {
         query: { next },
     } = router
-    const redirectUrl =
-        next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
+    // const redirectUrl =
+    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
     // const { refetch } = useAuth()
     const [isLoading, setIsLoading] = useState(false)
     // const [signinByPhoneAndPassword] = useMutation(SIGNIN_BY_PHONE_AND_PASSWORD_MUTATION)
@@ -68,12 +75,15 @@ export const SignInForm = (): React.ReactElement => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Необходимо заполнить',
+                                        message: NeedConfirmField,
                                     },
                                 ]}
                                 data-cy="signin-phone-item"
                             >
-                                <Input type={'inputPhone'} />
+                                <Input
+                                    onChange={(value: any) => setPhone(value.target.value)}
+                                    type={'inputPhone'}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={24}>
@@ -83,12 +93,15 @@ export const SignInForm = (): React.ReactElement => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Необходимо заполнить',
+                                        message: NeedConfirmField,
                                     },
                                 ]}
                                 data-cy="signin-password-item"
                             >
-                                <Input type={'inputPassword'} />
+                                <Input
+                                    onChange={(value: any) => setPassword(value.target.value)}
+                                    type={'inputPassword'}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={24}>
@@ -110,6 +123,7 @@ export const SignInForm = (): React.ReactElement => {
                                     loading={isLoading}
                                     block
                                     data-cy="signin-button"
+                                    onClick={() => loginHandler(phone, password, login)}
                                 >
                                     Войти
                                 </Button>

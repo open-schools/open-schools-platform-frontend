@@ -1,8 +1,8 @@
 import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
-import Router, { useRouter } from 'next/router'
-import React, { useCallback, useState } from 'react'
-import { isSafeUrl } from '../../../../common/utils/url.utils'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect } from 'react'
+// import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
@@ -10,6 +10,10 @@ import { Button } from '../../../../common/components/Button'
 import { normalizePhone } from '../../../../common/utils/phone'
 import { IInputPhoneFormProps } from './interfaces'
 import { FORM_ITEMS_GUTTER } from '../constants/styles'
+import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
+import { tokenHandler } from '../../../handlers/auth/register'
+import { useTokenMutation } from '../../../redux/usersApi'
+import { NeedConfirmField } from '../constants/message'
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     onFinish,
@@ -19,23 +23,23 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     description,
     disclaimer,
 }) => {
-    // const {
-    //     publicRuntimeConfig: { hasSbbolAuth },
-    // } = getConfig()
+    const {
+        setPhone,
+        token,
+    } = useContext(FirebaseReCaptchaContext)
+    const [registration] = useTokenMutation()
 
     const [form] = Form.useForm()
     const router = useRouter()
     const {
         query: { next },
     } = router
-    const redirectUrl =
-        next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
-    // const { refetch } = useAuth()
-    const [isLoading, setIsLoading] = useState(false)
+    // const redirectUrl =
+    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
 
-    // const [signinByPhoneAndPassword] = useMutation(SIGNIN_BY_PHONE_AND_PASSWORD_MUTATION)
-
-    const startConfirmPhone = useCallback(async () => {
+    useEffect(() => {
+        if (token === '') 
+            return
         let { phone: inputPhone } = form.getFieldsValue(['phone'])
         inputPhone = '+' + inputPhone
         const phone = normalizePhone(inputPhone)
@@ -48,51 +52,15 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
             ])
             return
         }
+        tokenHandler(phone, token, nextUrl, registration, onFinish)
+    }, [token])
 
-        // setPhone(phone)
-        // const captcha = await handleReCaptchaVerify('start_confirm_phone')
-        // const variables = { data: { ...registerExtraData, phone, captcha } }
-        setIsLoading(true)
-
-        // @ts-ignore TODO(Dimitreee): remove after runMutation typo
-        // return runMutation({
-        //     mutation: startPhoneVerify,
-        //     variables,
-        //     onError: (error) => {
-        //         form.setFields([
-        //             {
-        //                 name: 'phone',
-        //                 // NOTE(pahaz): `friendlyDescription` is the last GQLError.messageForUser!
-        //                 errors: [(error.friendlyDescription) ? error.friendlyDescription : SMSTooManyRequestsErrorMsg],
-        //             },
-        //         ])
-        //     },
-        //     onCompleted: (data) => {
-        //         const { data: { result: { token } } } = data
-        //         setToken(token)
-        //         Router.push(`/auth/register?token=${token}`)
-        //         onFinish()
-        //     },
-        //     // Skip notification
-        //     OnCompletedMsg: null,
-        //     onFinally: () => {
-        //         setIsLoading(false)
-        //     },
-        //     intl,
-        //     form,
-        //     ErrorToFormFieldMsgMapping,
-        // })
-        Router.push(`/auth/${nextUrl}?token=${37128937218937}`)
-        onFinish()
-    }, [form, /*handleReCaptchaVerify*/ /*setPhone*/ setIsLoading /*onFinish*/])
-
-    const initialValues = { password: '', phone: '' }
+    const initialValues = { phone: '' }
 
     return (
         <Form
             form={form}
             name="signin"
-            onFinish={startConfirmPhone}
             initialValues={initialValues}
             requiredMark={false}
             layout="vertical"
@@ -119,22 +87,24 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Необходимо заполнить',
+                                        message: NeedConfirmField,
                                     },
                                 ]}
                                 data-cy="register-phone-item"
                             >
-                                <Input type={'inputPhone'} />
+                                <Input
+                                    onChange={(value) => setPhone(value.target.value)}
+                                    type={'inputPhone'} />
                             </Form.Item>
                         </Col>
                         {disclaimer && <Col span={24}>{disclaimer}</Col>}
                         <Col span={24}>
                             <Form.Item>
                                 <Button
+                                    id="recaptcha-container"
                                     key="submit"
                                     type="schoolDefault"
                                     htmlType="submit"
-                                    loading={isLoading}
                                     block
                                     data-cy="signin-button"
                                 >

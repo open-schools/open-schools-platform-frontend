@@ -18,23 +18,9 @@ import {
     RegistrationDisclaimer,
     RegistrationPhoneButtonLabel,
 } from '../../domains/user/components/auth/constants/labels'
-
-// const HeaderAction = () => {
-//     const router = useRouter()
-//     return router.query.step == 'inputPhone' && (
-//         <WelcomeHeaderTitle/>
-//     )
-// }
+import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptchaProvider'
 
 const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
-    // const intl = useIntl()
-    // const RegistrationTitleMsg = intl.formatMessage({ id: 'pages.auth.RegistrationTitle' })
-    // const PhoneConfirmTokenErrorLabel = intl.formatMessage({ id: 'pages.auth.register.PhoneConfirmTokenErrorLabel' })
-    // const PhoneConfirmTokenErrorMessage = intl.formatMessage({ id: 'pages.auth.register.PhoneConfirmTokenErrorMessage' })
-    // const RestartPhoneConfirmLabel = intl.formatMessage({ id: 'pages.auth.register.RestartPhoneConfirmLabel' })
-    // const router = useRouter()
-
-    // const { token, isConfirmed, tokenError, setToken, setTokenError } = useContext(RegisterContext)
     const [step, setStep] = useState('inputPhone')
 
     // useEffect(() => {
@@ -111,7 +97,8 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
         register: (
             <>
                 <TabsAuthAction currentActiveKey="/auth/register" />
-                <RegisterForm onFinish={() => {}} />
+                <RegisterForm onFinish={(userId) =>
+                    Router.push('../auth/signin/')} />
             </>
         ),
     }
@@ -122,9 +109,11 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
                 <title>Регистрация</title>
             </Head>
             <Row className={CENTRALIZED}>
-                <FormContainer width={step === 'register' ? 500 : 560}>
-                    {steps[step]}
-                </FormContainer>
+                <FirebaseReCaptcha>
+                    <FormContainer width={step === 'register' ? 500 : 560}>
+                        {steps[step]}
+                    </FormContainer>
+                </FirebaseReCaptcha>
             </Row>
         </>
     )
