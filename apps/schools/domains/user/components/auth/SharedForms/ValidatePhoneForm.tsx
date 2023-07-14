@@ -16,6 +16,8 @@ import {
 } from '../constants/styles'
 import { otpHandler } from '../../../handlers/auth/register'
 import { useVerifyMutation } from '../../../redux/usersApi'
+import { SMS_CODE_LENGTH } from '../constants/numbers'
+import { NeedConfirmField } from '../constants/message'
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     onFinish,
@@ -24,7 +26,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
 }) => {
     const [form] = Form.useForm()
     const {
-        token,
         phone,
     } = useContext(FirebaseReCaptchaContext)
     const [verifyCode] = useVerifyMutation()
@@ -50,14 +51,12 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
 
     const SMS_CODE_VALIDATOR_RULES = useMemo(
         () => [
-            { required: true, message: 'Необходимо заполнить' },
-            { len: SMS_CODE_LENGTH, message: `Код должен содержать ${SMS_CODE_LENGTH} цифры` },
+            { required: true, message: NeedConfirmField },
+            { len: SMS_CODE_LENGTH, message: `Код должен содержать ${SMS_CODE_LENGTH} цифр` },
             SMS_VALIDATOR,
         ],
         ['Необходимо заполнить', SMS_VALIDATOR]
     )
-
-    const SMS_CODE_LENGTH = 6
 
     const resendSms = useCallback(async () => {
         //     const sender = getClientSideSenderInfo()

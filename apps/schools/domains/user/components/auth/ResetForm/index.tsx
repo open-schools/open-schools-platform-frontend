@@ -18,19 +18,8 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
 export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
     const validators = useResetFormValidators()
 
-    validators.confirm = [
-        ...(validators.confirm || []),
-        ({ getFieldValue }) => ({
-            validator (_, value) {
-                if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve()
-                }
-                return Promise.reject(new Error('Пароли не совпадают'))
-            },
-        }),
-    ]
-
     const [form] = Form.useForm()
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [reset] = useResetPasswordMutation()
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
@@ -109,7 +98,8 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
                                 >
                                     <Input
                                         type={'inputPassword'}
-
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
                                         placeholder={'Пароль'}
                                     />
                                 </Form.Item>

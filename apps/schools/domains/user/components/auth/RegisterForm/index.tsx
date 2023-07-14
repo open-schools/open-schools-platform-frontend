@@ -19,19 +19,6 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
 export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
     const validators = useRegisterFormValidators()
 
-    validators.confirm = [
-        ...(validators.confirm || []),
-        ({ getFieldValue }) => ({
-            validator (_, value) {
-                if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve()
-                }
-                return Promise.reject(new Error('Пароли не совпадают'))
-            },
-        }),
-    ]
-
-
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
     const [confirmPassword, setConfirmPassword] = useState('')

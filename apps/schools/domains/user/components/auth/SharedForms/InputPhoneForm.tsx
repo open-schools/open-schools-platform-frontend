@@ -2,7 +2,7 @@ import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
-import { isSafeUrl } from '../../../../common/utils/url.utils'
+// import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
@@ -13,6 +13,7 @@ import { FORM_ITEMS_GUTTER } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { tokenHandler } from '../../../handlers/auth/register'
 import { useTokenMutation } from '../../../redux/usersApi'
+import { NeedConfirmField } from '../constants/message'
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     onFinish,
@@ -33,8 +34,8 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     const {
         query: { next },
     } = router
-    const redirectUrl =
-        next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
+    // const redirectUrl =
+    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
 
     useEffect(() => {
         if (token !== '') {
@@ -86,7 +87,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Необходимо заполнить',
+                                        message: NeedConfirmField,
                                     },
                                 ]}
                                 data-cy="register-phone-item"
