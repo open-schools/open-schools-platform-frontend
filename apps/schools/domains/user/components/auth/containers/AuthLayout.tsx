@@ -1,7 +1,7 @@
+import { Row } from 'antd'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import Link from 'next/link'
-import { Row } from 'antd'
 import logo from '@public/icons/logo.svg'
 import Image from 'next/image'
 
