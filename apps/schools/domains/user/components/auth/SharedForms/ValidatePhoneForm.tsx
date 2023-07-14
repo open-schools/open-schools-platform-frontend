@@ -52,6 +52,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const SMS_CODE_VALIDATOR_RULES = useMemo(
         () => [
             { required: true, message: NeedConfirmField },
+            // TODO: take the value of this message from constants
             { len: SMS_CODE_LENGTH, message: `Код должен содержать ${SMS_CODE_LENGTH} цифр` },
             SMS_VALIDATOR,
         ],

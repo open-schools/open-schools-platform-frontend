@@ -10,6 +10,23 @@ export interface IAuthLayoutProps {
     children: JSX.Element,
 }
 
+// #TODO: take this variables from env
+const {
+    publicRuntimeConfig: {
+        HelpRequisites: {
+            support_email: SUPPORT_EMAIL = null,
+            support_phone: SUPPORT_PHONE = null,
+        },
+    },
+} /* = getConfig() */ = {
+    publicRuntimeConfig: {
+        HelpRequisites: {
+            support_email: 'openschools@education',
+            support_phone: '+79999999999',
+        },
+    },
+}
+
 const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
     const { children, ...otherProps } = props
 

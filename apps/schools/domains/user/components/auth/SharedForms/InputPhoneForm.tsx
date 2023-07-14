@@ -38,21 +38,21 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
 
     useEffect(() => {
-        if (token !== '') {
-            let { phone: inputPhone } = form.getFieldsValue(['phone'])
-            inputPhone = '+' + inputPhone
-            const phone = normalizePhone(inputPhone)
-            if (!phone) {
-                form.setFields([
-                    {
-                        name: 'phone',
-                        errors: ['Неверный формат телефона'],
-                    },
-                ])
-                return
-            }
-            tokenHandler(phone, token, nextUrl, registration, onFinish)
+        if (token === '') 
+            return
+        let { phone: inputPhone } = form.getFieldsValue(['phone'])
+        inputPhone = '+' + inputPhone
+        const phone = normalizePhone(inputPhone)
+        if (!phone) {
+            form.setFields([
+                {
+                    name: 'phone',
+                    errors: ['Неверный формат телефона'],
+                },
+            ])
+            return
         }
+        tokenHandler(phone, token, nextUrl, registration, onFinish)
     }, [token])
 
     const initialValues = { phone: '' }
