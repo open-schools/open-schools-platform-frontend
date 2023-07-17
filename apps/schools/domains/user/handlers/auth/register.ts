@@ -31,3 +31,11 @@ export async function registrationHandler (phone: string, password: string, user
         message.error('Error registration')
     }
 }
+
+export async function resendOtpHandler (recaptcha: string, resendOtp: any, onReset: () => void) {
+    let id = localStorage.getItem('token')
+    let response = await resendOtp({ resend: { recaptcha: recaptcha }, id: id })
+    if (response.error?.status === 400 || response.error?.status === 401) {
+        onReset()
+    }
+}

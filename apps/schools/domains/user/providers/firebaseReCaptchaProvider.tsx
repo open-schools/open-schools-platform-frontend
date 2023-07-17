@@ -62,6 +62,7 @@ export const FirebaseReCaptcha: React.FC<IAuthLayoutProps> = (props) => {
             },
             auth
         )
+        if (token) return
         recaptchaVerifierInstance.render()
     }, [])
 

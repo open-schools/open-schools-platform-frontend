@@ -15,47 +15,55 @@ import { tokenHandler } from '../../../handlers/auth/register'
 import { useTokenMutation } from '../../../redux/usersApi'
 import { NeedConfirmField } from '../constants/message'
 
-export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
-    onFinish,
-    nextUrl,
-    title,
-    buttonText,
-    description,
-    disclaimer,
-}) => {
+export function getRegisterToken (token: string, form: any, nextUrl: string, registration: any, onFinish: () => void) {
+    if (token === '') return
+
+    let { phone: inputPhone } = form.getFieldsValue(['phone'])
+    inputPhone = '+' + inputPhone
+    const phone = normalizePhone(inputPhone)
+
+    if (!phone) {
+        form.setFields([
+            {
+                name: 'phone',
+                errors: ['Неверный формат телефона'],
+            },
+        ])
+        return
+    }
+    tokenHandler(phone, token, nextUrl, registration, onFinish)
+}
+
+export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title, buttonText, description, disclaimer, onFinish }) => {
     const {
         setPhone,
         token,
     } = useContext(FirebaseReCaptchaContext)
     const [registration] = useTokenMutation()
-
     const [form] = Form.useForm()
     const router = useRouter()
     const {
         query: { next },
     } = router
     // const redirectUrl =
-    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
-
-    useEffect(() => {
-        if (token === '') 
-            return
-        let { phone: inputPhone } = form.getFieldsValue(['phone'])
-        inputPhone = '+' + inputPhone
-        const phone = normalizePhone(inputPhone)
-        if (!phone) {
-            form.setFields([
-                {
-                    name: 'phone',
-                    errors: ['Неверный формат телефона'],
-                },
-            ])
-            return
-        }
-        tokenHandler(phone, token, nextUrl, registration, onFinish)
-    }, [token])
+    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/';
 
     const initialValues = { phone: '' }
+
+    const handleFormSubmit = () => {
+        form
+            .validateFields()
+            .then(() => {
+                getRegisterToken(token, form, nextUrl, registration, onFinish)
+            })
+            .catch((error) => {
+                console.log('Validation error:', error)
+            })
+    }
+
+    useEffect(() => {
+        getRegisterToken(token, form, nextUrl, registration, onFinish)
+    }, [token])
 
     return (
         <Form
@@ -64,15 +72,14 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
             initialValues={initialValues}
             requiredMark={false}
             layout="vertical"
+            onFinish={handleFormSubmit}
         >
             <Row className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
                     <Row gutter={FORM_ITEMS_GUTTER}>
                         {title && (
                             <Col span={24}>
-                                <Typography.Title level={2}>
-                                    {title}
-                                </Typography.Title>
+                                <Typography.Title level={2}>{title}</Typography.Title>
                             </Col>
                         )}
                         {description && (
@@ -94,7 +101,8 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                             >
                                 <Input
                                     onChange={(value) => setPhone(value.target.value)}
-                                    customType={'inputPhone'} />
+                                    customType={'inputPhone'}
+                                />
                             </Form.Item>
                         </Col>
                         {disclaimer && <Col span={24}>{disclaimer}</Col>}

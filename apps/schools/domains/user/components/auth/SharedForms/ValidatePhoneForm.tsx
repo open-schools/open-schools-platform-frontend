@@ -14,8 +14,8 @@ import {
     SMS_CODE_CLEAR_REGEX,
     SMS_INPUT_STYLE,
 } from '../constants/styles'
-import { otpHandler } from '../../../handlers/auth/register'
-import { useVerifyMutation } from '../../../redux/usersApi'
+import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
+import { useResendMutation, useVerifyMutation } from '../../../redux/usersApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
 import { NeedConfirmField } from '../constants/message'
 
@@ -27,8 +27,10 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const [form] = Form.useForm()
     const {
         phone,
+        token,
     } = useContext(FirebaseReCaptchaContext)
     const [verifyCode] = useVerifyMutation()
+    const [resend] = useResendMutation()
     const [showPhone, setShowPhone] = useState(phone)
     const [smsCode, setSmsCode] = useState('')
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
@@ -60,6 +62,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     )
 
     const resendSms = useCallback(async () => {
+
         //     const sender = getClientSideSenderInfo()
         //     const captcha = await handleReCaptchaVerify('resend_sms')
         //     const variables = {data: {token, sender, captcha, dv: 1}}
@@ -72,6 +75,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         //     }).catch(error => {
         //         console.error(error)
         //     })
+        resendOtpHandler(token, resend, onReset)
     }, [form/*, handleReCaptchaVerify*/])
 
     const confirmPhone = useCallback(async (smsCode: string) => {
@@ -202,7 +206,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                             <CountDownTimer
                                 action={resendSms}
                                 id="RESEND_SMS"
-                                timeout={60}
+                                timeout={1}
                                 autostart={true}
                             >
                                 {({ countdown, runAction }) => {
