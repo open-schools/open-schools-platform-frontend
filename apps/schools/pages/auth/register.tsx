@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Router from 'next/router'
-import React, {useContext, useState} from 'react'
+import React, { useState } from 'react'
 
 import { Dictionary } from '@reduxjs/toolkit'
 import { ContainerPage } from '../_app'
@@ -18,7 +18,7 @@ import {
     RegistrationDisclaimer,
     RegistrationPhoneButtonLabel,
 } from '../../domains/user/components/auth/constants/labels'
-import { FirebaseReCaptcha, FirebaseReCaptchaContext } from '../../domains/user/providers/firebaseReCaptchaProvider'
+import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptchaProvider'
 
 const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
     const [step, setStep] = useState('inputPhone')
