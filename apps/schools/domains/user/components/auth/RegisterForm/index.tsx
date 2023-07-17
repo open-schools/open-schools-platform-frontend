@@ -137,7 +137,8 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
                                     validateFirst
                                 >
                                     <Input
-                                        type={'inputPassword'}
+                                        customType={'inputPassword'}
+                                        type={'password'}
                                         autoComplete="new-password"
                                     />
                                 </Form.Item>
@@ -154,8 +155,9 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
                                     validateFirst
                                 >
                                     <Input
-                                        type={'inputPassword'}
+                                        customType={'inputPassword'}
                                         value={confirmPassword}
+                                        type={'password'}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                     />
                                 </Form.Item>

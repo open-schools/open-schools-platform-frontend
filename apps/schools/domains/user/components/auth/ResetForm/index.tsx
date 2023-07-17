@@ -80,7 +80,8 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
                                     validateFirst
                                 >
                                     <Input
-                                        type={'inputPassword'}
+                                        customType={'inputPassword'}
+                                        type={'password'}
                                         placeholder={'Пароль'}
                                     />
                                 </Form.Item>
@@ -97,8 +98,9 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
                                     validateFirst
                                 >
                                     <Input
-                                        type={'inputPassword'}
+                                        customType={'inputPassword'}
                                         value={confirmPassword}
+                                        type={'password'}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         placeholder={'Пароль'}
                                     />
