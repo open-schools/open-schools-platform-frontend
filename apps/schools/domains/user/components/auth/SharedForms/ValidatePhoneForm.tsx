@@ -1,5 +1,5 @@
 import { Col, Form, Row, Space, Typography as DefaultTypography } from 'antd'
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
@@ -18,16 +18,39 @@ import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
 import { useResendMutation, useVerifyMutation } from '../../../redux/usersApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
 import { NeedConfirmField } from '../constants/message'
+import { Button } from '../../../../common/components/Button'
+import { initializeApp } from '@firebase/app'
+import { getAuth, RecaptchaVerifier } from '@firebase/auth'
+import Router from 'next/router'
+
+export function resendSms (recaptcha: string, resendOtp: any, onReset: () => void) {
+    //
+    // let { phone: inputPhone } = form.getFieldsValue(['phone'])
+    // inputPhone = '+' + inputPhone
+    // const phone = normalizePhone(inputPhone)
+    //
+    // if (!phone) {
+    //     form.setFields([
+    //         {
+    //             name: 'phone',
+    //             errors: ['Неверный формат телефона'],
+    //         },
+    //     ])
+    //     return
+    // }
+    resendOtpHandler(recaptcha, resendOtp, onReset)
+}
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
-    onFinish,
-    onReset,
-    title,
-}) => {
+                                                                         onFinish,
+                                                                         onReset,
+                                                                         title,
+                                                                     }) => {
     const [form] = Form.useForm()
     const {
         phone,
         token,
+        setToken,
     } = useContext(FirebaseReCaptchaContext)
     const [verifyCode] = useVerifyMutation()
     const [resend] = useResendMutation()
@@ -61,8 +84,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         ['Необходимо заполнить', SMS_VALIDATOR]
     )
 
-    const resendSms = useCallback(async () => {
-
+    const resendSmsFunc = useCallback(async () => {
         //     const sender = getClientSideSenderInfo()
         //     const captcha = await handleReCaptchaVerify('resend_sms')
         //     const variables = {data: {token, sender, captcha, dv: 1}}
@@ -75,7 +97,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         //     }).catch(error => {
         //         console.error(error)
         //     })
-        resendOtpHandler(token, resend, onReset)
+        // resendOtpHandler(token, resend, onReset)
     }, [form/*, handleReCaptchaVerify*/])
 
     const confirmPhone = useCallback(async (smsCode: string) => {
@@ -117,6 +139,32 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     }, [confirmPhone])
 
     useEffect(() => {
+        const app = initializeApp({
+            apiKey: process.env.NEXT_PUBLIC_apiKey,
+            authDomain: process.env.NEXT_PUBLIC_authDomain,
+            projectId: process.env.NEXT_PUBLIC_projectId,
+            storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+            messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+            appId: process.env.NEXT_PUBLIC_appId,
+            measurementId: process.env.NEXT_PUBLIC_measurementId,
+        })
+
+        const auth = getAuth(app)
+        const recaptchaVerifierInstance = new RecaptchaVerifier(
+            'recaptcha-container',
+            {
+                size: 'invisible',
+                'callback': (token: string) => {
+                    setToken(token)
+                    resendOtpHandler(token, resend, onReset)
+                },
+            },
+            auth
+        )
+        recaptchaVerifierInstance.render()
+    }, [])
+
+    useEffect(() => {
         const formattedPhone = formatPhone(phone)
         const phoneVisible = isPhoneVisible
             ? formattedPhone
@@ -125,6 +173,26 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
             )}`
         setShowPhone(phoneVisible)
     }, [isPhoneVisible, phone, setShowPhone])
+    //
+    // const handleResendPhone = () => {
+    //     form
+    //         .validateFields()
+    //         .then(() => {
+    //             resendSms(token, resend, onReset)
+    //         })
+    //         .catch((error) => {
+    //             console.log('Validation error:', error)
+    //         })
+    // }
+    //
+    //
+    // useEffect(() => {
+    //     if (firstUpdate.current) {
+    //         firstUpdate.current = false
+    //         return
+    //     }
+    //     resendSms(token, resend, onReset)
+    // }, [token])
 
     const initialValues = { smsCode: smsCode }
 
@@ -204,15 +272,15 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                         </Col>
                         <ResponsiveCol span={24}>
                             <CountDownTimer
-                                action={resendSms}
+                                action={resendSmsFunc}
                                 id="RESEND_SMS"
-                                timeout={1}
+                                timeout={60}
                                 autostart={true}
                             >
                                 {({ countdown, runAction }) => {
                                     const isCountDownActive = countdown > 0
-                                    return isCountDownActive ? (
-                                        <Space direction="horizontal" size={8}>
+                                    return <div>
+                                        <Space direction="horizontal" size={8} style={{ display: (isCountDownActive ? 'unset' : 'none') }}>
                                             <DefaultTypography.Link
                                                 disabled={true}
                                                 // style={{ color: colors.textSecondary }}
@@ -225,15 +293,15 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                                     .substr(14, 5)}`}
                                             </DefaultTypography.Text>
                                         </Space>
-                                    ) : (
-                                        <DefaultTypography.Link
-                                            underline
-                                            // style={{ color: colors.textSecondary }}
+                                        <Button
+                                            style={{ display: (isCountDownActive ? 'none' : 'unset') }}
+                                            type='schoolResend'
+                                            id="recaptcha-container"
                                             onClick={runAction}
                                         >
                                             Отправить СМС-код ещё раз
-                                        </DefaultTypography.Link>
-                                    )
+                                        </Button>
+                                    </div>
                                 }}
                             </CountDownTimer>
                         </ResponsiveCol>

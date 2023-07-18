@@ -14,6 +14,8 @@ import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaPr
 import { tokenHandler } from '../../../handlers/auth/register'
 import { useTokenMutation } from '../../../redux/usersApi'
 import { NeedConfirmField } from '../constants/message'
+import { initializeApp } from '@firebase/app'
+import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 
 export function getRegisterToken (token: string, form: any, nextUrl: string, registration: any, onFinish: () => void) {
     if (token === '') return
@@ -38,6 +40,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
     const {
         setPhone,
         token,
+        setToken,
     } = useContext(FirebaseReCaptchaContext)
     const [registration] = useTokenMutation()
     const [form] = Form.useForm()
@@ -50,20 +53,30 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
 
     const initialValues = { phone: '' }
 
-    const handleFormSubmit = () => {
-        form
-            .validateFields()
-            .then(() => {
-                getRegisterToken(token, form, nextUrl, registration, onFinish)
-            })
-            .catch((error) => {
-                console.log('Validation error:', error)
-            })
-    }
-
     useEffect(() => {
-        getRegisterToken(token, form, nextUrl, registration, onFinish)
-    }, [token])
+        const app = initializeApp({
+            apiKey: process.env.NEXT_PUBLIC_apiKey,
+            authDomain: process.env.NEXT_PUBLIC_authDomain,
+            projectId: process.env.NEXT_PUBLIC_projectId,
+            storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+            messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+            appId: process.env.NEXT_PUBLIC_appId,
+            measurementId: process.env.NEXT_PUBLIC_measurementId,
+        })
+
+        const auth = getAuth(app)
+        const recaptchaVerifierInstance = new RecaptchaVerifier(
+            'recaptcha-container',
+            {
+                size: 'invisible',
+                'callback': (token: string) => {
+                    setToken(token)
+                },
+            },
+            auth
+        )
+        recaptchaVerifierInstance.render()
+    }, [])
 
     return (
         <Form
@@ -72,7 +85,6 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
             initialValues={initialValues}
             requiredMark={false}
             layout="vertical"
-            onFinish={handleFormSubmit}
         >
             <Row className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
@@ -115,6 +127,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                                     htmlType="submit"
                                     block
                                     data-cy="signin-button"
+                                    onClick={() => getRegisterToken(token, form, nextUrl, registration, onFinish)}
                                 >
                                     {buttonText}
                                 </Button>

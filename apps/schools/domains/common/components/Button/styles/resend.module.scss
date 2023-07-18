@@ -1,0 +1,31 @@
+.button {
+  box-shadow: none;
+  font-weight: 400;
+  background-color: unset;
+  color: black;
+  border: unset;
+  text-decoration: none;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 22.5px;
+    left: 15px;
+    right: 15px;
+    bottom: 20px;
+    border: black 1px solid;
+  }
+
+  &:hover, &:focus {
+    border-color: unset;
+    background-color: unset;
+    color: black;
+  }
+
+  &:active {
+    border-color: unset;
+    background-color: unset;
+    opacity: 50%;
+    color: black;
+  }
+}
