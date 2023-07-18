@@ -1,7 +1,23 @@
 import { message } from 'antd'
 import Router from 'next/router'
+import { normalizePhone } from '../../../common/utils/phone'
 
-export async function tokenHandler (phone: string, token: string, nextUrl: string, registration: any, onFinish: () => void) {
+export async function tokenHandler (token: string, form: any, nextUrl: string, registration: any, onFinish: () => void) {
+    if (token === '') return
+
+    let { phone: inputPhone } = form.getFieldsValue(['phone'])
+    inputPhone = '+' + inputPhone
+    const phone = normalizePhone(inputPhone)
+
+    if (!phone) {
+        form.setFields([
+            {
+                name: 'phone',
+                errors: ['Неверный формат телефона'],
+            },
+        ])
+        return
+    }
     let response = await registration({ phone: phone, recaptcha: token })
     if ('data' in response) {
         localStorage.setItem('token', response.data.token)

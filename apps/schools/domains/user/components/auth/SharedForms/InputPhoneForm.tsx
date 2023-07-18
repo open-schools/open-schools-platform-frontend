@@ -2,12 +2,10 @@ import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
-// import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
 import { Button } from '../../../../common/components/Button'
-import { normalizePhone } from '../../../../common/utils/phone'
 import { IInputPhoneFormProps } from './interfaces'
 import { FORM_ITEMS_GUTTER } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
@@ -17,24 +15,6 @@ import { NeedConfirmField } from '../constants/message'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 
-export function getRegisterToken (token: string, form: any, nextUrl: string, registration: any, onFinish: () => void) {
-    if (token === '') return
-
-    let { phone: inputPhone } = form.getFieldsValue(['phone'])
-    inputPhone = '+' + inputPhone
-    const phone = normalizePhone(inputPhone)
-
-    if (!phone) {
-        form.setFields([
-            {
-                name: 'phone',
-                errors: ['Неверный формат телефона'],
-            },
-        ])
-        return
-    }
-    tokenHandler(phone, token, nextUrl, registration, onFinish)
-}
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title, buttonText, description, disclaimer, onFinish }) => {
     const {
@@ -127,7 +107,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                                     htmlType="submit"
                                     block
                                     data-cy="signin-button"
-                                    onClick={() => getRegisterToken(token, form, nextUrl, registration, onFinish)}
+                                    onClick={() => tokenHandler(token, form, nextUrl, registration, onFinish)}
                                 >
                                     {buttonText}
                                 </Button>

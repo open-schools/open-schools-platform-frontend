@@ -1,5 +1,5 @@
 import { Col, Form, Row, Space, Typography as DefaultTypography } from 'antd'
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
@@ -21,35 +21,15 @@ import { NeedConfirmField } from '../constants/message'
 import { Button } from '../../../../common/components/Button'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
-import Router from 'next/router'
-
-export function resendSms (recaptcha: string, resendOtp: any, onReset: () => void) {
-    //
-    // let { phone: inputPhone } = form.getFieldsValue(['phone'])
-    // inputPhone = '+' + inputPhone
-    // const phone = normalizePhone(inputPhone)
-    //
-    // if (!phone) {
-    //     form.setFields([
-    //         {
-    //             name: 'phone',
-    //             errors: ['Неверный формат телефона'],
-    //         },
-    //     ])
-    //     return
-    // }
-    resendOtpHandler(recaptcha, resendOtp, onReset)
-}
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
-                                                                         onFinish,
-                                                                         onReset,
-                                                                         title,
-                                                                     }) => {
+    onFinish,
+    onReset,
+    title,
+}) => {
     const [form] = Form.useForm()
     const {
         phone,
-        token,
         setToken,
     } = useContext(FirebaseReCaptchaContext)
     const [verifyCode] = useVerifyMutation()
@@ -120,7 +100,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         otpHandler(smsCode, verifyCode, onFinish)
     }, [form])
 
-    const handleVerifyCode = useCallback(async () => {
+    const smsFilter = useCallback(async () => {
         setPhoneValidateError(null)
         let smsCode = (form.getFieldValue('smsCode') || '').toString()
         smsCode = smsCode.replace(SMS_CODE_CLEAR_REGEX, '')
@@ -262,7 +242,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                         const value = e.target.value
                                         if (value.length <= 6) {
                                             setSmsCode(value)
-                                            handleVerifyCode()
+                                            smsFilter()
                                         }
                                     }}
                                     style={SMS_INPUT_STYLE}

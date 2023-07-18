@@ -1,6 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { initializeApp } from '@firebase/app'
-import { getAuth, RecaptchaVerifier } from '@firebase/auth'
+import React, { createContext, useState } from 'react'
 
 export interface IAuthLayoutProps {
     children: JSX.Element,
