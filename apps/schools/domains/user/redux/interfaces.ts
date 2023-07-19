@@ -41,3 +41,16 @@ export interface ResendData {
 export interface Resend {
     recaptcha: string,
 }
+
+export interface ResendData {
+    resend: Resend,
+    id: string,
+}
+
+interface Resend {
+    recaptcha: string,
+}
+
+export interface ResendResponse {
+    detail: string
+}

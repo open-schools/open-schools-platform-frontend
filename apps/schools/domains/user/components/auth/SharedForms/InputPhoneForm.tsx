@@ -2,60 +2,61 @@ import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
-// import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 
 import { Button } from '../../../../common/components/Button'
-import { normalizePhone } from '../../../../common/utils/phone'
 import { IInputPhoneFormProps } from './interfaces'
 import { FORM_ITEMS_GUTTER } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { tokenHandler } from '../../../handlers/auth/register'
-import { useTokenMutation } from '../../../redux/userApi'
+import { useTokenMutation } from '../../../redux/usersApi'
 import { NeedConfirmField } from '../constants/message'
+import { initializeApp } from '@firebase/app'
+import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 
-export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
-    onFinish,
-    nextUrl,
-    title,
-    buttonText,
-    description,
-    disclaimer,
-}) => {
+
+export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title, buttonText, description, disclaimer, onFinish }) => {
     const {
         setPhone,
         token,
+        setToken,
     } = useContext(FirebaseReCaptchaContext)
     const [registration] = useTokenMutation()
-
     const [form] = Form.useForm()
     const router = useRouter()
     const {
         query: { next },
     } = router
     // const redirectUrl =
-    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
-
-    useEffect(() => {
-        if (token === '')
-            return
-        let { phone: inputPhone } = form.getFieldsValue(['phone'])
-        inputPhone = '+' + inputPhone
-        const phone = normalizePhone(inputPhone)
-        if (!phone) {
-            form.setFields([
-                {
-                    name: 'phone',
-                    errors: ['Неверный формат телефона'],
-                },
-            ])
-            return
-        }
-        tokenHandler(phone, token, nextUrl, registration, onFinish)
-    }, [token])
+    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/';
 
     const initialValues = { phone: '' }
+
+    useEffect(() => {
+        const app = initializeApp({
+            apiKey: process.env.NEXT_PUBLIC_apiKey,
+            authDomain: process.env.NEXT_PUBLIC_authDomain,
+            projectId: process.env.NEXT_PUBLIC_projectId,
+            storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+            messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+            appId: process.env.NEXT_PUBLIC_appId,
+            measurementId: process.env.NEXT_PUBLIC_measurementId,
+        })
+
+        const auth = getAuth(app)
+        const recaptchaVerifierInstance = new RecaptchaVerifier(
+            'recaptcha-container',
+            {
+                size: 'invisible',
+                'callback': (token: string) => {
+                    setToken(token)
+                },
+            },
+            auth
+        )
+        recaptchaVerifierInstance.render()
+    }, [])
 
     return (
         <Form
@@ -70,9 +71,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                     <Row gutter={FORM_ITEMS_GUTTER}>
                         {title && (
                             <Col span={24}>
-                                <Typography.Title level={2}>
-                                    {title}
-                                </Typography.Title>
+                                <Typography.Title level={2}>{title}</Typography.Title>
                             </Col>
                         )}
                         {description && (
@@ -94,7 +93,8 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                             >
                                 <Input
                                     onChange={(value) => setPhone(value.target.value)}
-                                    customType={'inputPhone'} />
+                                    customType={'inputPhone'}
+                                />
                             </Form.Item>
                         </Col>
                         {disclaimer && <Col span={24}>{disclaimer}</Col>}
@@ -107,6 +107,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
                                     htmlType="submit"
                                     block
                                     data-cy="signin-button"
+                                    onClick={() => tokenHandler(token, form, nextUrl, registration, onFinish)}
                                 >
                                     {buttonText}
                                 </Button>
