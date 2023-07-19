@@ -64,7 +64,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         ['Необходимо заполнить', SMS_VALIDATOR]
     )
 
-    const resendSmsFunc = useCallback(async () => {
+    const resendSms = useCallback(async () => {
         //     const sender = getClientSideSenderInfo()
         //     const captcha = await handleReCaptchaVerify('resend_sms')
         //     const variables = {data: {token, sender, captcha, dv: 1}}
@@ -100,7 +100,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         otpHandler(smsCode, verifyCode, onFinish)
     }, [form])
 
-    const smsFilter = useCallback(async () => {
+    const smsValidator = useCallback(async () => {
         setPhoneValidateError(null)
         let smsCode = (form.getFieldValue('smsCode') || '').toString()
         smsCode = smsCode.replace(SMS_CODE_CLEAR_REGEX, '')
@@ -153,26 +153,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
             )}`
         setShowPhone(phoneVisible)
     }, [isPhoneVisible, phone, setShowPhone])
-    //
-    // const handleResendPhone = () => {
-    //     form
-    //         .validateFields()
-    //         .then(() => {
-    //             resendSms(token, resend, onReset)
-    //         })
-    //         .catch((error) => {
-    //             console.log('Validation error:', error)
-    //         })
-    // }
-    //
-    //
-    // useEffect(() => {
-    //     if (firstUpdate.current) {
-    //         firstUpdate.current = false
-    //         return
-    //     }
-    //     resendSms(token, resend, onReset)
-    // }, [token])
 
     const initialValues = { smsCode: smsCode }
 
@@ -242,7 +222,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                         const value = e.target.value
                                         if (value.length <= 6) {
                                             setSmsCode(value)
-                                            smsFilter()
+                                            smsValidator()
                                         }
                                     }}
                                     style={SMS_INPUT_STYLE}
@@ -252,7 +232,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                         </Col>
                         <ResponsiveCol span={24}>
                             <CountDownTimer
-                                action={resendSmsFunc}
+                                action={resendSms}
                                 id="RESEND_SMS"
                                 timeout={60}
                                 autostart={true}
