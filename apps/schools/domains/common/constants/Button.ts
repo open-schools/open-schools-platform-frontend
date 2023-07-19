@@ -1,1 +1,1 @@
-export const typeButton = ['schoolGradient']
+export const typeButton = ['schoolGradient', 'schoolResend']

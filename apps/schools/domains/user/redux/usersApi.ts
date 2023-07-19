@@ -1,5 +1,13 @@
 import { commonApi } from '../../../store/commonApi'
-import { CreationData, VerifyResponse, TokenResponse, UserData, VerifyData, ResetPasswordData } from './interfaces'
+import {
+    CreationData,
+    VerifyResponse,
+    TokenResponse,
+    UserData,
+    VerifyData,
+    ResetPasswordData,
+    ResendData, ResendResponse,
+} from './interfaces'
 
 const usersApi = commonApi.injectEndpoints({
     endpoints: build => ({
@@ -31,7 +39,14 @@ const usersApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
+        resend: build.mutation<ResendResponse, ResendData>({
+            query: (data) => ({
+                url: `/user-management/users/token/${data.id}/resend`,
+                method: 'POST',
+                body: data.resend,
+            }),
+        }),
     }),
 })
 
-export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation } = usersApi
+export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation } = usersApi
