@@ -4,3 +4,7 @@ export interface ReturnedData<T> {
     previous: string,
     results: T,
 }
+
+export interface Id {
+    id?: string
+}

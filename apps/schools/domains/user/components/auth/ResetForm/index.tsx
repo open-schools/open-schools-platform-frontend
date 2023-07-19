@@ -9,7 +9,7 @@ import { useResetFormValidators } from './hooks'
 import { IResetFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { resetHandler } from '../../../handlers/auth/forgot'
-import { useResetPasswordMutation } from '../../../redux/usersApi'
+import { useResetPasswordMutation } from '../../../redux/userApi'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>

@@ -15,7 +15,7 @@ import {
     SMS_INPUT_STYLE,
 } from '../constants/styles'
 import { otpHandler } from '../../../handlers/auth/register'
-import { useVerifyMutation } from '../../../redux/usersApi'
+import { useVerifyMutation } from '../../../redux/userApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
 import { NeedConfirmField } from '../constants/message'
 

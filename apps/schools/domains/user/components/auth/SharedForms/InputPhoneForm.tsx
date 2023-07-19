@@ -12,7 +12,7 @@ import { IInputPhoneFormProps } from './interfaces'
 import { FORM_ITEMS_GUTTER } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { tokenHandler } from '../../../handlers/auth/register'
-import { useTokenMutation } from '../../../redux/usersApi'
+import { useTokenMutation } from '../../../redux/userApi'
 import { NeedConfirmField } from '../constants/message'
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
@@ -38,7 +38,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
     //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
 
     useEffect(() => {
-        if (token === '') 
+        if (token === '')
             return
         let { phone: inputPhone } = form.getFieldsValue(['phone'])
         inputPhone = '+' + inputPhone

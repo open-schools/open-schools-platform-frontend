@@ -10,7 +10,7 @@ import { IRegisterFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { registrationHandler } from '../../../handlers/auth/register'
-import { useUsersMutation } from '../../../redux/usersApi'
+import { useUsersMutation } from '../../../redux/userApi'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>

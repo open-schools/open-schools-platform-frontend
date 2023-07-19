@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useMeQuery } from '../../common/redux/meApi'
+import { useGetUserQuery } from '../redux/authenticationApi'
 
 export const TokenContext = createContext('')
 
@@ -12,7 +12,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const router = useRouter()
     const [token, setToken] = useState('')
 
-    const { data, isLoading, error } = useMeQuery({})
+    const { error } = useGetUserQuery({})
 
     useEffect(() => {
         const jwtToken = typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null

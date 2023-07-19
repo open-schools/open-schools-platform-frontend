@@ -1,6 +1,6 @@
 import { Photo } from '../../common/redux/entities'
 
-export interface UserProfile {
+export interface User {
     id?: string,
     phone?: string,
     name?: string,
@@ -13,13 +13,13 @@ export interface UserProfile {
 export interface ParentProfile {
     id?: string,
     name?: string,
-    user?: string,
+    user?: string | User,
 }
 
 export interface EmployeeProfile {
     id?: string,
     name?: string,
-    user?: string,
+    user?: string | User,
 }
 
 export interface StudentProfile {
@@ -36,4 +36,10 @@ export interface TeacherProfile {
     age?: number,
     phone?: string,
     photo?: Photo,
+}
+
+export interface RetrieveCreationToken {
+    key?: string,
+    phone?: string,
+    'is_verified'?: boolean,
 }
