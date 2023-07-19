@@ -1,16 +1,16 @@
-import { message } from 'antd'
+import { FormInstance, message } from 'antd'
 import Router from 'next/router'
 import { normalizePhone } from '../../../common/utils/phone'
 
-export async function tokenHandler (token: string, form: any, nextUrl: string, registration: any, onFinish: () => void) {
-    if (token === '') return
+export async function tokenHandler (recaptchaToken: string, formComponent: FormInstance, nextUrl: string, registrationMutation: any, onFinish: () => void) {
+    if (recaptchaToken === '') return
 
-    let { phone: inputPhone } = form.getFieldsValue(['phone'])
+    let { phone: inputPhone } = formComponent.getFieldsValue(['phone'])
     inputPhone = '+' + inputPhone
     const phone = normalizePhone(inputPhone)
 
     if (!phone) {
-        form.setFields([
+        formComponent.setFields([
             {
                 name: 'phone',
                 errors: ['Неверный формат телефона'],
@@ -18,7 +18,7 @@ export async function tokenHandler (token: string, form: any, nextUrl: string, r
         ])
         return
     }
-    let response = await registration({ phone: phone, recaptcha: token })
+    let response = await registrationMutation({ phone: phone, recaptcha: recaptchaToken })
     if ('data' in response) {
         localStorage.setItem('token', response.data.token)
         Router.push(`/auth/${nextUrl}?token=${37128937218937}`)
@@ -28,9 +28,9 @@ export async function tokenHandler (token: string, form: any, nextUrl: string, r
     }
 }
 
-export async function otpHandler (code: string, verifyCode: any, onFinish: () => void) {
+export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFinish: () => void) {
     let token = localStorage.getItem('token')
-    let response = await verifyCode({ otp: code, token: token })
+    let response = await verifyCodeMutation({ otp: smsCode, token: token })
     if (!('error' in response)) {
         onFinish()
     } else {
@@ -38,9 +38,9 @@ export async function otpHandler (code: string, verifyCode: any, onFinish: () =>
     }
 }
 
-export async function registrationHandler (phone: string, password: string, userRegistration: any, onFinish: (userID: string) => void) {
+export async function registrationHandler (phone: string, password: string, userRegistrationMutation: any, onFinish: (userID: string) => void) {
     let token = localStorage.getItem('token')
-    let response = await userRegistration({ token: token, name: phone, password: password })
+    let response = await userRegistrationMutation({ token: token, name: phone, password: password })
     if (!('error' in response)) {
         onFinish('someUserID')
     } else {
@@ -48,10 +48,10 @@ export async function registrationHandler (phone: string, password: string, user
     }
 }
 
-export async function resendOtpHandler (recaptcha: string, resendOtp: any, onReset: () => void) {
+export async function resendOtpHandler (recaptchaToken: string, resendOtpMutation: any, onError: () => void) {
     let id = localStorage.getItem('token')
-    let response = await resendOtp({ resend: { recaptcha: recaptcha }, id: id })
+    let response = await resendOtpMutation({ resend: { recaptcha: recaptchaToken }, id: id })
     if (response.error?.status === 400 || response.error?.status === 401) {
-        onReset()
+        onError()
     }
 }

@@ -64,39 +64,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         ['Необходимо заполнить', SMS_VALIDATOR]
     )
 
-    const resendSms = useCallback(async () => {
-        //     const sender = getClientSideSenderInfo()
-        //     const captcha = await handleReCaptchaVerify('resend_sms')
-        //     const variables = {data: {token, sender, captcha, dv: 1}}
-        //     return runMutation({
-        //         mutation: resendSmsMutation,
-        //         variables,
-        //         intl,
-        //         form,
-        //         ErrorToFormFieldMsgMapping,
-        //     }).catch(error => {
-        //         console.error(error)
-        //     })
-        // resendOtpHandler(token, resend, onReset)
-    }, [form/*, handleReCaptchaVerify*/])
-
     const confirmPhone = useCallback(async (smsCode: string) => {
-        // const sender = getClientSideSenderInfo()
-        // const smsCode = Number(form.getFieldValue('smsCode'))
-        // if (isNaN(smsCode)) {
-        //     throw new Error(SMSBadFormat)
-        // }
-        // const captcha = await handleReCaptchaVerify('complete_verify_phone')
-        // const variables = {data: {token, smsCode, captcha, dv: 1, sender}}
-        // return runMutation({
-        //     mutation: completeConfirmPhoneMutation,
-        //     variables,
-        //     intl,
-        //     form,
-        //     // Skip notification
-        //     OnCompletedMsg: null,
-        //     ErrorToFormFieldMsgMapping,
-        // })
         otpHandler(smsCode, verifyCode, onFinish)
     }, [form])
 
@@ -108,9 +76,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         if (smsCode.length !== SMS_CODE_LENGTH) {
             return
         }
-        // if (smsCode.length > SMS_CODE_LENGTH) {
-        //     return setPhoneValidateError(SMSCodeMismatchError)
-        // }
         try {
             await confirmPhone(smsCode)
         } catch (error) {
@@ -232,7 +197,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                         </Col>
                         <ResponsiveCol span={24}>
                             <CountDownTimer
-                                action={resendSms}
+                                action={async () => {}}
                                 id="RESEND_SMS"
                                 timeout={60}
                                 autostart={true}

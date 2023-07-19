@@ -5,6 +5,6 @@ export async function loginHandler (phone: string, password: string, login: any)
     if ('data' in response) {
         localStorage.setItem('jwtToken', response.data.token)
     } else {
-        message.error('Не правильный логин или пароль')
+        message.error('Неправильный логин или пароль')
     }
 }
