@@ -19,7 +19,7 @@ const authenticationApi = commonApi.injectEndpoints({
         }),
         logout: build.mutation<{}, {}>({
             query: (data) => ({
-                url: '//user-management/auth/me/logout',
+                url: '/user-management/auth/jwt/logout',
                 method: 'POST',
                 body: data,
             }),
