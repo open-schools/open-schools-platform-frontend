@@ -4,6 +4,7 @@ import styles from './styles/styles.module.scss'
 import Link from 'next/link'
 import logo from '@public/icons/logo.svg'
 import Image from 'next/image'
+import {AuthBackground} from "../authBackground";
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement,
@@ -29,12 +30,11 @@ const {
 
 const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
     const { children, ...otherProps } = props
-
     return (
         <div
             className={styles.container}
-            style={{ backgroundImage: 'url(/image/authImage.svg)' }}
         >
+            <AuthBackground/>
             {/*# TODO: add env for link there */}
             <Link className={styles.logoContainer} href={'https://openschools.education'}>
                 <Row className={styles.rowWithGap}>
