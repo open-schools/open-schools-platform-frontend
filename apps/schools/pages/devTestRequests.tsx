@@ -49,14 +49,14 @@ const DevTestRequests = () => {
 
     return (
         <>
-            <div style={{ marginTop: '100px' }}>
+            <div style={{ marginTop: '100px', marginBottom: '10px' }}>
                 /user-management/auth/jwt/logout
             </div>
             <Button onClick={() => logoutHandler(logout)}>
                 Logout
             </Button>
 
-            <div style={{ marginTop: '100px' }}>
+            <div style={{ marginTop: '100px', marginBottom: '10px' }}>
                 /user-management/auth/me PATCH
             </div>
             <Input onChange={(event) => setUserName(event.target.value)}/>
@@ -64,7 +64,7 @@ const DevTestRequests = () => {
                 Дмитрий Красноголовый
             </Button>
 
-            <div style={{ marginTop: '100px' }}>
+            <div style={{ marginTop: '100px', marginBottom: '10px' }}>
                 /user-management/auth/me PATCH
             </div>
             <Input placeholder={'Старый пароль'} onChange={(event) => setOldPassword(event.target.value)}/>

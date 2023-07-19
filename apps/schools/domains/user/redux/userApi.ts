@@ -1,13 +1,11 @@
 import { commonApi } from '../../../store/commonApi'
 import {
     TokenData,
-    VerifyResponse,
     TokenResponse,
     UserData,
     VerifyData,
     ResetPasswordData,
     CreationTokenResponse,
-    ResendResponse,
     ResendData,
 } from './interfaces'
 import { Id } from '../../common/redux/interfaces'
@@ -41,14 +39,14 @@ const userApi = commonApi.injectEndpoints({
                 method: 'GET',
             }),
         }),
-        resend: build.mutation<ResendResponse, ResendData>({
+        resend: build.mutation<{}, ResendData>({
             query: (data) => ({
                 url: `/user-management/users/token/${data.id}/resend`,
                 method: 'POST',
                 body: data.resend,
             }),
         }),
-        verify: build.mutation<VerifyResponse, VerifyData>({
+        verify: build.mutation<{}, VerifyData>({
             query: (data) => ({
                 url: `/user-management/users/token/${data.token}/verify`,
                 method: 'PATCH',
