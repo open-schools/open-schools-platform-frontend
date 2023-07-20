@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { AuthProvider } from '../domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
 import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
+import Head from 'next/head'
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
@@ -27,6 +28,9 @@ function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     return (
         <Provider store={store}>
             <AuthProvider>
+                <Head>
+                    <link rel="icon" href="/icons/logo.svg" sizes="any" />
+                </Head>
                 <LayoutComponent>
                     <Component {...pageProps} />
                 </LayoutComponent>

@@ -4,7 +4,7 @@ import styles from './styles/styles.module.scss'
 import Link from 'next/link'
 import logo from '@public/icons/logo.svg'
 import Image from 'next/image'
-import {AuthBackground} from "../authBackground";
+import { AuthBackground } from '../authBackground'
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement,
@@ -36,7 +36,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
         >
             <AuthBackground/>
             {/*# TODO: add env for link there */}
-            <Link className={styles.logoContainer} href={'https://openschools.education'}>
+            <Link className={styles.logoContainer} href={''}>
                 <Row className={styles.rowWithGap}>
                     <Image src={logo} alt={'Логотип'} width={50}></Image>
                     <div className={styles.logoText}>
@@ -47,9 +47,9 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
             </Link>
             {children}
             {/*# TODO: add env for email there */}
-            <Link className={styles.emailContainer} href={'mailto:inbox@openschools.education'}>
+            <Link className={styles.emailContainer} href={'mailto:help@openschools.education'}>
                 <div className={styles.emailText}>
-                    inbox@openschools.education
+                    help@openschools.education
                 </div>
             </Link>
         </div>
