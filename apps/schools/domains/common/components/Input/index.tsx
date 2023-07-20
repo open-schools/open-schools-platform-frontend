@@ -5,6 +5,7 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { typeInput } from '../../constants/Input'
 import { CustomInputProps, inputStyleDictionary } from './interfaces'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
 const INPUT_PHONE_STYLE: React.CSSProperties = {
     width: '100%',
@@ -58,7 +59,20 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 />
             </div>
         )
-    } else {
+    } else if (customType === 'inputPassword') {
+        return (
+            <div className={defaultStyles.inputContainer}>
+                <label>{label}</label>
+                <BaseInput.Password
+                    iconRender={(visible: boolean) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    className={defaultStyles.input}
+                    {...restProps}
+                    placeholder={placeholder}
+                    data-testid="input"
+                />
+            </div>
+        )}
+    else {
         return (
             <div className={inputStyleDictionary[customType]?.inputContainer}>
                 <label>{label}</label>
