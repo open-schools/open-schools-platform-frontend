@@ -4,7 +4,7 @@ import styles from './styles/styles.module.scss'
 import Link from 'next/link'
 import logo from '@public/icons/logo.svg'
 import Image from 'next/image'
-import {AuthBackground} from "../authBackground";
+import { AuthBackground } from '../authBackground'
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement,
