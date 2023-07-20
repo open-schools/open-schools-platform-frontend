@@ -15,7 +15,7 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
 }
 
-export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
+export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
     const validators = useResetFormValidators()
 
     const [form] = Form.useForm()
@@ -54,7 +54,7 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish }) => {
         //     setIsLoading(false)
         // })
         const { password } = form.getFieldsValue(['password'])
-        resetHandler(password, reset, onFinish)
+        resetHandler(password, reset, onFinish, onError)
     }, [form, signInByPhone])
 
     return (
