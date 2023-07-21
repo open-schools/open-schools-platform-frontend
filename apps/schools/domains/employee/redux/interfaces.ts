@@ -1,8 +1,8 @@
-import { Organization } from '../../organization/redux/interfaces'
+import { GetOrganizationSender } from '../../organization/redux/interfaces'
 
-export interface Employee {
+export interface GetEmployee {
     id?: string,
     name?: string,
-    organization?: Organization,
+    organization?: GetOrganizationSender,
     position?: string,
 }

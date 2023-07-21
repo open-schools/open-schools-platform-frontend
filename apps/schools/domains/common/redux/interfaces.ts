@@ -5,7 +5,7 @@ export interface ReturnedData<T> {
     results: T,
 }
 
-export interface Photo {
+export interface GetPhoto {
     id?: string,
     image?: string,
 }

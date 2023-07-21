@@ -1,7 +1,7 @@
-import { Employee } from '../../employee/redux/interfaces'
-import { Photo } from '../../common/redux/interfaces'
+import { GetEmployee } from '../../employee/redux/interfaces'
+import { GetPhoto } from '../../common/redux/interfaces'
 
-export interface AllOrganizationsResponse {
+export interface GetOrganizationSender {
     id?: string,
     name?: string,
     inn?: string,
@@ -18,13 +18,7 @@ export interface AllOrganizationsData {
 }
 
 export interface CreateOrganizationResponse {
-    'creator_employee': Employee,
-}
-
-export interface Organization {
-    id?: string,
-    name?: string,
-    inn?: string,
+    'creator_employee': GetEmployee,
 }
 
 export interface createOrganizationData {
@@ -33,53 +27,53 @@ export interface createOrganizationData {
 }
 
 export interface UpdateInviteEmployeeResponse {
-    query: EmployeeProfileQuery,
+    query: GetOrganizationInviteEmployee,
 }
 
-interface EmployeeProfileQuery {
+interface GetOrganizationInviteEmployee {
     id?: string,
-    sender: Organization,
-    recipient: EmployeeProfile,
+    sender: GetOrganizationSender,
+    recipient: GetEmployeeProfileRecipient,
     status: 'ACCEPTED' | 'SENT' | 'IN_PROGRESS' | 'DECLINED' | 'CANCELED',
-    body: QueryEmployeeBody,
+    body: GetEmployeeBody,
     additional?: string,
 }
 
-interface EmployeeProfile {
+interface GetEmployeeProfileRecipient {
     id?: string,
     name: string,
     user: string,
 }
 
-interface QueryEmployeeBody {
+interface GetEmployeeBody {
     name: string,
     position?: string,
 }
 
-export interface UpdateInviteEmployeeData {
+export interface UpdateOrganizationInviteEmployee {
     query: string,
-    body: QueryEmployeeBody
+    body: GetEmployeeBody
 }
 
 export interface StudentJoinCircleResponse {
-    results: StudentProfileQuery,
+    results: GetStudentJoinCircle,
 }
 
-interface StudentProfileQuery {
+export interface GetStudentJoinCircle {
     id?: string,
-    sender: StudentProfileQuerySender,
-    recipient: StudentProfileQueryRecipient,
+    sender: GetStudentProfileSenderForOrganization,
+    recipient: GetCircleRecipient,
     status: 'ACCEPTED' | 'SENT' | 'IN_PROGRESS' | 'DECLINED' | 'CANCELED',
-    body: StudentProfileQueryBody,
-    additional: StudentProfileQueryAdditional,
+    body: GetStudentBody,
+    additional: GetStudentJoinCircleContext,
 }
 
-interface StudentProfileQuerySender {
+interface GetStudentProfileSenderForOrganization {
     id?: string,
-    photo: Photo,
+    photo: GetPhoto,
 }
 
-interface StudentProfileQueryRecipient {
+interface GetCircleRecipient {
     id?: string,
     name: string,
     organization: CircleOrganization,
@@ -91,12 +85,12 @@ interface CircleOrganization {
     name: string,
 }
 
-interface StudentProfileQueryBody {
+interface GetStudentBody {
     id?: string,
     name: string,
 }
 
-interface StudentProfileQueryAdditional {
+interface GetStudentJoinCircleContext {
     'parent_phone'?: string,
     'parent_name'?: string,
     'student_phone'?: string,
@@ -115,22 +109,22 @@ export interface StudentJoinCircleData {
 }
 
 export interface AllStudentsResponse {
-    results: Student,
+    results: GetStudent,
 }
 
-interface Student {
+interface GetStudent {
     id?: string,
     name: string,
     circle?: string,
-    'student_profile': StudentProfile,
+    'student_profile': GetStudentProfile,
 }
 
-interface StudentProfile {
+interface GetStudentProfile {
     id?: string,
     name: string,
     age?: number,
     phone?: string,
-    photo: Photo,
+    photo: GetPhoto,
 }
 
 export interface AllStudentsData {
@@ -147,7 +141,7 @@ export interface AllStudentsData {
 }
 
 export interface StudentResponse {
-    student: Student,
+    student: GetStudent,
 }
 
 export interface StudentData {
@@ -155,10 +149,10 @@ export interface StudentData {
 }
 
 export interface TeacherResponse {
-    teacher: Teacher
+    teacher: GetTeacher
 }
 
-interface Teacher {
+export interface GetTeacher {
     id?: string,
     name: string,
     circle?: string,
@@ -174,10 +168,10 @@ export interface DeleteOrganizationData {
 }
 
 export interface AnalyticsResponse {
-    analytics: Analytics
+    analytics: GetAnalytics
 }
 
-interface Analytics {
+interface GetAnalytics {
     'IN_PROGRESS': number,
     'SENT': number,
     'ACCEPTED': number,
@@ -192,23 +186,23 @@ export interface AnalyticsData {
 }
 
 export interface InviteEmployeeResponse {
-    query: QueryStatus
+    query: GetQueryStatus
 }
 
-interface QueryStatus {
+interface GetQueryStatus {
     id?: string,
     status: 'ACCEPTED' | 'SENT' | 'IN_PROGRESS' | 'DECLINED' | 'CANCELED',
 }
 
-export interface InviteEmployeeData {
+export interface CreateOrganizationInviteEmployee {
     email: string,
     phone: string,
-    body: QueryEmployeeBody,
+    body: GetEmployeeBody,
     'organization_id': string,
 }
 
 export interface AllQueriesResponse {
-    results: EmployeeProfileQuery,
+    results: GetOrganizationInviteEmployee,
 }
 
 export interface AllQueriesData {
@@ -223,13 +217,6 @@ export interface ExportStudentsData {
     'organization_id': string,
 }
 
-export interface AllTeachersResponse {
-    id?: string,
-    name: string,
-    circle?: string,
-    'teacher_profile'?: string,
-}
-
 export interface AllTeachersData {
     circle?: string,
     'teacher_profile'?: string,
@@ -242,15 +229,6 @@ export interface AllTeachersData {
     page?: number,
     'page_size'?: number,
     'organization_id': string,
-}
-
-export interface AllQueriesOfOrganizationResponse {
-    id?: string,
-    sender: StudentProfileQuerySender,
-    recipient: StudentProfileQueryRecipient,
-    status: 'ACCEPTED' | 'SENT' | 'IN_PROGRESS' | 'DECLINED' | 'CANCELED',
-    body: StudentProfileQueryBody,
-    additional: StudentProfileQueryAdditional,
 }
 
 export interface AllQueriesOfOrganizationData {

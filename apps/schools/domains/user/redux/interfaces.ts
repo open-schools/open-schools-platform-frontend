@@ -1,12 +1,12 @@
-import { Photo } from '../../common/redux/interfaces'
+import { GetPhoto } from '../../common/redux/interfaces'
 
-export interface UserData {
+export interface CreateUser {
     token: string,
     name: string,
     password: string,
 }
 
-export interface ResetPasswordData {
+export interface PasswordReset {
     token: string,
     password: string,
 }
@@ -15,16 +15,16 @@ export interface TokenResponse {
     token: string,
 }
 
-export interface TokenData {
+export interface CreateRegistrationToken {
     phone: string,
     recaptcha: string,
 }
 
 export interface CreationTokenResponse {
-    token: RetrieveCreationToken
+    token: GetRegistrationToken
 }
 
-interface RetrieveCreationToken {
+interface GetRegistrationToken {
     key?: string,
     phone?: string,
     'is_verified'?: string
@@ -56,52 +56,52 @@ export interface LoginData {
 }
 
 export interface GetUserResponse {
-    user: UserProfiles,
+    user: GetUserProfiles,
 }
 
-interface UserProfiles {
+interface GetUserProfiles {
     id?: string,
     phone?: string,
     name?: string,
-    'parent_profile': ParentProfile,
-    'employee_profile': EmployeeProfile,
-    'student_profile': StudentProfile,
-    'teacher_profile': TeacherProfile,
+    'parent_profile': GetParentProfile,
+    'employee_profile': GetEmployeeProfile,
+    'student_profile': GetStudentProfile,
+    'teacher_profile': GetTeacherProfile,
 }
 
-interface ParentProfile {
+interface GetParentProfile {
     id?: string,
     name: string,
     user: string,
 }
 
-interface EmployeeProfile {
+interface GetEmployeeProfile {
     id?: string,
     name: string,
     user: string,
 }
 
-interface StudentProfile {
+interface GetStudentProfile {
     id?: string,
     name: string,
     age?: number,
     phone?: string,
-    photo: Photo,
+    photo: GetPhoto,
 }
 
-interface TeacherProfile {
+interface GetTeacherProfile {
     id?: string,
     name: string,
     age?: number,
     phone?: string,
-    photo: Photo,
+    photo: GetPhoto,
 }
 
 export interface UpdateUserResponse {
-    user: User,
+    user: GetUser,
 }
 
-interface User {
+interface GetUser {
     id?: string,
     phone?: string,
     name?: string,

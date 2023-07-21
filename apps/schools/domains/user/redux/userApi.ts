@@ -2,30 +2,30 @@ import { commonApi } from '../../../store/commonApi'
 import {
     CreationTokenData,
     CreationTokenResponse, ResendData,
-    ResetPasswordData,
-    TokenData,
+    PasswordReset,
+    CreateRegistrationToken,
     TokenResponse,
-    UserData,
+    CreateUser,
     VerifyData,
 } from './interfaces'
 
 const userApi = commonApi.injectEndpoints({
     endpoints: build => ({
-        users: build.mutation<{}, UserData>({
+        users: build.mutation<{}, CreateUser>({
             query: (data) => ({
                 url: '/user-management/users',
                 method: 'POST',
                 body: data,
             }),
         }),
-        resetPassword: build.mutation<{}, ResetPasswordData>({
+        resetPassword: build.mutation<{}, PasswordReset>({
             query: (data) => ({
                 url: '/user-management/users/reset-password',
                 method: 'POST',
                 body: data,
             }),
         }),
-        token: build.mutation<TokenResponse, TokenData>({
+        token: build.mutation<TokenResponse, CreateRegistrationToken>({
             query: (data) => ({
                 url: '/user-management/users/token',
                 method: 'POST',
