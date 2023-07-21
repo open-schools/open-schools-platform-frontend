@@ -10,6 +10,8 @@ jobs:
   #    secrets:
   #      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
   #      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+    secrets:
+      HELP_REQUISITES: ${{ secrets.HELP_REQUISITES }}
 
   deploy:
     runs-on: ubuntu-latest
