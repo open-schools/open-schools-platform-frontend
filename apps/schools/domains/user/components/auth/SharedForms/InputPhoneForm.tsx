@@ -28,8 +28,6 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
     const {
         query: { next },
     } = router
-    // const redirectUrl =
-    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/';
 
     const initialValues = { phone: '' }
 

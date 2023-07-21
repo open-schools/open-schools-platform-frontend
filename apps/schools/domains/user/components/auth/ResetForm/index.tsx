@@ -26,34 +26,7 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
         signInByPhone: () => {},
     }
 
-    const resetComplete = useCallback(async () => {
-        // const resetExtraData = {
-        //     dv: 1,
-        //     sender: getClientSideSenderInfo(),
-        // }
-        // const {name, email: inputEmail, password} = form.getFieldsValue(['name', 'email', 'password'])
-        //
-        // const email = inputEmail ? inputEmail.toLowerCase().trim() : ''
-        // const data = {name, email, password, ...resetExtraData, confirmPhoneActionToken: token}
-        // setIsLoading(true)
-        // return runMutation({
-        //     mutation: resetMutation,
-        //     variables: { data },
-        //     onCompleted: ({ data }) => {
-        //         signInByPhone(form.getFieldsValue(['phone', 'password']), () => {
-        //             const userId = get(data, ['user', 'id'])
-        //
-        //             onFinish(userId)
-        //         })
-        //     },
-        //     // Skip notification
-        //     OnCompletedMsg: null,
-        //     intl,
-        //     form,
-        // }).catch(() => {
-        //     setIsLoading(false)
-        // })
-        const { password } = form.getFieldsValue(['password'])
+    const resetComplete = useCallback(async () => {const { password } = form.getFieldsValue(['password'])
         resetHandler(password, reset, onFinish, onError)
     }, [form, signInByPhone])
 

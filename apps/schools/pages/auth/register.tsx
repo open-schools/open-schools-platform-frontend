@@ -23,48 +23,6 @@ import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptch
 const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
     const [step, setStep] = useState('inputPhone')
 
-    // useEffect(() => {
-    //     if (token && isConfirmed) {
-    //         setStep('register')
-    //     } else if (token) {
-    //         setStep('validatePhone')
-    //     } else {
-    //         setStep('inputPhone')
-    //     }
-    // }, [token, isConfirmed])
-
-    // useEffect(() => {
-    //     router.push(router.route + qs.stringify(
-    //         { ...router.query, step },
-    //         { arrayFormat: 'comma', skipNulls: true, addQueryPrefix: true },
-    //     ))
-    // }, [step])
-
-    // if (tokenError && token) {
-    //     return (
-    //         <BasicEmptyListView>
-    //             <Typography.Title level={3}>
-    //                 {PhoneConfirmTokenErrorLabel}
-    //             </Typography.Title>
-    //             <Typography.Text style={{ fontSize: fontSizes.content }}>
-    //                 {PhoneConfirmTokenErrorMessage}
-    //             </Typography.Text>
-    //             <Button
-    //                 type='sberPrimary'
-    //                 style={{ marginTop: '16px' }}
-    //                 onClick={() => {
-    //                     setToken(null)
-    //                     setTokenError(null)
-    //                     setStep('inputPhone')
-    //                     Router.push('/auth/register')
-    //                 }}
-    //             >
-    //                 {RestartPhoneConfirmLabel}
-    //             </Button>
-    //         </BasicEmptyListView>
-    //     )
-    // }
-
     const steps: Dictionary<JSX.Element> = {
         inputPhone: (
             <>

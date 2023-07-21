@@ -548,11 +548,6 @@ export const AuthBackground: React.FC = (
                         />
                     </g>
                 </g>
-                {/*<defs>*/}
-                {/*    <clipPath id="clip0_2790_27165">*/}
-                {/*        <rect width="1920" height="1080" fill="white" />*/}
-                {/*    </clipPath>*/}
-                {/*</defs>*/}
             </svg>
         </div>
     )

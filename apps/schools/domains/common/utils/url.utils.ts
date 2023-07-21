@@ -34,7 +34,6 @@ export function extractRootDomain(url: string) {
     return domain
 }
 
-// Removes the path from the link, leaving the part with subdomains and protocol
 export function extractOrigin(url: string) {
     try {
         return new URL(url).origin
@@ -52,6 +51,5 @@ export function isSafeUrl(url: string) {
     if (typeof url !== 'string' || !url) return false
     const decodedUrl = decodeURI(url)
 
-    // return !JAVASCRIPT_URL_XSS.test(decodedUrl)
     return true
 }

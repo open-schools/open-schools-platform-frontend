@@ -17,7 +17,7 @@ import {
 import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
 import { useResendMutation, useVerifyMutation } from '../../../redux/usersApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
-import { NeedConfirmField } from '../constants/message'
+import { CodeMustContainCaetrainLength, NeedConfirmField } from '../constants/message'
 import { Button } from '../../../../common/components/Button'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
@@ -38,8 +38,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const [smsCode, setSmsCode] = useState('')
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
     const [phoneValidateError, setPhoneValidateError] = useState(null)
-    // const [resendSmsMutation] = useMutation(RESEND_CONFIRM_PHONE_SMS_MUTATION)
-    // const [completeConfirmPhoneMutation] = useMutation(COMPLETE_CONFIRM_PHONE_MUTATION)
     const PhoneToggleLabel = isPhoneVisible ? 'Показать' : 'Скрыть'
 
     const SMS_VALIDATOR = useCallback(
@@ -57,8 +55,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const SMS_CODE_VALIDATOR_RULES = useMemo(
         () => [
             { required: true, message: NeedConfirmField },
-            // TODO: take the value of this message from constants
-            { len: SMS_CODE_LENGTH, message: `Код должен содержать ${SMS_CODE_LENGTH} цифр` },
+            { len: SMS_CODE_LENGTH, message: CodeMustContainCaetrainLength },
             SMS_VALIDATOR,
         ],
         ['Необходимо заполнить', SMS_VALIDATOR]
@@ -125,7 +122,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         <Form
             form={form}
             name="register-verify-code"
-            // onFinish={startConfirmPhone}
             initialValues={initialValues}
             colon={false}
             labelAlign="left"
@@ -158,11 +154,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                         <Col span={24}>
                             <DefaultTypography.Link
                                 underline
-                                style={
-                                    {
-                                        /* color: colors.textSecondary*/
-                                    }
-                                }
                                 onClick={onReset}
                             >
                                 Изменить номер
@@ -170,9 +161,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                         </Col>
                         <Col span={24}>
                             <Form.Item
-                                // style={{ display: "flex", justifyContent: "center", textAlign: "center"}}
                                 name="smsCode"
-                                // label={"Код из СМС"}
                                 data-cy="register-smscode-item"
                                 rules={SMS_CODE_VALIDATOR_RULES}
                             >
@@ -208,7 +197,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                         <Space direction="horizontal" size={8} style={{ display: (isCountDownActive ? 'unset' : 'none') }}>
                                             <DefaultTypography.Link
                                                 disabled={true}
-                                                // style={{ color: colors.textSecondary }}
                                             >
                                                 Код действителен
                                             </DefaultTypography.Link>
