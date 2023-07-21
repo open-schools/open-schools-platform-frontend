@@ -4,3 +4,8 @@ export interface ReturnedData<T> {
     previous: string,
     results: T,
 }
+
+export interface Photo {
+    id?: string,
+    image?: string,
+}

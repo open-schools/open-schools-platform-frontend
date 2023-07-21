@@ -1,4 +1,12 @@
 import { commonApi } from '../../../store/commonApi'
+import {
+    GetUserResponse,
+    LoginData,
+    LoginResponse,
+    UpdatePasswordData,
+    UpdateUserData,
+    UpdateUserResponse,
+} from './interfaces'
 
 const authenticationApi = commonApi.injectEndpoints({
     endpoints: build => ({
@@ -16,7 +24,7 @@ const authenticationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getUser: build.query<GetUserProfileResponse, {}>({
+        getUser: build.query<GetUserResponse, {}>({
             query: (data) => ({
                 url: '/user-management/auth/me',
                 method: 'GET',
