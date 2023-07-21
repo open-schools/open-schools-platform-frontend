@@ -42,7 +42,7 @@ const userApi = commonApi.injectEndpoints({
             query: (data) => ({
                 url: `/user-management/users/token/${data.token_key}/resend`,
                 method: 'POST',
-                body: { resend: data.recaptcha },
+                body: { recaptcha: data.recaptcha },
             }),
         }),
         verify: build.mutation<{}, VerifyData>({

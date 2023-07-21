@@ -53,11 +53,11 @@ export async function registrationHandler (phone: string, password: string, user
 
 export async function resendOtpHandler (recaptchaToken: string, resendOtpMutation: any, onError: () => void) {
     let token = localStorage.getItem('token')
-    let response = await resendOtpMutation({ resend: { recaptcha: recaptchaToken }, token_key: token })
+    let response = await resendOtpMutation({ recaptcha: recaptchaToken, token_key: token })
     if (response.error?.status === 401) {
         message.error('Произошла ошибка, пожалуйста, обновите страницу')
         onError()
-    } else {
+    } else if ('error' in response) {
         message.error('Error resendOtpHandler')
     }
 }

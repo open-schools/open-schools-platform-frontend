@@ -10,7 +10,7 @@ export async function resetHandler (password: string, reset: any, onFinish: (use
     } else if (response.error?.status === 401) {
         message.error('Произошла ошибка, пожалуйста, обновите страницу')
         onError()
-    } else {
+    } else if ('error' in response)  {
         message.error('Error resetHandler')
     }
 }
