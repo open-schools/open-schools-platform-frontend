@@ -118,7 +118,12 @@ const ResetPage: ContainerPage<IAuthLayoutProps> = (props) => {
                     currentActiveKey="/auth/register"
                     title={'Восстановление пароля'}
                 />
-                <ResetForm onFinish={() => {}} />
+                <ResetForm
+                    onFinish={() => {}}
+                    onError={() => {
+                        setStep('inputPhone')
+                        Router.push('/auth/forgot')}}
+                />
             </>
         ),
     }

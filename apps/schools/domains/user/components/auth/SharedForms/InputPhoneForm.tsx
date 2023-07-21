@@ -51,6 +51,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                 size: 'invisible',
                 'callback': (token: string) => {
                     setToken(token)
+                    tokenHandler(token, form, nextUrl, registration, onFinish)
                 },
             },
             auth

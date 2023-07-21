@@ -16,7 +16,7 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
 }
 
-export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
+export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }) => {
     const validators = useRegisterFormValidators()
 
     const [form] = Form.useForm()
@@ -57,7 +57,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish }) => {
         // }).catch(() => {
         //     setIsLoading(false)
         // })
-        registrationHandler(phone, password, userRegistration, onFinish)
+        registrationHandler(phone, password, userRegistration, onFinish, onError)
     }, [form, signInByPhone])
 
     const initialValues = { phone }
