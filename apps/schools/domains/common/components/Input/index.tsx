@@ -35,9 +35,9 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 <label>{label}</label>
                 <BaseInput
                     className={defaultStyles.input}
-                    {...restProps}
                     placeholder={placeholder}
                     data-testid="input"
+                    {...restProps}
                 />
             </div>
         )
