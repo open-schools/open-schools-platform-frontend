@@ -38,11 +38,14 @@ export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFi
     }
 }
 
-export async function registrationHandler (phone: string, password: string, userRegistrationMutation: any, onFinish: (userID: string) => void) {
+export async function registrationHandler (phone: string, password: string, userRegistrationMutation: any, onFinish: (userID: string) => void, onError: () => void) {
     let token = localStorage.getItem('token')
     let response = await userRegistrationMutation({ token: token, name: phone, password: password })
     if (!('error' in response)) {
         onFinish('someUserID')
+    } else if (response.error?.status === 401) {
+        message.error('Произошла ошибка, пожалуйста, обновите страницу')
+        onError()
     } else {
         message.error('Error registration')
     }
@@ -51,7 +54,10 @@ export async function registrationHandler (phone: string, password: string, user
 export async function resendOtpHandler (recaptchaToken: string, resendOtpMutation: any, onError: () => void) {
     let id = localStorage.getItem('token')
     let response = await resendOtpMutation({ resend: { recaptcha: recaptchaToken }, id: id })
-    if (response.error?.status === 400 || response.error?.status === 401) {
+    if (response.error?.status === 401) {
+        message.error('Произошла ошибка, пожалуйста, обновите страницу')
         onError()
+    } else {
+        message.error('Error resendOtpHandler')
     }
 }
