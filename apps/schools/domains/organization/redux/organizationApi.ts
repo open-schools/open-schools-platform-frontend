@@ -1,26 +1,4 @@
 import { commonApi } from '../../../store/commonApi'
-import { Id, ReturnedData } from '../../common/redux/interfaces'
-import {
-    AllOrganizationsData,
-    AllQueriesOfOrganizationData,
-    AllQueriesResponse,
-    AllStudentsData,
-    AllStudentsResponse, AllTeachersData,
-    AnalyticsData,
-    AnalyticsResponse,
-    createOrganizationData,
-    CreateOrganizationResponse,
-    ExportStudentsResponse,
-    InviteEmployeeData,
-    InviteEmployeeResponse,
-    StudentJoinCircleData,
-    StudentJoinCircleResponse, StudentProfileQuery,
-    StudentResponse,
-    TeacherResponse,
-    UpdateInviteEmployeeData,
-    UpdateInviteEmployeeResponse,
-} from './interfaces'
-import { Organization, Teacher } from './entities'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: build => ({

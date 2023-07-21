@@ -1,14 +1,5 @@
 import { commonApi } from '../../../store/commonApi'
-import {
-    TokenData,
-    TokenResponse,
-    UserData,
-    VerifyData,
-    ResetPasswordData,
-    CreationTokenResponse,
-    ResendData,
-} from './interfaces'
-import { Id } from '../../common/redux/interfaces'
+import { UserData } from './interfaces'
 
 const userApi = commonApi.injectEndpoints({
     endpoints: build => ({
