@@ -15,7 +15,7 @@ export const AuthBackground: React.FC = (
     })
 
     useEffect(() => {
-        function handleResize() {
+        function handleResize () {
             const width = window.innerWidth
             const height = window.innerHeight
 
