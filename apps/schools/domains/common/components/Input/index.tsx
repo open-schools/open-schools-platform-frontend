@@ -66,9 +66,9 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 <BaseInput.Password
                     iconRender={(visible: boolean) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     className={defaultStyles.input}
-                    {...restProps}
                     placeholder={placeholder}
-                    data-testid="input"
+                    data-testid="password-input"
+                    {...restProps}
                 />
             </div>
         )}
