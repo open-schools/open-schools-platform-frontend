@@ -2,7 +2,6 @@ import { Col, Form, Row, Typography } from 'antd'
 import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
-// import { isSafeUrl } from '../../../../common/utils/url.utils'
 import { Input } from '../../../../common/components/Input'
 import styles from '../styles/formStyles.module.scss'
 import { Button } from '../../../../common/components/Button'
@@ -11,10 +10,6 @@ import { useLoginMutation } from '../../../redux/authenticationApi'
 import { NeedConfirmField } from '../constants/message'
 
 export const SignInForm = (): React.ReactElement => {
-    // const {
-    //     publicRuntimeConfig: { hasSbbolAuth },
-    // } = getConfig()
-
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
 
@@ -25,34 +20,7 @@ export const SignInForm = (): React.ReactElement => {
     const {
         query: { next },
     } = router
-    // const redirectUrl =
-    //     next && !Array.isArray(next) && isSafeUrl(next) ? next : '/'
-    // const { refetch } = useAuth()
     const [isLoading, setIsLoading] = useState(false)
-    // const [signinByPhoneAndPassword] = useMutation(SIGNIN_BY_PHONE_AND_PASSWORD_MUTATION)
-
-    // const ErrorToFormFieldMsgMapping = useMemo(() => {
-    //     return {
-    //         [WRONG_PHONE_ERROR]: {
-    //             name: 'signinError',
-    //             errors: [PasswordOrPhoneMismatch],
-    //         },
-    //         [WRONG_PASSWORD_ERROR]: {
-    //             name: 'signinError',
-    //             errors: [PasswordOrPhoneMismatch],
-    //         },
-    //     }
-    // }, [intl])
-
-    // const onFormSubmit = useCallback((values) => {
-    //     setIsLoading(true)
-    //
-    //     return runMutation({
-    //
-    //     }).catch(() => {
-    //         setIsLoading(false)
-    //     })
-    // }, [form])
 
     const initialValues = { password: '', phone: '' }
 
@@ -60,7 +28,6 @@ export const SignInForm = (): React.ReactElement => {
         <Form
             form={form}
             name="signin"
-            // onFinish={onFormSubmit}
             initialValues={initialValues}
             requiredMark={false}
             layout="vertical"

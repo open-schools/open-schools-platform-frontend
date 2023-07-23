@@ -22,8 +22,7 @@ export const Button: React.FC<CustomButtonProps> = (props) => {
                 data-testid="btn"
             />
         )
-    } //if (type in buttonStyleDictionary) {
-    else {
+    } else {
         return (
             <DefaultButton
                 className={buttonStyleDictionary[type]?.button}

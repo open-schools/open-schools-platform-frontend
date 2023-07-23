@@ -23,7 +23,7 @@ const BaseLayout: React.FC<IAuthLayoutProps> = (props) => {
 }
 
 function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
-    const LayoutComponent = Component.container || BaseLayout //BaseComponent
+    const LayoutComponent = Component.container || BaseLayout
 
     return (
         <Provider store={store}>
