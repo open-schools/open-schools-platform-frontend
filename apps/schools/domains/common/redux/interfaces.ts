@@ -4,3 +4,13 @@ export interface ReturnedData<T> {
     previous: string,
     results: T,
 }
+
+export interface GetPhoto {
+    id?: string,
+    image?: string,
+}
+
+export interface BasePaginationData {
+    page?: number,
+    'page_size'?: number,
+}

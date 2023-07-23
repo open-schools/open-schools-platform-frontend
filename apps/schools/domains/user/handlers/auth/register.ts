@@ -30,7 +30,7 @@ export async function tokenHandler (recaptchaToken: string, formComponent: FormI
 
 export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFinish: () => void) {
     let token = localStorage.getItem('token')
-    let response = await verifyCodeMutation({ otp: smsCode, token: token })
+    let response = await verifyCodeMutation({ otp: smsCode, token_key: token })
     if (!('error' in response)) {
         onFinish()
     } else {
@@ -52,12 +52,12 @@ export async function registrationHandler (phone: string, password: string, user
 }
 
 export async function resendOtpHandler (recaptchaToken: string, resendOtpMutation: any, onError: () => void) {
-    let id = localStorage.getItem('token')
-    let response = await resendOtpMutation({ resend: { recaptcha: recaptchaToken }, id: id })
+    let token = localStorage.getItem('token')
+    let response = await resendOtpMutation({ recaptcha: recaptchaToken, token_key: token })
     if (response.error?.status === 401) {
         message.error('Произошла ошибка, пожалуйста, обновите страницу')
         onError()
-    } else {
+    } else if ('error' in response) {
         message.error('Error resendOtpHandler')
     }
 }

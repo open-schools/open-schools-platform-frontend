@@ -1,34 +1,49 @@
-export interface TokenResponse {
-    token: string,
-}
+import { GetPhoto } from '../../common/redux/interfaces'
 
-export interface CreationData {
-    phone: string,
-    recaptcha: string,
-}
-
-export interface VerifyResponse {
-    detail: string,
-}
-
-export interface VerifyData {
-    otp: string,
-    token: string,
-}
-
-export interface UserData {
+export interface CreateUser {
     token: string,
     name: string,
     password: string,
 }
 
-export interface ResetPasswordData {
+export interface PasswordReset {
     token: string,
     password: string,
 }
 
-export interface jwtTokenResponse {
+export interface TokenResponse {
     token: string,
+}
+
+export interface CreateRegistrationToken {
+    phone: string,
+    recaptcha: string,
+}
+
+export interface GetRegistrationToken {
+    key?: string,
+    phone?: string,
+    'is_verified'?: string
+}
+
+export interface CreationTokenData {
+    'token_key': string
+}
+
+export interface ResendData {
+    recaptcha: string,
+    'token_key': string,
+}
+
+export interface VerifyData {
+    otp: string,
+    'token_key': string,
+}
+
+export interface LoginResponse {
+    password: string,
+    token?: string,
+    phone: string,
 }
 
 export interface LoginData {
@@ -36,15 +51,55 @@ export interface LoginData {
     phone: string,
 }
 
-export interface ResendData {
-    resend: Resend,
-    id: string,
+export interface GetUserProfiles {
+    id?: string,
+    phone?: string,
+    name?: string,
+    'parent_profile': GetParentProfile,
+    'employee_profile': GetEmployeeProfile,
+    'student_profile': GetStudentProfile,
+    'teacher_profile': GetTeacherProfile,
 }
 
-interface Resend {
-    recaptcha: string,
+interface GetParentProfile {
+    id?: string,
+    name: string,
+    user: string,
 }
 
-export interface ResendResponse {
-    detail: string
+interface GetEmployeeProfile {
+    id?: string,
+    name: string,
+    user: string,
+}
+
+interface GetStudentProfile {
+    id?: string,
+    name: string,
+    age?: number,
+    phone?: string,
+    photo: GetPhoto,
+}
+
+interface GetTeacherProfile {
+    id?: string,
+    name: string,
+    age?: number,
+    phone?: string,
+    photo: GetPhoto,
+}
+
+export interface GetUser {
+    id?: string,
+    phone?: string,
+    name?: string,
+}
+
+export interface UpdateUserData {
+    name?: string,
+}
+
+export interface UpdatePasswordData {
+    'old_password': string,
+    'new_password': string,
 }

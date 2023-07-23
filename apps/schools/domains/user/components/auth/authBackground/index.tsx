@@ -12,12 +12,12 @@ export const AuthBackground: React.FC = (
             x: 0,
             y: 0,
         },
-    });
+    })
 
     useEffect(() => {
-        function handleResize() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+        function handleResize () {
+            const width = window.innerWidth
+            const height = window.innerHeight
 
             setWindowSize({
                 width: width,
@@ -26,12 +26,12 @@ export const AuthBackground: React.FC = (
                     x: Math.max((1920 - width) / 2, 0),
                     y: Math.max((1080 - height) / 2, 0),
                 },
-            });
+            })
         }
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+        window.addEventListener('resize', handleResize)
+        handleResize()
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     return (
         <div className={styles.authBackgroundContainer}>
@@ -48,7 +48,7 @@ export const AuthBackground: React.FC = (
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <g
-                    clip-path="url(#clip0_2790_27165)"
+                    clipPath="url(#clip0_2790_27165)"
                     className={styles.default}
                 >
                     <g className={styles.globe}>
