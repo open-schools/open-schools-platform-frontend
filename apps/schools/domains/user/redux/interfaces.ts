@@ -20,11 +20,7 @@ export interface CreateRegistrationToken {
     recaptcha: string,
 }
 
-export interface CreationTokenResponse {
-    token: GetRegistrationToken
-}
-
-interface GetRegistrationToken {
+export interface GetRegistrationToken {
     key?: string,
     phone?: string,
     'is_verified'?: string
@@ -55,11 +51,7 @@ export interface LoginData {
     phone: string,
 }
 
-export interface GetUserResponse {
-    user: GetUserProfiles,
-}
-
-interface GetUserProfiles {
+export interface GetUserProfiles {
     id?: string,
     phone?: string,
     name?: string,
@@ -97,11 +89,7 @@ interface GetTeacherProfile {
     photo: GetPhoto,
 }
 
-export interface UpdateUserResponse {
-    user: GetUser,
-}
-
-interface GetUser {
+export interface GetUser {
     id?: string,
     phone?: string,
     name?: string,

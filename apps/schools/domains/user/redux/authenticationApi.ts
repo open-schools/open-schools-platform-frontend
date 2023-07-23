@@ -1,11 +1,10 @@
 import { commonApi } from '../../../store/commonApi'
 import {
-    GetUserResponse,
+    GetUser, GetUserProfiles,
     LoginData,
     LoginResponse,
     UpdatePasswordData,
     UpdateUserData,
-    UpdateUserResponse,
 } from './interfaces'
 
 const authenticationApi = commonApi.injectEndpoints({
@@ -24,14 +23,14 @@ const authenticationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getUser: build.query<GetUserResponse, {}>({
+        getUser: build.query<{ user: GetUserProfiles }, {}>({
             query: (data) => ({
                 url: '/user-management/auth/me',
                 method: 'GET',
                 data: data,
             }),
         }),
-        updateUser: build.mutation<UpdateUserResponse, UpdateUserData>({
+        updateUser: build.mutation<{ user: GetUser }, UpdateUserData>({
             query: (data) => ({
                 url: '/user-management/auth/me',
                 method: 'PATCH',

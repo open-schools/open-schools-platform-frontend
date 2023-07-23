@@ -2,32 +2,23 @@ import { commonApi } from '../../../store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
 import {
     createOrganizationData,
-    CreateOrganizationResponse,
     AllOrganizationsData,
     GetOrganizationSender,
-    StudentJoinCircleResponse,
     UpdateOrganizationInviteEmployee,
-    UpdateInviteEmployeeResponse,
-    AllStudentsResponse,
     StudentJoinCircleData,
     AllStudentsData,
-    StudentResponse,
     StudentData,
-    TeacherResponse,
     TeacherData,
     DeleteOrganizationData,
-    AnalyticsResponse,
     AnalyticsData,
-    InviteEmployeeResponse,
     CreateOrganizationInviteEmployee,
-    AllQueriesResponse,
     ExportStudentsData,
     AllQueriesData,
-    ExportStudentsResponse,
     AllTeachersData,
     AllQueriesOfOrganizationData,
-    GetTeacher, GetStudentJoinCircle,
+    GetTeacher, GetStudentJoinCircle, GetOrganizationInviteEmployee, GetStudent, GetQueryStatus, GetAnalytics,
 } from './interfaces'
+import { GetEmployee } from '../../employee/redux/interfaces'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: build => ({
@@ -38,42 +29,42 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        createOrganization: build.mutation<CreateOrganizationResponse, createOrganizationData>({
+        createOrganization: build.mutation<{ 'creator_employee': GetEmployee }, createOrganizationData>({
             query: (data) => ({
                 url: '/organization-management/organizations',
                 method: 'POST',
                 body: data,
             }),
         }),
-        updateInviteEmployee: build.mutation<UpdateInviteEmployeeResponse, UpdateOrganizationInviteEmployee>({
+        updateInviteEmployee: build.mutation<{ query: GetOrganizationInviteEmployee }, UpdateOrganizationInviteEmployee>({
             query: (data) => ({
                 url: '/organization-management/organizations/invite-employee',
                 method: 'PATCH',
                 body: data,
             }),
         }),
-        studentJoinCircle: build.query<StudentJoinCircleResponse, StudentJoinCircleData>({
+        studentJoinCircle: build.query<{ results: GetStudentJoinCircle }, StudentJoinCircleData>({
             query: (data) => ({
                 url: '/organization-management/organizations/student-join-circle-query',
                 method: 'GET',
                 body: data,
             }),
         }),
-        getAllStudents: build.query<AllStudentsResponse, AllStudentsData>({
+        getAllStudents: build.query<{ results: GetStudent }, AllStudentsData>({
             query: (data) => ({
                 url: '/organization-management/organizations/students',
                 method: 'GET',
                 body: data,
             }),
         }),
-        getStudent: build.query<StudentResponse, StudentData>({
+        getStudent: build.query<{ student: GetStudent }, StudentData>({
             query: (data) => ({
                 url: `/organization-management/organizations/students/${data.student_id}`,
                 method: 'GET',
                 body: data,
             }),
         }),
-        getTeacher: build.query<TeacherResponse, TeacherData>({
+        getTeacher: build.query<{ teacher: GetTeacher }, TeacherData>({
             query: (data) => ({
                 url: `/organization-management/organizations/teachers/${data.teacher_id}`,
                 method: 'GET',
@@ -87,28 +78,28 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        analytics: build.query<AnalyticsResponse, AnalyticsData>({
+        analytics: build.query<{ analytics: GetAnalytics }, AnalyticsData>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization_id}/analytics`,
                 method: 'GET',
                 body: data,
             }),
         }),
-        inviteEmployee: build.mutation<InviteEmployeeResponse, CreateOrganizationInviteEmployee>({
+        inviteEmployee: build.mutation<{ query: GetQueryStatus }, CreateOrganizationInviteEmployee>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization_id}/invite-employee`,
                 method: 'POST',
                 body: data,
             }),
         }),
-        getAllQueries: build.query<AllQueriesResponse, AllQueriesData>({
+        getAllQueries: build.query<{ results: GetOrganizationInviteEmployee }, AllQueriesData>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization_id}/invite-employee-queries`,
                 method: 'GET',
                 body: data,
             }),
         }),
-        exportStudents: build.query<ExportStudentsResponse, ExportStudentsData>({
+        exportStudents: build.query<{ file: File }, ExportStudentsData>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization_id}/students/export`,
                 method: 'GET',
@@ -122,7 +113,6 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        // eslint-disable-next-line no-undef
         getAllQueriesOfOrganization: build.query<ReturnedData<GetStudentJoinCircle>, AllQueriesOfOrganizationData>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization}/student-profiles/${data.student_profile}/queries`,

@@ -1,5 +1,4 @@
-import { GetEmployee } from '../../employee/redux/interfaces'
-import { GetPhoto } from '../../common/redux/interfaces'
+import { BasePaginationData, GetPhoto } from '../../common/redux/interfaces'
 
 export interface GetOrganizationSender {
     id?: string,
@@ -7,18 +6,12 @@ export interface GetOrganizationSender {
     inn?: string,
 }
 
-export interface AllOrganizationsData {
+export interface AllOrganizationsData extends BasePaginationData {
     id?: string,
     name?: string,
     inn?: string,
     ids?: string,
     'or_search'?: string,
-    page?: number,
-    'page_size'?: number,
-}
-
-export interface CreateOrganizationResponse {
-    'creator_employee': GetEmployee,
 }
 
 export interface createOrganizationData {
@@ -26,11 +19,7 @@ export interface createOrganizationData {
     inn?: string,
 }
 
-export interface UpdateInviteEmployeeResponse {
-    query: GetOrganizationInviteEmployee,
-}
-
-interface GetOrganizationInviteEmployee {
+export interface GetOrganizationInviteEmployee {
     id?: string,
     sender: GetOrganizationSender,
     recipient: GetEmployeeProfileRecipient,
@@ -53,10 +42,6 @@ interface GetEmployeeBody {
 export interface UpdateOrganizationInviteEmployee {
     query: string,
     body: GetEmployeeBody
-}
-
-export interface StudentJoinCircleResponse {
-    results: GetStudentJoinCircle,
 }
 
 export interface GetStudentJoinCircle {
@@ -108,11 +93,7 @@ export interface StudentJoinCircleData {
     offset?: number
 }
 
-export interface AllStudentsResponse {
-    results: GetStudent,
-}
-
-interface GetStudent {
+export interface GetStudent {
     id?: string,
     name: string,
     circle?: string,
@@ -140,16 +121,8 @@ export interface AllStudentsData {
     offset: number,
 }
 
-export interface StudentResponse {
-    student: GetStudent,
-}
-
 export interface StudentData {
     'student_id': string
-}
-
-export interface TeacherResponse {
-    teacher: GetTeacher
 }
 
 export interface GetTeacher {
@@ -167,11 +140,7 @@ export interface DeleteOrganizationData {
     'organization_id': string,
 }
 
-export interface AnalyticsResponse {
-    analytics: GetAnalytics
-}
-
-interface GetAnalytics {
+export interface GetAnalytics {
     'IN_PROGRESS': number,
     'SENT': number,
     'ACCEPTED': number,
@@ -185,11 +154,7 @@ export interface AnalyticsData {
     'organization_id': string,
 }
 
-export interface InviteEmployeeResponse {
-    query: GetQueryStatus
-}
-
-interface GetQueryStatus {
+export interface GetQueryStatus {
     id?: string,
     status: 'ACCEPTED' | 'SENT' | 'IN_PROGRESS' | 'DECLINED' | 'CANCELED',
 }
@@ -201,23 +166,15 @@ export interface CreateOrganizationInviteEmployee {
     'organization_id': string,
 }
 
-export interface AllQueriesResponse {
-    results: GetOrganizationInviteEmployee,
-}
-
 export interface AllQueriesData {
     'organization_id': string,
-}
-
-export interface ExportStudentsResponse {
-    file: File,
 }
 
 export interface ExportStudentsData {
     'organization_id': string,
 }
 
-export interface AllTeachersData {
+export interface AllTeachersData extends BasePaginationData {
     circle?: string,
     'teacher_profile'?: string,
     id?: string,
@@ -226,14 +183,10 @@ export interface AllTeachersData {
     phone?: string,
     'circle_name'?: string,
     'circle_ids'?: string,
-    page?: number,
-    'page_size'?: number,
     'organization_id': string,
 }
 
-export interface AllQueriesOfOrganizationData {
-    page?: number,
-    'page_size'?: number,
+export interface AllQueriesOfOrganizationData extends BasePaginationData {
     organization: string,
     'student_profile': string,
 }

@@ -38,7 +38,7 @@ export async function updatePasswordHandler (oldPassword: string, newPassword: s
     }
 }
 
-const DevTestRequests = () => {
+const DevRequestsPage = () => {
     const [logout] = useLogoutMutation()
     const [updateUser] = useUpdateUserMutation()
     const [userName, setUserName] = useState('')
@@ -76,4 +76,4 @@ const DevTestRequests = () => {
     )
 }
 
-export default DevTestRequests
+export default DevRequestsPage

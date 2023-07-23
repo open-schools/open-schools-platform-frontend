@@ -1,12 +1,12 @@
 import { commonApi } from '../../../store/commonApi'
 import {
     CreationTokenData,
-    CreationTokenResponse, ResendData,
+    ResendData,
     PasswordReset,
     CreateRegistrationToken,
     TokenResponse,
     CreateUser,
-    VerifyData,
+    VerifyData, GetRegistrationToken,
 } from './interfaces'
 
 const userApi = commonApi.injectEndpoints({
@@ -32,7 +32,7 @@ const userApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        creationToken: build.query<CreationTokenResponse, CreationTokenData>({
+        creationToken: build.query<{ token: GetRegistrationToken }, CreationTokenData>({
             query: (data) => ({
                 url: `/user-management/users/token/${data.token_key}`,
                 method: 'GET',
