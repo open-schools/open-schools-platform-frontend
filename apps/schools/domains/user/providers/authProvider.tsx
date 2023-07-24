@@ -15,6 +15,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const { error } = useGetUserQuery({})
 
     useEffect(() => {
+        if (router.pathname === '/mobile-recaptcha') return
+
         const jwtToken = typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null
 
         if (jwtToken) {
@@ -25,6 +27,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [])
 
     useEffect(() => {
+        if (router.pathname === '/mobile-recaptcha') return
+
         if (error !== undefined && 'data' in error) {
             router.push('/auth/signin')
         }
