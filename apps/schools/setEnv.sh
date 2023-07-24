@@ -9,4 +9,5 @@ NEXT_PUBLIC_storageBucket="$NEXT_PUBLIC_storageBucket"
 NEXT_PUBLIC_messagingSenderId="$NEXT_PUBLIC_messagingSenderId"
 NEXT_PUBLIC_appId="$NEXT_PUBLIC_appId"
 NEXT_PUBLIC_measurementId="$NEXT_PUBLIC_measurementId"
+HELP_REQUISITES="$HELP_REQUISITES"
 EOT
