@@ -1,0 +1,55 @@
+name: Dev Deploy
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    uses: LamArt/open-schools-platform-frontend/.github/workflows/nextjs.yml@dev
+  #    secrets:
+  #      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+  #      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+    secrets:
+      HELP_REQUISITES: ${{ secrets.HELP_REQUISITES }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Dev deploy open-schools-platform-frontend
+        uses: D3rHase/ssh-command-action@v0.2.2
+        with:
+          host: ${{secrets.DEV_HOST}}
+          user: "root"
+          private_key: ${{secrets.DEV_PRIVATE_KEY}}
+          command: |
+            echo '--- START WORK ON REMOTE SERVER ---';
+            set -e;
+
+            echo '--- cd in project root ---';
+            cd /opt/open-schools-platform-frontend;
+                       
+            echo '--- CHECKOUT ON BRANCH ---';
+            git checkout dev;
+                                  
+            echo '--- Upgrade repo ---';
+            git pull;                    
+
+            echo '--- cd in schools dir ---';
+            cd apps/schools;
+            
+            echo '--- Delete unused docker files ---';
+            docker system prune --all --force;
+
+            echo '--- Create schools dev image ---';
+            docker build -f dev.Dockerfile -t nextjs-dev .;
+
+            echo '--- cd in schools dir ---';
+            cd /opt/open-schools-platform-frontend;            
+                        
+            echo '--- Force updating services ---';
+            sh force-update-services.sh "dev";
+
+            echo '--- Success! ---';

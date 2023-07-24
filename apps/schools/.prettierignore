@@ -1,0 +1,4 @@
+# Ignore artifacts:
+.github
+.next
+node_modules

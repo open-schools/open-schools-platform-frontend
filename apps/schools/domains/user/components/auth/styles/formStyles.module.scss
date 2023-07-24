@@ -1,0 +1,43 @@
+@import '../../../../common/components/styles/abstracts/colors';
+@import '../../../../common/components/styles/abstracts/_variables';
+
+
+.container {
+    padding: 48px;
+    width: 560px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.1);
+    z-index: $z-content;
+}
+
+.rowStyles {
+    justify-content: center;
+    align-items: center;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.requiredField {
+    &
+        .ant-form-item
+        > .ant-form-item-label
+        > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+        display: inline-block;
+        margin-right: 4px;
+        color: $color-red;
+        font-size: 14px;
+        content: '*';
+    }
+    &
+        .ant-form-item
+        > .ant-form-item-label
+        > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+        display: none;
+    }
+    & .ant-form-item > .ant-form-item-label > label {
+        align-items: flex-end;
+    }
+}

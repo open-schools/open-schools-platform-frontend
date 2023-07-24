@@ -1,0 +1,159 @@
+@import '../../../../../common/components/styles/abstracts/colors';
+@import '../../../../../common/components/styles/abstracts/_variables';
+
+.authBackgroundContainer {
+  position: fixed;
+}
+
+.default {
+  fill: $color-auth-layout-default;
+
+  .globe:hover {
+    fill: $color-auth-layout-globe;
+  }
+
+  .topArrow:hover {
+    fill: $color-auth-layout-topArrow;
+  }
+
+  .topLeftRocket:hover {
+    fill: $color-auth-layout-topLeftRocket;
+  }
+
+  .leftTopNote:hover {
+    fill: $color-auth-layout-leftTopNote;
+  }
+
+  .topLeftArrow:hover {
+    fill: $color-auth-layout-topLeftArrow;
+  }
+
+  .leftMoonAndCloud:hover {
+    fill: $color-auth-layout-leftMoonAndCloud;
+  }
+
+  .leftStar:hover {
+    fill: $color-auth-layout-leftStar;
+  }
+
+  .leftFlame:hover {
+    fill: $color-auth-layout-leftFlame;
+  }
+
+  .leftBottomStar:hover {
+    fill: $color-auth-layout-leftBottomStar;
+  }
+
+  .leftBottomArrows:hover {
+    fill: $color-auth-layout-leftBottomArrows;
+  }
+
+  .bottomSpinArrow:hover {
+    fill: $color-auth-layout-bottomSpinArrow;
+  }
+
+  .centerNote:hover {
+    fill: $color-auth-layout-centerNote;
+  }
+
+  .bottomNote:hover {
+    fill: $color-auth-layout-bottomNote;
+  }
+
+  .pencil:hover {
+    fill: $color-auth-layout-pencil;
+  }
+
+  .heart:hover {
+    fill: $color-auth-layout-heart;
+  }
+
+  .centerLamp:hover {
+    fill: $color-auth-layout-centerLamp;
+  }
+
+  .comments:hover {
+    fill: $color-auth-layout-comments;
+  }
+
+  .bottomNote:hover {
+    fill: $color-auth-layout-bottomNote;
+  }
+
+  .sun:hover {
+    fill: $color-auth-layout-sun;
+  }
+
+  .centerStar:hover {
+    fill: $color-auth-layout-centerStar;
+  }
+
+  .stamp1:hover {
+    fill: $color-auth-layout-stamp1;
+  }
+
+  .centerArrow:hover {
+    fill: $color-auth-layout-centerArrow;
+  }
+
+  .topPencil:hover {
+    fill: $color-auth-layout-topPencil;
+  }
+
+  .topStar:hover {
+    fill: $color-auth-layout-topStar;
+  }
+
+  .topColbs:hover {
+    fill: $color-auth-layout-topColbs;
+  }
+
+  .topEducationHat:hover {
+    fill: $color-auth-layout-topEducationHat;
+  }
+
+  .apple:hover {
+    fill: $color-auth-layout-apple;
+  }
+
+  .rightTopNote:hover {
+    fill: $color-auth-layout-rightTopNote;
+  }
+
+  .rightTopStar:hover {
+    fill: $color-auth-layout-rightTopStar;
+  }
+
+  .rightCloud:hover {
+    fill: $color-auth-layout-rightCloud;
+  }
+
+  .rightNote:hover {
+    fill: $color-auth-layout-rightNote;
+  }
+
+  .rightColbs:hover {
+    fill: $color-auth-layout-rightColbs;
+  }
+
+  .dictionary:hover {
+    fill: $color-auth-layout-dictionary;
+  }
+
+  .robot:hover {
+    fill: $color-auth-layout-robot;
+  }
+
+  .rightBottomCloud:hover {
+    fill: $color-auth-layout-rightBottomCloud;
+  }
+
+  .rightRocket:hover {
+    fill: $color-auth-layout-rightRocket;
+  }
+}
+
+.default > * {
+  transition: all 0.5s;
+}
+
