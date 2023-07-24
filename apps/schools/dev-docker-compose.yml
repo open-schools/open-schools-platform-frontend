@@ -4,7 +4,10 @@ services:
         image: 'nextjs-dev'
         restart: always
         ports:
-            - '3000:3000'
+            - target: 3000
+              published: 3000
+              protocol: tcp
+              mode: host
         environment:
             - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
             - NEXT_PUBLIC_apiKey=${NEXT_PUBLIC_apiKey}
