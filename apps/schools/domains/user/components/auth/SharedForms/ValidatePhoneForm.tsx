@@ -62,7 +62,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     )
 
     const confirmPhone = useCallback(async (smsCode: string) => {
-        otpHandler(smsCode, verifyCode, onFinish)
+        otpHandler(smsCode, verifyCode, onFinish, form)
     }, [form])
 
     const smsValidator = useCallback(async () => {
@@ -73,12 +73,9 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         if (smsCode.length !== SMS_CODE_LENGTH) {
             return
         }
-        try {
-            await confirmPhone(smsCode)
-        } catch (error) {
-            console.error(error)
-        }
-    }, [confirmPhone])
+
+        await confirmPhone(smsCode)
+    }, [confirmPhone, form, setPhoneValidateError])
 
     useEffect(() => {
         const app = initializeApp({
