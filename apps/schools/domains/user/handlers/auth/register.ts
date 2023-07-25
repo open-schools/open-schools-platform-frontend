@@ -8,6 +8,7 @@ import {
     UserAlreadyExitsMsg,
     WrongPhoneFormatMsg,
     WrongSmsCodeMsg,
+    SuccessRegistrationMsg,
 } from '../../components/auth/constants/message'
 
 export async function tokenHandler (recaptchaToken: string, formComponent: FormInstance, nextUrl: string, registrationMutation: any, onFinish: () => void) {
@@ -64,6 +65,7 @@ export async function registrationHandler (phone: string, password: string, user
     let response = await userRegistrationMutation({ token: token, name: phone, password: password })
     hide()
     if (!('error' in response)) {
+        message.success(SuccessRegistrationMsg)
         onFinish('someUserID')
     } else if (response.error?.status === 401 || response.error?.status === 404) {
         message.error(PleaseReloadPageMsg)
