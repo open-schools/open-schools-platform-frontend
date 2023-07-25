@@ -1,14 +1,29 @@
 import { useMemo } from 'react'
-import { ValidatorsMap } from '../RegisterForm/interfaces'
-import { PleaseConfirmYourPasswordMsg } from '../constants/message'
+import { PasswordIsTooShortMsg, PleaseConfirmYourPasswordMsg, PleaseInputYourPasswordMsg } from '../constants/message'
+import { ValidatorsMap } from '../../../../common/redux/interfaces'
+import { MIN_PASSWORD_LENGTH } from '../constants/numbers'
 
 export const useResetFormValidators = () => {
     return useMemo<ValidatorsMap>(() => {
         return {
+            password: [
+                {
+                    required: true,
+                    message: PleaseInputYourPasswordMsg,
+                },
+                {
+                    min: MIN_PASSWORD_LENGTH,
+                    message: PasswordIsTooShortMsg,
+                },
+            ],
             confirm: [
                 {
                     required: true,
                     message: PleaseConfirmYourPasswordMsg,
+                },
+                {
+                    min: MIN_PASSWORD_LENGTH,
+                    message: PasswordIsTooShortMsg,
                 },
                 ({ getFieldValue }) => ({
                     validator (_, value) {

@@ -1,3 +1,5 @@
+import { Rule } from 'rc-field-form/lib/interface'
+
 export interface ReturnedData<T> {
     count: number,
     next: string,
@@ -13,4 +15,8 @@ export interface GetPhoto {
 export interface BasePaginationData {
     page?: number,
     'page_size'?: number,
+}
+
+export type ValidatorsMap = {
+    [key: string]: Rule[]
 }

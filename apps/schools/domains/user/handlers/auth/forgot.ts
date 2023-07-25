@@ -1,5 +1,6 @@
 import { message } from 'antd'
 import Router from 'next/router'
+import { PleaseReloadPageMsg } from '../../components/auth/constants/message'
 
 export async function resetHandler (password: string, reset: any, onFinish: (userID: string) => void, onError: () => void) {
     const token = localStorage.getItem('token')
@@ -7,10 +8,8 @@ export async function resetHandler (password: string, reset: any, onFinish: (use
     if ('data' in response) {
         Router.push('../auth/signin')
         onFinish('userID')
-    } else if (response.error?.status === 401) {
-        message.error('Произошла ошибка, пожалуйста, обновите страницу')
+    } else if (response.error?.status === 401 || response.error?.status === 404) {
+        message.error(PleaseReloadPageMsg)
         onError()
-    } else if ('error' in response)  {
-        message.error('Error resetHandler')
     }
 }

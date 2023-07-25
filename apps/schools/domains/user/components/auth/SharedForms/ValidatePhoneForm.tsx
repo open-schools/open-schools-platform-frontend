@@ -1,5 +1,5 @@
 import { Col, Form, Row, Space, Typography as DefaultTypography } from 'antd'
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
@@ -17,16 +17,18 @@ import {
 import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
 import { useResendMutation, useVerifyMutation } from '../../../redux/userApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
-import { CodeMustContainCaetrainLength, NeedConfirmField } from '../constants/message'
 import { Button } from '../../../../common/components/Button'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
+import { useValidatePhoneFormValidators } from './hooks'
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     onFinish,
     onReset,
     title,
 }) => {
+    const validators = useValidatePhoneFormValidators()
+    
     const [form] = Form.useForm()
     const {
         phone,
@@ -39,27 +41,6 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
     const [phoneValidateError, setPhoneValidateError] = useState(null)
     const PhoneToggleLabel = isPhoneVisible ? 'Показать' : 'Скрыть'
-
-    const SMS_VALIDATOR = useCallback(
-        () => ({
-            validator () {
-                if (!phoneValidateError) {
-                    return Promise.resolve()
-                }
-                return Promise.reject(phoneValidateError)
-            },
-        }),
-        [phoneValidateError]
-    )
-
-    const SMS_CODE_VALIDATOR_RULES = useMemo(
-        () => [
-            { required: true, message: NeedConfirmField },
-            { len: SMS_CODE_LENGTH, message: CodeMustContainCaetrainLength },
-            SMS_VALIDATOR,
-        ],
-        ['Необходимо заполнить', SMS_VALIDATOR]
-    )
 
     const confirmPhone = useCallback(async (smsCode: string) => {
         otpHandler(smsCode, verifyCode, onFinish, form)
@@ -160,7 +141,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                             <Form.Item
                                 name="smsCode"
                                 data-cy="register-smscode-item"
-                                rules={SMS_CODE_VALIDATOR_RULES}
+                                rules={validators.smsCode}
                             >
                                 <Input
                                     placeholder=""
