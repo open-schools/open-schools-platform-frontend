@@ -2,10 +2,10 @@ import { Row } from 'antd'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import Link from 'next/link'
-import logo from '@public/icons/logo.svg'
-import Image from 'next/image'
+
 import { AuthBackground } from '../authBackground'
 import getConfig from 'next/config'
+import {Logo} from "../../../../common/components/Logo";
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement,
@@ -30,7 +30,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
             <AuthBackground/>
             <Link className={styles.logoContainer} href={''}>
                 <Row className={styles.rowWithGap}>
-                    <Image src={logo} alt={'Логотип'} width={50}></Image>
+                    <Logo/>
                     <div className={styles.logoText}>
                         Открытые<br/>
                         школы
