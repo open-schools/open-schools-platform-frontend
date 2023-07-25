@@ -47,6 +47,10 @@ export const useRegisterFormValidators = () => {
             ],
             confirm: [
                 {
+                    min: MIN_PASSWORD_LENGTH,
+                    message: PasswordIsTooShortMsg,
+                },
+                {
                     required: true,
                     message: PleaseConfirmYourPasswordMsg,
                 },

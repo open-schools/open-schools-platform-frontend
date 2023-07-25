@@ -18,12 +18,12 @@ export const useResetFormValidators = () => {
             ],
             confirm: [
                 {
-                    required: true,
-                    message: PleaseConfirmYourPasswordMsg,
-                },
-                {
                     min: MIN_PASSWORD_LENGTH,
                     message: PasswordIsTooShortMsg,
+                },
+                {
+                    required: true,
+                    message: PleaseConfirmYourPasswordMsg,
                 },
                 ({ getFieldValue }) => ({
                     validator (_, value) {
