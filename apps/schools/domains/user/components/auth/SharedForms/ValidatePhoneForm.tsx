@@ -25,6 +25,7 @@ import { useValidatePhoneFormValidators } from './hooks'
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     onFinish,
     onReset,
+    onError,
     title,
 }) => {
     const validators = useValidatePhoneFormValidators()
@@ -43,7 +44,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const PhoneToggleLabel = isPhoneVisible ? 'Показать' : 'Скрыть'
 
     const confirmPhone = useCallback(async (smsCode: string) => {
-        otpHandler(smsCode, verifyCode, onFinish, form)
+        otpHandler(smsCode, verifyCode, onFinish, form, onError)
     }, [form])
 
     const smsValidator = useCallback(async () => {

@@ -49,6 +49,10 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
                         setStep('inputPhone')
                         Router.push('/auth/register')
                     }}
+                    onError={() => {
+                        setStep('inputPhone')
+                        Router.push('/auth/register')
+                    }}
                 />
             </>
         ),

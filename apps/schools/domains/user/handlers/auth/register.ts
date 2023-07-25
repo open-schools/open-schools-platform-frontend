@@ -42,13 +42,14 @@ export async function tokenHandler (recaptchaToken: string, formComponent: FormI
     }
 }
 
-export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFinish: () => void, formComponent: FormInstance) {
+export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFinish: () => void, formComponent: FormInstance, onError: () => void) {
     let token = localStorage.getItem('token')
     let response = await verifyCodeMutation({ otp: smsCode, token_key: token })
     if (!('error' in response)) {
         onFinish()
-    } else if (response.error?.status === 401 || response.error?.status === 404) {
+    } else if (response.error?.status === 401 || response.error?.originalStatus === 404) {
         message.error(PleaseReloadPageMsg)
+        onError()
     } else {
         formComponent.setFields([
             {
@@ -67,7 +68,7 @@ export async function registrationHandler (phone: string, password: string, user
     if (!('error' in response)) {
         message.success(SuccessRegistrationMsg)
         onFinish('someUserID')
-    } else if (response.error?.status === 401 || response.error?.status === 404) {
+    } else if (response.error?.status === 400 || response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
         onError()
     } else if (response.error?.data.error.code === 'AlreadyExists') {

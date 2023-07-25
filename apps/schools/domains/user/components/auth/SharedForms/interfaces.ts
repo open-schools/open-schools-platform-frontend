@@ -10,5 +10,6 @@ export interface IInputPhoneFormProps {
 export interface IValidatePhoneFormProps {
     onFinish: () => void
     onReset: () => void
+    onError: () => void
     title?: string
 }
