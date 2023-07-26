@@ -32,7 +32,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
 
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password'])
-        registrationHandler(phone, password, userRegistration, onFinish, onError)
+        registrationHandler(phone, password, userRegistration, onFinish, onError, form)
     }, [form, signInByPhone])
 
     const initialValues = { phone }
