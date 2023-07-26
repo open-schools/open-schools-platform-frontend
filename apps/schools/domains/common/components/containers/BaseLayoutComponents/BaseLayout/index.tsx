@@ -24,7 +24,7 @@ interface IBaseLayoutProps extends Omit<PropsWithChildren, 'type'> {
     onLogoClick?: () => void
 }
 
-const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
+export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
     const [collapsed, setCollapsed] = useState(false)
 
     const { children } = props
