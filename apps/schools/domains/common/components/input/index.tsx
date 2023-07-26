@@ -56,6 +56,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     placeholder={placeholder}
                     buttonStyle={BUTTON_INPUT_PHONE_STYLE}
                     inputStyle={INPUT_PHONE_STYLE}
+                    containerStyle={{ marginTop: '8px' }}
                 />
             </div>
         )

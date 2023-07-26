@@ -9,7 +9,7 @@ COPY --from=node:buster /opt/ /opt/
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
-# Add app user/group! Clean packages and fix links! Check version! And install some extra packages!
+# Create app user/group! Clean packages and fix links! Check version! And install some extra packages!
 ARG DOCKER_FILE_INSTALL_COMMAND
 ENV DOCKER_FILE_INSTALL_COMMAND ${DOCKER_FILE_INSTALL_COMMAND}
 RUN set -ex \

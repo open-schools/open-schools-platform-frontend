@@ -3,8 +3,8 @@ import React, { PropsWithChildren, useCallback, useContext, useState } from 'rea
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
-import { Input } from '../../../../common/components/Input'
-import { Button } from '../../../../common/components/Button'
+import { Input } from '../../../../common/components/input'
+import { Button } from '../../../../common/components/button'
 import { useRegisterFormValidators } from './hooks'
 import { IRegisterFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ValidatorsMap } from '../RegisterForm/interfaces'
+import { ValidatorsMap } from '../registerForm/interfaces'
 import { PleaseConfirmYourPasswordMsg } from '../constants/message'
 
 export const useResetFormValidators = () => {
