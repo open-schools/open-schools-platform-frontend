@@ -10,8 +10,7 @@ import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaPr
 import { IValidatePhoneFormProps } from './interfaces'
 import {
     BUTTON_FORM_GUTTER_40,
-    FORM_ITEMS_GUTTER,
-    SMS_CODE_CLEAR_REGEX,
+    FORM_ITEMS_GUTTER, SMS_CODE_CLEAR_REGEX,
     SMS_INPUT_STYLE,
 } from '../constants/styles'
 import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
@@ -40,24 +39,16 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     const [showPhone, setShowPhone] = useState(phone)
     const [smsCode, setSmsCode] = useState('')
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
-    const [phoneValidateError, setPhoneValidateError] = useState(null)
     const PhoneToggleLabel = isPhoneVisible ? 'Показать' : 'Скрыть'
 
     const confirmPhone = useCallback(async (smsCode: string) => {
-        otpHandler(smsCode, verifyCode, onFinish, form, onError)
-    }, [form])
-
-    const smsValidator = useCallback(async () => {
-        setPhoneValidateError(null)
-        let smsCode = (form.getFieldValue('smsCode') || '').toString()
         smsCode = smsCode.replace(SMS_CODE_CLEAR_REGEX, '')
         form.setFieldsValue({ smsCode })
-        if (smsCode.length !== SMS_CODE_LENGTH) {
+        if (smsCode.length < SMS_CODE_LENGTH) {
             return
         }
-
-        await confirmPhone(smsCode)
-    }, [confirmPhone, form, setPhoneValidateError])
+        await otpHandler(smsCode, verifyCode, onFinish, form, onError)
+    }, [form])
 
     useEffect(() => {
         const app = initializeApp({
@@ -155,7 +146,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                         const value = e.target.value
                                         if (value.length <= 6) {
                                             setSmsCode(value)
-                                            smsValidator()
+                                            confirmPhone(value)
                                         }
                                     }}
                                     style={SMS_INPUT_STYLE}

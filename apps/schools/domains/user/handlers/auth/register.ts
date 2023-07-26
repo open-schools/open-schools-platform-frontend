@@ -10,6 +10,7 @@ import {
     WrongSmsCodeMsg,
     SuccessRegistrationMsg,
 } from '../../components/auth/constants/message'
+import { withLoadingMessage } from '../../../common/utils/loading'
 
 export async function tokenHandler (recaptchaToken: string, formComponent: FormInstance, nextUrl: string, registrationMutation: any, onFinish: () => void) {
     if (recaptchaToken === '') return
@@ -28,11 +29,7 @@ export async function tokenHandler (recaptchaToken: string, formComponent: FormI
         return
     }
 
-    const hide = message.loading(LoadingMsg,0)
-
-    let response = await registrationMutation({ phone: phone, recaptcha: recaptchaToken })
-
-    hide()
+    let response = await withLoadingMessage(LoadingMsg, registrationMutation, { phone: phone, recaptcha: recaptchaToken })
     if ('data' in response) {
         localStorage.setItem('token', response.data.token)
         Router.push(`/auth/${nextUrl}?token=${37128937218937}`)
@@ -47,7 +44,7 @@ export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFi
     let response = await verifyCodeMutation({ otp: smsCode, token_key: token })
     if (!('error' in response)) {
         onFinish()
-    } else if (response.error?.status === 401 || response.error?.originalStatus === 404) {
+    } else if ([401, 404].includes(response.error?.status)) {
         message.error(PleaseReloadPageMsg)
         onError()
     } else {
@@ -61,14 +58,12 @@ export async function otpHandler (smsCode: string, verifyCodeMutation: any, onFi
 }
 
 export async function registrationHandler (phone: string, password: string, userRegistrationMutation: any, onFinish: (userID: string) => void, onError: () => void, formComponent: FormInstance) {
-    const hide = message.loading(LoadingMsg,0)
     let token = localStorage.getItem('token')
-    let response = await userRegistrationMutation({ token: token, name: phone, password: password })
-    hide()
+    let response = await withLoadingMessage(LoadingMsg, userRegistrationMutation, { token: token, name: phone, password: password })
     if (!('error' in response)) {
         message.success(SuccessRegistrationMsg)
         onFinish('someUserID')
-    } else if (response.error?.status === 400 || response.error?.status === 401) {
+    } else if ([400, 401].includes(response.error?.status)) {
         message.error(PleaseReloadPageMsg)
         onError()
     } else if (response.error?.data.error.code === 'AlreadyExists') {

@@ -23,9 +23,11 @@ export const useRegisterFormValidators = () => {
                     type: 'string',
                 }, {
                     message: NameMustContainMsg,
+                    // TODO: move code above regexps to constants
                     pattern: /^\p{L}+(?: \p{L}+)*$/u,
                 }, {
                     message: NameMustNotStartOrAndMsg,
+                    // TODO: move code above regexps to constants
                     validator: (_, value) => !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
                 },
             ],

@@ -13,3 +13,5 @@ export const TWO_OR_MORE_SPACES_REGEXP = /\s\s+/g
 export const OMIT_SEARCH_CHARACTERS_REGEXP = /[^\p{Alphabetic}\p{Decimal_Number}\s/]/giu
 export const MULTIPLE_EMAILS_REGEX = /^[\w+.-]+@[a-z\d.-]+\.[a-z]{2,}(\s*,\s*[\w+.-]+@[a-z\d.-]+\.[a-z]{2,})*$/i
 export const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+export const NAME_MUST_NOT_START_REGEXP = /[-]\s|\s[-]/
+export const NAME_MUST_CONTAIN_REGEXP = /^\p{L}+(?: \p{L}+)*$/u
