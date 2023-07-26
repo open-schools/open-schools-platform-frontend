@@ -6,7 +6,9 @@ import { Provider } from 'react-redux'
 import { AuthProvider } from '../domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
 import Head from 'next/head'
-import BaseLayout from "../domains/common/components/containers/BaseLayout/BaseLayout";
+import BaseLayout from "../domains/common/components/containers/BaseLayoutComponents/BaseLayout";
+import {OrganizationProvider} from "../domains/user/providers/organizationProvider";
+
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
@@ -23,13 +25,15 @@ function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     return (
         <Provider store={store}>
             <AuthProvider>
-                <Head>
-                    <title>Открытые школы</title>
-                    <link rel="icon" href="/icons/logo.svg" sizes="any" />
-                </Head>
-                <LayoutComponent>
-                    <Component {...pageProps} />
-                </LayoutComponent>
+                <OrganizationProvider>
+                    <Head>
+                        <title>Открытые школы</title>
+                        <link rel="icon" href="/icons/logo.svg" sizes="any" />
+                    </Head>
+                    <LayoutComponent>
+                        <Component {...pageProps} />
+                    </LayoutComponent>
+                </OrganizationProvider>
             </AuthProvider>
         </Provider>
     )

@@ -30,7 +30,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
             <AuthBackground/>
             <Link className={styles.logoContainer} href={''}>
                 <Row className={styles.rowWithGap}>
-                    <Logo/>
+                    <Logo minified={true}/>
                     <div className={styles.logoText}>
                         Открытые<br/>
                         школы
