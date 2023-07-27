@@ -1,35 +1,45 @@
-import { Form } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { Form, Typography } from 'antd'
+import React from 'react'
 import { Input } from '../../../common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '../../../common/components/button'
 import { useCreateEmployeeFormValidators } from './hooks'
+import { useGetAllOrganizationsQuery, useInviteEmployeeMutation } from '../../../organization/redux/organizationApi'
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()
     const [form] = Form.useForm()
-    const [isFormValid, setIsFormValid] = useState(false)
+    const { data } = useGetAllOrganizationsQuery({})
+    const [ mutation ] = useInviteEmployeeMutation()
 
-    useEffect(() => {
-        form.validateFields().then(() => {
-            setIsFormValid(true)
-        }).catch(() => {
-            setIsFormValid(false)
+    const handleSubmitForm = async () => {
+        let response = await mutation({
+            organization_id: String(data?.results[5].id),
+            email: form.getFieldValue('email'),
+            phone: form.getFieldValue('phone'),
+            body: { name: form.getFieldValue('name'), position: form.getFieldValue('position') },
         })
-    })
-
-    const handleSubmit = () => {
+        if ('data' in response) {
+            console.log(response)
+        } else {
+            form.setFields([
+                {
+                    name: 'phone',
+                    errors: ['Неверный формат телефона'],
+                },
+            ])
+        }
     }
-
 
     return (
         <Form
             form={form}
             colon={false}
             requiredMark={false}
+            onFinish={handleSubmitForm}
             layout="vertical"
-            onFinish={handleSubmit}
         >
+            <Typography.Title level={1}>Добавление Сотрудника</Typography.Title>
             <Form.Item
                 label="Телефон сотрудника"
                 name="phone"
@@ -71,7 +81,6 @@ export const CreateEmployeeForm = () => {
                     block
                     data-cy="resetcomplete-button"
                     style={{ width: '30%' }}
-                    disabled={!isFormValid}
                 >
                     Добавить сотрудника
                 </Button>

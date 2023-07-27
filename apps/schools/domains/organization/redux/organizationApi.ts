@@ -22,11 +22,11 @@ import { GetEmployee } from '../../employee/redux/interfaces'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: build => ({
-        getAllOrganizations: build.query<ReturnedData<GetOrganizationSender>, AllOrganizationsData>({
-            query: (data) => ({
+        getAllOrganizations: build.query<ReturnedData<GetOrganizationSender[]>, AllOrganizationsData>({
+            query: (params) => ({
                 url: '/organization-management/organizations',
                 method: 'GET',
-                body: data,
+                params: params,
             }),
         }),
         createOrganization: build.mutation<{ 'creator_employee': GetEmployee }, createOrganizationData>({
