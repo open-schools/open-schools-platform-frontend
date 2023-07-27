@@ -5,8 +5,8 @@ import {
     useUpdateUserMutation,
 } from '../domains/user/redux/authenticationApi'
 import { message } from 'antd'
-import { Button } from '../domains/common/components/Button'
-import { Input } from '../domains/common/components/Input'
+import { Button } from '../domains/common/components/button'
+import { Input } from '../domains/common/components/input'
 
 export async function logoutHandler (logout: any) {
     let response = await logout()

@@ -6,6 +6,7 @@ import 'react-phone-input-2/lib/style.css'
 import { typeInput } from '../../constants/Input'
 import { CustomInputProps, inputStyleDictionary } from './interfaces'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
+import classNames from 'classnames'
 
 const INPUT_PHONE_STYLE: React.CSSProperties = {
     width: '100%',
@@ -26,6 +27,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         customType = 'inputDefault',
         placeholder,
         label,
+        className,
         ...restProps
     } = props
 
@@ -34,7 +36,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             <div className={defaultStyles.inputContainer}>
                 <label>{label}</label>
                 <BaseInput
-                    className={defaultStyles.input}
+                    className={classNames(defaultStyles.input, className)}
                     placeholder={placeholder}
                     data-testid="input"
                     {...restProps}
@@ -56,6 +58,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     placeholder={placeholder}
                     buttonStyle={BUTTON_INPUT_PHONE_STYLE}
                     inputStyle={INPUT_PHONE_STYLE}
+                    containerStyle={{ marginTop: '8px' }}
                 />
             </div>
         )
@@ -65,7 +68,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 <label>{label}</label>
                 <BaseInput.Password
                     iconRender={(visible: boolean) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    className={defaultStyles.input}
+                    className={classNames(defaultStyles.input, className)}
                     placeholder={placeholder}
                     data-testid="password-input"
                     {...restProps}
@@ -77,7 +80,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             <div className={inputStyleDictionary[customType]?.inputContainer}>
                 <label>{label}</label>
                 <BaseInput
-                    className={inputStyleDictionary[customType]?.input}
+                    className={classNames(inputStyleDictionary[customType]?.input, className)}
                     {...restProps}
                     placeholder={placeholder}
                     data-testid="input"
