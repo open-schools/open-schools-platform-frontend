@@ -4,39 +4,22 @@ import { Input } from '../../../common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '../../../common/components/button'
 import { useCreateEmployeeFormValidators } from './hooks'
-import { useGetAllOrganizationsQuery, useInviteEmployeeMutation } from '../../../organization/redux/organizationApi'
+import { useInviteEmployeeMutation } from '../../../organization/redux/organizationApi'
+import { useOrganization } from '../../../user/providers/organizationProvider'
+import { handleSubmitForm } from '../../handlers/employee'
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()
-    const [form] = Form.useForm()
-    const { data } = useGetAllOrganizationsQuery({})
+    const { organizationId } = useOrganization()
+    const [ form ] = Form.useForm()
     const [ mutation ] = useInviteEmployeeMutation()
-
-    const handleSubmitForm = async () => {
-        let response = await mutation({
-            organization_id: String(data?.results[5].id),
-            email: form.getFieldValue('email'),
-            phone: form.getFieldValue('phone'),
-            body: { name: form.getFieldValue('name'), position: form.getFieldValue('position') },
-        })
-        if ('data' in response) {
-            console.log(response)
-        } else {
-            form.setFields([
-                {
-                    name: 'phone',
-                    errors: ['Неверный формат телефона'],
-                },
-            ])
-        }
-    }
 
     return (
         <Form
             form={form}
             colon={false}
             requiredMark={false}
-            onFinish={handleSubmitForm}
+            onFinish={() => handleSubmitForm(organizationId, form, mutation)}
             layout="vertical"
         >
             <Typography.Title level={1}>Добавление Сотрудника</Typography.Title>
@@ -81,6 +64,7 @@ export const CreateEmployeeForm = () => {
                     block
                     data-cy="resetcomplete-button"
                     style={{ width: '30%' }}
+                    className={styles.button}
                 >
                     Добавить сотрудника
                 </Button>

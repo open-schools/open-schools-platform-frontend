@@ -3,19 +3,21 @@ import React from 'react'
 import defaultStyles from './styles/default.module.scss'
 import { typeButton } from '../../constants/Button'
 import { buttonStyleDictionary, CustomButtonProps } from './interfaces'
+import classNames from 'classnames'
 
 export const Button: React.FC<CustomButtonProps> = (props) => {
     const {
         type = 'schoolDefault',
         antdType = 'primary',
         onClick,
+        className,
         ...restProps
     } = props
 
     if (!typeButton.includes(type)) {
         return (
             <DefaultButton
-                className={defaultStyles.button}
+                className={classNames(defaultStyles.button, className)}
                 {...restProps}
                 type={antdType}
                 onClick={onClick}
@@ -25,7 +27,7 @@ export const Button: React.FC<CustomButtonProps> = (props) => {
     } else {
         return (
             <DefaultButton
-                className={buttonStyleDictionary[type]?.button}
+                className={classNames(buttonStyleDictionary[type]?.button, className)}
                 {...restProps}
                 type={antdType}
                 onClick={onClick}

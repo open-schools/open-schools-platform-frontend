@@ -20,3 +20,4 @@ export const NameMustNotStartOrAndMsg = 'ФИО не может начинать
 export const EmailIsNotValidMsg = 'Необходимо ввести валидный Email'
 export const WrongPhoneFormatMsg = 'Неверный формат телефона'
 export const PleaseInputYourEmailMsg = 'Пожалуйста, введите ваш Email'
+export const SuccessInviteEmployeeMsg = 'Приглашение отправлено'
