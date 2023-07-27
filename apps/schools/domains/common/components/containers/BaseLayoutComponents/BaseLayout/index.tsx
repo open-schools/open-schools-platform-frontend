@@ -1,28 +1,17 @@
-import {Divider, Layout} from 'antd'
+import { Divider, Layout } from 'antd'
 
-import React, {
-    CSSProperties,
-    PropsWithChildren,
-    useState,
-} from 'react'
+import React, { useState } from 'react'
 
 import styles from './styles/styles.module.scss'
 
 import Menu from '../Menu'
-import {Icon} from "../Icon/Icon";
-import OrganizationSelect from "../OrganizationSelect";
-import UserProfile from "../UserProfile";
+import { Icon } from '../Icon/Icon'
+import OrganizationSelect from '../OrganizationSelect'
+import UserProfile from '../UserProfile'
+import { COLLAPSED_LAYOUT_WIDTH, LAYOUT_WIDTH } from '../../../../constants/BaseLayout'
+import { IBaseLayoutProps } from './interfaces'
 
 const { Content, Sider } = Layout
-
-const LAYOUT_WIDTH = 255;
-const COLLAPSED_LAYOUT_WIDTH = 100;
-
-interface IBaseLayoutProps extends Omit<PropsWithChildren, 'type'> {
-    style?: CSSProperties
-    className?: string
-    onLogoClick?: () => void
-}
 
 export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
     const [collapsed, setCollapsed] = useState(false)

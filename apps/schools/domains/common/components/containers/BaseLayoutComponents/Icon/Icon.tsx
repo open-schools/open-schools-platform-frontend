@@ -1,18 +1,14 @@
-import React from "react";
-import styles from "./styles/styles.module.scss";
-import classnames from "classnames";
-import {CustomLogo} from "../../../Logo";
-import {LeftOutlined, RightOutlined} from "@ant-design/icons";
+import React from 'react'
+import styles from './styles/styles.module.scss'
+import classnames from 'classnames'
+import { CustomLogo } from '../../../Logo'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { LOGO_WIDTH } from '../../../../constants/Icon'
+import { IconProps } from '../../../Icons/interfaces'
 
-const LOGO_WIDTH = 50;
-
-interface IconProps {
-    collapsed: boolean
-    setCollapsed: any
-}
 
 export const Icon: React.FC<IconProps> = (props) => {
-    const {collapsed, setCollapsed} = props;
+    const { collapsed, setCollapsed } = props
 
     return <div className={styles.sidebar}>
         <div

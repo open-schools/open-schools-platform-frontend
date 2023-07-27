@@ -2,14 +2,10 @@ import Image from 'next/image'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import logo from '@public/icons/logo.svg'
+import { LogoProps } from './interfaces'
 
-interface ILogoProps {
-    onClick?: (e: React.SyntheticEvent) => void
-    minified?: boolean
-    width?: number
-}
 
-export const CustomLogo: React.FC<ILogoProps> = (props) => {
+export const CustomLogo: React.FC<LogoProps> = (props) => {
     const {
         onClick,
         minified,
