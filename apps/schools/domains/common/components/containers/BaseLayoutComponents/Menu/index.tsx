@@ -21,59 +21,59 @@ import { MenuItemObj } from '../classes'
 
 const menuList: MenuItemObj[] = [
     new MenuItemObj(
-        "analytics",
-        "Аналитика",
-        <LineChartOutlined style={{fontSize: '150%'}}/>,
+        'analytics',
+        'Аналитика',
+        <LineChartOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
     new MenuItemObj(
-        "circles",
-        "Кружки",
-        <RocketOutlined style={{fontSize: '150%'}}/>,
+        'circles',
+        'Кружки',
+        <RocketOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
     new MenuItemObj(
-        "students",
-        "Ученики",
-        <ReadOutlined style={{fontSize: '150%'}}/>,
+        'students',
+        'Ученики',
+        <ReadOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
     new MenuItemObj(
-        "queries",
-        "Заявки",
-        <SolutionOutlined style={{fontSize: '150%'}}/>,
+        'queries',
+        'Заявки',
+        <SolutionOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
     new MenuItemObj(
-        "employees",
-        "Сотрудники",
-        <TeamOutlined style={{fontSize: '150%'}}/>,
+        'employees',
+        'Сотрудники',
+        <TeamOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
     new MenuItemObj(
-        "teachers",
-        "Учителя",
-        <BookOutlined style={{fontSize: '150%'}}/>,
+        'teachers',
+        'Учителя',
+        <BookOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
     new MenuItemObj(
-        "settings",
-        "Настройки",
-        <SettingOutlined style={{fontSize: '150%'}}/>,
+        'settings',
+        'Настройки',
+        <SettingOutlined style={{ fontSize: '150%' }}/>,
         [isOrganizationSelected],
     ),
-];
+]
 
 const MenuCustom = () => {
-    const router = useRouter();
+    const router = useRouter()
 
-    const [conditions, setConditions] = useState<RulesDictionary>({isOrganizationSelected: false});
-    const {organization} = useOrganization();
+    const [conditions, setConditions] = useState<RulesDictionary>({ isOrganizationSelected: false })
+    const { organization } = useOrganization()
 
 
 
     useEffect(() => {
-        setConditions({isOrganizationSelected: organization.id !== undefined});
+        setConditions({ isOrganizationSelected: organization.id !== undefined })
     }, [organization])
 
     return (
@@ -84,7 +84,7 @@ const MenuCustom = () => {
                 mode="inline"
                 onClick={(e) => {
                     if (!router.asPath.includes(e.key)) {
-                        router.push(`/${e.key}`);
+                        router.push(`/${e.key}`)
                     }
                 }}
                 selectedKeys={menuList
@@ -107,7 +107,7 @@ const MenuCustom = () => {
                 ))}
             </Menu>
         </>
-    );
-};
+    )
+}
 
-export default MenuCustom;
+export default MenuCustom

@@ -27,7 +27,6 @@
             "@test/*": ["test/*"],
             "@test": ["test"]
         },
-        //TODO: make it false for speed
         "incremental": false
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
