@@ -4,8 +4,8 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
-import { Input } from '../../../../common/components/Input'
-import { CountDownTimer } from '../../../../common/components/CountDownTimer'
+import { Input } from '../../../../common/components/input'
+import { CountDownTimer } from '../../../../common/components/countDownTimer'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { IValidatePhoneFormProps } from './interfaces'
 import {
@@ -18,13 +18,14 @@ import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
 import { useResendMutation, useVerifyMutation } from '../../../redux/userApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
 import { CodeMustContainCaetrainLength, NeedConfirmField } from '../constants/message'
-import { Button } from '../../../../common/components/Button'
+import { Button } from '../../../../common/components/button'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 
 export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     onFinish,
     onReset,
+    onError,
     title,
 }) => {
     const [form] = Form.useForm()
@@ -62,7 +63,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     )
 
     const confirmPhone = useCallback(async (smsCode: string) => {
-        otpHandler(smsCode, verifyCode, onFinish)
+        otpHandler(smsCode, verifyCode, onFinish, form, onError)
     }, [form])
 
     const smsValidator = useCallback(async () => {

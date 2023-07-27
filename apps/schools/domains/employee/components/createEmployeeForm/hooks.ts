@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { ValidatorsMap } from '../../../user/components/auth/registerForm/interfaces'
 import {
     EmailIsNotValidMsg,
     NameMustContainMsg,
@@ -7,6 +6,7 @@ import {
     PleaseInputYourNameMsg,
     WrongPhoneFormatMsg,
 } from '../../../user/components/auth/constants/message'
+import { ValidatorsMap } from '../../../common/redux/interfaces'
 
 export const useCreateEmployeeFormValidators = () => {
     return useMemo<ValidatorsMap>(() => {

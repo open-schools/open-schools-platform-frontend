@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { ValidatorsMap } from '../RegisterForm/interfaces'
 import { PleaseConfirmYourPasswordMsg } from '../constants/message'
+import { ValidatorsMap } from '../../../../common/redux/interfaces'
 
 export const useResetFormValidators = () => {
     return useMemo<ValidatorsMap>(() => {
