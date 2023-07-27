@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { AuthBackground } from '../authBackground'
 import getConfig from 'next/config'
-import {Logo} from "../../../../common/components/Logo";
+import {CustomLogo} from "../../../../common/components/Logo";
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement,
@@ -30,7 +30,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
             <AuthBackground/>
             <Link className={styles.logoContainer} href={''}>
                 <Row className={styles.rowWithGap}>
-                    <Logo minified={true}/>
+                    <CustomLogo minified={true}/>
                     <div className={styles.logoText}>
                         Открытые<br/>
                         школы

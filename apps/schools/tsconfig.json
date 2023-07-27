@@ -27,7 +27,8 @@
             "@test/*": ["test/*"],
             "@test": ["test"]
         },
-        "incremental": true
+        //TODO: make it false for speed
+        "incremental": false
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules", "test/*", "cypress/*"]

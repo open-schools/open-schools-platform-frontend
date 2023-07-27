@@ -1,15 +1,15 @@
 import { RuleItem, Rules } from '../../../access/rules'
-import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon'
+import {ReactNode} from "react";
 
 export class MenuItemObj extends RuleItem {
     url: string
     name: string
-    icon: AntdIconProps
+    icon: ReactNode
 
     constructor(
         url: string,
         name: string,
-        icon: AntdIconProps,
+        icon: ReactNode,
         disableRules: Rules[]
     ) {
         super(disableRules)

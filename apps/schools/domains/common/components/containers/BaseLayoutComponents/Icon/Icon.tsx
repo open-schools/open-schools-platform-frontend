@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles/styles.module.scss";
 import classnames from "classnames";
-import {Logo} from "../../../Logo";
+import {CustomLogo} from "../../../Logo";
 import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 
 const LOGO_WIDTH = 50;
@@ -23,7 +23,7 @@ export const Icon: React.FC<IconProps> = (props) => {
                     : styles.logoMargin
             )}
         >
-            <Logo minified={collapsed} width={LOGO_WIDTH} />
+            <CustomLogo minified={collapsed} width={LOGO_WIDTH} />
         </div>
         <div className={styles.trigger}>
             <div className={styles.triggerOutline}>

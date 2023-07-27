@@ -9,7 +9,7 @@ interface ILogoProps {
     width?: number
 }
 
-export const Logo: React.FC<ILogoProps> = (props) => {
+export const CustomLogo: React.FC<ILogoProps> = (props) => {
     const {
         onClick,
         minified,
