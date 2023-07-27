@@ -1,9 +1,10 @@
 import React from 'react'
-import {IconWrapper, IconProps} from "./IconWrapper";
+import { IconWrapper } from './IconWrapper'
+import { IconTypes } from './interfaces'
 
 
 
-export const Close: React.FC<IconProps> = ({ svgProps: props, ...restProps }) => {
+export const Close: React.FC<IconTypes> = ({ svgProps: props, ...restProps }) => {
     return (
         <IconWrapper
             icon={
