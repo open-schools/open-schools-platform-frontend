@@ -27,7 +27,7 @@
             "@test/*": ["test/*"],
             "@test": ["test"]
         },
-        "incremental": true
+        "incremental": false
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules", "test/*", "cypress/*"]
