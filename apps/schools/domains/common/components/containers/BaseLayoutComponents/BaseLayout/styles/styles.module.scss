@@ -1,0 +1,36 @@
+@import '../../../../styles/abstracts/colors';
+
+
+.placement {
+  min-height: 100vh;
+}
+
+.sliderStyle {
+  border-right: 1px solid rgba(10, 10, 10, 0.1);
+
+  :global {
+    .ant-menu-inline .ant-menu-item::after {
+      border-right: 0;
+    }
+  }
+}
+
+.siteLayout {
+  background: $color-white;
+}
+
+.content {
+  margin: 16px;
+}
+
+.siteLayoutBackground {
+  background: $color-white;
+}
+
+.divider{
+  min-width: 100px;
+  width: 207px;
+  max-width: 100%;
+  margin: 20px auto auto;
+  border-top-color: #D8D8D8;
+}

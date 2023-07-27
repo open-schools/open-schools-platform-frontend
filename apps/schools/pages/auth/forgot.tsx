@@ -52,6 +52,10 @@ const ResetPage: ContainerPage<IAuthLayoutProps> = (props) => {
                         setStep('inputPhone')
                         Router.push('/auth/forgot')
                     }}
+                    onError={() => {
+                        setStep('inputPhone')
+                        Router.push('/auth/forgot')
+                    }}
                 />
             </>
         ),

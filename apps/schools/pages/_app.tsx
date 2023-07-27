@@ -5,8 +5,10 @@ import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { AuthProvider } from '../domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
-import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
 import Head from 'next/head'
+import {OrganizationProvider} from "../domains/user/providers/organizationProvider";
+import {BaseLayout} from "../domains/common/components/containers/BaseLayoutComponents/BaseLayout";
+
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
@@ -16,11 +18,6 @@ interface CustomAppProps extends AppProps {
     Component: ContainerPage<PropsWithChildren>
 }
 
-const BaseLayout: React.FC<IAuthLayoutProps> = (props) => {
-    const { children, ...otherProps } = props
-
-    return <>{children}</>
-}
 
 function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     const LayoutComponent = Component.container || BaseLayout
@@ -28,12 +25,15 @@ function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     return (
         <Provider store={store}>
             <AuthProvider>
-                <Head>
-                    <link rel="icon" href="/icons/logo.svg" sizes="any" />
-                </Head>
-                <LayoutComponent>
-                    <Component {...pageProps} />
-                </LayoutComponent>
+                <OrganizationProvider>
+                    <Head>
+                        <title>Открытые школы</title>
+                        <link rel="icon" href="/icons/logo.svg" sizes="any" />
+                    </Head>
+                    <LayoutComponent>
+                        <Component {...pageProps} />
+                    </LayoutComponent>
+                </OrganizationProvider>
             </AuthProvider>
         </Provider>
     )

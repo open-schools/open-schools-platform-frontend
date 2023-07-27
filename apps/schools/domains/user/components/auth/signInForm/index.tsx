@@ -7,9 +7,11 @@ import styles from '../styles/formStyles.module.scss'
 import { Button } from '../../../../common/components/button'
 import { loginHandler } from '../../../handlers/auth/signin'
 import { useLoginMutation } from '../../../redux/authenticationApi'
-import { NeedConfirmField } from '../constants/message'
+import { useSignInFormValidators } from './hooks'
 
 export const SignInForm = (): React.ReactElement => {
+    const validators = useSignInFormValidators()
+    
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
 
@@ -39,12 +41,7 @@ export const SignInForm = (): React.ReactElement => {
                             <Form.Item
                                 name="phone"
                                 label={'Телефон'}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: NeedConfirmField,
-                                    },
-                                ]}
+                                rules={validators.phone}
                                 data-cy="signin-phone-item"
                             >
                                 <Input
@@ -57,12 +54,7 @@ export const SignInForm = (): React.ReactElement => {
                             <Form.Item
                                 name="password"
                                 label={'Пароль'}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: NeedConfirmField,
-                                    },
-                                ]}
+                                rules={validators.password}
                                 data-cy="signin-password-item"
                             >
                                 <Input
@@ -91,7 +83,7 @@ export const SignInForm = (): React.ReactElement => {
                                     loading={isLoading}
                                     block
                                     data-cy="signin-button"
-                                    onClick={() => loginHandler(phone, password, login)}
+                                    onClick={() => loginHandler(phone, password, login, form)}
                                 >
                                     Войти
                                 </Button>

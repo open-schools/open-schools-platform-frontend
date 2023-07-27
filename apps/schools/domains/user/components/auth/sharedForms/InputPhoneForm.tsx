@@ -11,12 +11,14 @@ import { FORM_ITEMS_GUTTER } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { tokenHandler } from '../../../handlers/auth/register'
 import { useTokenMutation } from '../../../redux/userApi'
-import { NeedConfirmField } from '../constants/message'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
+import { useInputPhoneFormValidators } from './hooks'
 
 
 export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title, buttonText, description, disclaimer, onFinish }) => {
+    const validators = useInputPhoneFormValidators()
+
     const {
         setPhone,
         token,
@@ -82,12 +84,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                             <Form.Item
                                 name="phone"
                                 label={'Телефон'}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: NeedConfirmField,
-                                    },
-                                ]}
+                                rules={validators.phone}
                                 data-cy="register-phone-item"
                             >
                                 <Input
