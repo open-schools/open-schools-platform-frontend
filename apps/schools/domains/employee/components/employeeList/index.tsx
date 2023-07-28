@@ -45,7 +45,7 @@ const baseColumns: RawColumnType<DataType>[] = [
 
 
 export function EmployeeList () {
-    const [dataSource, setDataSource] = useState([])
+    const [dataSource, setDataSource] = useState<any[]>([])
     const [skip, setSkip] = useState(true)
     const { organizationId } = useOrganization()
     const [organization, setOrganization] = useState('')
