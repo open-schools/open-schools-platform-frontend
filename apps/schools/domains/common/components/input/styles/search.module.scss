@@ -1,0 +1,22 @@
+@import "domains/common/components/styles/abstracts/colors";
+
+.inputContainer {
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  background-color: $color-header-table;
+
+  border: 1px solid $color-border-table;
+  border-radius: 16px;
+
+  padding: 15px;
+  margin-bottom: 40px;
+
+  height: 80px;
+
+  .input {
+    border-radius: 8px;
+    height: 100%;
+  }
+}

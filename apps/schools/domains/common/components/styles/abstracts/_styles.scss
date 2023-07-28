@@ -1,0 +1,23 @@
+@import "colors";
+
+%table {
+  table {
+    border: 1px solid $color-border-table;
+    border-radius: 16px;
+  }
+  th {
+    background-color: $color-header-table !important;
+
+    &:first-child {
+      border-radius: 16px 0 0 0 !important;
+    }
+
+    &:last-child {
+      border-radius: 0 16px 0 0 !important;
+    }
+  }
+
+  tbody tr:last-child td {
+    border-bottom: unset !important;
+  }
+}

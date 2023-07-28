@@ -63,7 +63,7 @@ export async function registrationHandler (phone: string, password: string, user
     if (!('error' in response)) {
         message.success(SuccessRegistrationMsg)
         onFinish('someUserID')
-    } else if ([400, 401].includes(response.error?.status)) {
+    } else if (response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
         onError()
     } else if (response.error?.data.error.code === 'AlreadyExists') {

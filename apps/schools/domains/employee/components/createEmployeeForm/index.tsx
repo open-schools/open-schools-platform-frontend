@@ -21,6 +21,7 @@ export const CreateEmployeeForm = () => {
             requiredMark={false}
             onFinish={() => handleSubmitForm(organizationId, form, mutation)}
             layout="vertical"
+            style={{ maxWidth: '600px' }}
         >
             <Typography.Title level={1}>Добавление Сотрудника</Typography.Title>
             <Form.Item
