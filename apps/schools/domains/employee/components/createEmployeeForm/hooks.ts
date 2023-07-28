@@ -25,9 +25,11 @@ export const useCreateEmployeeFormValidators = () => {
                     type: 'string',
                 }, {
                     message: NameMustContainMsg,
-                    pattern: /^\p{L}+(?: \p{L}+)*$/u,
+                    // TODO: move code above regexps to constants
+                    pattern: /^[А-Яа-яA-Za-z]+(?: [А-Яа-яA-Za-z]+)*$/,
                 }, {
                     message: NameMustNotStartOrAndMsg,
+                    // TODO: move code above regexps to constants
                     validator: (_, value) => !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
                 },
             ],
