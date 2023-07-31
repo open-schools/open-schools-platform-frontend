@@ -35,11 +35,18 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                         collapsed={collapsed}
                         setCollapsed={setCollapsed}
                     />
-                    <Menu/>
-                    <Divider className={styles.divider}/>
-                    <OrganizationSelect/>
-                    <UserProfile/>
+                    <div className={styles.menuScroll}>
+                        <Menu/>
+                        <Divider className={styles.divider}/>
+                        <OrganizationSelect/>
+                        <UserProfile/>
+                    </div>
                 </Sider>
+                <Sider
+                    collapsed={collapsed}
+                    width={LAYOUT_WIDTH}
+                    collapsedWidth={COLLAPSED_LAYOUT_WIDTH}
+                />
                 <Layout className={styles.siteLayout}>
                     <Content className={styles.content}>
                         <div className={styles.siteLayoutBackground}>

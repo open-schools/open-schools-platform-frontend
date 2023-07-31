@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
+import {ContainerPage} from "./_app";
+import {IAuthLayoutProps} from "../domains/user/components/auth/containers/AuthLayout";
+import EmptyLayout from "../domains/common/components/containers/EmptyLayout";
 
-const MobileRecaptcha = () => {
+const MobileRecaptcha: ContainerPage<IAuthLayoutProps> = () => {
     useEffect(() => {
         const app = initializeApp({
             apiKey: process.env.NEXT_PUBLIC_apiKey,
@@ -43,4 +46,5 @@ const MobileRecaptcha = () => {
     )
 }
 
+MobileRecaptcha.container = EmptyLayout
 export default MobileRecaptcha
