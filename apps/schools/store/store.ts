@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { commonApi } from './commonApi'
+import {commonApi, rtkQueryErrorLogger} from './commonApi'
 import rootReducer from './reducers'
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
@@ -8,7 +8,10 @@ import type { TypedUseSelectorHook } from 'react-redux'
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(commonApi.middleware),
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat([
+        commonApi.middleware,
+        rtkQueryErrorLogger,
+    ]),
 })
 
 setupListeners(store.dispatch)

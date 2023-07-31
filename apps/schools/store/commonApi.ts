@@ -1,17 +1,8 @@
 import Cookies from 'universal-cookie'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-
-export interface ErrorType {
-    data: {
-        error: {
-            code: string,
-            message?: string,
-            'violation_fields': any,
-            violations: [string]
-        }
-    },
-    status: number,
-}
+import { isRejected, Middleware, MiddlewareAPI } from '@reduxjs/toolkit'
+import { message } from 'antd'
+import { errorCodes, ErrorType } from './utils'
 
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
@@ -37,3 +28,21 @@ export const commonApi = createApi({
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
     endpoints: _ => ({}),
 })
+
+export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
+    if (isRejected()(action)) {
+        const { status, data } = action.payload
+        const errorData = data && data.error
+        const errorType = errorCodes[status]
+        console.log(errorData)
+        console.log(data)
+        console.log(action)
+
+        if (typeof errorType === 'string') {
+            message.error(errorType);
+        } else if (errorData.code) {
+            message.error(errorType[errorData.code])
+        }
+    }
+    return next(action)
+}
