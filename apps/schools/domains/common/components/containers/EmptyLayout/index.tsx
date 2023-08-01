@@ -1,11 +1,12 @@
 import React from 'react'
+import styles from './styles/styles.module.scss'
 
 export const EmptyLayout: React.FC<any> = (props) => {
 
     const { children } = props
 
     return (
-        <div style={{ width: '100vw', height: '100vh', padding: 'auto' }} {...props}>
+        <div className={styles.container} {...props}>
             {children}
         </div>
     )
