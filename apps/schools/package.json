@@ -15,11 +15,6 @@
     "cypress:run": "cypress run --config video=false",
     "cypress:test": "start-server-and-test start http://localhost:3000 cypress:run"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "lint-staged && yarn build"
-    }
-  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "yarn lint:ts",
@@ -98,4 +93,3 @@
   },
   "repository": "https://github.com/pahaz/hackathon-boilerplate-starter-kit/tree/master/apps/schools"
 }
-
