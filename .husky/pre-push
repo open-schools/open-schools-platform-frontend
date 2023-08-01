@@ -1,0 +1,4 @@
+#!/bin/sh
+cd ./apps/schools
+npx lint-staged
+yarn build
