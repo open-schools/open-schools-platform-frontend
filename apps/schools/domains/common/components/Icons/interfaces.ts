@@ -14,9 +14,3 @@ export type IconTypes = {
 export type IconWrapperProps = Omit<IconTypes, 'svgProps'> & {
     icon: React.ReactNode
 }
-
-
-export interface IconProps {
-    collapsed: boolean,
-    setCollapsed: any,
-}

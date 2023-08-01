@@ -1,4 +1,5 @@
 @import '../../../../styles/abstracts/colors';
+@import '../../../../styles/abstracts/variables';
 
 
 .placement {
@@ -7,6 +8,21 @@
 
 .sliderStyle {
   border-right: 1px solid rgba(10, 10, 10, 0.1);
+  position: fixed;
+  z-index: $z-foreground;
+  height: 100vh;
+
+  .menuScroll{
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+    @media screen and (max-height: 700px) {
+      height: 75vh;
+    }
+  }
 
   :global {
     .ant-menu-inline .ant-menu-item::after {
@@ -32,6 +48,6 @@
   min-width: 100px;
   width: 207px;
   max-width: 100%;
-  margin: 20px auto auto;
+  margin: 20px auto 0;
   border-top-color: #D8D8D8;
 }

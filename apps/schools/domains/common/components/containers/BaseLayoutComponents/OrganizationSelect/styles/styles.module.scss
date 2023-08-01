@@ -27,6 +27,23 @@
   display: flex;
   justify-content: center;
 
+  .createButton{
+    border-radius: 8px;
+    margin-top: 20px;
+    height: 34px;
+    width: 200px;
+    max-width: 80%;
+    font: {
+      size: 16px;
+      weight: 600;
+    }
+    font-family: "Roboto";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
   .select {
     :global {
       .ant-select-selection-item {
@@ -50,6 +67,11 @@
     font: {
       size: 16px;
       weight: 600;
+    }
+    color: $color-black;
+
+    .suffixIcon{
+      color: $color-black;
     }
   }
 
