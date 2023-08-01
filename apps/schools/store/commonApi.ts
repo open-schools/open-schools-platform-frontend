@@ -66,7 +66,7 @@ export const commonApi = createApi({
             if (jwtToken) {
                 headers.set('Authorization', `Bearer ${jwtToken}`)
             }
-            headers.set('Content-Type', 'application/jsoncharset=UTF-8')
+            headers.set('Content-Type', 'application/json')
             return headers
         },
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
