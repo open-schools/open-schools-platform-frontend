@@ -2,6 +2,9 @@ import React from 'react'
 import Head from 'next/head'
 import { PageContent } from '../../domains/common/components/containers/PageContent'
 import { CreateEmployeeForm } from '../../domains/employee/components/createEmployeeForm'
+import {
+    OrganizationRequired,
+} from '../../domains/common/components/containers/OrganizationRequired'
 
 export const Create = () => {
     return (
@@ -10,7 +13,9 @@ export const Create = () => {
                 <title>Добавление Сотрудника</title>
             </Head>
             <PageContent>
-                <CreateEmployeeForm />
+                <OrganizationRequired>
+                    <CreateEmployeeForm />
+                </OrganizationRequired>
             </PageContent>
         </>
     )

@@ -17,11 +17,11 @@ export const CreateEmployeeForm = () => {
     return (
         <Form
             form={form}
+            className={styles.table}
             colon={false}
             requiredMark={false}
             onFinish={() => handleSubmitForm(organizationId, form, mutation)}
             layout="vertical"
-            style={{ maxWidth: '600px' }}
         >
             <Typography.Title level={1}>Добавление Сотрудника</Typography.Title>
             <Form.Item

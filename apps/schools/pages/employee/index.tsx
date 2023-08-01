@@ -2,6 +2,9 @@ import React from 'react'
 import Head from 'next/head'
 import { PageContent } from '../../domains/common/components/containers/PageContent'
 import { EmployeeList } from '../../domains/employee/components/employeeList'
+import {
+    OrganizationRequired,
+} from '../../domains/common/components/containers/OrganizationRequired'
 
 const EmployeesPageContent = () => {
     return (
@@ -10,7 +13,9 @@ const EmployeesPageContent = () => {
                 <title>Сотрудники</title>
             </Head>
             <PageContent>
-                <EmployeeList />
+                <OrganizationRequired>
+                    <EmployeeList/>
+                </OrganizationRequired>
             </PageContent>
         </>
     )

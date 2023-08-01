@@ -3,7 +3,7 @@ import { Table, Skeleton, Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
 import { useGetAllEmployeesQuery } from '../../redux/employeeApi'
-import { objectReBuilder, RawColumnType, useGenerateFullColumns } from '../../../common/utils/table'
+import { objectReBuilder, RawColumnType, useGenerateFullColumns } from '../../../common/components/table/table'
 import { useOrganization } from '../../../user/providers/organizationProvider'
 import { Button } from '../../../common/components/button'
 import { Input } from '../../../common/components/input'
@@ -46,18 +46,9 @@ const baseColumns: RawColumnType<DataType>[] = [
 
 export function EmployeeList () {
     const [dataSource, setDataSource] = useState<any[]>([])
-    const [skip, setSkip] = useState(true)
     const { organizationId } = useOrganization()
-    const [organization, setOrganization] = useState('')
     const searchFields = ['name', 'position', 'phone', 'id']
-    const { data, isLoading } = useGetAllEmployeesQuery({ organization: organization }, { skip: skip })
-
-    useEffect(() => {
-        if (organizationId) {
-            setSkip(!skip)
-            setOrganization(organizationId)
-        }
-    }, [organizationId])
+    const { data, isLoading } = useGetAllEmployeesQuery({ organization: organizationId })
 
     useEffect(() => {
         if (!isLoading && data) {
