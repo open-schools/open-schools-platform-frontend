@@ -6,8 +6,8 @@ import { Provider } from 'react-redux'
 import { AuthProvider } from '../domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
 import Head from 'next/head'
-import {OrganizationProvider} from "../domains/user/providers/organizationProvider";
-import {BaseLayout} from "../domains/common/components/containers/BaseLayoutComponents/BaseLayout";
+import { OrganizationProvider } from '../domains/user/providers/organizationProvider'
+import { BaseLayout } from '../domains/common/components/containers/BaseLayoutComponents/BaseLayout'
 
 
 export interface ContainerPage<PropsType> extends React.FC {
