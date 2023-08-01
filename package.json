@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "cd ./apps/schools && lint-staged && yarn build"
+      "pre-push": "cd ./apps/schools && lint-staged && yarn run prettier && yarn run test && yarn build"
     }
   },
   "devDependencies": {
