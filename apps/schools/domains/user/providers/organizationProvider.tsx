@@ -40,7 +40,6 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
 
     useEffect(() => {
         const organization = data?.results.filter(x => x.id === organizationId)[0]
-        console.log('organizationId UseEffect',organization)
         if (UUID_REGEXP.test(organizationId) && organization) {
             setOrganization({
                 id: organization.id,
@@ -55,7 +54,6 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
     }, [organizationId, data])
 
     useEffect(() => {
-        console.log('data useEffect')
         if (data !== undefined && data.count === 0) {
             if (!router.asPath.endsWith('/user') && !router.asPath.includes('/auth/'))
                 router.push('/user')

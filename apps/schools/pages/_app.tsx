@@ -12,6 +12,7 @@ import { BaseLayout } from '../domains/common/components/containers/BaseLayoutCo
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
+    isError?: boolean
 }
 
 interface CustomAppProps extends AppProps {
