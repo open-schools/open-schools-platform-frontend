@@ -21,3 +21,4 @@ window.matchMedia = jest.fn().mockImplementation((query) => {
 
 window.scroll = jest.fn()
 window.alert = jest.fn()
+
