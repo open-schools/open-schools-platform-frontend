@@ -44,7 +44,7 @@ const menuList: MenuItemObj[] = [
         [isOrganizationSelected]
     ),
     new MenuItemObj(
-        'employees',
+        'employee',
         'Сотрудники',
         <TeamOutlined style={{ fontSize: '150%' }} />,
         [isOrganizationSelected]

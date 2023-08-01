@@ -17,6 +17,7 @@ export const CreateEmployeeForm = () => {
     return (
         <Form
             form={form}
+            className={styles.table}
             colon={false}
             requiredMark={false}
             onFinish={() => handleSubmitForm(organizationId, form, mutation)}

@@ -1,19 +1,19 @@
 @import "../../../../styles/abstracts/typography";
 @import "../../../../styles/abstracts/colors";
 
+
 .menu {
   padding-top: 10px;
   border: 0;
   display: flex;
-  position: absolute;
-  bottom: 45px;
+  margin-top: auto;
 
   :global {
     .ant-menu-item-selected {
 
       color: $color-black;
       background-color: white !important;
-      font-family: "Open Sans";
+      font-family: "Roboto";
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
@@ -24,7 +24,7 @@
     .ant-menu-item:hover {
 
       color: $color-black;
-      font-family: "Open Sans";
+      font-family: "Roboto";
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
@@ -41,7 +41,7 @@
 
 .menuItem {
   color: #707695;
-  font-family: "Open Sans";
+  font-family: "Roboto";
   display: flex;
   width: 160px;
   height: 40px;

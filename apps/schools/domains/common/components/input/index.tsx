@@ -28,6 +28,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         placeholder,
         label,
         className,
+        children,
         ...restProps
     } = props
 
@@ -41,6 +42,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     data-testid="input"
                     {...restProps}
                 />
+                {children}
             </div>
         )
     } else if (customType === 'inputPhone') {
@@ -60,6 +62,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     inputStyle={INPUT_PHONE_STYLE}
                     containerStyle={{ marginTop: '8px' }}
                 />
+                {children}
             </div>
         )
     } else if (customType === 'inputPassword') {
@@ -75,6 +78,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     data-testid="password-input"
                     {...restProps}
                 />
+                {children}
             </div>
         )
     } else {
@@ -90,6 +94,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     placeholder={placeholder}
                     data-testid="input"
                 />
+                {children}
             </div>
         )
     }

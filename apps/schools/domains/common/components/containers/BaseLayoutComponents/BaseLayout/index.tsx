@@ -5,14 +5,12 @@ import React, { useState } from 'react'
 import styles from './styles/styles.module.scss'
 
 import Menu from '../Menu'
-import { Icon } from '../Icon/Icon'
-import OrganizationSelect from '../OrganizationSelect'
+import { Icon } from '../Icon'
+
 import UserProfile from '../UserProfile'
-import {
-    COLLAPSED_LAYOUT_WIDTH,
-    LAYOUT_WIDTH,
-} from '../../../../constants/BaseLayout'
 import { IBaseLayoutProps } from './interfaces'
+import {OrganizationSelect} from "../OrganizationSelect";
+import {COLLAPSED_LAYOUT_WIDTH, LAYOUT_WIDTH} from "./constants";
 
 const { Content, Sider } = Layout
 
@@ -34,12 +32,22 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                     }}
                     theme="light"
                 >
-                    <Icon collapsed={collapsed} setCollapsed={setCollapsed} />
-                    <Menu />
-                    <Divider className={styles.divider} />
-                    <OrganizationSelect />
-                    <UserProfile />
+                    <Icon
+                        collapsed={collapsed}
+                        setCollapsed={setCollapsed}
+                    />
+                    <div className={styles.menuScroll}>
+                        <Menu/>
+                        <Divider className={styles.divider}/>
+                        <OrganizationSelect collapsed={collapsed}/>
+                        <UserProfile/>
+                    </div>
                 </Sider>
+                <Sider
+                    collapsed={collapsed}
+                    width={LAYOUT_WIDTH}
+                    collapsedWidth={COLLAPSED_LAYOUT_WIDTH}
+                />
                 <Layout className={styles.siteLayout}>
                     <Content className={styles.content}>
                         <div className={styles.siteLayoutBackground}>
