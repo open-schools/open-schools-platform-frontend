@@ -4,7 +4,11 @@ import { isRejected, Middleware, MiddlewareAPI } from '@reduxjs/toolkit'
 import { message } from 'antd'
 
 
-const errorCodes = {
+interface ErrorCodes {
+    [status: number]: string | { [code: string]: string }
+}
+
+const errorCodes: ErrorCodes = {
     400: {
         ValidationError: 'Ошибка валидации данных',
         ParseError: 'Ошибка разбора запроса',
@@ -33,6 +37,18 @@ interface ErrorType {
     status: number,
 }
 
+interface Action {
+    type: string,
+    payload: {
+        status: number,
+        data: {
+            error: {
+                code: string
+            }
+        }
+    }
+}
+
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
 const cookies = new Cookies()
 
@@ -50,21 +66,23 @@ export const commonApi = createApi({
             if (jwtToken) {
                 headers.set('Authorization', `Bearer ${jwtToken}`)
             }
-            headers.set('Content-Type', 'application/json;charset=UTF-8')
+            headers.set('Content-Type', 'application/jsoncharset=UTF-8')
             return headers
         },
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
     endpoints: _ => ({}),
 })
 
-export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
+export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => (action: Action) => {
     if (isRejected()(action)) {
         const { status, data } = action.payload
         const errorData = data && data.error
         const errorType = errorCodes[status]
 
-        typeof errorType === 'string' ? message.error(errorType)
+        typeof errorType === 'string'
+            ? message.error(errorType)
             : errorData?.code && message.error(errorType?.[errorData.code])
     }
     return next(action)
 }
+
