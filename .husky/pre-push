@@ -1,4 +1,6 @@
 #!/bin/sh
 cd ./apps/schools
 npx lint-staged
+yarn run prettier
+yarn run test
 yarn build
