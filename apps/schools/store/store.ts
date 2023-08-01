@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import {commonApi, rtkQueryErrorLogger} from './commonApi'
+import { commonApi } from './commonApi'
 import rootReducer from './reducers'
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
+import { rtkQueryErrorLogger } from './middlewares'
 
 
 export const store = configureStore({
