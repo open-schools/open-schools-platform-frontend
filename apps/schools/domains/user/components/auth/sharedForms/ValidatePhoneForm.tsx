@@ -1,5 +1,11 @@
 import { Col, Form, Row, Space, Typography as DefaultTypography } from 'antd'
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, {
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
@@ -17,7 +23,10 @@ import {
 import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
 import { useResendMutation, useVerifyMutation } from '../../../redux/userApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
-import { CodeMustContainCaetrainLength, NeedConfirmField } from '../constants/message'
+import {
+    CodeMustContainCaetrainLength,
+    NeedConfirmField,
+} from '../constants/message'
 import { Button } from '../../../../common/components/button'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
@@ -29,10 +38,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     title,
 }) => {
     const [form] = Form.useForm()
-    const {
-        phone,
-        setToken,
-    } = useContext(FirebaseReCaptchaContext)
+    const { phone, setToken } = useContext(FirebaseReCaptchaContext)
     const [verifyCode] = useVerifyMutation()
     const [resend] = useResendMutation()
     const [showPhone, setShowPhone] = useState(phone)
@@ -43,7 +49,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
 
     const SMS_VALIDATOR = useCallback(
         () => ({
-            validator () {
+            validator() {
                 if (!phoneValidateError) {
                     return Promise.resolve()
                 }
@@ -62,9 +68,12 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         ['Необходимо заполнить', SMS_VALIDATOR]
     )
 
-    const confirmPhone = useCallback(async (smsCode: string) => {
-        otpHandler(smsCode, verifyCode, onFinish, form, onError)
-    }, [form])
+    const confirmPhone = useCallback(
+        async (smsCode: string) => {
+            otpHandler(smsCode, verifyCode, onFinish, form, onError)
+        },
+        [form]
+    )
 
     const smsValidator = useCallback(async () => {
         setPhoneValidateError(null)
@@ -97,7 +106,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
             'recaptcha-container',
             {
                 size: 'invisible',
-                'callback': (token: string) => {
+                callback: (token: string) => {
                     setToken(token)
                     resendOtpHandler(token, resend, onReset)
                 },
@@ -112,8 +121,8 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         const phoneVisible = isPhoneVisible
             ? formattedPhone
             : `${formattedPhone.substring(0, 9)}***${formattedPhone.substring(
-                12
-            )}`
+                  12
+              )}`
         setShowPhone(phoneVisible)
     }, [isPhoneVisible, phone, setShowPhone])
 
@@ -153,10 +162,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                             </span>
                         </Col>
                         <Col span={24}>
-                            <DefaultTypography.Link
-                                underline
-                                onClick={onReset}
-                            >
+                            <DefaultTypography.Link underline onClick={onReset}>
                                 Изменить номер
                             </DefaultTypography.Link>
                         </Col>
@@ -194,28 +200,44 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                             >
                                 {({ countdown, runAction }) => {
                                     const isCountDownActive = countdown > 0
-                                    return <div>
-                                        <Space direction="horizontal" size={8} style={{ display: (isCountDownActive ? 'unset' : 'none') }}>
-                                            <DefaultTypography.Link
-                                                disabled={true}
+                                    return (
+                                        <div>
+                                            <Space
+                                                direction="horizontal"
+                                                size={8}
+                                                style={{
+                                                    display: isCountDownActive
+                                                        ? 'unset'
+                                                        : 'none',
+                                                }}
                                             >
-                                                Код действителен
-                                            </DefaultTypography.Link>
-                                            <DefaultTypography.Text type="secondary">
-                                                {`${new Date(countdown * 1000)
-                                                    .toISOString()
-                                                    .substr(14, 5)}`}
-                                            </DefaultTypography.Text>
-                                        </Space>
-                                        <Button
-                                            style={{ display: (isCountDownActive ? 'none' : 'unset') }}
-                                            type='schoolResend'
-                                            id="recaptcha-container"
-                                            onClick={runAction}
-                                        >
-                                            Отправить СМС-код ещё раз
-                                        </Button>
-                                    </div>
+                                                <DefaultTypography.Link
+                                                    disabled={true}
+                                                >
+                                                    Код действителен
+                                                </DefaultTypography.Link>
+                                                <DefaultTypography.Text type="secondary">
+                                                    {`${new Date(
+                                                        countdown * 1000
+                                                    )
+                                                        .toISOString()
+                                                        .substr(14, 5)}`}
+                                                </DefaultTypography.Text>
+                                            </Space>
+                                            <Button
+                                                style={{
+                                                    display: isCountDownActive
+                                                        ? 'none'
+                                                        : 'unset',
+                                                }}
+                                                type="schoolResend"
+                                                id="recaptcha-container"
+                                                onClick={runAction}
+                                            >
+                                                Отправить СМС-код ещё раз
+                                            </Button>
+                                        </div>
+                                    )
                                 }}
                             </CountDownTimer>
                         </ResponsiveCol>

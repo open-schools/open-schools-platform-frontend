@@ -1,6 +1,7 @@
 import { commonApi } from '../../../store/commonApi'
 import {
-    GetUser, GetUserProfiles,
+    GetUser,
+    GetUserProfiles,
     LoginData,
     LoginResponse,
     UpdatePasswordData,
@@ -8,7 +9,7 @@ import {
 } from './interfaces'
 
 const authenticationApi = commonApi.injectEndpoints({
-    endpoints: build => ({
+    endpoints: (build) => ({
         login: build.mutation<LoginResponse, LoginData>({
             query: (data) => ({
                 url: '/user-management/auth/jwt/login',

@@ -1,25 +1,23 @@
-
-import {Menu} from "antd";
+import { Menu } from 'antd'
 
 import styles from './styles/styles.module.scss'
 
-import React from "react";
-import {useRouter} from "next/router";
-import { MenuItemObj } from "../classes";
-import {UserOutlined} from "@ant-design/icons";
-
+import React from 'react'
+import { useRouter } from 'next/router'
+import { MenuItemObj } from '../classes'
+import { UserOutlined } from '@ant-design/icons'
 
 const menuList: MenuItemObj[] = [
     new MenuItemObj(
-        "user",
-        "Профиль",
-        <UserOutlined style={{fontSize: '150%'}}/>,
-        [],
+        'user',
+        'Профиль',
+        <UserOutlined style={{ fontSize: '150%' }} />,
+        []
     ),
-];
+]
 
 const UserProfile = () => {
-    const router = useRouter();
+    const router = useRouter()
 
     return (
         <>
@@ -29,16 +27,12 @@ const UserProfile = () => {
                 mode="inline"
                 onClick={(e) => {
                     if (!router.asPath.includes(e.key)) {
-                        router.push(`/${e.key}`);
+                        router.push(`/${e.key}`)
                     }
                 }}
                 selectedKeys={menuList
-                    .filter(el =>
-                        router.asPath.includes(el.url)
-                    )
-                    .map(el => el.url)
-                }
-
+                    .filter((el) => router.asPath.includes(el.url))
+                    .map((el) => el.url)}
             >
                 {menuList.map((el) => (
                     <Menu.Item
@@ -51,7 +45,7 @@ const UserProfile = () => {
                 ))}
             </Menu>
         </>
-    );
-};
+    )
+}
 
-export default UserProfile;
+export default UserProfile

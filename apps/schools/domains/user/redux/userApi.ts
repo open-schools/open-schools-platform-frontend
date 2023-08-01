@@ -6,11 +6,12 @@ import {
     CreateRegistrationToken,
     TokenResponse,
     CreateUser,
-    VerifyData, GetRegistrationToken,
+    VerifyData,
+    GetRegistrationToken,
 } from './interfaces'
 
 const userApi = commonApi.injectEndpoints({
-    endpoints: build => ({
+    endpoints: (build) => ({
         users: build.mutation<{}, CreateUser>({
             query: (data) => ({
                 url: '/user-management/users',
@@ -32,7 +33,10 @@ const userApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        creationToken: build.query<{ token: GetRegistrationToken }, CreationTokenData>({
+        creationToken: build.query<
+            { token: GetRegistrationToken },
+            CreationTokenData
+        >({
             query: (data) => ({
                 url: `/user-management/users/token/${data.token_key}`,
                 method: 'GET',

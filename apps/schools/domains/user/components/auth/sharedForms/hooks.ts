@@ -1,5 +1,8 @@
 import { ValidatorsMap } from '../../../../common/redux/interfaces'
-import { CodeMustContainCaetrainLength, NeedConfirmField } from '../constants/message'
+import {
+    CodeMustContainCaetrainLength,
+    NeedConfirmField,
+} from '../constants/message'
 import { useMemo } from 'react'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
 

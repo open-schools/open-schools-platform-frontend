@@ -1,5 +1,5 @@
 import { RuleItem, Rules } from '../../../access/rules'
-import {ReactNode} from "react";
+import { ReactNode } from 'react'
 
 export class MenuItemObj extends RuleItem {
     url: string

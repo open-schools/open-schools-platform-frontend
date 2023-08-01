@@ -6,13 +6,13 @@ import { useOrganization } from 'domains/user/providers/organizationProvider'
 
 const { Option } = Select
 
-export default function OrganizationSelect () {
+export default function OrganizationSelect() {
     const { isLoading, data } = useGetAllOrganizationsQuery({})
     const { organization, setOrganizationId } = useOrganization()
 
     const [isModalVisible, setIsModalVisible] = useState(false)
 
-    const ORGANIZATION_SELECT_SHOW_ACTIONS: SelectProps<string>["showAction"] =
+    const ORGANIZATION_SELECT_SHOW_ACTIONS: SelectProps<string>['showAction'] =
         ['focus', 'click']
 
     const organizationCookieChange = (value: string) => {
@@ -39,13 +39,21 @@ export default function OrganizationSelect () {
                 dropdownRender={(menu) => (
                     <div className={styles.dropdown}>
                         {menu}
-                        <Button type="default" onClick={showModal} className={styles.addButton}>
+                        <Button
+                            type="default"
+                            onClick={showModal}
+                            className={styles.addButton}
+                        >
                             Создать организацию
                         </Button>
                     </div>
                 )}
                 onChange={organizationCookieChange}
-                value={organization.name ? organization.name : 'Создать организацию'}
+                value={
+                    organization.name
+                        ? organization.name
+                        : 'Создать организацию'
+                }
             >
                 {data?.results.map((organization) => (
                     <Option
@@ -58,11 +66,10 @@ export default function OrganizationSelect () {
                         {organization.name}
                     </Option>
                 ))}
-                <Option style={{ display: 'none' }}>
-                    Empty
-                </Option>
+                <Option style={{ display: 'none' }}>Empty</Option>
             </Select>
-            <Modal className={styles.modal}
+            <Modal
+                className={styles.modal}
                 visible={isModalVisible}
                 footer={null}
                 onCancel={() => setIsModalVisible(false)}

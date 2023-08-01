@@ -15,15 +15,17 @@ import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 import { useInputPhoneFormValidators } from './hooks'
 
-
-export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title, buttonText, description, disclaimer, onFinish }) => {
+export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
+    nextUrl,
+    title,
+    buttonText,
+    description,
+    disclaimer,
+    onFinish,
+}) => {
     const validators = useInputPhoneFormValidators()
 
-    const {
-        setPhone,
-        token,
-        setToken,
-    } = useContext(FirebaseReCaptchaContext)
+    const { setPhone, token, setToken } = useContext(FirebaseReCaptchaContext)
     const [registration] = useTokenMutation()
     const [form] = Form.useForm()
     const router = useRouter()
@@ -49,7 +51,7 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
             'recaptcha-container',
             {
                 size: 'invisible',
-                'callback': (token: string) => {
+                callback: (token: string) => {
                     setToken(token)
                     tokenHandler(token, form, nextUrl, registration, onFinish)
                 },
@@ -72,7 +74,9 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                     <Row gutter={FORM_ITEMS_GUTTER}>
                         {title && (
                             <Col span={24}>
-                                <Typography.Title level={2}>{title}</Typography.Title>
+                                <Typography.Title level={2}>
+                                    {title}
+                                </Typography.Title>
                             </Col>
                         )}
                         {description && (
@@ -88,7 +92,9 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                                 data-cy="register-phone-item"
                             >
                                 <Input
-                                    onChange={(value) => setPhone(value.target.value)}
+                                    onChange={(value) =>
+                                        setPhone(value.target.value)
+                                    }
                                     customType={'inputPhone'}
                                 />
                             </Form.Item>
@@ -103,7 +109,15 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                                     htmlType="submit"
                                     block
                                     data-cy="signin-button"
-                                    onClick={() => tokenHandler(token, form, nextUrl, registration, onFinish)}
+                                    onClick={() =>
+                                        tokenHandler(
+                                            token,
+                                            form,
+                                            nextUrl,
+                                            registration,
+                                            onFinish
+                                        )
+                                    }
                                 >
                                     {buttonText}
                                 </Button>

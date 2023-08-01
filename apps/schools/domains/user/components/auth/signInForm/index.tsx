@@ -11,7 +11,7 @@ import { useSignInFormValidators } from './hooks'
 
 export const SignInForm = (): React.ReactElement => {
     const validators = useSignInFormValidators()
-    
+
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
 
@@ -45,7 +45,9 @@ export const SignInForm = (): React.ReactElement => {
                                 data-cy="signin-phone-item"
                             >
                                 <Input
-                                    onChange={(value: any) => setPhone(value.target.value)}
+                                    onChange={(value: any) =>
+                                        setPhone(value.target.value)
+                                    }
                                     customType={'inputPhone'}
                                 />
                             </Form.Item>
@@ -58,7 +60,9 @@ export const SignInForm = (): React.ReactElement => {
                                 data-cy="signin-password-item"
                             >
                                 <Input
-                                    onChange={(value: any) => setPassword(value.target.value)}
+                                    onChange={(value: any) =>
+                                        setPassword(value.target.value)
+                                    }
                                     customType={'inputPassword'}
                                     type={'password'}
                                 />
@@ -83,7 +87,14 @@ export const SignInForm = (): React.ReactElement => {
                                     loading={isLoading}
                                     block
                                     data-cy="signin-button"
-                                    onClick={() => loginHandler(phone, password, login, form)}
+                                    onClick={() =>
+                                        loginHandler(
+                                            phone,
+                                            password,
+                                            login,
+                                            form
+                                        )
+                                    }
                                 >
                                     Войти
                                 </Button>

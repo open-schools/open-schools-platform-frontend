@@ -27,7 +27,10 @@ export const Button: React.FC<CustomButtonProps> = (props) => {
     } else {
         return (
             <DefaultButton
-                className={classNames(buttonStyleDictionary[type]?.button, className)}
+                className={classNames(
+                    buttonStyleDictionary[type]?.button,
+                    className
+                )}
                 {...restProps}
                 type={antdType}
                 onClick={onClick}

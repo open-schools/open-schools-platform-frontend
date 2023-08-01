@@ -1,14 +1,28 @@
 import { FormInstance, message } from 'antd'
-import { LoadingMsg, SuccessSignInMsg, WrongLoginOrPasswordMsg } from '../../components/auth/constants/message'
+import {
+    LoadingMsg,
+    SuccessSignInMsg,
+    WrongLoginOrPasswordMsg,
+} from '../../components/auth/constants/message'
 import { withLoadingMessage } from '../../../common/utils/loading'
 
-export async function loginHandler (phone: string, password: string, login: any, formComponent: FormInstance) {
-    let response = await withLoadingMessage(LoadingMsg, login, { phone: phone, password: password })
+export async function loginHandler(
+    phone: string,
+    password: string,
+    login: any,
+    formComponent: FormInstance
+) {
+    let response = await withLoadingMessage(LoadingMsg, login, {
+        phone: phone,
+        password: password,
+    })
     if ('data' in response) {
         localStorage.setItem('jwtToken', response.data.token)
         message.success(SuccessSignInMsg)
         // router.push()
-    } else if (response.error?.data.error.message.indexOf('non_field_errors') >= 0) {
+    } else if (
+        response.error?.data.error.message.indexOf('non_field_errors') >= 0
+    ) {
         formComponent.setFields([
             {
                 name: 'phone',

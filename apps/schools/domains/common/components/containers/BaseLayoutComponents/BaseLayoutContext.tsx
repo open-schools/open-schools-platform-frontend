@@ -1,34 +1,43 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
+import React, {
+    createContext,
+    PropsWithChildren,
+    useContext,
+    useEffect,
+    useState,
+} from 'react'
 
 // import { ITopNotification, useTopNotificationsHook } from './TopNotifications'
 
 interface ILayoutContext {
-    isMobile?: boolean,
-    shouldTableScroll?: boolean,
-    isCollapsed?: boolean,
-    toggleCollapsed: () => void,
+    isMobile?: boolean
+    shouldTableScroll?: boolean
+    isCollapsed?: boolean
+    toggleCollapsed: () => void
     // addNotification?: (notification: ITopNotification) => void,
 }
 
 const isMobileUserAgent = (): boolean => {
     return (
-        typeof window !== 'undefined'
-        && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)
+        typeof window !== 'undefined' &&
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            window.navigator.userAgent
+        )
     )
 }
 
 const LayoutContext = createContext<ILayoutContext>({
-    toggleCollapsed (): void {
-    },
+    toggleCollapsed(): void {},
 })
 
-export const useLayoutContext = (): ILayoutContext => useContext<ILayoutContext>(LayoutContext)
+export const useLayoutContext = (): ILayoutContext =>
+    useContext<ILayoutContext>(LayoutContext)
 
 export const LayoutContextProvider: React.FC = (props: PropsWithChildren) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
 
     const toggleCollapsed = () => {
-        localStorage && localStorage.setItem('isCollapsed', String(!isCollapsed))
+        localStorage &&
+            localStorage.setItem('isCollapsed', String(!isCollapsed))
         setIsCollapsed(!isCollapsed)
     }
 
@@ -39,13 +48,15 @@ export const LayoutContextProvider: React.FC = (props: PropsWithChildren) => {
     }, [])
 
     return (
-        <LayoutContext.Provider value={{
-            isMobile: isMobileUserAgent(),
-            isCollapsed,
-            toggleCollapsed,
-        }}>
+        <LayoutContext.Provider
+            value={{
+                isMobile: isMobileUserAgent(),
+                isCollapsed,
+                toggleCollapsed,
+            }}
+        >
             {/*<TopNotificationComponent/>*/}
             {props.children}
-        </ LayoutContext.Provider>
+        </LayoutContext.Provider>
     )
 }

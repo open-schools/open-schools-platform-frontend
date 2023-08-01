@@ -1,10 +1,7 @@
 import styles from './styles/styles.module.scss'
 import React, { useEffect, useState } from 'react'
 
-export const AuthBackground: React.FC = (
-    props
-) => {
-
+export const AuthBackground: React.FC = (props) => {
     const [windowSize, setWindowSize] = useState({
         width: 0,
         height: 0,
@@ -15,7 +12,7 @@ export const AuthBackground: React.FC = (
     })
 
     useEffect(() => {
-        function handleResize () {
+        function handleResize() {
             const width = window.innerWidth
             const height = window.innerHeight
 
@@ -47,10 +44,7 @@ export const AuthBackground: React.FC = (
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <g
-                    clipPath="url(#clip0_2790_27165)"
-                    className={styles.default}
-                >
+                <g clipPath="url(#clip0_2790_27165)" className={styles.default}>
                     <g className={styles.globe}>
                         <rect
                             opacity={0}

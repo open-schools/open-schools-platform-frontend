@@ -26,7 +26,8 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
         signInByPhone: () => {},
     }
 
-    const resetComplete = useCallback(async () => {const { password } = form.getFieldsValue(['password'])
+    const resetComplete = useCallback(async () => {
+        const { password } = form.getFieldsValue(['password'])
         resetHandler(password, reset, onFinish, onError)
     }, [form, signInByPhone])
 
@@ -74,7 +75,9 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
                                         customType={'inputPassword'}
                                         value={confirmPassword}
                                         type={'password'}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setConfirmPassword(e.target.value)
+                                        }
                                         placeholder={'Пароль'}
                                     />
                                 </Form.Item>

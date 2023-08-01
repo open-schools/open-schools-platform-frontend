@@ -11,11 +11,13 @@ export const useResetFormValidators = () => {
                     message: PleaseConfirmYourPasswordMsg,
                 },
                 ({ getFieldValue }) => ({
-                    validator (_, value) {
+                    validator(_, value) {
                         if (!value || getFieldValue('password') === value) {
                             return Promise.resolve()
                         }
-                        return Promise.reject(new Error(PleaseConfirmYourPasswordMsg))
+                        return Promise.reject(
+                            new Error(PleaseConfirmYourPasswordMsg)
+                        )
                     },
                 }),
             ],

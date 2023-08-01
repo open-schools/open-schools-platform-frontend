@@ -1,5 +1,10 @@
 import { Col, Form, Row } from 'antd'
-import React, { PropsWithChildren, useCallback, useContext, useState } from 'react'
+import React, {
+    PropsWithChildren,
+    useCallback,
+    useContext,
+    useState,
+} from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
@@ -16,23 +21,31 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
 }
 
-export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }) => {
+export const RegisterForm: React.FC<IRegisterFormProps> = ({
+    onFinish,
+    onError,
+}) => {
     const validators = useRegisterFormValidators()
 
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
     const [confirmPassword, setConfirmPassword] = useState('')
     const [userRegistration] = useUsersMutation()
-    const {
-        phone,
-    } = useContext(FirebaseReCaptchaContext)
+    const { phone } = useContext(FirebaseReCaptchaContext)
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
 
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password'])
-        registrationHandler(phone, password, userRegistration, onFinish, onError, form)
+        registrationHandler(
+            phone,
+            password,
+            userRegistration,
+            onFinish,
+            onError,
+            form
+        )
     }, [form, signInByPhone])
 
     const initialValues = { phone }
@@ -59,10 +72,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                                     rules={validators.phone}
                                     validateFirst
                                 >
-                                    <Input
-                                        disabled={true}
-                                        readOnly={true}
-                                    />
+                                    <Input disabled={true} readOnly={true} />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
@@ -130,7 +140,9 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                                         customType={'inputPassword'}
                                         value={confirmPassword}
                                         type={'password'}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setConfirmPassword(e.target.value)
+                                        }
                                     />
                                 </Form.Item>
                             </RequiredFlagWrapper>
