@@ -9,8 +9,8 @@ import { Icon } from '../Icon'
 
 import UserProfile from '../UserProfile'
 import { IBaseLayoutProps } from './interfaces'
-import {OrganizationSelect} from "../OrganizationSelect";
-import {COLLAPSED_LAYOUT_WIDTH, LAYOUT_WIDTH} from "./constants";
+import { OrganizationSelect } from '../OrganizationSelect'
+import { COLLAPSED_LAYOUT_WIDTH, LAYOUT_WIDTH } from './constants'
 
 const { Content, Sider } = Layout
 
@@ -32,15 +32,12 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                     }}
                     theme="light"
                 >
-                    <Icon
-                        collapsed={collapsed}
-                        setCollapsed={setCollapsed}
-                    />
+                    <Icon collapsed={collapsed} setCollapsed={setCollapsed} />
                     <div className={styles.menuScroll}>
-                        <Menu/>
-                        <Divider className={styles.divider}/>
-                        <OrganizationSelect collapsed={collapsed}/>
-                        <UserProfile/>
+                        <Menu />
+                        <Divider className={styles.divider} />
+                        <OrganizationSelect collapsed={collapsed} />
+                        <UserProfile />
                     </div>
                 </Sider>
                 <Sider

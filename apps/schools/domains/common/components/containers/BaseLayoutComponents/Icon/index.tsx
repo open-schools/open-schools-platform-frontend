@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { CustomLogo } from '../../../Logo'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { LOGO_WIDTH } from './constants'
-import {IconProps} from "./interfaces";
+import { IconProps } from './interfaces'
 
 export const Icon: React.FC<IconProps> = (props) => {
     const { collapsed, setCollapsed } = props

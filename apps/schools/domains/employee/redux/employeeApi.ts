@@ -10,20 +10,29 @@ import {
 } from './interfaces'
 
 const employeeApi = commonApi.injectEndpoints({
-    endpoints: build => ({
-        getAllEmployees: build.query<ReturnedData<GetListEmployee[]>, GetAllEmployeesData>({
+    endpoints: (build) => ({
+        getAllEmployees: build.query<
+            ReturnedData<GetListEmployee[]>,
+            GetAllEmployeesData
+        >({
             query: (params) => ({
                 url: '/organization-management/employees',
                 method: 'GET',
                 params: params,
             }),
         }),
-        getInvitations: build.query<{ results: GetOrganizationInviteEmployee[] }, {}>({
+        getInvitations: build.query<
+            { results: GetOrganizationInviteEmployee[] },
+            {}
+        >({
             query: () => ({
                 url: '/organization-management/employees/employee-profile/get-invitations',
             }),
         }),
-        updateEmployeeById: build.mutation<{ employee: GetEmployee }, UpdateEmployeeByIdData>({
+        updateEmployeeById: build.mutation<
+            { employee: GetEmployee },
+            UpdateEmployeeByIdData
+        >({
             query: (data) => ({
                 url: `/organization-management/employees/${data.employee_id}`,
                 method: 'PATCH',

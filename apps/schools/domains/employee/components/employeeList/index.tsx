@@ -3,17 +3,21 @@ import { Table, Skeleton, Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
 import { useGetAllEmployeesQuery } from '../../redux/employeeApi'
-import { objectReBuilder, RawColumnType, useGenerateFullColumns } from '../../../common/components/table'
+import {
+    objectReBuilder,
+    RawColumnType,
+    useGenerateFullColumns,
+} from '../../../common/components/table'
 import { useOrganization } from '../../../user/providers/organizationProvider'
 import { Button } from '../../../common/components/button'
 import { Input } from '../../../common/components/input'
 import { SearchOutlined } from '@ant-design/icons'
 
 interface DataType {
-    id: string;
-    name: string;
-    position: string;
-    phone: string;
+    id: string
+    name: string
+    position: string
+    phone: string
 }
 
 const baseColumns: RawColumnType<DataType>[] = [
@@ -43,12 +47,13 @@ const baseColumns: RawColumnType<DataType>[] = [
     },
 ].filter((item) => !item.hidden)
 
-
-export function EmployeeList () {
+export function EmployeeList() {
     const [dataSource, setDataSource] = useState<any[]>([])
     const { organizationId } = useOrganization()
     const searchFields = ['name', 'position', 'phone', 'id']
-    const { data, isLoading } = useGetAllEmployeesQuery({ organization: organizationId })
+    const { data, isLoading } = useGetAllEmployeesQuery({
+        organization: organizationId,
+    })
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -62,13 +67,13 @@ export function EmployeeList () {
     return (
         <>
             {isLoading ? (
-                <Skeleton active/>
+                <Skeleton active />
             ) : (
                 <>
-                    <div
-                        className={styles.header}
-                    >
-                        <Typography.Title level={1}>Сотрудники</Typography.Title>
+                    <div className={styles.header}>
+                        <Typography.Title level={1}>
+                            Сотрудники
+                        </Typography.Title>
                         <Button
                             type="schoolDefault"
                             block
@@ -82,13 +87,21 @@ export function EmployeeList () {
                     <Input
                         customType={'inputSearch'}
                         placeholder={'Поиск'}
-                        children={<SearchOutlined style={{ fontSize: '150%', position: 'absolute', right: '30px' }} />}
+                        children={
+                            <SearchOutlined
+                                style={{
+                                    fontSize: '150%',
+                                    position: 'absolute',
+                                    right: '30px',
+                                }}
+                            />
+                        }
                     />
                     <Table
                         className={styles.tableContainer}
                         columns={columns}
                         dataSource={dataSource}
-                        rowKey={record => record.id}
+                        rowKey={(record) => record.id}
                         onRow={(element: DataType) => {
                             return {
                                 onClick: () => {

@@ -1,8 +1,8 @@
 export interface OrganizationSelectProps {
-    collapsed: boolean,
+    collapsed: boolean
 }
 
 export interface SuffixIconProps {
-    collapsed: boolean,
-    isOpen: boolean,
+    collapsed: boolean
+    isOpen: boolean
 }
