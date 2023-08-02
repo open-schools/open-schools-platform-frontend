@@ -1,6 +1,6 @@
 import { Divider, Layout } from 'antd'
 
-import React, { useState } from 'react'
+import React  from 'react'
 
 import styles from './styles/styles.module.scss'
 
@@ -10,12 +10,13 @@ import { Icon } from '../Icon'
 import UserProfile from '../UserProfile'
 import { IBaseLayoutProps } from './interfaces'
 import {OrganizationSelect} from "../OrganizationSelect";
-import {COLLAPSED_LAYOUT_WIDTH, LAYOUT_WIDTH} from "./constants";
+import {useLayoutContext} from "../../../../../user/providers/baseLayoutProvider";
+import {COLLAPSED_DIVIDER_WIDTH, COLLAPSED_LAYOUT_WIDTH, DIVIDER_WIDTH, LAYOUT_WIDTH} from "./styles/styles";
 
 const { Content, Sider } = Layout
 
 export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
-    const [collapsed, setCollapsed] = useState(false)
+    const {isCollapsed, toggleCollapsed} = useLayoutContext()
 
     const { children } = props
 
@@ -25,26 +26,26 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                 <Sider
                     width={LAYOUT_WIDTH}
                     collapsedWidth={COLLAPSED_LAYOUT_WIDTH}
-                    collapsed={collapsed}
+                    collapsed={isCollapsed}
                     className={styles.sliderStyle}
                     onCollapse={() => {
-                        setCollapsed((state) => !state)
+                        toggleCollapsed()
                     }}
                     theme="light"
                 >
                     <Icon
-                        collapsed={collapsed}
-                        setCollapsed={setCollapsed}
+                        collapsed={isCollapsed ?? false}
+                        setCollapsed={toggleCollapsed}
                     />
                     <div className={styles.menuScroll}>
                         <Menu/>
-                        <Divider className={styles.divider}/>
-                        <OrganizationSelect collapsed={collapsed}/>
+                        <Divider className={styles.divider} style={isCollapsed ? {width: COLLAPSED_DIVIDER_WIDTH} : {width: DIVIDER_WIDTH}}/>
+                        <OrganizationSelect collapsed={isCollapsed ?? false}/>
                         <UserProfile/>
                     </div>
                 </Sider>
                 <Sider
-                    collapsed={collapsed}
+                    collapsed={isCollapsed}
                     width={LAYOUT_WIDTH}
                     collapsedWidth={COLLAPSED_LAYOUT_WIDTH}
                 />

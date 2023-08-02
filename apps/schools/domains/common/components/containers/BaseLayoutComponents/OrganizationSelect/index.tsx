@@ -4,9 +4,8 @@ import styles from './styles/styles.module.scss'
 import { useGetAllOrganizationsQuery } from '../../../../../organization/redux/organizationApi'
 import { useOrganization } from 'domains/user/providers/organizationProvider'
 import {OrganizationSelectProps, SuffixIconProps} from "./interfaces";
-import {SELECT_LIST_HEIGHT} from "./constants";
 import {DownOutlined, PlusCircleOutlined, UpOutlined} from "@ant-design/icons";
-import {DROPDOWN_STYLE} from "./styles/styles";
+import {DROPDOWN_STYLE, SELECT_LIST_HEIGHT} from "./styles/styles";
 
 
 const { Option } = Select
