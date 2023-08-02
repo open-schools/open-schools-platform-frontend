@@ -8,6 +8,7 @@ import React, { PropsWithChildren } from 'react'
 import Head from 'next/head'
 import {OrganizationProvider} from "../domains/user/providers/organizationProvider";
 import {BaseLayout} from "../domains/common/components/containers/BaseLayoutComponents/BaseLayout";
+import {LayoutContextProvider} from "../domains/user/providers/baseLayoutProvider";
 
 
 export interface ContainerPage<PropsType> extends React.FC {
@@ -26,15 +27,17 @@ function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     return (
         <Provider store={store}>
             <AuthProvider>
-                <OrganizationProvider>
-                    <Head>
-                        <title>Открытые школы</title>
-                        <link rel="icon" href="/icons/logo.svg" sizes="any" />
-                    </Head>
-                    <LayoutComponent>
-                        <Component {...pageProps} />
-                    </LayoutComponent>
-                </OrganizationProvider>
+                <LayoutContextProvider>
+                    <OrganizationProvider>
+                        <Head>
+                            <title>Открытые школы</title>
+                            <link rel="icon" href="/icons/logo.svg" sizes="any" />
+                        </Head>
+                        <LayoutComponent>
+                            <Component {...pageProps} />
+                        </LayoutComponent>
+                    </OrganizationProvider>
+                </LayoutContextProvider>
             </AuthProvider>
         </Provider>
     )

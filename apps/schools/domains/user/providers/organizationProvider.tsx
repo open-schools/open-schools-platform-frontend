@@ -21,9 +21,10 @@ interface OrganizationProviderProps {
     children: React.ReactNode;
 }
 
+const ORGANIZATION_ID_STORAGE_NAME = 'organizationId';
+
 export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ children }) => {
     const router = useRouter()
-    const cookies = new Cookies();
 
     const [organizationId, setOrganizationId] = useState("");
     const [organization, setOrganization] = useState({});
@@ -31,7 +32,7 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
 
     useEffect(() => {
         const organizationId = typeof window !== 'undefined'
-            ? cookies.get("organizationId") : null
+            ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
 
         if (organizationId) {
             setOrganizationId(organizationId)
@@ -46,10 +47,10 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
                 name: organization.name,
                 inn: organization.inn,
             });
-            cookies.set("organizationId", organizationId);
+            localStorage.setItem(ORGANIZATION_ID_STORAGE_NAME, organizationId)
         }
         else{
-            cookies.remove("organizationId");
+            localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME)
         }
     }, [organizationId, data])
 

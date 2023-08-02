@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 // import { ITopNotification, useTopNotificationsHook } from './TopNotifications'
 
@@ -8,6 +8,10 @@ interface ILayoutContext {
     isCollapsed?: boolean,
     toggleCollapsed: () => void,
     // addNotification?: (notification: ITopNotification) => void,
+}
+
+interface BaseLayoutProviderProps {
+    children: React.ReactNode;
 }
 
 const isMobileUserAgent = (): boolean => {
@@ -24,7 +28,7 @@ const LayoutContext = createContext<ILayoutContext>({
 
 export const useLayoutContext = (): ILayoutContext => useContext<ILayoutContext>(LayoutContext)
 
-export const LayoutContextProvider: React.FC = (props: PropsWithChildren) => {
+export const LayoutContextProvider: React.FC<BaseLayoutProviderProps> = (props: BaseLayoutProviderProps) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
 
     const toggleCollapsed = () => {
