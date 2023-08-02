@@ -13,11 +13,6 @@
     "lint": "yarn run eslint .",
     "createapp": "node ./bin/createapp"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "cd ./apps/schools && lint-staged && yarn run prettier && yarn run test && yarn build"
-    }
-  },
   "devDependencies": {
     "@types/lodash": "^4.14.195",
     "@types/react": "^18.0.4",
