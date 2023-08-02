@@ -6,12 +6,7 @@ export class MenuItemObj extends RuleItem {
     name: string
     icon: ReactNode
 
-    constructor(
-        url: string,
-        name: string,
-        icon: ReactNode,
-        disableRules: Rules[]
-    ) {
+    constructor(url: string, name: string, icon: ReactNode, disableRules: Rules[]) {
         super(disableRules)
         this.url = url
         this.name = name

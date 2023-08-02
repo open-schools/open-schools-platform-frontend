@@ -6,13 +6,7 @@ import { buttonStyleDictionary, CustomButtonProps } from './interfaces'
 import classNames from 'classnames'
 
 export const Button: React.FC<CustomButtonProps> = (props) => {
-    const {
-        type = 'schoolDefault',
-        antdType = 'primary',
-        onClick,
-        className,
-        ...restProps
-    } = props
+    const { type = 'schoolDefault', antdType = 'primary', onClick, className, ...restProps } = props
 
     if (!typeButton.includes(type)) {
         return (
@@ -21,20 +15,17 @@ export const Button: React.FC<CustomButtonProps> = (props) => {
                 {...restProps}
                 type={antdType}
                 onClick={onClick}
-                data-testid="btn"
+                data-testid='btn'
             />
         )
     } else {
         return (
             <DefaultButton
-                className={classNames(
-                    buttonStyleDictionary[type]?.button,
-                    className
-                )}
+                className={classNames(buttonStyleDictionary[type]?.button, className)}
                 {...restProps}
                 type={antdType}
                 onClick={onClick}
-                data-testid="btn"
+                data-testid='btn'
             />
         )
     }

@@ -23,14 +23,9 @@ const getCountDownDateFromCookies = (countDownId: string) => {
     }
 
     if (cookie.match(countDownId)) {
-        const coundownRegexp = new RegExp(
-            `(?:(?:^|.*;\\s*)COUNTDOWN_${countDownId}\\s*=\\s*([^;]*).*$)|^.*$`
-        )
+        const coundownRegexp = new RegExp(`(?:(?:^|.*;\\s*)COUNTDOWN_${countDownId}\\s*=\\s*([^;]*).*$)|^.*$`)
 
-        const countDownFromCookie = document.cookie.replace(
-            coundownRegexp,
-            '$1'
-        )
+        const countDownFromCookie = document.cookie.replace(coundownRegexp, '$1')
 
         if (!countDownFromCookie) {
             return 0

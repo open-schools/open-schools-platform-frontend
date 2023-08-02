@@ -14,10 +14,7 @@ export interface IAuthLayoutProps {
 
 const {
     publicRuntimeConfig: {
-        HelpRequisites: {
-            support_email: SUPPORT_EMAIL,
-            support_phone: SUPPORT_PHONE,
-        },
+        HelpRequisites: { support_email: SUPPORT_EMAIL, support_phone: SUPPORT_PHONE },
     },
 } = getConfig()
 
@@ -37,10 +34,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
                 </Row>
             </Link>
             {children}
-            <Link
-                className={styles.emailContainer}
-                href={`mailto:${SUPPORT_EMAIL}`}
-            >
+            <Link className={styles.emailContainer} href={`mailto:${SUPPORT_EMAIL}`}>
                 <div className={styles.emailText}>{SUPPORT_EMAIL}</div>
             </Link>
         </div>

@@ -7,12 +7,7 @@ import searchStyle from './styles/search.module.scss'
 
 export interface CustomInputProps extends InputProps {
     disabled?: boolean
-    customType?:
-        | 'inputDefault'
-        | 'inputPhone'
-        | 'inputPassword'
-        | 'inputCenter'
-        | 'inputSearch'
+    customType?: 'inputDefault' | 'inputPhone' | 'inputPassword' | 'inputCenter' | 'inputSearch'
     placeholder?: string
     label?: string
     children?: React.ReactNode

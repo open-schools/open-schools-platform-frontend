@@ -1,10 +1,5 @@
 import { Col, Form, Row } from 'antd'
-import React, {
-    PropsWithChildren,
-    useCallback,
-    useContext,
-    useState,
-} from 'react'
+import React, { PropsWithChildren, useCallback, useContext, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
@@ -21,10 +16,7 @@ const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
 }
 
-export const RegisterForm: React.FC<IRegisterFormProps> = ({
-    onFinish,
-    onError,
-}) => {
+export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }) => {
     const validators = useRegisterFormValidators()
 
     const [form] = Form.useForm()
@@ -38,14 +30,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({
 
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password'])
-        registrationHandler(
-            phone,
-            password,
-            userRegistration,
-            onFinish,
-            onError,
-            form
-        )
+        registrationHandler(phone, password, userRegistration, onFinish, onError, form)
     }, [form, signInByPhone])
 
     const initialValues = { phone }
@@ -53,12 +38,12 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({
     return (
         <Form
             form={form}
-            name="register"
+            name='register'
             onFinish={registerComplete}
             initialValues={initialValues}
             colon={false}
             requiredMark={true}
-            layout="vertical"
+            layout='vertical'
             validateTrigger={['onBlur', 'onSubmit']}
         >
             <Row gutter={BUTTON_FORM_GUTTER_20} className={styles.rowStyles}>
@@ -66,12 +51,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({
                     <Row>
                         <Col span={24}>
                             <RequiredFlagWrapper>
-                                <Form.Item
-                                    name="phone"
-                                    label={'Телефон'}
-                                    rules={validators.phone}
-                                    validateFirst
-                                >
+                                <Form.Item name='phone' label={'Телефон'} rules={validators.phone} validateFirst>
                                     <Input disabled={true} readOnly={true} />
                                 </Form.Item>
                             </RequiredFlagWrapper>
@@ -79,70 +59,57 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({
                         <Col span={24}>
                             <RequiredFlagWrapper>
                                 <Form.Item
-                                    name="name"
+                                    name='name'
                                     label={'ФИО'}
                                     rules={validators.name}
-                                    data-cy="register-name-item"
+                                    data-cy='register-name-item'
                                     validateFirst
                                 >
-                                    <Input
-                                        placeholder={
-                                            'Иванов Сергей Владимирович'
-                                        }
-                                    />
+                                    <Input placeholder={'Иванов Сергей Владимирович'} />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
                         <Col span={24}>
                             <RequiredFlagWrapper>
                                 <Form.Item
-                                    name="email"
+                                    name='email'
                                     label={'Эл. почта'}
                                     rules={validators.email}
-                                    data-cy="register-email-item"
+                                    data-cy='register-email-item'
                                     validateFirst
                                 >
-                                    <Input
-                                        autoComplete="chrome-off"
-                                        placeholder={'email@example.com'}
-                                    />
+                                    <Input autoComplete='chrome-off' placeholder={'email@example.com'} />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
                         <Col span={24}>
                             <RequiredFlagWrapper>
                                 <Form.Item
-                                    name="password"
+                                    name='password'
                                     label={'Придумайте пароль'}
                                     rules={validators.password}
-                                    data-cy="register-password-item"
+                                    data-cy='register-password-item'
                                     validateFirst
                                 >
-                                    <Input
-                                        customType={'inputPassword'}
-                                        type={'password'}
-                                        autoComplete="new-password"
-                                    />
+                                    <Input customType={'inputPassword'} type={'password'} autoComplete='new-password' />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
                         <Col span={24}>
                             <RequiredFlagWrapper>
                                 <Form.Item
-                                    name="confirm"
+                                    name='confirm'
                                     label={'Повторите пароль'}
                                     dependencies={['password']}
                                     rules={validators.confirm}
-                                    data-cy="register-confirmpassword-item"
+                                    data-cy='register-confirmpassword-item'
                                     validateFirst
                                 >
                                     <Input
                                         customType={'inputPassword'}
                                         value={confirmPassword}
                                         type={'password'}
-                                        onChange={(e) =>
-                                            setConfirmPassword(e.target.value)
-                                        }
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
                                     />
                                 </Form.Item>
                             </RequiredFlagWrapper>
@@ -152,12 +119,12 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({
                 <ResponsiveCol span={24}>
                     <Form.Item>
                         <Button
-                            key="submit"
-                            type="schoolDefault"
-                            htmlType="submit"
+                            key='submit'
+                            type='schoolDefault'
+                            htmlType='submit'
                             loading={isLoading}
                             block
-                            data-cy="registercomplete-button"
+                            data-cy='registercomplete-button'
                         >
                             Зарегистрироваться
                         </Button>

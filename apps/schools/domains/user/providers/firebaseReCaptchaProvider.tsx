@@ -22,9 +22,7 @@ export const FirebaseReCaptcha: React.FC<IAuthLayoutProps> = (props) => {
     const [token, setToken] = useState('')
 
     return (
-        <FirebaseReCaptchaContext.Provider
-            value={{ phone, setPhone, token, setToken }}
-        >
+        <FirebaseReCaptchaContext.Provider value={{ phone, setPhone, token, setToken }}>
             {children}
         </FirebaseReCaptchaContext.Provider>
     )

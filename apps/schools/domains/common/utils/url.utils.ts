@@ -23,10 +23,7 @@ export function extractRootDomain(url: string) {
 
     if (pathLength > 2) {
         domain = domainPaths[pathLength - 2] + '.' + domainPaths[pathLength - 1]
-        if (
-            domainPaths[pathLength - 2].length === 2 &&
-            domainPaths[pathLength - 1].length === 2
-        ) {
+        if (domainPaths[pathLength - 2].length === 2 && domainPaths[pathLength - 1].length === 2) {
             domain = domainPaths[pathLength - 3] + '.' + domain
         }
     }

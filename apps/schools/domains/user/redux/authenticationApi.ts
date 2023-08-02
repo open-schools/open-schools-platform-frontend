@@ -1,12 +1,5 @@
 import { commonApi } from '../../../store/commonApi'
-import {
-    GetUser,
-    GetUserProfiles,
-    LoginData,
-    LoginResponse,
-    UpdatePasswordData,
-    UpdateUserData,
-} from './interfaces'
+import { GetUser, GetUserProfiles, LoginData, LoginResponse, UpdatePasswordData, UpdateUserData } from './interfaces'
 
 const authenticationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({

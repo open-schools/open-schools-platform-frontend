@@ -18,28 +18,21 @@ const SuffixIcon: React.FC<SuffixIconProps> = (props) => {
     const { collapsed, isOpen } = props
 
     return (
-        <div
-            className={styles.suffixIcon}
-            style={collapsed ? COLLAPSED_SUFFIX_ICON : {}}
-        >
+        <div className={styles.suffixIcon} style={collapsed ? COLLAPSED_SUFFIX_ICON : {}}>
             {isOpen ? <UpOutlined /> : <DownOutlined />}
         </div>
     )
 }
 
-export const OrganizationSelect: React.FC<OrganizationSelectProps> = (
-    props
-) => {
+export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => {
     const { collapsed } = props
     const { isLoading, data } = useGetAllOrganizationsQuery({})
-    const { organization, organizationId, setOrganizationId } =
-        useOrganization()
+    const { organization, organizationId, setOrganizationId } = useOrganization()
     const [isOpen, setIsOpen] = useState(false)
 
     const [isModalVisible, setIsModalVisible] = useState(false)
 
-    const ORGANIZATION_SELECT_SHOW_ACTIONS: SelectProps<string>['showAction'] =
-        ['focus', 'click']
+    const ORGANIZATION_SELECT_SHOW_ACTIONS: SelectProps<string>['showAction'] = ['focus', 'click']
 
     const organizationCookieChange = (value: string) => {
         setOrganizationId(value)
@@ -68,7 +61,7 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (
                     size={'middle'}
                     open={isOpen}
                     listHeight={SELECT_LIST_HEIGHT}
-                    optionFilterProp="children"
+                    optionFilterProp='children'
                     showAction={ORGANIZATION_SELECT_SHOW_ACTIONS}
                     autoFocus={true}
                     onClick={() => setIsOpen(!isOpen)}
@@ -77,26 +70,14 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (
                     dropdownRender={(menu) => (
                         <div className={styles.dropdown}>
                             {menu}
-                            <Button
-                                onClick={showModal}
-                                className={styles.addButton}
-                                icon={<PlusCircleOutlined />}
-                            >
+                            <Button onClick={showModal} className={styles.addButton} icon={<PlusCircleOutlined />}>
                                 Создать организацию
                             </Button>
                         </div>
                     )}
                     onChange={organizationCookieChange}
-                    suffixIcon={
-                        <SuffixIcon collapsed={collapsed} isOpen={isOpen} />
-                    }
-                    value={
-                        collapsed
-                            ? ''
-                            : organizationId
-                            ? organization.name
-                            : 'Создать организацию'
-                    }
+                    suffixIcon={<SuffixIcon collapsed={collapsed} isOpen={isOpen} />}
+                    value={collapsed ? '' : organizationId ? organization.name : 'Создать организацию'}
                 >
                     {data?.results.map((organization) => (
                         <Option

@@ -8,9 +8,7 @@ export interface RawColumnType<DataType> extends ColumnType<DataType> {
     dataIndex: string
 }
 
-export function useGenerateFullColumns<DataType>(
-    baseColumns: RawColumnType<DataType>[]
-): ColumnType<DataType>[] {
+export function useGenerateFullColumns<DataType>(baseColumns: RawColumnType<DataType>[]): ColumnType<DataType>[] {
     const filterFunctions = useFilterItems<DataType>()
     return baseColumns.map((column) => ({
         ...column,
@@ -18,21 +16,12 @@ export function useGenerateFullColumns<DataType>(
     }))
 }
 
-export function useFilterItems<RowDataType>(): (
-    dataIndex: keyof RowDataType
-) => ColumnType<RowDataType> {
+export function useFilterItems<RowDataType>(): (dataIndex: keyof RowDataType) => ColumnType<RowDataType> {
     const [_, setSearchText] = useState('')
     const [__, setSearchedColumn] = useState('')
 
-    const getColumnSearchProps = (
-        dataIndex: keyof RowDataType
-    ): ColumnType<RowDataType> => ({
-        filterDropdown: ({
-            setSelectedKeys,
-            selectedKeys,
-            confirm,
-            clearFilters,
-        }) => (
+    const getColumnSearchProps = (dataIndex: keyof RowDataType): ColumnType<RowDataType> => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
             <div style={{ padding: 8 }}>
                 <Input
                     placeholder={`Поиск`}
@@ -40,19 +29,9 @@ export function useFilterItems<RowDataType>(): (
                     onChange={(e) => {
                         setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }}
-                    onPressEnter={() =>
-                        handleSearch(
-                            selectedKeys as string[],
-                            confirm,
-                            dataIndex
-                        )
-                    }
+                    onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
                     onBlur={() => {
-                        handleSearch(
-                            selectedKeys as string[],
-                            confirm,
-                            dataIndex
-                        )
+                        handleSearch(selectedKeys as string[], confirm, dataIndex)
                     }}
                     style={{ marginBottom: 8, display: 'block' }}
                 />
@@ -60,14 +39,10 @@ export function useFilterItems<RowDataType>(): (
                 <Space>
                     <Button
                         onClick={() => {
-                            handleSearch(
-                                selectedKeys as string[],
-                                confirm,
-                                dataIndex
-                            )
+                            handleSearch(selectedKeys as string[], confirm, dataIndex)
                         }}
-                        type="primary"
-                        size="small"
+                        type='primary'
+                        size='small'
                         style={{ width: 90 }}
                     >
                         Поиск
@@ -75,13 +50,9 @@ export function useFilterItems<RowDataType>(): (
                     <Button
                         onClick={() => {
                             clearFilters && handleReset(clearFilters)
-                            handleSearch(
-                                selectedKeys as string[],
-                                confirm,
-                                dataIndex
-                            )
+                            handleSearch(selectedKeys as string[], confirm, dataIndex)
                         }}
-                        size="small"
+                        size='small'
                         style={{ width: 90 }}
                     >
                         Очистить
@@ -89,11 +60,7 @@ export function useFilterItems<RowDataType>(): (
                 </Space>
             </div>
         ),
-        filterIcon: (filtered: boolean) => (
-            <SearchOutlined
-                style={{ color: filtered ? '#1890ff' : undefined }}
-            />
-        ),
+        filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
         onFilter: (value, record) =>
             (record[dataIndex] as any)
                 .toString()
@@ -104,7 +71,7 @@ export function useFilterItems<RowDataType>(): (
     const handleSearch = (
         selectedKeys: string[],
         confirm: (param?: FilterConfirmProps) => void,
-        dataIndex: keyof RowDataType
+        dataIndex: keyof RowDataType,
     ) => {
         confirm()
         setSearchText(selectedKeys[0])
@@ -138,10 +105,7 @@ function getFiniteValue(obj: any, searchFields: Array<String>) {
     return newObj
 }
 
-export function objectReBuilder(
-    data: Array<Object>,
-    searchFields: Array<String>
-): Array<Object> {
+export function objectReBuilder(data: Array<Object>, searchFields: Array<String>): Array<Object> {
     let resultArray: Array<Object> = []
 
     data.forEach((item: any) => {

@@ -1,6 +1,1 @@
-export const typeInput = [
-    'inputPhone',
-    'inputPassword',
-    'inputCenter',
-    'inputSearch',
-]
+export const typeInput = ['inputPhone', 'inputPassword', 'inputCenter', 'inputSearch']

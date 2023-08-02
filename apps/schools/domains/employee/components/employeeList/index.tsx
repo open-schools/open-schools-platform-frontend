@@ -3,11 +3,7 @@ import { Table, Skeleton, Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
 import { useGetAllEmployeesQuery } from '../../redux/employeeApi'
-import {
-    objectReBuilder,
-    RawColumnType,
-    useGenerateFullColumns,
-} from '../../../common/components/table'
+import { objectReBuilder, RawColumnType, useGenerateFullColumns } from '../../../common/components/table'
 import { useOrganization } from '../../../user/providers/organizationProvider'
 import { Button } from '../../../common/components/button'
 import { Input } from '../../../common/components/input'
@@ -71,11 +67,9 @@ export function EmployeeList() {
             ) : (
                 <>
                     <div className={styles.header}>
-                        <Typography.Title level={1}>
-                            Сотрудники
-                        </Typography.Title>
+                        <Typography.Title level={1}>Сотрудники</Typography.Title>
                         <Button
-                            type="schoolDefault"
+                            type='schoolDefault'
                             block
                             style={{ width: '14%' }}
                             className={styles.button}

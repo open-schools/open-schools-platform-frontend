@@ -39,7 +39,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 <BaseInput
                     className={classNames(defaultStyles.input, className)}
                     placeholder={placeholder}
-                    data-testid="input"
+                    data-testid='input'
                     {...restProps}
                 />
                 {children}
@@ -70,12 +70,10 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             <div className={defaultStyles.inputContainer}>
                 <label>{label}</label>
                 <BaseInput.Password
-                    iconRender={(visible: boolean) =>
-                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
+                    iconRender={(visible: boolean) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     className={classNames(defaultStyles.input, className)}
                     placeholder={placeholder}
-                    data-testid="password-input"
+                    data-testid='password-input'
                     {...restProps}
                 />
                 {children}
@@ -86,13 +84,10 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             <div className={inputStyleDictionary[customType]?.inputContainer}>
                 <label>{label}</label>
                 <BaseInput
-                    className={classNames(
-                        inputStyleDictionary[customType]?.input,
-                        className
-                    )}
+                    className={classNames(inputStyleDictionary[customType]?.input, className)}
                     {...restProps}
                     placeholder={placeholder}
-                    data-testid="input"
+                    data-testid='input'
                 />
                 {children}
             </div>

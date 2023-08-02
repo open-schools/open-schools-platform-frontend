@@ -26,11 +26,8 @@ export const TabsAuthAction: React.FC<ITabsActionsProps> = (props) => {
                     </>
                 ) : (
                     <>
-                        <Tabs.TabPane
-                            key="/auth/register?step=inputPhone"
-                            tab={registerTab}
-                        />
-                        <Tabs.TabPane key="/auth/signin" tab={signInTab} />
+                        <Tabs.TabPane key='/auth/register?step=inputPhone' tab={registerTab} />
+                        <Tabs.TabPane key='/auth/signin' tab={signInTab} />
                     </>
                 )}
             </Tabs>

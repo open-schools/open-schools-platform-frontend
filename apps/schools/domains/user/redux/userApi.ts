@@ -33,10 +33,7 @@ const userApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        creationToken: build.query<
-            { token: GetRegistrationToken },
-            CreationTokenData
-        >({
+        creationToken: build.query<{ token: GetRegistrationToken }, CreationTokenData>({
             query: (data) => ({
                 url: `/user-management/users/token/${data.token_key}`,
                 method: 'GET',
@@ -59,10 +56,5 @@ const userApi = commonApi.injectEndpoints({
     }),
 })
 
-export const {
-    useTokenMutation,
-    useVerifyMutation,
-    useUsersMutation,
-    useResetPasswordMutation,
-    useResendMutation,
-} = userApi
+export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation } =
+    userApi

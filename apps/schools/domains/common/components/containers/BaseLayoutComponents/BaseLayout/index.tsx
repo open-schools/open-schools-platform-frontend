@@ -30,7 +30,7 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                     onCollapse={() => {
                         setCollapsed((state) => !state)
                     }}
-                    theme="light"
+                    theme='light'
                 >
                     <Icon collapsed={collapsed} setCollapsed={setCollapsed} />
                     <div className={styles.menuScroll}>
@@ -40,16 +40,10 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                         <UserProfile />
                     </div>
                 </Sider>
-                <Sider
-                    collapsed={collapsed}
-                    width={LAYOUT_WIDTH}
-                    collapsedWidth={COLLAPSED_LAYOUT_WIDTH}
-                />
+                <Sider collapsed={collapsed} width={LAYOUT_WIDTH} collapsedWidth={COLLAPSED_LAYOUT_WIDTH} />
                 <Layout className={styles.siteLayout}>
                     <Content className={styles.content}>
-                        <div className={styles.siteLayoutBackground}>
-                            {children}
-                        </div>
+                        <div className={styles.siteLayoutBackground}>{children}</div>
                     </Content>
                 </Layout>
             </Layout>

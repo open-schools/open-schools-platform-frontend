@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-    LARGE_ICON_SIZE,
-    MEDIUM_ICON_SIZE,
-    SMALL_ICON_SIZE,
-} from '../../constants/Icon'
+import { LARGE_ICON_SIZE, MEDIUM_ICON_SIZE, SMALL_ICON_SIZE } from '../../constants/Icon'
 import { IconSize, IconWrapperProps } from './interfaces'
 
 const getIconSize = (size: IconSize) => {
@@ -31,7 +27,7 @@ export const IconWrapper: React.FC<IconWrapperProps> = ({
 
     return (
         <span
-            role="img"
+            role='img'
             color={color}
             aria-hidden={true}
             style={{

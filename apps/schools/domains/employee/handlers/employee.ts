@@ -6,11 +6,7 @@ import {
 } from '../../user/components/auth/constants/message'
 import { normalizePhone } from '../../common/utils/phone'
 
-export async function handleSubmitForm(
-    organizationId: string,
-    formComponent: FormInstance,
-    mutation: any
-) {
+export async function handleSubmitForm(organizationId: string, formComponent: FormInstance, mutation: any) {
     let { phone: inputPhone } = formComponent.getFieldsValue(['phone'])
     inputPhone = '+' + inputPhone
     const phone = normalizePhone(inputPhone)

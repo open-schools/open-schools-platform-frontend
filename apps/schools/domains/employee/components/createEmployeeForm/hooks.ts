@@ -34,9 +34,7 @@ export const useCreateEmployeeFormValidators = () => {
                     message: NameMustNotStartOrAndMsg,
                     // TODO: move code above regexps to constants
                     validator: (_, value) =>
-                        !/[-]\s|\s[-]/.test(value && value.trim())
-                            ? Promise.resolve()
-                            : Promise.reject(),
+                        !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
                 },
             ],
             email: [

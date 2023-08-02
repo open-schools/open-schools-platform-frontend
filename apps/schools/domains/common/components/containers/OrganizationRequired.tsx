@@ -6,15 +6,13 @@ interface OrganizationRequiredProps {
     children: React.ReactNode
 }
 
-export const OrganizationRequired: React.FC<OrganizationRequiredProps> = ({
-    children,
-}) => {
+export const OrganizationRequired: React.FC<OrganizationRequiredProps> = ({ children }) => {
     let pageView = children
     const { organizationId } = useOrganization()
 
     if (organizationId === null || organizationId === '') {
         pageView = (
-            <Spin tip="Loading" size="large">
+            <Spin tip='Loading' size='large'>
                 <div />
             </Spin>
         )

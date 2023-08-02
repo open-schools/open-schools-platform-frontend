@@ -17,10 +17,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         if (router.pathname === '/mobile-recaptcha') return
 
-        const jwtToken =
-            typeof window !== 'undefined'
-                ? localStorage.getItem('jwtToken')
-                : null
+        const jwtToken = typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null
 
         if (jwtToken) {
             setToken(jwtToken)
@@ -37,7 +34,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [error])
 
-    return (
-        <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
-    )
+    return <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
 }

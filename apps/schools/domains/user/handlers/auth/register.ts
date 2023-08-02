@@ -17,7 +17,7 @@ export async function tokenHandler(
     formComponent: FormInstance,
     nextUrl: string,
     registrationMutation: any,
-    onFinish: () => void
+    onFinish: () => void,
 ) {
     if (recaptchaToken === '') return
 
@@ -53,7 +53,7 @@ export async function otpHandler(
     verifyCodeMutation: any,
     onFinish: () => void,
     formComponent: FormInstance,
-    onError: () => void
+    onError: () => void,
 ) {
     let token = localStorage.getItem('token')
     let response = await verifyCodeMutation({ otp: smsCode, token_key: token })
@@ -78,14 +78,14 @@ export async function registrationHandler(
     userRegistrationMutation: any,
     onFinish: (userID: string) => void,
     onError: () => void,
-    formComponent: FormInstance
+    formComponent: FormInstance,
 ) {
     let token = localStorage.getItem('token')
-    let response = await withLoadingMessage(
-        LoadingMsg,
-        userRegistrationMutation,
-        { token: token, name: phone, password: password }
-    )
+    let response = await withLoadingMessage(LoadingMsg, userRegistrationMutation, {
+        token: token,
+        name: phone,
+        password: password,
+    })
     if (!('error' in response)) {
         message.success(SuccessRegistrationMsg)
         onFinish('someUserID')
@@ -102,11 +102,7 @@ export async function registrationHandler(
     }
 }
 
-export async function resendOtpHandler(
-    recaptchaToken: string,
-    resendOtpMutation: any,
-    onError: () => void
-) {
+export async function resendOtpHandler(recaptchaToken: string, resendOtpMutation: any, onError: () => void) {
     let token = localStorage.getItem('token')
     let response = await resendOtpMutation({
         recaptcha: recaptchaToken,

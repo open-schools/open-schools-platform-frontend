@@ -31,9 +31,7 @@ export const useRegisterFormValidators = () => {
                     message: NameMustNotStartOrAndMsg,
                     // TODO: move code above regexps to constants
                     validator: (_, value) =>
-                        !/[-]\s|\s[-]/.test(value && value.trim())
-                            ? Promise.resolve()
-                            : Promise.reject(),
+                        !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
                 },
             ],
             email: [
@@ -66,9 +64,7 @@ export const useRegisterFormValidators = () => {
                         if (!value || getFieldValue('password') === value) {
                             return Promise.resolve()
                         }
-                        return Promise.reject(
-                            new Error(PleaseConfirmYourPasswordMsg)
-                        )
+                        return Promise.reject(new Error(PleaseConfirmYourPasswordMsg))
                     },
                 }),
             ],

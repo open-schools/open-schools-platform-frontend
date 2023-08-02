@@ -1,11 +1,5 @@
 import { Col, Form, Row, Space, Typography as DefaultTypography } from 'antd'
-import React, {
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { formatPhone } from '../../../../common/utils/helpers'
@@ -14,29 +8,16 @@ import { Input } from '../../../../common/components/input'
 import { CountDownTimer } from '../../../../common/components/countDownTimer'
 import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
 import { IValidatePhoneFormProps } from './interfaces'
-import {
-    BUTTON_FORM_GUTTER_40,
-    FORM_ITEMS_GUTTER,
-    SMS_CODE_CLEAR_REGEX,
-    SMS_INPUT_STYLE,
-} from '../constants/styles'
+import { BUTTON_FORM_GUTTER_40, FORM_ITEMS_GUTTER, SMS_CODE_CLEAR_REGEX, SMS_INPUT_STYLE } from '../constants/styles'
 import { otpHandler, resendOtpHandler } from '../../../handlers/auth/register'
 import { useResendMutation, useVerifyMutation } from '../../../redux/userApi'
 import { SMS_CODE_LENGTH } from '../constants/numbers'
-import {
-    CodeMustContainCaetrainLength,
-    NeedConfirmField,
-} from '../constants/message'
+import { CodeMustContainCaetrainLength, NeedConfirmField } from '../constants/message'
 import { Button } from '../../../../common/components/button'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 
-export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
-    onFinish,
-    onReset,
-    onError,
-    title,
-}) => {
+export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({ onFinish, onReset, onError, title }) => {
     const [form] = Form.useForm()
     const { phone, setToken } = useContext(FirebaseReCaptchaContext)
     const [verifyCode] = useVerifyMutation()
@@ -56,7 +37,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                 return Promise.reject(phoneValidateError)
             },
         }),
-        [phoneValidateError]
+        [phoneValidateError],
     )
 
     const SMS_CODE_VALIDATOR_RULES = useMemo(
@@ -65,14 +46,14 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
             { len: SMS_CODE_LENGTH, message: CodeMustContainCaetrainLength },
             SMS_VALIDATOR,
         ],
-        ['Необходимо заполнить', SMS_VALIDATOR]
+        ['Необходимо заполнить', SMS_VALIDATOR],
     )
 
     const confirmPhone = useCallback(
         async (smsCode: string) => {
             otpHandler(smsCode, verifyCode, onFinish, form, onError)
         },
-        [form]
+        [form],
     )
 
     const smsValidator = useCallback(async () => {
@@ -111,7 +92,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                     resendOtpHandler(token, resend, onReset)
                 },
             },
-            auth
+            auth,
         )
         recaptchaVerifierInstance.render()
     }, [])
@@ -120,9 +101,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
         const formattedPhone = formatPhone(phone)
         const phoneVisible = isPhoneVisible
             ? formattedPhone
-            : `${formattedPhone.substring(0, 9)}***${formattedPhone.substring(
-                  12
-              )}`
+            : `${formattedPhone.substring(0, 9)}***${formattedPhone.substring(12)}`
         setShowPhone(phoneVisible)
     }, [isPhoneVisible, phone, setShowPhone])
 
@@ -131,20 +110,18 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
     return (
         <Form
             form={form}
-            name="register-verify-code"
+            name='register-verify-code'
             initialValues={initialValues}
             colon={false}
-            labelAlign="left"
+            labelAlign='left'
             requiredMark={false}
-            layout="vertical"
+            layout='vertical'
         >
             <Row gutter={BUTTON_FORM_GUTTER_40} className={styles.rowStyles}>
                 <ResponsiveCol span={24} className={styles.textCenter}>
                     <Row gutter={FORM_ITEMS_GUTTER}>
                         <Col span={24}>
-                            <DefaultTypography.Title level={2}>
-                                {title}
-                            </DefaultTypography.Title>
+                            <DefaultTypography.Title level={2}>{title}</DefaultTypography.Title>
                         </Col>
                         <Col span={24}>
                             Отправили SMS-код на номер
@@ -153,9 +130,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                                 <DefaultTypography.Link
                                     underline
                                     style={{ color: 'black' }}
-                                    onClick={() =>
-                                        setIsPhoneVisible(!isPhoneVisible)
-                                    }
+                                    onClick={() => setIsPhoneVisible(!isPhoneVisible)}
                                 >
                                     ({PhoneToggleLabel})
                                 </DefaultTypography.Link>
@@ -167,17 +142,13 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                             </DefaultTypography.Link>
                         </Col>
                         <Col span={24}>
-                            <Form.Item
-                                name="smsCode"
-                                data-cy="register-smscode-item"
-                                rules={SMS_CODE_VALIDATOR_RULES}
-                            >
+                            <Form.Item name='smsCode' data-cy='register-smscode-item' rules={SMS_CODE_VALIDATOR_RULES}>
                                 <Input
-                                    placeholder=""
-                                    inputMode="numeric"
+                                    placeholder=''
+                                    inputMode='numeric'
                                     customType={'inputCenter'}
                                     label={'Код из СМС'}
-                                    pattern="[0-9]*"
+                                    pattern='[0-9]*'
                                     value={smsCode}
                                     onChange={(e) => {
                                         const value = e.target.value
@@ -192,46 +163,31 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({
                             </Form.Item>
                         </Col>
                         <ResponsiveCol span={24}>
-                            <CountDownTimer
-                                action={async () => {}}
-                                id="RESEND_SMS"
-                                timeout={60}
-                                autostart={true}
-                            >
+                            <CountDownTimer action={async () => {}} id='RESEND_SMS' timeout={60} autostart={true}>
                                 {({ countdown, runAction }) => {
                                     const isCountDownActive = countdown > 0
                                     return (
                                         <div>
                                             <Space
-                                                direction="horizontal"
+                                                direction='horizontal'
                                                 size={8}
                                                 style={{
-                                                    display: isCountDownActive
-                                                        ? 'unset'
-                                                        : 'none',
+                                                    display: isCountDownActive ? 'unset' : 'none',
                                                 }}
                                             >
-                                                <DefaultTypography.Link
-                                                    disabled={true}
-                                                >
+                                                <DefaultTypography.Link disabled={true}>
                                                     Код действителен
                                                 </DefaultTypography.Link>
-                                                <DefaultTypography.Text type="secondary">
-                                                    {`${new Date(
-                                                        countdown * 1000
-                                                    )
-                                                        .toISOString()
-                                                        .substr(14, 5)}`}
+                                                <DefaultTypography.Text type='secondary'>
+                                                    {`${new Date(countdown * 1000).toISOString().substr(14, 5)}`}
                                                 </DefaultTypography.Text>
                                             </Space>
                                             <Button
                                                 style={{
-                                                    display: isCountDownActive
-                                                        ? 'none'
-                                                        : 'unset',
+                                                    display: isCountDownActive ? 'none' : 'unset',
                                                 }}
-                                                type="schoolResend"
-                                                id="recaptcha-container"
+                                                type='schoolResend'
+                                                id='recaptcha-container'
                                                 onClick={runAction}
                                             >
                                                 Отправить СМС-код ещё раз
