@@ -2,9 +2,9 @@ import get from 'lodash/get'
 import { useCallback, useEffect, useState } from 'react'
 
 import { ICountDownTimer } from './interfaces'
-import {extractRootDomain} from "@domains/common/utils/url.utils";
-import {DEFAULT_TIMEOUT} from "@domains/common/constants/CountDownTimer";
-import {timer} from "@domains/common/utils/timer";
+import { extractRootDomain } from '@domains/common/utils/url.utils'
+import { DEFAULT_TIMEOUT } from '@domains/common/constants/CountDownTimer'
+import { timer } from '@domains/common/utils/timer'
 
 const setCountDownDate = (date: Date, countDownId: string) => {
     const domain = extractRootDomain(window.location.href)

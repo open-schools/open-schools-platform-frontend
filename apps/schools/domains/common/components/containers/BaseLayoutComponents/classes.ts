@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import {RuleItem, Rules} from "@domains/common/access/rules";
+import { RuleItem, Rules } from '@domains/common/access/rules'
 
 export class MenuItemObj extends RuleItem {
     url: string

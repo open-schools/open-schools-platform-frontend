@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { IconSize, IconWrapperProps } from './interfaces'
-import {LARGE_ICON_SIZE, MEDIUM_ICON_SIZE, SMALL_ICON_SIZE} from "@domains/common/constants/Icon";
+import { LARGE_ICON_SIZE, MEDIUM_ICON_SIZE, SMALL_ICON_SIZE } from '@domains/common/constants/Icon'
 
 const getIconSize = (size: IconSize) => {
     switch (size) {

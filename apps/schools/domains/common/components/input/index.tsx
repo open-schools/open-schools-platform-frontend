@@ -6,7 +6,7 @@ import 'react-phone-input-2/lib/style.css'
 import { CustomInputProps, inputStyleDictionary } from './interfaces'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import classNames from 'classnames'
-import {typeInput} from "@domains/common/constants/Input";
+import { typeInput } from '@domains/common/constants/Input'
 
 const INPUT_PHONE_STYLE: React.CSSProperties = {
     width: '100%',

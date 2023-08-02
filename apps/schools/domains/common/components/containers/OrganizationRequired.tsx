@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spin } from 'antd'
-import {useOrganization} from "@domains/organization/providers/organizationProvider";
+import { useOrganization } from '@domains/organization/providers/organizationProvider'
 
 interface OrganizationRequiredProps {
     children: React.ReactNode

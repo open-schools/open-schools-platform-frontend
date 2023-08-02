@@ -6,8 +6,7 @@ import { Button } from '@domains/common/components/button'
 import { useCreateEmployeeFormValidators } from './hooks'
 import { useInviteEmployeeMutation } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
-import {handleSubmitForm} from "@domains/employee/handlers/employee";
-
+import { handleSubmitForm } from '@domains/employee/handlers/employee'
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()

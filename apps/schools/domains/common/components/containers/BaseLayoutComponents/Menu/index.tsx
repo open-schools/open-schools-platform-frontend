@@ -14,7 +14,7 @@ import styles from './styles/styles.module.scss'
 
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { MenuItemObj } from '../classes'
-import {isOrganizationSelected, RulesDictionary} from "@domains/common/access/rules";
+import { isOrganizationSelected, RulesDictionary } from '@domains/common/access/rules'
 
 const menuList: MenuItemObj[] = [
     new MenuItemObj('analytics', 'Аналитика', <LineChartOutlined style={{ fontSize: '150%' }} />, [

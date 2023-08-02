@@ -4,8 +4,7 @@ import defaultStyles from './styles/default.module.scss'
 
 import { buttonStyleDictionary, CustomButtonProps } from './interfaces'
 import classNames from 'classnames'
-import {typeButton} from "@domains/common/constants/Button";
-
+import { typeButton } from '@domains/common/constants/Button'
 
 export const Button: React.FC<CustomButtonProps> = (props) => {
     const { type = 'schoolDefault', antdType = 'primary', onClick, className, ...restProps } = props
