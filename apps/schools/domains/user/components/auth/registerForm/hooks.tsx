@@ -21,14 +21,17 @@ export const useRegisterFormValidators = () => {
                     message: PleaseInputYourNameMsg,
                     whitespace: true,
                     type: 'string',
-                }, {
+                },
+                {
                     message: NameMustContainMsg,
                     // TODO: move code above regexps to constants
                     pattern: /^[А-Яа-яA-Za-z]+(?: [А-Яа-яA-Za-z]+)*$/,
-                }, {
+                },
+                {
                     message: NameMustNotStartOrAndMsg,
                     // TODO: move code above regexps to constants
-                    validator: (_, value) => !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
+                    validator: (_, value) =>
+                        !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
                 },
             ],
             email: [
@@ -57,7 +60,7 @@ export const useRegisterFormValidators = () => {
                     message: PleaseConfirmYourPasswordMsg,
                 },
                 ({ getFieldValue }) => ({
-                    validator (_, value) {
+                    validator(_, value) {
                         if (!value || getFieldValue('password') === value) {
                             return Promise.resolve()
                         }

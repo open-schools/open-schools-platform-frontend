@@ -4,10 +4,13 @@ import { withLoadingMessage } from '../../../common/utils/loading'
 import Cookies from 'universal-cookie'
 import router from 'next/router'
 
-export async function loginHandler (phone: string, password: string, login: any, formComponent: FormInstance) {
+export async function loginHandler(phone: string, password: string, login: any, formComponent: FormInstance) {
     const cookies = new Cookies()
     cookies.remove('jwtToken')
-    let response = await withLoadingMessage(LoadingMsg, login, { phone: phone, password: password })
+    let response = await withLoadingMessage(LoadingMsg, login, {
+        phone: phone,
+        password: password,
+    })
     if ('data' in response) {
         cookies.set('jwtToken', response.data.token, { path: '/' })
         message.success(SuccessSignInMsg)

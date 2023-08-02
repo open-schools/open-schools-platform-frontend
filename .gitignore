@@ -18,6 +18,7 @@ _example.js
 yarn-error.log
 yarn.lock
 npm-debug.*
+package-lock.json
 
 # mobile
 *.jks

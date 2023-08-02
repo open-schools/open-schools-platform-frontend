@@ -3,7 +3,6 @@ import React from 'react'
 import { IconWrapper } from './IconWrapper'
 import { IconTypes } from './interfaces'
 
-
 export const ChevronRight: React.FC<IconTypes> = ({ svgProps: props, ...restProps }) => {
     return (
         <IconWrapper

@@ -30,7 +30,7 @@ export const IconWrapper: React.FC<IconWrapperProps> = ({
             role='img'
             color={color}
             aria-hidden={true}
-            style={{ 
+            style={{
                 display: 'inline-flex',
                 fontSize: 'inherit',
                 width: iconSize,

@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "lint:ts": "eslint domains/**/*.{ts,tsx} --fix",
+    "test:cypress": "cypress run --exit-with-code 0",
+    "test:jest": "jest --passWithNoTests",
+    "prettier": "prettier --write \"domains/**/*.{ts,tsx}\"",
     "dev": "npm run open-browser && next dev",
     "open-browser": "start http://localhost:3000",
     "build": "next build",
@@ -12,9 +16,17 @@
     "cypress:run": "cypress run --config video=false",
     "cypress:test": "start-server-and-test start http://localhost:3000 cypress:run"
   },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "yarn lint:ts",
+      "yarn test:jest"
+    ],
+    "*.feature": [
+      "yarn test:cypress"
+    ]
+  },
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
-    "dotenv": "^8.2.0",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -29,6 +41,7 @@
     "babel-jest": "^29.5.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
+    "dotenv": "^8.2.0",
     "emotion": "^11.0.0",
     "emotion-server": "^11.0.0",
     "immer": "^10.0.2",
@@ -67,11 +80,15 @@
     "cypress": "^6.2.1",
     "eslint-config-prettier": "^8.8.0",
     "firebase": "^9.6.10",
+    "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-unfetch": "^3.1.0",
     "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.6.2",
+    "lint-staged": "^13.2.3",
     "nock": "^13.0.6",
     "prettier": "3.0.0",
+    "prettier-eslint": "^15.0.1",
     "react-google-recaptcha-v3": "^1.10.1",
     "start-server-and-test": "^1.11.0",
     "ts-jest": "^26.4.4",

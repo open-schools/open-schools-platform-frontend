@@ -11,7 +11,7 @@ export const useResetFormValidators = () => {
                     message: PleaseConfirmYourPasswordMsg,
                 },
                 ({ getFieldValue }) => ({
-                    validator (_, value) {
+                    validator(_, value) {
                         if (!value || getFieldValue('password') === value) {
                             return Promise.resolve()
                         }

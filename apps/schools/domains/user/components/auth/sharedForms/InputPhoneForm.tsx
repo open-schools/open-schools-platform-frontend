@@ -15,15 +15,17 @@ import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
 import { useInputPhoneFormValidators } from './hooks'
 
-
-export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title, buttonText, description, disclaimer, onFinish }) => {
+export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({
+    nextUrl,
+    title,
+    buttonText,
+    description,
+    disclaimer,
+    onFinish,
+}) => {
     const validators = useInputPhoneFormValidators()
 
-    const {
-        setPhone,
-        token,
-        setToken,
-    } = useContext(FirebaseReCaptchaContext)
+    const { setPhone, token, setToken } = useContext(FirebaseReCaptchaContext)
     const [registration] = useTokenMutation()
     const [form] = Form.useForm()
     const router = useRouter()
@@ -49,24 +51,18 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
             'recaptcha-container',
             {
                 size: 'invisible',
-                'callback': (token: string) => {
+                callback: (token: string) => {
                     setToken(token)
                     tokenHandler(token, form, nextUrl, registration, onFinish)
                 },
             },
-            auth
+            auth,
         )
         recaptchaVerifierInstance.render()
     }, [])
 
     return (
-        <Form
-            form={form}
-            name="signin"
-            initialValues={initialValues}
-            requiredMark={false}
-            layout="vertical"
-        >
+        <Form form={form} name='signin' initialValues={initialValues} requiredMark={false} layout='vertical'>
             <Row className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
                     <Row gutter={FORM_ITEMS_GUTTER}>
@@ -82,27 +78,24 @@ export const InputPhoneForm: React.FC<IInputPhoneFormProps> = ({ nextUrl, title,
                         )}
                         <Col span={24}>
                             <Form.Item
-                                name="phone"
+                                name='phone'
                                 label={'Телефон'}
                                 rules={validators.phone}
-                                data-cy="register-phone-item"
+                                data-cy='register-phone-item'
                             >
-                                <Input
-                                    onChange={(value) => setPhone(value.target.value)}
-                                    customType={'inputPhone'}
-                                />
+                                <Input onChange={(value) => setPhone(value.target.value)} customType={'inputPhone'} />
                             </Form.Item>
                         </Col>
                         {disclaimer && <Col span={24}>{disclaimer}</Col>}
                         <Col span={24}>
                             <Form.Item>
                                 <Button
-                                    id="recaptcha-container"
-                                    key="submit"
-                                    type="schoolDefault"
-                                    htmlType="submit"
+                                    id='recaptcha-container'
+                                    key='submit'
+                                    type='schoolDefault'
+                                    htmlType='submit'
                                     block
-                                    data-cy="signin-button"
+                                    data-cy='signin-button'
                                     onClick={() => tokenHandler(token, form, nextUrl, registration, onFinish)}
                                 >
                                     {buttonText}
