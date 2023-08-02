@@ -3,7 +3,7 @@
   "description": "Easy and Fast StartUp development kit",
   "private": true,
   "repository": "https://github.com/LamArt/open-schools-platform-frontend",
-  "homepage": "https://github.com/LamArt/open-schools-platform-frontend,
+  "homepage": "https://github.com/LamArt/open-schools-platform-frontend",
   "license": "MIT",
   "workspaces": [
     "apps/*",
