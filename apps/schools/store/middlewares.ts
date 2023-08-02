@@ -1,6 +1,6 @@
 import { isRejected, Middleware, MiddlewareAPI } from '@reduxjs/toolkit'
 import { message } from 'antd'
-import router from "next/router";
+import router from 'next/router'
 
 
 interface ErrorCodes {
