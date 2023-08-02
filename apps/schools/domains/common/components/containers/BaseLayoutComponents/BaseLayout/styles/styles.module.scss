@@ -45,9 +45,7 @@
 }
 
 .divider{
-  min-width: 100px;
-  width: 207px;
-  max-width: 100%;
+  min-width: 0;
   margin: 20px auto 0;
-  border-top-color: #D8D8D8;
+  border-top-color: $color-border-gray-base-layout;
 }

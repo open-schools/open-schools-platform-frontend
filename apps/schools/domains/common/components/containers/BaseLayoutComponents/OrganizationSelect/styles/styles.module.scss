@@ -8,7 +8,7 @@
 .dropdown {
   width: 200px;
   border-radius: 8px !important;
-  color: var(--character-title-85, rgba(0, 0, 0, 0.85));
+  color: var(--character-title-85, $color-black);
 
   .addButton {
     font-family: "Roboto";
@@ -47,7 +47,7 @@
   .select {
     :global {
       .ant-select-selection-item {
-        color: var(--unnamed, #434343);
+        color: var(--unnamed, $color-selected-organization);
         font-family: "Roboto";
         font-size: 15px;
         font-style: normal;
@@ -73,30 +73,6 @@
     .suffixIcon{
       color: $color-black;
     }
-  }
-
-  .saveButton {
-    background-color: $color-green;
-
-    &:hover {
-      background-color: $color-green;
-    }
-
-    border-radius: 10px;
-    height: 36px;
-    width: 40%;
-    margin-right: 0;
-    left: 226px;
-    top: 10px;
-  }
-
-  .saveButton:focus {
-    background-color: #4CD174;
-  }
-
-  .saveButton:focus {
-    background-color: #ffffff;
-    color: #207BCE;
   }
 
   .option {
