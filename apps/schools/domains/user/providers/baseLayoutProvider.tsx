@@ -11,7 +11,7 @@ interface ILayoutContext {
 }
 
 interface BaseLayoutProviderProps {
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 const isMobileUserAgent = (): boolean => {
