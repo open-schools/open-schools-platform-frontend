@@ -37,12 +37,12 @@ interface Action {
 }
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => (action: Action) => {
+    if (router.pathname === '/mobile-recaptcha') return next(action)
+
     if (isRejected()(action)) {
         const { status, data } = action.payload
         const errorData = data && data.error
         const errorType = errorCodes[status]
-
-        if (router.pathname === '/mobile-recaptcha') return next(action)
 
         typeof errorType === 'string'
             ? message.error(errorType)
