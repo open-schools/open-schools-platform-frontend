@@ -1,11 +1,10 @@
 #!/bin/sh
 cd ./apps/schools
-
 npx lint-staged
 yarn run prettier
 
 if [ -n "$(git status --porcelain)" ]; then
-  echo "Please commit the changes made by prettier before push."
+  echo "Please commit or stashed the changes before push."
   exit 1
 fi
 
