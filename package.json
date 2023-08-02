@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "cd ./apps/schools && lint-staged && yarn run prettier --list-different && echo 'Commit your prettier changes before pushing!' && exit 1 && yarn run test && yarn build"
+      "pre-push": "cd ./apps/schools && lint-staged && yarn run prettier && yarn run test && yarn build"
     }
   },
   "devDependencies": {
