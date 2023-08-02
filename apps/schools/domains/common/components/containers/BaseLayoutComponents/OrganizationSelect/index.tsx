@@ -19,7 +19,7 @@ const SuffixIcon: React.FC<SuffixIconProps> = (props) => {
 
     return (
         <div
-            className={styles.suffixIcon}
+   className={styles.suffixIcon}
             style={collapsed ? COLLAPSED_SUFFIX_ICON : {}}
         >
             {isOpen ? <UpOutlined /> : <DownOutlined />}
