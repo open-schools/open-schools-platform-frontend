@@ -1,6 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
-import Cookies from "universal-cookie";
 import {useGetAllOrganizationsQuery} from "../../organization/redux/organizationApi";
 import {OrganizationInfo} from "../../organization/interfaces/OrganizationProvider";
 export const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -21,7 +20,7 @@ interface OrganizationProviderProps {
     children: React.ReactNode;
 }
 
-const ORGANIZATION_ID_STORAGE_NAME = 'organizationId';
+export const ORGANIZATION_ID_STORAGE_NAME = 'organizationId';
 
 export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ children }) => {
     const router = useRouter()
