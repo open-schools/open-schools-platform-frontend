@@ -9,7 +9,7 @@ export async function resetHandler (password: string, reset: any, onFinish: (use
         message.success(SuccessResetPasswordMsg)
         Router.push('../auth/signin')
         onFinish('userID')
-    } else if ([401, 400, 404].includes(response.error?.status)) {
+    } else if (response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
         onError()
     }

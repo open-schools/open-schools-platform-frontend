@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useState} from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import {useGetAllOrganizationsQuery} from "../../organization/redux/organizationApi";
 import {OrganizationInfo} from "../../organization/interfaces/OrganizationProvider";
@@ -10,8 +10,8 @@ export const OrganizationContext = createContext<{
     setOrganizationId: React.Dispatch<React.SetStateAction<string>>,
 }>({
     organization: {},
-    organizationId: "",
-    setOrganizationId: () => null
+    organizationId: '',
+    setOrganizationId: () => null,
 })
 
 export const useOrganization = () => useContext(OrganizationContext)
@@ -25,8 +25,8 @@ export const ORGANIZATION_ID_STORAGE_NAME = 'organizationId';
 export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ children }) => {
     const router = useRouter()
 
-    const [organizationId, setOrganizationId] = useState("");
-    const [organization, setOrganization] = useState({});
+    const [organizationId, setOrganizationId] = useState('')
+    const [organization, setOrganization] = useState({})
     const { data } = useGetAllOrganizationsQuery({})
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
     }, [])
 
     useEffect(() => {
-        const organization = data?.results.filter(x => x.id === organizationId)[0];
+        const organization = data?.results.filter(x => x.id === organizationId)[0]
         if (UUID_REGEXP.test(organizationId) && organization) {
             setOrganization({
                 id: organization.id,
@@ -59,15 +59,15 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
                 router.push('/user')
         }
         else{
-            const firstOrganization = data?.results[0];
-            if (organizationId === "" && firstOrganization && firstOrganization.id) {
-                setOrganizationId(firstOrganization.id);
+            const firstOrganization = data?.results[0]
+            if (organizationId === '' && firstOrganization && firstOrganization.id) {
+                setOrganizationId(firstOrganization.id)
             }
         }
     }, [data])
 
     return (
-        <OrganizationContext.Provider value={{organization, organizationId, setOrganizationId}}>
+        <OrganizationContext.Provider value={{ organization, organizationId, setOrganizationId }}>
             {children}
         </OrganizationContext.Provider>
     )

@@ -1,0 +1,22 @@
+@import '../../../../common/components/styles/abstracts/common';
+
+.tableContainer {
+  @extend %table;
+}
+
+.header {
+  margin-bottom: 31px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .button {
+    min-width: 200px;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
