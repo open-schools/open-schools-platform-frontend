@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetUserQuery } from '../redux/authenticationApi'
+import Cookies from 'universal-cookie'
 
 export const TokenContext = createContext('')
 
@@ -13,11 +14,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [token, setToken] = useState('')
 
     const { error } = useGetUserQuery({})
+    const cookies = new Cookies()
 
     useEffect(() => {
         if (router.pathname === '/mobile-recaptcha') return
 
-        const jwtToken = typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null
+        const jwtToken = typeof window !== 'undefined' ? cookies.get('jwtToken') : null
 
         if (jwtToken) {
             setToken(jwtToken)
