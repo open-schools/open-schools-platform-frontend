@@ -1,14 +1,14 @@
 import React, { createContext, useState } from 'react'
 
 export interface IAuthLayoutProps {
-    children: JSX.Element,
+    children: JSX.Element
 }
 
 export const FirebaseReCaptchaContext = createContext<{
-    phone: string,
-    setPhone: React.Dispatch<React.SetStateAction<string>>,
-    token: string,
-    setToken: React.Dispatch<React.SetStateAction<string>>,
+    phone: string
+    setPhone: React.Dispatch<React.SetStateAction<string>>
+    token: string
+    setToken: React.Dispatch<React.SetStateAction<string>>
 }>({
     phone: '',
     setPhone: () => null,

@@ -11,7 +11,7 @@ import { useSignInFormValidators } from './hooks'
 
 export const SignInForm = (): React.ReactElement => {
     const validators = useSignInFormValidators()
-    
+
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
 
@@ -27,22 +27,16 @@ export const SignInForm = (): React.ReactElement => {
     const initialValues = { password: '', phone: '' }
 
     return (
-        <Form
-            form={form}
-            name="signin"
-            initialValues={initialValues}
-            requiredMark={false}
-            layout="vertical"
-        >
+        <Form form={form} name='signin' initialValues={initialValues} requiredMark={false} layout='vertical'>
             <Row className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
                     <Row>
                         <Col span={24}>
                             <Form.Item
-                                name="phone"
+                                name='phone'
                                 label={'Телефон'}
                                 rules={validators.phone}
-                                data-cy="signin-phone-item"
+                                data-cy='signin-phone-item'
                             >
                                 <Input
                                     onChange={(value: any) => setPhone(value.target.value)}
@@ -52,10 +46,10 @@ export const SignInForm = (): React.ReactElement => {
                         </Col>
                         <Col span={24}>
                             <Form.Item
-                                name="password"
+                                name='password'
                                 label={'Пароль'}
                                 rules={validators.password}
-                                data-cy="signin-password-item"
+                                data-cy='signin-password-item'
                             >
                                 <Input
                                     onChange={(value: any) => setPassword(value.target.value)}
@@ -67,9 +61,7 @@ export const SignInForm = (): React.ReactElement => {
                         <Col span={24}>
                             <Form.Item>
                                 Забыли пароль?&nbsp;
-                                <Typography.Link
-                                    onClick={() => Router.push('/auth/forgot')}
-                                >
+                                <Typography.Link onClick={() => Router.push('/auth/forgot')}>
                                     {'Сбросить'}
                                 </Typography.Link>
                             </Form.Item>
@@ -77,12 +69,12 @@ export const SignInForm = (): React.ReactElement => {
                         <Col span={24}>
                             <Form.Item>
                                 <Button
-                                    key="submit"
-                                    type="schoolDefault"
-                                    htmlType="submit"
+                                    key='submit'
+                                    type='schoolDefault'
+                                    htmlType='submit'
                                     loading={isLoading}
                                     block
-                                    data-cy="signin-button"
+                                    data-cy='signin-button'
                                     onClick={() => loginHandler(phone, password, login, form)}
                                 >
                                     Войти

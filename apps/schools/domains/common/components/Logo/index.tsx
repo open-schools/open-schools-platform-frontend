@@ -4,13 +4,8 @@ import styles from './styles/styles.module.scss'
 import logo from '@public/icons/logo.svg'
 import { LogoProps } from './interfaces'
 
-
 export const CustomLogo: React.FC<LogoProps> = (props) => {
-    const {
-        onClick,
-        minified,
-        width,
-    } = props
+    const { onClick, minified, width } = props
 
     if (minified) {
         return (
@@ -22,7 +17,7 @@ export const CustomLogo: React.FC<LogoProps> = (props) => {
 
     return (
         <div onClick={onClick} className={styles.logoText}>
-            Открытые  школы
+            Открытые школы
         </div>
     )
 }

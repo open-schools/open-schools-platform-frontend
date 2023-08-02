@@ -8,7 +8,7 @@ export type CountDownChildrenType = (
         countdown: number
         runAction: (...args: any[]) => Promise<any>
         loading: boolean
-    }
+    },
 ) => JSX.Element
 
 export interface ICountDownTimer {

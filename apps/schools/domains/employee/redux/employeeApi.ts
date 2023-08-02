@@ -10,7 +10,7 @@ import {
 } from './interfaces'
 
 const employeeApi = commonApi.injectEndpoints({
-    endpoints: build => ({
+    endpoints: (build) => ({
         getAllEmployees: build.query<ReturnedData<GetListEmployee[]>, GetAllEmployeesData>({
             query: (params) => ({
                 url: '/organization-management/employees',

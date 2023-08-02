@@ -26,18 +26,19 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
         signInByPhone: () => {},
     }
 
-    const resetComplete = useCallback(async () => {const { password } = form.getFieldsValue(['password'])
+    const resetComplete = useCallback(async () => {
+        const { password } = form.getFieldsValue(['password'])
         resetHandler(password, reset, onFinish, onError)
     }, [form, signInByPhone])
 
     return (
         <Form
             form={form}
-            name="reset"
+            name='reset'
             onFinish={resetComplete}
             colon={false}
             requiredMark={true}
-            layout="vertical"
+            layout='vertical'
             validateTrigger={['onBlur', 'onSubmit']}
         >
             <Row gutter={BUTTON_FORM_GUTTER_20} className={styles.rowStyles}>
@@ -46,28 +47,24 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
                         <Col span={24}>
                             <RequiredFlagWrapper>
                                 <Form.Item
-                                    name="password"
+                                    name='password'
                                     label={'Придумайте новый пароль'}
                                     rules={validators.password}
-                                    data-cy="reset-password-item"
+                                    data-cy='reset-password-item'
                                     validateFirst
                                 >
-                                    <Input
-                                        customType={'inputPassword'}
-                                        type={'password'}
-                                        placeholder={'Пароль'}
-                                    />
+                                    <Input customType={'inputPassword'} type={'password'} placeholder={'Пароль'} />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
                         <Col span={24}>
                             <RequiredFlagWrapper>
                                 <Form.Item
-                                    name="confirm"
+                                    name='confirm'
                                     label={'Повторите пароль'}
                                     dependencies={['password']}
                                     rules={validators.confirm}
-                                    data-cy="reset-confirmpassword-item"
+                                    data-cy='reset-confirmpassword-item'
                                     validateFirst
                                 >
                                     <Input
@@ -85,12 +82,12 @@ export const ResetForm: React.FC<IResetFormProps> = ({ onFinish, onError }) => {
                 <ResponsiveCol span={24}>
                     <Form.Item>
                         <Button
-                            key="submit"
-                            type="schoolDefault"
-                            htmlType="submit"
+                            key='submit'
+                            type='schoolDefault'
+                            htmlType='submit'
                             loading={isLoading}
                             block
-                            data-cy="resetcomplete-button"
+                            data-cy='resetcomplete-button'
                         >
                             Сохранить и войти
                         </Button>

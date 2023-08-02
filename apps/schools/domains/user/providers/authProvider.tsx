@@ -5,7 +5,7 @@ import { useGetUserQuery } from '../redux/authenticationApi'
 export const TokenContext = createContext('')
 
 interface AuthProviderProps {
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -34,9 +34,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [error])
 
-    return (
-        <TokenContext.Provider value={token}>
-            {children}
-        </TokenContext.Provider>
-    )
+    return <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
 }

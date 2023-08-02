@@ -1,7 +1,7 @@
 import { Rule } from 'rc-field-form/lib/interface'
 
 export interface IResetFormProps {
-    onFinish: (userId: string) => void,
+    onFinish: (userId: string) => void
     onError: () => void
 }
 

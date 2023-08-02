@@ -2,8 +2,6 @@ import React from 'react'
 import { IconWrapper } from './IconWrapper'
 import { IconTypes } from './interfaces'
 
-
-
 export const Close: React.FC<IconTypes> = ({ svgProps: props, ...restProps }) => {
     return (
         <IconWrapper

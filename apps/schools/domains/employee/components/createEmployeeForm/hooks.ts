@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import {
     EmailIsNotValidMsg,
     NameMustContainMsg,
-    NameMustNotStartOrAndMsg, PleaseInputYourEmailMsg,
+    NameMustNotStartOrAndMsg,
+    PleaseInputYourEmailMsg,
     PleaseInputYourNameMsg,
     WrongPhoneFormatMsg,
 } from '../../../user/components/auth/constants/message'
@@ -23,14 +24,17 @@ export const useCreateEmployeeFormValidators = () => {
                     message: PleaseInputYourNameMsg,
                     whitespace: true,
                     type: 'string',
-                }, {
+                },
+                {
                     message: NameMustContainMsg,
                     // TODO: move code above regexps to constants
                     pattern: /^[А-Яа-яA-Za-z]+(?: [А-Яа-яA-Za-z]+)*$/,
-                }, {
+                },
+                {
                     message: NameMustNotStartOrAndMsg,
                     // TODO: move code above regexps to constants
-                    validator: (_, value) => !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
+                    validator: (_, value) =>
+                        !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
                 },
             ],
             email: [

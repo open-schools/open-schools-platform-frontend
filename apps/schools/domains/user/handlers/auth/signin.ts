@@ -3,8 +3,11 @@ import { LoadingMsg, SuccessSignInMsg, WrongLoginOrPasswordMsg } from '../../com
 import { withLoadingMessage } from '../../../common/utils/loading'
 import router from 'next/router'
 
-export async function loginHandler (phone: string, password: string, login: any, formComponent: FormInstance) {
-    let response = await withLoadingMessage(LoadingMsg, login, { phone: phone, password: password })
+export async function loginHandler(phone: string, password: string, login: any, formComponent: FormInstance) {
+    let response = await withLoadingMessage(LoadingMsg, login, {
+        phone: phone,
+        password: password,
+    })
     if ('data' in response) {
         localStorage.setItem('jwtToken', response.data.token)
         message.success(SuccessSignInMsg)

@@ -3,7 +3,7 @@ import { useOrganization } from '../../../user/providers/organizationProvider'
 import { Spin } from 'antd'
 
 interface OrganizationRequiredProps {
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 export const OrganizationRequired: React.FC<OrganizationRequiredProps> = ({ children }) => {
@@ -11,14 +11,12 @@ export const OrganizationRequired: React.FC<OrganizationRequiredProps> = ({ chil
     const { organizationId } = useOrganization()
 
     if (organizationId === null || organizationId === '') {
-        pageView = <Spin tip="Loading" size="large">
-            <div />
-        </Spin>
+        pageView = (
+            <Spin tip='Loading' size='large'>
+                <div />
+            </Spin>
+        )
     }
 
-    return (
-        <>
-            {pageView}
-        </>
-    )
+    return <>{pageView}</>
 }

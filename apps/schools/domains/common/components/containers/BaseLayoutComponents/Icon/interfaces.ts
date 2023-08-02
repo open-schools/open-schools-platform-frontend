@@ -1,4 +1,4 @@
 export interface IconProps {
-    collapsed: boolean,
-    setCollapsed: any,
+    collapsed: boolean
+    setCollapsed: any
 }

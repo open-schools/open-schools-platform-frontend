@@ -10,10 +10,10 @@ import { Input } from '../../../common/components/input'
 import { SearchOutlined } from '@ant-design/icons'
 
 interface DataType {
-    id: string;
-    name: string;
-    position: string;
-    phone: string;
+    id: string
+    name: string
+    position: string
+    phone: string
 }
 
 const baseColumns: RawColumnType<DataType>[] = [
@@ -43,12 +43,13 @@ const baseColumns: RawColumnType<DataType>[] = [
     },
 ].filter((item) => !item.hidden)
 
-
-export function EmployeeList () {
+export function EmployeeList() {
     const [dataSource, setDataSource] = useState<any[]>([])
     const { organizationId } = useOrganization()
     const searchFields = ['name', 'position', 'phone', 'id']
-    const { data, isLoading } = useGetAllEmployeesQuery({ organization: organizationId })
+    const { data, isLoading } = useGetAllEmployeesQuery({
+        organization: organizationId,
+    })
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -62,15 +63,13 @@ export function EmployeeList () {
     return (
         <>
             {isLoading ? (
-                <Skeleton active/>
+                <Skeleton active />
             ) : (
                 <>
-                    <div
-                        className={styles.header}
-                    >
+                    <div className={styles.header}>
                         <Typography.Title level={1}>Сотрудники</Typography.Title>
                         <Button
-                            type="schoolDefault"
+                            type='schoolDefault'
                             block
                             style={{ width: '14%' }}
                             className={styles.button}
@@ -82,13 +81,21 @@ export function EmployeeList () {
                     <Input
                         customType={'inputSearch'}
                         placeholder={'Поиск'}
-                        children={<SearchOutlined style={{ fontSize: '150%', position: 'absolute', right: '30px' }} />}
+                        children={
+                            <SearchOutlined
+                                style={{
+                                    fontSize: '150%',
+                                    position: 'absolute',
+                                    right: '30px',
+                                }}
+                            />
+                        }
                     />
                     <Table
                         className={styles.tableContainer}
                         columns={columns}
                         dataSource={dataSource}
-                        rowKey={record => record.id}
+                        rowKey={(record) => record.id}
                         onRow={(element: DataType) => {
                             return {
                                 onClick: () => {
