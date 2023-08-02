@@ -26,3 +26,4 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+/package-lock.json
