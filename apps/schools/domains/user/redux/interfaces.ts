@@ -1,4 +1,4 @@
-import { GetPhoto } from '../../common/redux/interfaces'
+import { GetPhoto } from '@domains/common/redux/interfaces'
 
 export interface CreateUser {
     token: string

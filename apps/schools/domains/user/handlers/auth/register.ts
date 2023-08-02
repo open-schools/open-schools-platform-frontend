@@ -1,6 +1,6 @@
 import { FormInstance, message } from 'antd'
 import Router from 'next/router'
-import { normalizePhone } from '../../../common/utils/phone'
+import { normalizePhone } from '@domains/common/utils/phone'
 import {
     LoadingMsg,
     SendNewSmsCodeMsg,
@@ -9,8 +9,8 @@ import {
     WrongPhoneFormatMsg,
     WrongSmsCodeMsg,
     SuccessRegistrationMsg,
-} from '../../components/auth/constants/message'
-import { withLoadingMessage } from '../../../common/utils/loading'
+} from '@domains/user/components/auth/constants/message'
+import { withLoadingMessage } from '@domains/common/utils/loading'
 
 export async function tokenHandler(
     recaptchaToken: string,

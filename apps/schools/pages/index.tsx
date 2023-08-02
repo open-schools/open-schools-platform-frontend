@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import {ORGANIZATION_ID_STORAGE_NAME, useOrganization} from "../domains/user/providers/organizationProvider";
+import {ORGANIZATION_ID_STORAGE_NAME, useOrganization} from "@domains/organization/providers/organizationProvider";
 
 
 const IndexPage = () => {

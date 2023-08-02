@@ -10,7 +10,7 @@ import { Icon } from '../Icon'
 import UserProfile from '../UserProfile'
 import { IBaseLayoutProps } from './interfaces'
 import { OrganizationSelect } from '../OrganizationSelect'
-import { useLayoutContext } from '../../../../../user/providers/baseLayoutProvider'
+import { useLayoutContext } from '@domains/user/providers/baseLayoutProvider'
 import { COLLAPSED_DIVIDER_WIDTH, COLLAPSED_LAYOUT_WIDTH, DIVIDER_WIDTH, LAYOUT_WIDTH } from './styles/styles'
 
 const { Content, Sider } = Layout

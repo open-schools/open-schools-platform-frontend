@@ -3,8 +3,8 @@ import {
     PleaseReloadPageMsg,
     SuccessInviteEmployeeMsg,
     WrongPhoneFormatMsg,
-} from '../../user/components/auth/constants/message'
-import { normalizePhone } from '../../common/utils/phone'
+} from '@domains/user/components/auth/constants/message'
+import { normalizePhone } from '@domains/common/utils/phone'
 
 export async function handleSubmitForm(organizationId: string, formComponent: FormInstance, mutation: any) {
     let { phone: inputPhone } = formComponent.getFieldsValue(['phone'])

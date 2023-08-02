@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'
-import { CustomLogo } from '../../../Logo'
+
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { IconProps } from './interfaces'
 import { LOGO_WIDTH } from './styles/styles'
+import {CustomLogo} from "@domains/common/components/Logo";
 
 export const Icon: React.FC<IconProps> = (props) => {
     const { collapsed, setCollapsed } = props

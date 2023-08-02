@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { AuthBackground } from '../authBackground'
 import getConfig from 'next/config'
-import { CustomLogo } from '../../../../common/components/Logo'
+import { CustomLogo } from '@domains/common/components/Logo'
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement

@@ -3,14 +3,14 @@ import React, { PropsWithChildren, useCallback, useContext, useState } from 'rea
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
-import { Input } from '../../../../common/components/input'
-import { Button } from '../../../../common/components/button'
+import { Input } from '@domains/common/components/input'
+import { Button } from '@domains/common/components/button'
 import { useRegisterFormValidators } from './hooks'
 import { IRegisterFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
-import { FirebaseReCaptchaContext } from '../../../providers/firebaseReCaptchaProvider'
-import { registrationHandler } from '../../../handlers/auth/register'
-import { useUsersMutation } from '../../../redux/userApi'
+import { FirebaseReCaptchaContext } from '@domains/user/providers/firebaseReCaptchaProvider'
+import { registrationHandler } from '@domains/user/handlers/auth/register'
+import { useUsersMutation } from '@domains/user/redux/userApi'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>

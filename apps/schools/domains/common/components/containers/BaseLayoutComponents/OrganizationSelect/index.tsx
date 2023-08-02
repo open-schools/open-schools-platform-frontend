@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Modal, Select, SelectProps } from 'antd'
 import styles from './styles/styles.module.scss'
-import { useGetAllOrganizationsQuery } from '../../../../../organization/redux/organizationApi'
-import { useOrganization } from 'domains/user/providers/organizationProvider'
+import { useGetAllOrganizationsQuery } from '@domains/organization/redux/organizationApi'
+
 import { OrganizationSelectProps, SuffixIconProps } from './interfaces'
 import { DownOutlined, PlusCircleOutlined, UpOutlined } from '@ant-design/icons'
 import { DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
+import {useOrganization} from "@domains/organization/providers/organizationProvider";
 
 const { Option } = Select
 
