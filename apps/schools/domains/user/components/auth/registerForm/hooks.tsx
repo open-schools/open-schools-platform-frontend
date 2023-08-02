@@ -9,7 +9,7 @@ import {
     PleaseInputYourPasswordMsg,
 } from '../constants/message'
 import { MIN_PASSWORD_LENGTH } from '../constants/numbers'
-import { ValidatorsMap } from '../../../../common/redux/interfaces'
+import { ValidatorsMap } from '@domains/common/redux/interfaces'
 
 export const useRegisterFormValidators = () => {
     return useMemo<ValidatorsMap>(() => {

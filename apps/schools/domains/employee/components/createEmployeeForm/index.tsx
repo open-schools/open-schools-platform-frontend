@@ -1,12 +1,12 @@
 import { Form, Typography } from 'antd'
 import React from 'react'
-import { Input } from '../../../common/components/input'
+import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
-import { Button } from '../../../common/components/button'
+import { Button } from '@domains/common/components/button'
 import { useCreateEmployeeFormValidators } from './hooks'
-import { useInviteEmployeeMutation } from '../../../organization/redux/organizationApi'
-import { useOrganization } from '../../../user/providers/organizationProvider'
-import { handleSubmitForm } from '../../handlers/employee'
+import { useInviteEmployeeMutation } from '@domains/organization/redux/organizationApi'
+import { useOrganization } from '@domains/organization/providers/organizationProvider'
+import { handleSubmitForm } from '@domains/employee/handlers/employee'
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()

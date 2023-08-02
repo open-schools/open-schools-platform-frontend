@@ -1,6 +1,6 @@
-import { commonApi } from '../../../store/commonApi'
-import { ReturnedData } from '../../common/redux/interfaces'
-import { GetOrganizationInviteEmployee } from '../../organization/redux/interfaces'
+import { commonApi } from '@store/commonApi'
+import { ReturnedData } from '@domains/common/redux/interfaces'
+import { GetOrganizationInviteEmployee } from '@domains/organization/redux/interfaces'
 import {
     DeleteEmployeeByIdData,
     GetAllEmployeesData,
