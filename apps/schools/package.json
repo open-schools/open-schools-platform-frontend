@@ -17,8 +17,13 @@
     "cypress:test": "start-server-and-test start http://localhost:3000 cypress:run"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "yarn prettier --list-different",
-    "*.feature": "yarn test:cypress"
+    "*.{ts,tsx}": [
+      "yarn lint:ts",
+      "yarn test:jest"
+    ],
+    "*.feature": [
+      "yarn test:cypress"
+    ]
   },
   "dependencies": {
     "@ant-design/icons": "^4.4.0",

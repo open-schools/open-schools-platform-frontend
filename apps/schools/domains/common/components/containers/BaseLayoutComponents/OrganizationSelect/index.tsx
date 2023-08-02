@@ -94,8 +94,8 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (
                         collapsed
                             ? ''
                             : organizationId
-                                ? organization.name
-                                : 'Создать организацию'
+                            ? organization.name
+                            : 'Создать организацию'
                     }
                 >
                     {data?.results.map((organization) => (
