@@ -1,21 +1,9 @@
 #!/bin/sh
 cd ./apps/schools
 npx lint-staged
-
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-
-# Run prettier and check if there are any changes
-changes=$(git diff --name-only HEAD)
-
-# If there are changes, prompt the user to commit them
-if [ -n "$changes" ]; then
-  echo "There are changes after running 'yarn run prettier'. Please commit the changes before pushing."
+if [ -n "$(yarn run prettier --list-different)" ]; then
+  echo "Commit your prettier changes before pushing!"
   exit 1
 fi
-
-# Return to the current branch to continue with the push
-git checkout "$current_branch"
-exit 0
-
 yarn run test
 yarn build
