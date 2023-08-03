@@ -10,6 +10,7 @@ import Head from 'next/head'
 import {OrganizationProvider} from "@domains/organization/providers/organizationProvider";
 import {BaseLayout} from "@domains/common/components/containers/BaseLayoutComponents/BaseLayout";
 import {LayoutContextProvider} from "@domains/user/providers/baseLayoutProvider";
+import { message } from "antd";
 
 
 export interface ContainerPage<PropsType> extends React.FC {
@@ -21,6 +22,9 @@ interface CustomAppProps extends AppProps {
     Component: ContainerPage<PropsWithChildren>
 }
 
+message.config({
+    maxCount: 1,
+});
 
 function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     const LayoutComponent = Component.container || BaseLayout
