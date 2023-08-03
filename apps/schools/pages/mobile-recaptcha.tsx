@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { initializeApp } from '@firebase/app'
 import { getAuth, RecaptchaVerifier } from '@firebase/auth'
-import {ContainerPage} from "./_app";
-import {IAuthLayoutProps} from "../domains/user/components/auth/containers/AuthLayout";
-import EmptyLayout from "../domains/common/components/containers/EmptyLayout";
+import { ContainerPage } from './_app'
+import { IAuthLayoutProps } from "@domains/user/components/auth/containers/AuthLayout"
+import EmptyLayout from '@domains/common/components/containers/EmptyLayout'
+import { LoadingOutlined } from '@ant-design/icons'
+import { Spin } from 'antd'
 
 const MobileRecaptcha: ContainerPage<IAuthLayoutProps> = () => {
+    const [loading, setLoading] = useState(true)
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+
     useEffect(() => {
         const app = initializeApp({
             apiKey: process.env.NEXT_PUBLIC_apiKey,
@@ -24,7 +29,7 @@ const MobileRecaptcha: ContainerPage<IAuthLayoutProps> = () => {
                 type: 'image',
                 size: 'normal',
                 badge: 'bottomleft',
-                'callback': (token: string) => {
+                callback: (token: string) => {
                     // @ts-ignore
                     Android.verify(token)
                 },
@@ -33,18 +38,29 @@ const MobileRecaptcha: ContainerPage<IAuthLayoutProps> = () => {
                     Android.verify('')
                 },
             },
-            auth
+            auth,
         )
+        setLoading(false)
         recaptchaVerifierInstance.render()
     }, [])
 
     return (
-        <div style={{ display: 'flex', width: '100vw', height: '100vh', alignItems: 'center', alignContent: 'center', justifyContent: 'center',overflow: 'auto' }}>
-            <div style={{ display: 'block' }} id='recaptcha-container'>
-            </div>
+        <div
+            style={{
+                display: 'flex',
+                width: '100vw',
+                height: '100vh',
+                alignItems: 'center',
+                alignContent: 'center',
+                justifyContent: 'center',
+                overflow: 'auto',
+            }}
+        >
+            <Spin indicator={antIcon} style={loading ? {} : { display: 'none' }} />
+            <div style={{ display: 'block' }} id='recaptcha-container'></div>
         </div>
     )
 }
 
 MobileRecaptcha.container = EmptyLayout
-export default MobileRecaptcha
+export default MobileRecaptcha;
