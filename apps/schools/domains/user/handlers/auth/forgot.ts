@@ -1,6 +1,6 @@
 import { message } from 'antd'
 import Router from 'next/router'
-import { PleaseReloadPageMsg, SuccessResetPasswordMsg } from '../../components/auth/constants/message'
+import { PleaseReloadPageMsg, SuccessResetPasswordMsg } from '@domains/user/components/auth/constants/message'
 
 export async function resetHandler(
     password: string,

@@ -3,10 +3,10 @@ import React from 'react'
 import defaultStyles from './styles/default.module.scss'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import { typeInput } from '../../constants/Input'
 import { CustomInputProps, inputStyleDictionary } from './interfaces'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import classNames from 'classnames'
+import { typeInput } from '@domains/common/constants/Input'
 
 const INPUT_PHONE_STYLE: React.CSSProperties = {
     width: '100%',

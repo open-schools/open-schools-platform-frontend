@@ -6,8 +6,8 @@ import {
     PleaseInputYourEmailMsg,
     PleaseInputYourNameMsg,
     WrongPhoneFormatMsg,
-} from '../../../user/components/auth/constants/message'
-import { ValidatorsMap } from '../../../common/redux/interfaces'
+} from '@domains/user/components/auth/constants/message'
+import { ValidatorsMap } from '@domains/common/redux/interfaces'
 
 export const useCreateEmployeeFormValidators = () => {
     return useMemo<ValidatorsMap>(() => {

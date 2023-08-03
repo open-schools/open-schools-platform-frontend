@@ -1,12 +1,12 @@
 import { Col, Form, Row, Typography } from 'antd'
-import { ResponsiveCol } from 'domains/user/components/auth/containers/ResponsiveCol'
+import { ResponsiveCol } from '@domains/user/components/auth/containers/ResponsiveCol'
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { Input } from '../../../../common/components/input'
+import { Input } from '@domains/common/components/input'
 import styles from '../styles/formStyles.module.scss'
-import { Button } from '../../../../common/components/button'
-import { loginHandler } from '../../../handlers/auth/signin'
-import { useLoginMutation } from '../../../redux/authenticationApi'
+import { Button } from '@domains/common/components/button'
+import { loginHandler } from '@domains/user/handlers/auth/signin'
+import { useLoginMutation } from '@domains/user/redux/authenticationApi'
 import { useSignInFormValidators } from './hooks'
 
 export const SignInForm = (): React.ReactElement => {
