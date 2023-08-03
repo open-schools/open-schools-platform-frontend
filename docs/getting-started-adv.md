@@ -3,7 +3,7 @@
 ## Update from 8iq repo
 
 ```bash
-# 1) Add 8iq git remote origin for easy updates
+# 1) Create 8iq git remote origin for easy updates
 git remote add template git@github.com:8iq/nodejs-hackathon-boilerplate-starter-kit.git
 
 # 2) Pull changes
@@ -131,10 +131,10 @@ yarn workspace @app/_mobile01 postinstall
 yarn workspace @app/_mobile01 start --clear
 ```
 
-## Add package to existing APP
+## Create package to existing APP
 
 ```bash
-# Add new package to APP
+# Create new package to APP
 yarn workspace @app/_example01app add antd
 ```
 
@@ -178,7 +178,7 @@ python3 -m pip install psycopg2-binary
 ./kmigrator migrate
 ```
 
-Add to `package.json`:
+Create to `package.json`:
 
 ```js
   ...

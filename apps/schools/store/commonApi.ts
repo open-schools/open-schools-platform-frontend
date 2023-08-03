@@ -26,7 +26,7 @@ export const commonApi = createApi({
             if (csrfToken) {
                 headers.set('X-CSRFToken', csrfToken)
             }
-            const jwtToken = localStorage.getItem('jwtToken')
+            const jwtToken = cookies.get('jwtToken')
             if (jwtToken) {
                 headers.set('Authorization', `Bearer ${jwtToken}`)
             }

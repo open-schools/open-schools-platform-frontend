@@ -1,0 +1,55 @@
+@import "../../../../styles/abstracts/typography";
+@import "../../../../styles/abstracts/colors";
+
+.logo {
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  margin-top: 18px;
+}
+
+.logoMargin{
+  margin-left: 24px;
+}
+
+.logoMarginCollapsed{
+  margin-left: calc(50% - 40px / 2);
+}
+
+.trigger {
+  font-size: 15px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 35px;
+}
+
+.trigger:hover {
+  color: $color-blue;
+}
+
+.triggerOutline {
+  width: 24px ;
+  height: 24px;
+  border-radius: 100%;
+  border: 1px rgba(255, 255, 255, 0.2) solid;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  background-color: $color-white;
+  box-shadow: 0 0 3px grey;
+  padding-left: 4px;
+  transform: translate(10.5px,0px);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,4 +1,4 @@
-import { commonApi } from '../../../store/commonApi'
+import { commonApi } from '@store/commonApi'
 import {
     CreationTokenData,
     ResendData,
@@ -6,11 +6,12 @@ import {
     CreateRegistrationToken,
     TokenResponse,
     CreateUser,
-    VerifyData, GetRegistrationToken,
+    VerifyData,
+    GetRegistrationToken,
 } from './interfaces'
 
 const userApi = commonApi.injectEndpoints({
-    endpoints: build => ({
+    endpoints: (build) => ({
         users: build.mutation<{}, CreateUser>({
             query: (data) => ({
                 url: '/user-management/users',
@@ -55,10 +56,5 @@ const userApi = commonApi.injectEndpoints({
     }),
 })
 
-export const {
-    useTokenMutation,
-    useVerifyMutation,
-    useUsersMutation,
-    useResetPasswordMutation,
-    useResendMutation,
-} = userApi
+export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation } =
+    userApi

@@ -1,11 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetUserQuery } from '../redux/authenticationApi'
+import Cookies from 'universal-cookie'
 
 export const TokenContext = createContext('')
 
 interface AuthProviderProps {
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -13,9 +14,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [token, setToken] = useState('')
 
     const { error } = useGetUserQuery({})
+    const cookies = new Cookies()
 
     useEffect(() => {
-        const jwtToken = typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null
+        if (router.pathname === '/mobile-recaptcha') return
+
+        const jwtToken = typeof window !== 'undefined' ? cookies.get('jwtToken') : null
 
         if (jwtToken) {
             setToken(jwtToken)
@@ -25,14 +29,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [])
 
     useEffect(() => {
+        if (router.pathname === '/mobile-recaptcha') return
+
         if (error !== undefined && 'data' in error) {
             router.push('/auth/signin')
         }
     }, [error])
 
-    return (
-        <TokenContext.Provider value={token}>
-            {children}
-        </TokenContext.Provider>
-    )
+    return <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
 }

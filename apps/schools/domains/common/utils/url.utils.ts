@@ -1,5 +1,3 @@
-import { JAVASCRIPT_URL_XSS } from '../constants/regexp'
-
 // refs to: https://stackoverflow.com/questions/8498592/extract-hostname-name-from-string
 export function extractHostname(url: string) {
     let hostname
@@ -23,10 +21,7 @@ export function extractRootDomain(url: string) {
 
     if (pathLength > 2) {
         domain = domainPaths[pathLength - 2] + '.' + domainPaths[pathLength - 1]
-        if (
-            domainPaths[pathLength - 2].length === 2 &&
-            domainPaths[pathLength - 1].length === 2
-        ) {
+        if (domainPaths[pathLength - 2].length === 2 && domainPaths[pathLength - 1].length === 2) {
             domain = domainPaths[pathLength - 3] + '.' + domain
         }
     }

@@ -1,3 +1,4 @@
+// default colors
 $color-white: #ffffff;
 $color-pink: #ff9ea2;
 $color-yellow: #ffc95f;
@@ -14,6 +15,9 @@ $main-shadow: 4px 4px 8px 7px rgba(0, 0, 0, 0.1),
     -4px -4px 8px 7px rgba(0, 0, 0, 0.1);
 $img-shadow: 4px 4px 8px 7px rgba(0, 0, 0, 0.1);
 
+
+//base colors
+$color-blue: #1890ff;
 
 //auth layout colors
 $color-auth-layout-default: #DEDEDE;
@@ -53,3 +57,14 @@ $color-auth-layout-dictionary: #622A11;
 $color-auth-layout-robot: #B400EF;
 $color-auth-layout-rightBottomCloud: #131E39;
 $color-auth-layout-rightRocket: #F9812A;
+
+
+//base layout colors
+$color-border-gray-base-layout: #D8D8D8;
+$color-unselected-item: #707695;
+$color-selected-organization: #434343;
+
+
+//table colors
+$color-border-table: #D0D3E5;
+$color-header-table: #F2F3F7;

@@ -18,9 +18,7 @@ const PHONE_FORMAT_REGEXP = /(\d)(\d{3})(\d{3})(\d{2})(\d{2})/
 export const formatPhone = (phone: string): string =>
     phone ? phone.replace(PHONE_FORMAT_REGEXP, '$1 ($2) $3-$4-$5') : phone
 
-export const getFiltersFromQuery = <T>(
-    query: ParsedUrlQuery
-): T | Record<string, unknown> => {
+export const getFiltersFromQuery = <T>(query: ParsedUrlQuery): T | Record<string, unknown> => {
     const { filters } = query
 
     if (!filters || typeof filters !== 'string') {
@@ -34,10 +32,7 @@ export const getFiltersFromQuery = <T>(
     }
 }
 
-export const preciseFloor = (
-    x: number,
-    precision: number = DEFAULT_WIDTH_PRECISION
-) => {
+export const preciseFloor = (x: number, precision: number = DEFAULT_WIDTH_PRECISION) => {
     return Math.floor(x * Math.pow(10, precision)) / 100
 }
 
@@ -46,10 +41,7 @@ export const preciseFloor = (
  * @param filters
  * @param key
  */
-export const getFilteredValue = <T>(
-    filters: T,
-    key: string | Array<string>
-): FilterValue => get(filters, key, null)
+export const getFilteredValue = <T>(filters: T, key: string | Array<string>): FilterValue => get(filters, key, null)
 
 interface IUpdateQueryOptions {
     routerAction: 'replace' | 'push'
@@ -62,7 +54,7 @@ interface IUpdateQueryData {
 type UpdateQueryType = (
     router: NextRouter,
     data: Partial<IUpdateQueryData>,
-    options?: Partial<IUpdateQueryOptions>
+    options?: Partial<IUpdateQueryOptions>,
 ) => Promise<void>
 
 export const updateQuery: UpdateQueryType = async (router, data, options) => {
@@ -80,10 +72,7 @@ export const updateQuery: UpdateQueryType = async (router, data, options) => {
         if (item === 0 || (!isNumber(item) && isEmpty(item))) {
             delete payload[key]
         } else {
-            payload[key] =
-                isArray(item) || isObject(item)
-                    ? JSON.stringify(item)
-                    : (item as string)
+            payload[key] = isArray(item) || isObject(item) ? JSON.stringify(item) : (item as string)
         }
     }
 

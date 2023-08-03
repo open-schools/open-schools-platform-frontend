@@ -1,5 +1,6 @@
 import { isRejected, Middleware, MiddlewareAPI } from '@reduxjs/toolkit'
 import { message } from 'antd'
+import router from 'next/router'
 
 
 interface ErrorCodes {
@@ -36,6 +37,8 @@ interface Action {
 }
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => (action: Action) => {
+    if (router.pathname === '/mobile-recaptcha') return next(action)
+
     if (isRejected()(action)) {
         const { status, data } = action.payload
         const errorData = data && data.error

@@ -15,19 +15,19 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "@components/*": ["src/components/*"],
-            "@components": ["src/components"],
             "@public/*": ["public/*"],
             "@public": ["public"],
-            "@styles/*": ["src/styles/*"],
-            "@styles": ["src/styles"],
-            "@redux/*": ["src/redux/*"],
-            "@redux": ["src/redux"],
             "@i18n": ["./i18n"],
             "@test/*": ["test/*"],
-            "@test": ["test"]
+            "@test": ["test"],
+            "@domains": ["domains"],
+            "@domains/*": ["domains/*"],
+            "@pages": ["pages"],
+            "@pages/*": ["pages/*"],
+            "@store": ["store"],
+            "@store/*": ["store/*"]
         },
-        "incremental": true
+        "incremental": false
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules", "test/*", "cypress/*"]

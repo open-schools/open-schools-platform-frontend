@@ -7,8 +7,8 @@ module.exports = {
     rootDir: '../',
     setupFilesAfterEnv: ['<rootDir>/test/jest.setup.ts'],
     testPathIgnorePatterns: [
-        '<rootDir>/.next/',
-        '<rootDir>/node_modules/',
+        // '<rootDir>/.next/',
+        // '<rootDir>/node_modules/',
         '<rootDir>/cypress/',
         '<rootDir>/webdriverio/',
     ],
@@ -16,4 +16,5 @@ module.exports = {
         ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>/' }),
         '\\.(scss|sass|css)$': 'identity-obj-proxy',
     },
+    testEnvironment: 'jsdom',
 }

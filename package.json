@@ -2,8 +2,8 @@
   "name": "start-up-kit",
   "description": "Easy and Fast StartUp development kit",
   "private": true,
-  "repository": "https://github.com/pahaz/hackathon-boilerplate-starter-kit",
-  "homepage": "https://github.com/pahaz/hackathon-boilerplate-starter-kit",
+  "repository": "https://github.com/LamArt/open-schools-platform-frontend",
+  "homepage": "https://github.com/LamArt/open-schools-platform-frontend",
   "license": "MIT",
   "workspaces": [
     "apps/*",
@@ -21,7 +21,9 @@
     "eslint": "^7.13.0",
     "eslint-plugin-jest": "^24.1.0",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3"
   },
   "eslintConfig": {
     "env": {
