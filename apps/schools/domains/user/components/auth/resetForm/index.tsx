@@ -3,13 +3,13 @@ import React, { PropsWithChildren, useCallback, useState } from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
-import { Input } from '../../../../common/components/input'
-import { Button } from '../../../../common/components/button'
+import { Input } from '@domains/common/components/input'
+import { Button } from '@domains/common/components/button'
 import { useResetFormValidators } from './hooks'
 import { IResetFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
-import { resetHandler } from '../../../handlers/auth/forgot'
-import { useResetPasswordMutation } from '../../../redux/userApi'
+import { resetHandler } from '@domains/user/handlers/auth/forgot'
+import { useResetPasswordMutation } from '@domains/user/redux/userApi'
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>

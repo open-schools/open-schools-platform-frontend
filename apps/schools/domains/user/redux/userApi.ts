@@ -1,4 +1,4 @@
-import { commonApi } from '../../../store/commonApi'
+import { commonApi } from '@store/commonApi'
 import {
     CreationTokenData,
     ResendData,

@@ -11,9 +11,10 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from './styles/styles.module.scss'
-import { isOrganizationSelected, RulesDictionary } from '../../../../access/rules'
-import { useOrganization } from '../../../../../user/providers/organizationProvider'
+
+import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { MenuItemObj } from '../classes'
+import { isOrganizationSelected, RulesDictionary } from '@domains/common/access/rules'
 
 const menuList: MenuItemObj[] = [
     new MenuItemObj('analytics', 'Аналитика', <LineChartOutlined style={{ fontSize: '150%' }} />, [

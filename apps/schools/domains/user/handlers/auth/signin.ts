@@ -1,6 +1,6 @@
 import { FormInstance, message } from 'antd'
-import { LoadingMsg, SuccessSignInMsg, WrongLoginOrPasswordMsg } from '../../components/auth/constants/message'
-import { withLoadingMessage } from '../../../common/utils/loading'
+import { LoadingMsg, SuccessSignInMsg, WrongLoginOrPasswordMsg } from '@domains/user/components/auth/constants/message'
+import { withLoadingMessage } from '@domains/common/utils/loading'
 import Cookies from 'universal-cookie'
 import router from 'next/router'
 

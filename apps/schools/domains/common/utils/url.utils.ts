@@ -1,5 +1,3 @@
-import { JAVASCRIPT_URL_XSS } from '../constants/regexp'
-
 // refs to: https://stackoverflow.com/questions/8498592/extract-hostname-name-from-string
 export function extractHostname(url: string) {
     let hostname

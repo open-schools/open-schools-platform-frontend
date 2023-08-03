@@ -2,14 +2,14 @@ import store from '../store/store'
 import '../domains/common/components/styles/global.scss'
 import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
+import { useRouter } from "next/router";
 import { Provider } from 'react-redux'
-import { AuthProvider } from '../domains/user/providers/authProvider'
+import { AuthProvider } from '@domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
 import Head from 'next/head'
-import {OrganizationProvider} from "../domains/user/providers/organizationProvider";
-import {BaseLayout} from "../domains/common/components/containers/BaseLayoutComponents/BaseLayout";
-import {LayoutContextProvider} from "../domains/user/providers/baseLayoutProvider";
-import { useRouter } from "next/router";
+import {OrganizationProvider} from "@domains/organization/providers/organizationProvider";
+import {BaseLayout} from "@domains/common/components/containers/BaseLayoutComponents/BaseLayout";
+import {LayoutContextProvider} from "@domains/user/providers/baseLayoutProvider";
 
 
 export interface ContainerPage<PropsType> extends React.FC {
