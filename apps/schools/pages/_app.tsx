@@ -7,6 +7,12 @@ import { AuthProvider } from '../domains/user/providers/authProvider'
 import React, { PropsWithChildren } from 'react'
 import { IAuthLayoutProps } from '../domains/user/components/auth/containers/AuthLayout'
 import Head from 'next/head'
+import { message } from "antd";
+
+
+message.config({
+    maxCount: 1,
+});
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
