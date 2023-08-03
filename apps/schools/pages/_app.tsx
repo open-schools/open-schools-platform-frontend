@@ -9,6 +9,7 @@ import Head from 'next/head'
 import {OrganizationProvider} from "../domains/user/providers/organizationProvider";
 import {BaseLayout} from "../domains/common/components/containers/BaseLayoutComponents/BaseLayout";
 import {LayoutContextProvider} from "../domains/user/providers/baseLayoutProvider";
+import { useRouter } from "next/router";
 
 
 export interface ContainerPage<PropsType> extends React.FC {
@@ -23,6 +24,19 @@ interface CustomAppProps extends AppProps {
 
 function MyApp ({ Component, pageProps }: CustomAppProps): JSX.Element {
     const LayoutComponent = Component.container || BaseLayout
+    const router = useRouter()
+
+    if (router.pathname === '/mobile-recaptcha') return (
+      <Provider store={store}>
+          <Head>
+              <title>Открытые школы</title>
+              <link rel="icon" href="/icons/logo.svg" sizes="any" />
+          </Head>
+          <LayoutComponent>
+              <Component {...pageProps} />
+          </LayoutComponent>
+      </Provider>
+    )
 
     return (
         <Provider store={store}>
