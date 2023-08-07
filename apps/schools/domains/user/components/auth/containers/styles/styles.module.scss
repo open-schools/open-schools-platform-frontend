@@ -29,8 +29,11 @@
 
     .emailContainer {
         position: fixed;
-        left: 2.5vw;
-        bottom: 3vh;
+        left: 0;
+        bottom: 0;
+        height: 90px;
+        padding: 38px;
+        width: 400px;
 
         .emailText {
             color: var(--unnamed, #434343);

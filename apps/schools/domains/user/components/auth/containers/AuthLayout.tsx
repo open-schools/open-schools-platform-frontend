@@ -34,9 +34,11 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
                 </Row>
             </Link>
             {children}
-            <Link className={styles.emailContainer} href={`mailto:${SUPPORT_EMAIL}`}>
-                <div className={styles.emailText}>{SUPPORT_EMAIL}</div>
-            </Link>
+            <Row className={styles.emailContainer}>
+                <a href={`mailto:${SUPPORT_EMAIL}`}>
+                    <div className={styles.emailText}>{SUPPORT_EMAIL}</div>
+                </a>
+            </Row>
         </div>
     )
 }
