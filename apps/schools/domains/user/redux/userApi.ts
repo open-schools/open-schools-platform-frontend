@@ -5,14 +5,15 @@ import {
     PasswordReset,
     CreateRegistrationToken,
     TokenResponse,
-    CreateUser,
+    CreateUserData,
     VerifyData,
     GetRegistrationToken,
+    CreateUserResponse,
 } from './interfaces'
 
 const userApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
-        users: build.mutation<{}, CreateUser>({
+        users: build.mutation<CreateUserResponse, CreateUserData>({
             query: (data) => ({
                 url: '/user-management/users',
                 method: 'POST',
