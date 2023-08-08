@@ -33,32 +33,30 @@ function getFiniteValue(obj: any, searchFields: Array<String>, searchText: strin
 }
 
 function escapeRegExp(text: string) {
-    return text.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&')
 }
 
 function HighlightText({ text, searchText }: any) {
-    const isMatch = text.includes(searchText);
+    const isMatch = text.includes(searchText)
 
     if (isMatch) {
-        const parts = text.split(new RegExp(`(${escapeRegExp(searchText)})`, 'gi'));
+        const parts = text.split(new RegExp(`(${escapeRegExp(searchText)})`, 'gi'))
         return (
-          <span>
-                {parts.map((part: any, index: any) => (
-                  part.toLowerCase() === searchText.toLowerCase() ? (
-                    <span key={index} style={{ backgroundColor: 'yellow' }}>
+            <span>
+                {parts.map((part: any, index: any) =>
+                    part.toLowerCase() === searchText.toLowerCase() ? (
+                        <span key={index} style={{ backgroundColor: 'yellow' }}>
                             {part}
                         </span>
-                  ) : (
-                    <span key={index}>
-                            {part}
-                        </span>
-                  )
-                ))}
+                    ) : (
+                        <span key={index}>{part}</span>
+                    ),
+                )}
             </span>
-        );
+        )
     }
 
-    return <span>{text}</span>;
+    return <span>{text}</span>
 }
 
 export function objectReBuilder(data: Array<Object>, searchFields: string[], searchRequestText: string): Array<Object> {
@@ -66,18 +64,12 @@ export function objectReBuilder(data: Array<Object>, searchFields: string[], sea
     const searchText = searchRequestText.split(':')[0]
 
     data.forEach((item: any) => {
-        const newItem: any = {};
+        const newItem: any = {}
         for (const field of searchFields) {
-            newItem[field] = (
-              <HighlightText
-                text={item[field]}
-                searchText={searchText}
-              />
-            );
+            newItem[field] = <HighlightText text={item[field]} searchText={searchText} />
         }
-        resultArray.push(newItem);
+        resultArray.push(newItem)
     })
 
-    return resultArray;
+    return resultArray
 }
-

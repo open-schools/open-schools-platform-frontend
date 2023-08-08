@@ -52,7 +52,6 @@ export function EmployeeList() {
     const { organizationId } = useOrganization()
     const searchFields = ['name', 'position', 'phone', 'id']
 
-
     const { data, isLoading } = useGetAllEmployeesQuery({
         organization: organizationId,
         or_search: `${searchRequestText}:[${search.map((e: string) => e)}]`,
@@ -87,7 +86,7 @@ export function EmployeeList() {
                     onChange={(text) => {
                         setIsTableLoading(true)
                         setInputText(text.target.value)
-                        setTimeout(() =>{
+                        setTimeout(() => {
                             setSearchRequestText(text.target.value)
                         }, 1000)
                     }}
@@ -97,10 +96,13 @@ export function EmployeeList() {
                     children={
                         <>
                             <SearchOutlined className={styles.search} />
-                            <CloseCircleOutlined className={styles.cross} onClick={() => {
-                                setInputText('')
-                                setSearchRequestText('')
-                            }} />
+                            <CloseCircleOutlined
+                                className={styles.cross}
+                                onClick={() => {
+                                    setInputText('')
+                                    setSearchRequestText('')
+                                }}
+                            />
                         </>
                     }
                 />
