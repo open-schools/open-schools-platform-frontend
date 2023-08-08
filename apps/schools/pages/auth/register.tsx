@@ -7,11 +7,11 @@ import { ContainerPage } from '../_app'
 import AuthLayout, {
     IAuthLayoutProps,
 } from '../../domains/user/components/auth/containers/AuthLayout'
-import { FormContainer } from '../../domains/user/components/auth/FormContainer'
-import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
-import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
-import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
-import { RegisterForm } from '../../domains/user/components/auth/RegisterForm'
+import { FormContainer } from '../../domains/user/components/auth/formContainer'
+import { InputPhoneForm } from '../../domains/user/components/auth/sharedForms/InputPhoneForm'
+import { TabsAuthAction } from '../../domains/user/components/auth/headerActions'
+import { ValidatePhoneForm } from '../../domains/user/components/auth/sharedForms/ValidatePhoneForm'
+import { RegisterForm } from '../../domains/user/components/auth/registerForm'
 import { CENTRALIZED } from '../../domains/common/components/styles/constantStyles'
 import { Row } from 'antd'
 import {
@@ -46,6 +46,10 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
                 <ValidatePhoneForm
                     onFinish={() => setStep('register')}
                     onReset={() => {
+                        setStep('inputPhone')
+                        Router.push('/auth/register')
+                    }}
+                    onError={() => {
                         setStep('inputPhone')
                         Router.push('/auth/register')
                     }}

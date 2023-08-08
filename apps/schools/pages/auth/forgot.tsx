@@ -7,17 +7,17 @@ import { ContainerPage } from '../_app'
 import AuthLayout, {
     IAuthLayoutProps,
 } from '../../domains/user/components/auth/containers/AuthLayout'
-import { InputPhoneForm } from '../../domains/user/components/auth/SharedForms/InputPhoneForm'
-import { ValidatePhoneForm } from '../../domains/user/components/auth/SharedForms/ValidatePhoneForm'
-import { ResetForm } from '../../domains/user/components/auth/ResetForm'
-import { FormContainer } from '../../domains/user/components/auth/FormContainer'
+import { InputPhoneForm } from '../../domains/user/components/auth/sharedForms/InputPhoneForm'
+import { ValidatePhoneForm } from '../../domains/user/components/auth/sharedForms/ValidatePhoneForm'
+import { ResetForm } from '../../domains/user/components/auth/resetForm'
+import { FormContainer } from '../../domains/user/components/auth/formContainer'
 import { CENTRALIZED } from '../../domains/common/components/styles/constantStyles'
 import { Row } from 'antd'
 import {
     ResetDescription,
     ResetPhoneButtonLabel,
 } from '../../domains/user/components/auth/constants/labels'
-import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
+import { TabsAuthAction } from '../../domains/user/components/auth/headerActions'
 import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptchaProvider'
 
 const ResetPage: ContainerPage<IAuthLayoutProps> = (props) => {
@@ -49,6 +49,10 @@ const ResetPage: ContainerPage<IAuthLayoutProps> = (props) => {
                 <ValidatePhoneForm
                     onFinish={() => setStep('reset')}
                     onReset={() => {
+                        setStep('inputPhone')
+                        Router.push('/auth/forgot')
+                    }}
+                    onError={() => {
                         setStep('inputPhone')
                         Router.push('/auth/forgot')
                     }}

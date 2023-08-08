@@ -15,3 +15,10 @@ body {
     align-items: center;
     height: 100%;
 }
+
+.pageContent {
+    flex: auto;
+    align-self: center;
+    max-width: 77.020vw;
+    min-width: initial;
+}

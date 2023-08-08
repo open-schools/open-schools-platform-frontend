@@ -16,27 +16,35 @@ import {
     AllQueriesData,
     AllTeachersData,
     AllQueriesOfOrganizationData,
-    GetTeacher, GetStudentJoinCircle, GetOrganizationInviteEmployee, GetStudent, GetQueryStatus, GetAnalytics,
+    GetTeacher,
+    GetStudentJoinCircle,
+    GetOrganizationInviteEmployee,
+    GetStudent,
+    GetQueryStatus,
+    GetAnalytics,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
 
 const organizationApi = commonApi.injectEndpoints({
-    endpoints: build => ({
-        getAllOrganizations: build.query<ReturnedData<GetOrganizationSender>, AllOrganizationsData>({
-            query: (data) => ({
+    endpoints: (build) => ({
+        getAllOrganizations: build.query<ReturnedData<GetOrganizationSender[]>, AllOrganizationsData>({
+            query: (params) => ({
                 url: '/organization-management/organizations',
                 method: 'GET',
-                body: data,
+                params: params,
             }),
         }),
-        createOrganization: build.mutation<{ 'creator_employee': GetEmployee }, createOrganizationData>({
+        createOrganization: build.mutation<{ creator_employee: GetEmployee }, createOrganizationData>({
             query: (data) => ({
                 url: '/organization-management/organizations',
                 method: 'POST',
                 body: data,
             }),
         }),
-        updateInviteEmployee: build.mutation<{ query: GetOrganizationInviteEmployee }, UpdateOrganizationInviteEmployee>({
+        updateInviteEmployee: build.mutation<
+            { query: GetOrganizationInviteEmployee },
+            UpdateOrganizationInviteEmployee
+        >({
             query: (data) => ({
                 url: '/organization-management/organizations/invite-employee',
                 method: 'PATCH',

@@ -1,0 +1,16 @@
+@import '../../../../common/components/styles/abstracts/colors';
+
+.logoWrapper {
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+}
+
+.logoText {
+  color: var(--unnamed, #2698FF);
+  font-family: "Roboto";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+}

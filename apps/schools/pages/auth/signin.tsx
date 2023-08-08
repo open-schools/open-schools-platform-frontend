@@ -4,9 +4,9 @@ import AuthLayout, {
     IAuthLayoutProps,
 } from '../../domains/user/components/auth/containers/AuthLayout'
 import { ContainerPage } from '../_app'
-import { FormContainer } from '../../domains/user/components/auth/FormContainer'
-import { SignInForm } from '../../domains/user/components/auth/SignInForm'
-import { TabsAuthAction } from '../../domains/user/components/auth/HeaderActions'
+import { FormContainer } from '../../domains/user/components/auth/formContainer'
+import { SignInForm } from '../../domains/user/components/auth/signInForm'
+import { TabsAuthAction } from '../../domains/user/components/auth/headerActions'
 import Head from 'next/head'
 import { CENTRALIZED } from '../../domains/common/components/styles/constantStyles'
 import { Row } from 'antd'

@@ -1,0 +1,51 @@
+@import '../../../../styles/abstracts/colors';
+@import '../../../../styles/abstracts/variables';
+
+
+.placement {
+  min-height: 100vh;
+}
+
+.sliderStyle {
+  border-right: 1px solid rgba(10, 10, 10, 0.1);
+  position: fixed;
+  z-index: $z-foreground;
+  height: 100vh;
+
+  .menuScroll{
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+    @media screen and (max-height: 700px) {
+      height: 75vh;
+    }
+  }
+
+  :global {
+    .ant-menu-inline .ant-menu-item::after {
+      border-right: 0;
+    }
+  }
+}
+
+.siteLayout {
+  background: $color-white;
+}
+
+.content {
+  margin-top: 9.25vh;
+  margin-left: 3.5vw;
+}
+
+.siteLayoutBackground {
+  background: $color-white;
+}
+
+.divider{
+  min-width: 0;
+  margin: 20px auto 0;
+  border-top-color: $color-border-gray-base-layout;
+}

@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-export interface ErrorType {
+interface ErrorType {
     data: {
         error: {
             code: string,
@@ -12,7 +12,6 @@ export interface ErrorType {
     },
     status: number,
 }
-
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
 const cookies = new Cookies()
@@ -27,13 +26,14 @@ export const commonApi = createApi({
             if (csrfToken) {
                 headers.set('X-CSRFToken', csrfToken)
             }
-            const jwtToken = localStorage.getItem('jwtToken')
+            const jwtToken = cookies.get('jwtToken')
             if (jwtToken) {
                 headers.set('Authorization', `Bearer ${jwtToken}`)
             }
-            headers.set('Content-Type', 'application/json;charset=UTF-8')
+            headers.set('Content-Type', 'application/json')
             return headers
         },
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
     endpoints: _ => ({}),
 })
+

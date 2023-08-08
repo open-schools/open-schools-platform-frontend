@@ -1,0 +1,97 @@
+@import '../../../../styles/abstracts/_colors.scss';
+@import '../../../../styles/abstracts/_typography.scss';
+
+.modal {
+  border-radius: 25px;
+}
+
+.dropdown {
+  width: 200px;
+  border-radius: 8px !important;
+  color: var(--character-title-85, $color-black);
+
+  .addButton {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    height: 28px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    text-align: left;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  .createButton{
+    border-radius: 8px;
+    margin-top: 20px;
+    height: 34px;
+    width: 200px;
+    max-width: 80%;
+    font: {
+      size: 16px;
+      weight: 600;
+    }
+    font-family: "Roboto";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  .select {
+    :global {
+      .ant-select-selection-item {
+        color: var(--unnamed, $color-selected-organization);
+        font-family: "Roboto";
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .ant-select-selector {
+        border-radius: 8px;
+      }
+    }
+
+    border-radius: 8px;
+    margin-top: 20px;
+    height: 34px;
+    width: 200px;
+    max-width: 80%;
+    font: {
+      size: 16px;
+      weight: 600;
+    }
+    color: $color-black;
+
+    .suffixIcon{
+      color: $color-black;
+    }
+  }
+
+  .option {
+    font-size: 14px;
+    line-height: 20px;
+    background-color: $color-white;
+  }
+
+  .inputName {
+    border-radius: 5px;
+    width: 85%;
+  }
+
+  .inputInn {
+    border-radius: 5px;
+    width: 45%;
+  }
+
+  .breakLine {
+    width: 29.5rem;
+  }
+}
