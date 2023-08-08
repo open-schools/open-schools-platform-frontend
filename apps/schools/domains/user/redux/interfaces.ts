@@ -1,9 +1,13 @@
 import { GetPhoto } from '@domains/common/redux/interfaces'
 
-export interface CreateUser {
+export interface CreateUserData {
     token: string
     name: string
     password: string
+}
+
+export interface CreateUserResponse {
+    jwtToken: string,
 }
 
 export interface PasswordReset {
