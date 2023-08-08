@@ -60,7 +60,7 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
             <>
                 <TabsAuthAction currentActiveKey="/auth/register" />
                 <RegisterForm
-                    onFinish={(userId) => Router.push('../auth/signin/')}
+                    onFinish={() => window.location.href = '/'}
                     onError={() => {
                         setStep('inputPhone')
                         Router.push('/auth/register')

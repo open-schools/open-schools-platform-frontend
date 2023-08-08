@@ -1,4 +1,4 @@
 export interface IRegisterFormProps {
-    onFinish: (userId: string) => void
+    onFinish: () => void
     onError: () => void
 }
