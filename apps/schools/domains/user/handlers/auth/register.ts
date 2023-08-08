@@ -11,7 +11,7 @@ import {
     SuccessRegistrationMsg,
 } from '@domains/user/components/auth/constants/message'
 import { withLoadingMessage } from '@domains/common/utils/loading'
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie'
 
 export async function tokenHandler(
     recaptchaToken: string,
