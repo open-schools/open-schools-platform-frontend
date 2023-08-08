@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    uses: LamArt/open-schools-platform-frontend/.github/workflows/nextjs.yml@dev
+    uses: LamArt/open-schools-platform-frontend/.github/workflows/nextjs.yml@prod
   #    secrets:
   #      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
   #      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
@@ -18,12 +18,12 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
-      - name: Dev deploy open-schools-platform-frontend
+      - name: Prod deploy open-schools-platform-frontend
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
-          host: ${{secrets.DEV_HOST}}
+          host: ${{secrets.PROD_HOST}}
           user: "root"
-          private_key: ${{secrets.DEV_PRIVATE_KEY}}
+          private_key: ${{secrets.PROD_PRIVATE_KEY}}
           command: |
             echo '--- START WORK ON REMOTE SERVER ---';
             set -e;
