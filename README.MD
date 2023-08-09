@@ -13,20 +13,16 @@ Open Source schools platform.
 git clone git@github.com:LamArt/open-schools-platform-frontend.git
 cd open-schools-platform-frontend
 
-# 2) Install dependencies
+# 2) Install dependencies for all project
 yarn install
 
-# 3) Go to the open-schools directory
-cd .\apps\schools\
+# 3) Install dependencies for open-schools app
+yarn workspace @app/schools install
 
-# 4) Install dependencies for app
-yarn install
+# 4) create base .env file
 
-# 5) create base .env file
-.env
-
-# 6) launch app
-yarn dev
+# 5) launch app
+yarn workspace @app/schools dev
 ```
 
 Now open your browser and head to http://localhost:3000 - you should see open schools app
