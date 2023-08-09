@@ -1,5 +1,6 @@
 import { ColumnType } from 'antd/lib/table/interface'
 import React from 'react'
+import { getSearchText } from "@domains/common/utils/searchText";
 
 export interface RawColumnType<DataType> extends ColumnType<DataType> {
     hidden?: boolean
@@ -10,26 +11,6 @@ export function useGenerateFullColumns<DataType>(baseColumns: RawColumnType<Data
     return baseColumns.map((column) => ({
         ...column,
     }))
-}
-
-function getFiniteValue(obj: any, searchFields: Array<String>, searchText: string) {
-    let newObj: any = {}
-    getProp(obj)
-
-    function getProp(o: any) {
-        for (let prop in o) {
-            if (typeof o[prop] === 'object') {
-                getProp(o[prop])
-            } else {
-                searchFields.forEach((item) => {
-                    if (item == prop) {
-                        newObj[prop] = o[prop]
-                    }
-                })
-            }
-        }
-    }
-    return newObj
 }
 
 function escapeRegExp(text: string) {
@@ -59,15 +40,15 @@ function HighlightText({ text, searchText }: any) {
     return <span>{text}</span>
 }
 
-export function objectReBuilder(data: Array<Object>, searchFields: string[], searchRequestText: string): Array<Object> {
+export function objectReBuilder(data: Array<Object>, searchFields: string[], searchRequestText: string, needId: boolean): Array<Object> {
     let resultArray: Array<Object> = []
-    const searchText = searchRequestText.split(':')[0]
-
+    const searchText = getSearchText(searchRequestText)
     data.forEach((item: any) => {
         const newItem: any = {}
         for (const field of searchFields) {
             newItem[field] = <HighlightText text={item[field]} searchText={searchText} />
         }
+        if (needId) newItem.id = item.id
         resultArray.push(newItem)
     })
 
