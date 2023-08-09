@@ -7,7 +7,7 @@ import styles from './styles/styles.module.scss'
 import { useRouter } from 'next/router'
 import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps, DataType } from '@domains/common/components/table/interfaces'
-import { calculateAverageWidth } from "@domains/common/utils/calculateAverageWidth";
+import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
 
 export const Table: React.FC<CustomTableProps> = (props) => {
     const {
@@ -23,14 +23,12 @@ export const Table: React.FC<CustomTableProps> = (props) => {
         ...restProps
     } = props
 
-
-    const baseColumns = columnsTitles
-        .map((title, index) => ({
-            dataIndex: columnsKeys[index],
-            key: columnsKeys[index],
-            title: title,
-            width: calculateAverageWidth(columnsTitles),
-        }))
+    const baseColumns = columnsTitles.map((title, index) => ({
+        dataIndex: columnsKeys[index],
+        key: columnsKeys[index],
+        title: title,
+        width: calculateAverageWidth(columnsTitles),
+    }))
 
     const [isTableLoading, setIsTableLoading] = useState(false)
     const [inputText, setInputText] = useState('')

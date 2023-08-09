@@ -1,6 +1,6 @@
 import { ColumnType } from 'antd/lib/table/interface'
 import React from 'react'
-import { getSearchText } from "@domains/common/utils/searchText";
+import { getSearchText } from '@domains/common/utils/searchText'
 
 export interface RawColumnType<DataType> extends ColumnType<DataType> {
     hidden?: boolean
@@ -40,7 +40,12 @@ function HighlightText({ text, searchText }: any) {
     return <span>{text}</span>
 }
 
-export function objectReBuilder(data: Array<Object>, searchFields: string[], searchRequestText: string, needId: boolean): Array<Object> {
+export function objectReBuilder(
+    data: Array<Object>,
+    searchFields: string[],
+    searchRequestText: string,
+    needId: boolean,
+): Array<Object> {
     let resultArray: Array<Object> = []
     const searchText = getSearchText(searchRequestText)
     data.forEach((item: any) => {

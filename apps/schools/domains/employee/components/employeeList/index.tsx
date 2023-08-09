@@ -7,7 +7,7 @@ import { useOrganization } from '@domains/organization/providers/organizationPro
 import { Button } from '@domains/common/components/button'
 import { searchColumns } from '@domains/common/constants/Table'
 import { Table } from '@domains/common/components/table'
-import { createSearchTextForRequest } from "@domains/common/utils/searchText";
+import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
