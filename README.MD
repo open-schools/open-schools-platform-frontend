@@ -2,7 +2,7 @@
 
 Open Source schools platform.
 
-![Open schools](img.png)
+![Open schools](docs/img.png)
 
 ## Getting started
 
