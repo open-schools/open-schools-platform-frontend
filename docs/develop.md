@@ -7,9 +7,7 @@ This page would be helpful if you want to change something in open-schools. It c
 
 To launch open-schools, or any other React, TypeScript, Next app in development mode, use this:
 
-`cd .\apps\APP_NAME`
-
-`yarn dev`
+`yarn workspace @app/schools dev`
 
 You can change code of the app and inspect changes in `localhost:3000`
 
@@ -35,6 +33,7 @@ Our primary tech stack is:
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://react.dev/)
 - [NextJS](https://nextjs.org)
+- [rtk-query](https://redux-toolkit.js.org/rtk-query/overview)
 
 All our apps and packages use this tech stack.
 
@@ -44,13 +43,15 @@ If you need to add new external package, such as `lodash` to your `app` or `pack
 
 ### yarn add:
 
-- `yarn add <package>` -- add package for app (`yarn add react react-dom`)
+- `yarn add <package> -W` -- add package for all apps (`yarn add react react-dom -W`)
+- `yarn workspace @app/<name> add <package>` -- add package for app (`yarn workspace @app/schools add react react-dom`)
 
 If you need to run command inside of any package or app, use these commands:
 
 ### yarn run:
 
 - `yarn <command>` -- run command (`yarn dev`)
+- `yarn workspace @app/<name> <command>` -- run command inside workspace (`yarn workspace @app/schools dev`)
 - `yarn --cwd <app-path-name> <command>` -- run command inside app (`yarn --cwd apps/schools dev`)
 
 ### Upgrade packages versions
@@ -64,7 +65,7 @@ yarn upgrade-interactive --latest
 
 We use Jest and Cypress as our primarily test runner. To launch tests in `apps/schools` - use this command:
 
-- `yarn --cwd apps/condo test` -- Launch all tests.
+- `yarn workspace @app/schools test` -- Launch all tests.
 
 ## Linting
 
@@ -80,8 +81,8 @@ The configuration for the [prettier](https://prettier.io/) is found under `packa
 
 **Editor integrations:**
 
-[Webstorm integration:](https://plugins.jetbrains.com/plugin/7494-eslint)
+[Webstorm integration:](https://plugins.jetbrains.com/plugin/10456-prettier)
 
-[VSCode integration:](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+[VSCode integration:](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-[Other editors](https://eslint.org/docs/user-guide/integrations#editors)
+[Other editors](https://prettier.io/docs/en/editors.html)
