@@ -5,13 +5,13 @@ import styles from './styles/styles.module.scss'
 import { useGetAllEmployeesQuery } from '@domains/employee/redux/employeeApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { Button } from '@domains/common/components/button'
-import { searchColumns } from '@domains/common/constants/Table'
 import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
+    const searchColumns = ['phone', 'position', 'name']
 
     const { data, isLoading } = useGetAllEmployeesQuery({
         organization: organizationId,
@@ -33,8 +33,7 @@ export function EmployeeList() {
                 </Button>
             </div>
             <Table
-                columnsTitles={['ФИО', 'Должность', 'Телефон']}
-                columnsKeys={['name', 'position', 'phone']}
+                columnsTitlesAndKeys={[['ФИО', 'name'], ['Должность', 'position'], ['Телефон', 'phone']]}
                 data={data}
                 isLoading={isLoading}
                 mainRoute={'/employee'}

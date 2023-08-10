@@ -6,14 +6,13 @@ import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { useRouter } from 'next/router'
 import { typeTable } from '@domains/common/constants/Table'
-import { CustomTableProps, DataType } from '@domains/common/components/table/interfaces'
+import { CustomTableProps, RowType } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
 
 export const Table: React.FC<CustomTableProps> = (props) => {
     const {
         customType = 'tableWithSearch',
-        columnsTitles,
-        columnsKeys,
+        columnsTitlesAndKeys,
         data,
         isLoading,
         searchFields,
@@ -23,11 +22,11 @@ export const Table: React.FC<CustomTableProps> = (props) => {
         ...restProps
     } = props
 
-    const baseColumns = columnsTitles.map((title, index) => ({
-        dataIndex: columnsKeys[index],
-        key: columnsKeys[index],
-        title: title,
-        width: calculateAverageWidth(columnsTitles),
+    const baseColumns = columnsTitlesAndKeys.map(([title, key]) => ({
+        dataIndex: key,
+        key,
+        title,
+        width: calculateAverageWidth(columnsTitlesAndKeys.map(([title]) => title)),
     }))
 
     const [isTableLoading, setIsTableLoading] = useState(false)
@@ -43,7 +42,7 @@ export const Table: React.FC<CustomTableProps> = (props) => {
         }
     }, [isLoading, data, searchRequestText])
 
-    const columns = useGenerateFullColumns<DataType>(baseColumns)
+    const columns = useGenerateFullColumns<RowType>(baseColumns)
 
     if (typeTable.includes(customType)) {
         return (

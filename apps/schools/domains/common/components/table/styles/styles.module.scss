@@ -1,4 +1,5 @@
-@import '@domains/common/components/styles/abstracts/common';
+@import '@domains/common/components/styles/abstracts/_colors.scss';
+@import '@domains/common/components/styles/abstracts/_common.scss';
 
 .tableContainer {
   @extend %table;
@@ -22,4 +23,8 @@
   :active, :focus {
     opacity: .8;
   }
+}
+
+.highlightText {
+  background-color: $color-yellow
 }

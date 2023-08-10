@@ -1,13 +1,15 @@
 import { ColumnType } from 'antd/lib/table/interface'
 import React from 'react'
+import styles from './styles/styles.module.scss'
 import { getSearchText } from '@domains/common/utils/searchText'
+import {HighlightTextProps} from "@domains/common/components/table/interfaces";
 
-export interface RawColumnType<DataType> extends ColumnType<DataType> {
+export interface RawColumnType<RowType> extends ColumnType<RowType> {
     hidden?: boolean
     dataIndex: string
 }
 
-export function useGenerateFullColumns<DataType>(baseColumns: RawColumnType<DataType>[]): ColumnType<DataType>[] {
+export function useGenerateFullColumns<RowType>(baseColumns: RawColumnType<RowType>[]): ColumnType<RowType>[] {
     return baseColumns.map((column) => ({
         ...column,
     }))
@@ -17,16 +19,16 @@ function escapeRegExp(text: string) {
     return text.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&')
 }
 
-function HighlightText({ text, searchText }: any) {
+function HighlightText({ text, searchText }: HighlightTextProps) {
     const isMatch = text.includes(searchText)
 
     if (isMatch) {
         const parts = text.split(new RegExp(`(${escapeRegExp(searchText)})`, 'gi'))
         return (
             <span>
-                {parts.map((part: any, index: any) =>
+                {parts.map((part: string, index: number) =>
                     part.toLowerCase() === searchText.toLowerCase() ? (
-                        <span key={index} style={{ backgroundColor: 'yellow' }}>
+                        <span key={index} className={styles.highlightText}>
                             {part}
                         </span>
                     ) : (

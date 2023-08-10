@@ -3,5 +3,5 @@ export function getSearchText(text: string) {
 }
 
 export function createSearchTextForRequest(text: string, searchColumns: string[]) {
-    return `${text}:[${searchColumns.map((e: string) => e)}]`
+    return `${text}:[${searchColumns.map((searchColumn: string) => searchColumn)}]`
 }

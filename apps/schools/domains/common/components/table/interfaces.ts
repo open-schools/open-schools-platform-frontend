@@ -1,11 +1,12 @@
 import { TableProps } from 'antd'
 import React from 'react'
+import {GetListEmployee} from "@domains/employee/redux/interfaces";
+import {ReturnedData} from "@domains/common/redux/interfaces";
 
-export interface CustomTableProps extends TableProps<DataType> {
+export interface CustomTableProps extends TableProps<RowType> {
     customType?: 'tableWithSearch' | 'tableWithoutSearch'
-    columnsTitles: string[]
-    columnsKeys: string[]
-    data: any
+    columnsTitlesAndKeys: Array<string[]>
+    data?:  ReturnedData<GetListEmployee[]>
     isLoading: boolean
     searchFields: string[]
     searchRequestText: string
@@ -13,9 +14,14 @@ export interface CustomTableProps extends TableProps<DataType> {
     mainRoute: string
 }
 
-export interface DataType {
+export interface RowType {
     id: string
     name: string
     position: string
     phone: string
+}
+
+export interface HighlightTextProps {
+    text: string
+    searchText: string
 }
