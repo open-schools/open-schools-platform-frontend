@@ -9,7 +9,6 @@ import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
 
-
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
         customType = 'tableWithSearch',
