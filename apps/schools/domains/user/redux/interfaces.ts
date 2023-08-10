@@ -7,7 +7,7 @@ export interface CreateUserData {
 }
 
 export interface CreateUserResponse {
-    jwtToken: string,
+    jwtToken: string
 }
 
 export interface PasswordReset {

@@ -1,0 +1,30 @@
+@import '@domains/common/components/styles/abstracts/_colors.scss';
+@import '@domains/common/components/styles/abstracts/_common.scss';
+
+.tableContainer {
+  @extend %table;
+}
+
+.search {
+  font-size: 150%;
+  position: absolute;
+  right: 30px;
+}
+
+.cross {
+  font-size: 100%;
+  position: absolute;
+  right: 60px;
+
+  :hover {
+    opacity: .6;
+  }
+
+  :active, :focus {
+    opacity: .8;
+  }
+}
+
+.highlightText {
+  background-color: $color-search-highlight-text
+}

@@ -20,3 +20,23 @@
     line-height: 24px;
   }
 }
+
+.search {
+  font-size: 150%;
+  position: absolute;
+  right: 30px;
+}
+
+.cross {
+  font-size: 100%;
+  position: absolute;
+  right: 60px;
+
+  :hover {
+    opacity: .6;
+  }
+
+  :active, :focus {
+    opacity: .8;
+  }
+}
