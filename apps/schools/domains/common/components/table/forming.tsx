@@ -42,8 +42,8 @@ function HighlightText({ text, searchText }: HighlightTextProps) {
     return <span>{text}</span>
 }
 
-export function objectReBuilder(
-    data: Array<Object>,
+export function objectReBuilder<DataItemType>(
+    data: Array<DataItemType>,
     searchFields: string[],
     searchRequestText: string,
     needId: boolean,

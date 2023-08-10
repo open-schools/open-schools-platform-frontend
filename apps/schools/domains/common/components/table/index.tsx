@@ -6,10 +6,11 @@ import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { useRouter } from 'next/router'
 import { typeTable } from '@domains/common/constants/Table'
-import { CustomTableProps, RowType } from '@domains/common/components/table/interfaces'
+import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
 
-export const Table: React.FC<CustomTableProps> = (props) => {
+
+export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
         customType = 'tableWithSearch',
         columnsTitlesAndKeys,
@@ -36,7 +37,7 @@ export const Table: React.FC<CustomTableProps> = (props) => {
 
     useEffect(() => {
         if (!isLoading && data) {
-            const result = objectReBuilder(data.results, searchFields, searchRequestText, true)
+            const result = objectReBuilder<DataItemType>(data.results, searchFields, searchRequestText, true)
             setDataSource(result)
             setIsTableLoading(false)
         }

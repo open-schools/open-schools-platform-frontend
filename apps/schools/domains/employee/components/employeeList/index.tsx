@@ -7,11 +7,13 @@ import { useOrganization } from '@domains/organization/providers/organizationPro
 import { Button } from '@domains/common/components/button'
 import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
+import {GetListEmployee} from "@domains/employee/redux/interfaces";
+import {RowType} from "@domains/employee/components/employeeList/interfaces";
+import {searchColumns} from "@domains/employee/components/employeeList/constants";
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
-    const searchColumns = ['phone', 'position', 'name']
 
     const { data, isLoading } = useGetAllEmployeesQuery({
         organization: organizationId,
@@ -32,7 +34,7 @@ export function EmployeeList() {
                     Добавить сотрудника
                 </Button>
             </div>
-            <Table
+            <Table<RowType, GetListEmployee>
                 columnsTitlesAndKeys={[
                     ['ФИО', 'name'],
                     ['Должность', 'position'],
