@@ -2,7 +2,7 @@ import { ColumnType } from 'antd/lib/table/interface'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import { getSearchText } from '@domains/common/utils/searchText'
-import {HighlightTextProps} from "@domains/common/components/table/interfaces";
+import { HighlightTextProps } from '@domains/common/components/table/interfaces'
 
 export interface RawColumnType<RowType> extends ColumnType<RowType> {
     hidden?: boolean

@@ -1,12 +1,12 @@
 import { TableProps } from 'antd'
 import React from 'react'
-import {GetListEmployee} from "@domains/employee/redux/interfaces";
-import {ReturnedData} from "@domains/common/redux/interfaces";
+import { GetListEmployee } from '@domains/employee/redux/interfaces'
+import { ReturnedData } from '@domains/common/redux/interfaces'
 
 export interface CustomTableProps extends TableProps<RowType> {
     customType?: 'tableWithSearch' | 'tableWithoutSearch'
     columnsTitlesAndKeys: Array<string[]>
-    data?:  ReturnedData<GetListEmployee[]>
+    data?: ReturnedData<GetListEmployee[]>
     isLoading: boolean
     searchFields: string[]
     searchRequestText: string

@@ -33,7 +33,11 @@ export function EmployeeList() {
                 </Button>
             </div>
             <Table
-                columnsTitlesAndKeys={[['ФИО', 'name'], ['Должность', 'position'], ['Телефон', 'phone']]}
+                columnsTitlesAndKeys={[
+                    ['ФИО', 'name'],
+                    ['Должность', 'position'],
+                    ['Телефон', 'phone'],
+                ]}
                 data={data}
                 isLoading={isLoading}
                 mainRoute={'/employee'}
