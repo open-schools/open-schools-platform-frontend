@@ -32,7 +32,3 @@ Now open your browser and head to http://localhost:3000 - you should see open sc
 ## Developing
 
 Check [developing.md](docs/develop.md)
-
-## Deploying
-
-Check [deploy.md](docs/deploy.md)

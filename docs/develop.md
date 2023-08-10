@@ -65,7 +65,7 @@ yarn upgrade-interactive --latest
 
 We use Jest and Cypress as our primarily test runner. To launch tests in `apps/schools` - use this command:
 
-- `yarn workspace @app/schools test` -- Launch all tests.
+- `yarn workspace @app/schools test` -- Launch all tests in app.
 
 ## Linting
 
@@ -77,7 +77,7 @@ The configuration for the [prettier](https://prettier.io/) is found under `packa
 
 **Available CLI-commands:**
 
-- `yarn prettier` lint whole project <- this command runs on pre-hooks
+- `yarn workspace @app/schools prettier` lint whole project <- this command runs on pre-hooks
 
 **Editor integrations:**
 
