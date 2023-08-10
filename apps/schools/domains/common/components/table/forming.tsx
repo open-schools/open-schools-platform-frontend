@@ -20,7 +20,7 @@ function escapeRegExp(text: string) {
 }
 
 function HighlightText({ text, searchText }: HighlightTextProps) {
-    const isMatch = text.includes(searchText)
+    const isMatch = text.toLowerCase().includes(searchText)
 
     if (isMatch) {
         const parts = text.split(new RegExp(`(${escapeRegExp(searchText)})`, 'gi'))
