@@ -1,4 +1,4 @@
-# Open schools
+# Open schools platform
 
 Open Source schools platform.
 
