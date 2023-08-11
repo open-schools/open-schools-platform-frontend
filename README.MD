@@ -1,8 +1,4 @@
-# Open schools
-
-Open Source schools platform.
-
-![Open schools](docs/img.png)
+# Open schools platform frontend
 
 ## Getting started
 
