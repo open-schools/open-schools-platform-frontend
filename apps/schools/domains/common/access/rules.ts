@@ -1,6 +1,10 @@
 // Menu items disable rules
 
-export type Rules = 'isOrganizationSelected'
+export const isOrganizationSelected = 'isOrganizationSelected'
+export const permanentDisabled = 'permanentDisabled'
+
+export type Rules = 'isOrganizationSelected' | 'permanentDisabled'
+
 export type RulesDictionary = Record<Rules, boolean>
 
 export class RuleItem {
@@ -14,5 +18,3 @@ export class RuleItem {
         return !this.disableRules.every((i) => conditions[i])
     }
 }
-
-export const isOrganizationSelected = 'isOrganizationSelected'
