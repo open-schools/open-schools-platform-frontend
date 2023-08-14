@@ -7,7 +7,7 @@ import { useCreateEmployeeFormValidators } from './hooks'
 import { useInviteEmployeeMutation } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { handleSubmitForm } from '@domains/employee/handlers/employee'
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router'
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()
@@ -23,9 +23,7 @@ export const CreateEmployeeForm = () => {
             colon={false}
             requiredMark={false}
             onFinish={() => {
-                handleSubmitForm(organizationId, form, mutation).then(
-                    (e) => router.push('/employee')
-                )
+                handleSubmitForm(organizationId, form, mutation).then((e) => router.push('/employee'))
             }}
             layout='vertical'
         >
