@@ -49,7 +49,7 @@ const MenuCustom = () => {
                 theme='light'
                 mode='inline'
                 onClick={(e) => {
-                    if (!router.asPath.includes(e.key)) {
+                    if (!router.asPath.endsWith(e.key)) {
                         router.push(`/${e.key}`)
                     }
                 }}
