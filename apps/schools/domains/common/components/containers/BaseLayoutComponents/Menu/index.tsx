@@ -1,12 +1,11 @@
 import { Menu } from 'antd'
 import {
-    BookOutlined,
-    LineChartOutlined,
+    BarChartOutlined,
+    FileDoneOutlined,
     ReadOutlined,
-    RocketOutlined,
-    SettingOutlined,
-    SolutionOutlined,
+    SlidersOutlined,
     TeamOutlined,
+    UserAddOutlined,
 } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -14,20 +13,17 @@ import styles from './styles/styles.module.scss'
 
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { MenuItemObj } from '../classes'
-import { isOrganizationSelected, RulesDictionary } from '@domains/common/access/rules'
+import {isOrganizationSelected, permanentDisabled, RulesDictionary} from '@domains/common/access/rules'
 
 const menuList: MenuItemObj[] = [
-    new MenuItemObj('analytics', 'Аналитика', <LineChartOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected,
+    new MenuItemObj('analytics', 'Аналитика', <BarChartOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected, permanentDisabled
     ]),
-    new MenuItemObj('circles', 'Кружки', <RocketOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('students', 'Ученики', <ReadOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('queries', 'Заявки', <SolutionOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('employee', 'Сотрудники', <TeamOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('teachers', 'Учителя', <BookOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('settings', 'Настройки', <SettingOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected,
-    ]),
+    new MenuItemObj('circles', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
+    new MenuItemObj('students', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
+    new MenuItemObj('queries', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
+    new MenuItemObj('employee', 'Сотрудники', <UserAddOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
+    new MenuItemObj('settings', 'Настройки', <SlidersOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
 ]
 
 const MenuCustom = () => {
@@ -35,11 +31,12 @@ const MenuCustom = () => {
 
     const [conditions, setConditions] = useState<RulesDictionary>({
         isOrganizationSelected: false,
+        permanentDisabled: false,
     })
     const { organization } = useOrganization()
 
     useEffect(() => {
-        setConditions({ isOrganizationSelected: organization.id !== undefined })
+        setConditions({ isOrganizationSelected: organization.id !== undefined, permanentDisabled: false })
     }, [organization])
 
     return (
