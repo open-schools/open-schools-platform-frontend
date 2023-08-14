@@ -7,12 +7,14 @@ import { useCreateEmployeeFormValidators } from './hooks'
 import { useInviteEmployeeMutation } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { handleSubmitForm } from '@domains/employee/handlers/employee'
+import {useRouter} from "next/router";
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()
     const { organizationId } = useOrganization()
     const [form] = Form.useForm()
     const [mutation] = useInviteEmployeeMutation()
+    const router = useRouter()
 
     return (
         <Form
@@ -20,7 +22,11 @@ export const CreateEmployeeForm = () => {
             className={styles.table}
             colon={false}
             requiredMark={false}
-            onFinish={() => handleSubmitForm(organizationId, form, mutation)}
+            onFinish={() => {
+                handleSubmitForm(organizationId, form, mutation).then(
+                    (e) => router.push('/employee')
+                )
+            }}
             layout='vertical'
         >
             <Typography.Title level={1}>Добавление Сотрудника</Typography.Title>
