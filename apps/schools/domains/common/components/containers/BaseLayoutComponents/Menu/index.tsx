@@ -13,17 +13,32 @@ import styles from './styles/styles.module.scss'
 
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { MenuItemObj } from '../classes'
-import {isOrganizationSelected, permanentDisabled, RulesDictionary} from '@domains/common/access/rules'
+import { isOrganizationSelected, permanentDisabled, RulesDictionary } from '@domains/common/access/rules'
 
 const menuList: MenuItemObj[] = [
     new MenuItemObj('analytics', 'Аналитика', <BarChartOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected, permanentDisabled
+        isOrganizationSelected,
+        permanentDisabled,
     ]),
-    new MenuItemObj('circles', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
-    new MenuItemObj('students', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
-    new MenuItemObj('queries', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
-    new MenuItemObj('employee', 'Сотрудники', <UserAddOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('settings', 'Настройки', <SlidersOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected, permanentDisabled]),
+    new MenuItemObj('circles', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected,
+        permanentDisabled,
+    ]),
+    new MenuItemObj('students', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected,
+        permanentDisabled,
+    ]),
+    new MenuItemObj('queries', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected,
+        permanentDisabled,
+    ]),
+    new MenuItemObj('employee', 'Сотрудники', <UserAddOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected,
+    ]),
+    new MenuItemObj('settings', 'Настройки', <SlidersOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected,
+        permanentDisabled,
+    ]),
 ]
 
 const MenuCustom = () => {
