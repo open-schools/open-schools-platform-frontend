@@ -1,29 +1,31 @@
-import { commonApi } from '../../../store/commonApi'
+import { commonApi } from '@store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
 import {
-    createOrganizationData,
+    CreateOrganizationData,
     AllOrganizationsData,
-    GetOrganizationSender,
-    UpdateOrganizationInviteEmployee,
     StudentJoinCircleData,
     AllStudentsData,
     StudentData,
     TeacherData,
     DeleteOrganizationData,
     AnalyticsData,
-    CreateOrganizationInviteEmployee,
     ExportStudentsData,
     AllQueriesData,
     AllTeachersData,
     AllQueriesOfOrganizationData,
-    GetTeacher,
-    GetStudentJoinCircle,
-    GetOrganizationInviteEmployee,
-    GetStudent,
-    GetQueryStatus,
-    GetAnalytics,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
+import {
+    CreateOrganizationInviteEmployee,
+    GetAnalytics,
+    GetOrganizationInviteEmployee,
+    GetOrganizationSender,
+    GetQueryStatus,
+    GetStudent,
+    GetStudentJoinCircle,
+    GetTeacher,
+    UpdateOrganizationInviteEmployee
+} from "@domains/common/redux/serializers";
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -34,7 +36,7 @@ const organizationApi = commonApi.injectEndpoints({
                 params: params,
             }),
         }),
-        createOrganization: build.mutation<{ creator_employee: GetEmployee }, createOrganizationData>({
+        createOrganization: build.mutation<{ creator_employee: GetEmployee }, CreateOrganizationData>({
             query: (data) => ({
                 url: '/organization-management/organizations',
                 method: 'POST',

@@ -1,24 +1,25 @@
 import React from 'react'
 import Head from 'next/head'
 import { PageContent } from '@domains/common/components/containers/PageContent'
-import { EmployeeList } from '@domains/employee/components/employeeList'
+
 import {
     OrganizationRequired,
 } from '@domains/common/components/containers/OrganizationRequired'
+import {CreateStudentForm} from "@domains/student/components/createStudentForm";
 
-const EmployeesPageContent = () => {
+export const Create = () => {
     return (
         <>
             <Head>
-                <title>Сотрудники</title>
+                <title>Добавление студента</title>
             </Head>
             <PageContent>
                 <OrganizationRequired>
-                    <EmployeeList/>
+                    <CreateStudentForm />
                 </OrganizationRequired>
             </PageContent>
         </>
     )
 }
 
-export default EmployeesPageContent
+export default Create

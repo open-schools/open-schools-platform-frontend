@@ -3,26 +3,18 @@ import { Button, Modal, Select, SelectProps } from 'antd'
 import styles from './styles/styles.module.scss'
 import { useGetAllOrganizationsQuery } from '@domains/organization/redux/organizationApi'
 
-import { OrganizationSelectProps, SuffixIconProps } from './interfaces'
-import { DownOutlined, PlusCircleOutlined, UpOutlined } from '@ant-design/icons'
+import { OrganizationSelectProps } from './interfaces'
+import { PlusCircleOutlined } from '@ant-design/icons'
 import { DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
+import {SuffixIcon} from "@domains/common/components/Icons/suffixIcon";
 
 const { Option } = Select
 
 const COLLAPSED_SELECT_STYLE = { height: '35px', width: '35px' }
-const COLLAPSED_SUFFIX_ICON = { fontSize: '125%' }
 const CREATE_BUTTON_STYLE = { height: '35px', width: '35px' }
 
-const SuffixIcon: React.FC<SuffixIconProps> = (props) => {
-    const { collapsed, isOpen } = props
 
-    return (
-        <div className={styles.suffixIcon} style={collapsed ? COLLAPSED_SUFFIX_ICON : {}}>
-            {isOpen ? <UpOutlined /> : <DownOutlined />}
-        </div>
-    )
-}
 
 export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => {
     const { collapsed } = props
