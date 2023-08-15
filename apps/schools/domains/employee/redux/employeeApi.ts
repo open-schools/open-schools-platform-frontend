@@ -1,6 +1,5 @@
 import { commonApi } from '@store/commonApi'
 import { ReturnedData } from '@domains/common/redux/interfaces'
-import { GetOrganizationInviteEmployee } from '@domains/organization/redux/interfaces'
 import {
     DeleteEmployeeByIdData,
     GetAllEmployeesData,
@@ -8,6 +7,7 @@ import {
     GetListEmployee,
     UpdateEmployeeByIdData,
 } from './interfaces'
+import { GetOrganizationInviteEmployee } from '@domains/common/redux/serializers'
 
 const employeeApi = commonApi.injectEndpoints({
     endpoints: (build) => ({

@@ -1,4 +1,4 @@
-import {GetPhoto} from "@domains/common/redux/serializers";
+import { GetPhoto } from '@domains/common/redux/serializers'
 
 export interface CreateUserData {
     token: string

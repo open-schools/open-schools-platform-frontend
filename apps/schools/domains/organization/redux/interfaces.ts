@@ -1,7 +1,5 @@
 import { BasePaginationData } from '../../common/redux/interfaces'
 
-
-
 export interface AllOrganizationsData extends BasePaginationData {
     id?: string
     name?: string

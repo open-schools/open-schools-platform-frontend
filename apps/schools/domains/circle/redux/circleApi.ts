@@ -1,9 +1,7 @@
 import { commonApi } from '@store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
-import {
-    AllCirclesData, CircleData, CreateCircleData, CreateCircleInviteStudentData
-} from './interfaces'
-import {GetCircle, GetQueryStatus} from '@domains/common/redux/serializers'
+import { AllCirclesData, CircleData, CreateCircleData, CreateCircleInviteStudentData } from './interfaces'
+import { GetCircle, GetQueryStatus } from '@domains/common/redux/serializers'
 
 const circleApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -21,19 +19,19 @@ const circleApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getCircle: build.query< {circle: GetCircle}, CircleData>({
+        getCircle: build.query<{ circle: GetCircle }, CircleData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}`,
                 method: 'GET',
             }),
         }),
-        deleteCircle: build.query< {circle: GetCircle}, CircleData>({
+        deleteCircle: build.query<{ circle: GetCircle }, CircleData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}`,
                 method: 'DELETE',
             }),
         }),
-        inviteStudent: build.mutation< {query: GetQueryStatus}, CreateCircleInviteStudentData>({
+        inviteStudent: build.mutation<{ query: GetQueryStatus }, CreateCircleInviteStudentData>({
             query: (body) => ({
                 url: `/organization-management/circles/${body.circle_id}/invite-student`,
                 method: 'POST',

@@ -7,15 +7,15 @@ import { useCreateStudentFormValidators } from './hooks'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { useRouter } from 'next/router'
 import { useGetAllCirclesQuery, useInviteStudentMutation } from '@domains/circle/redux/circleApi'
-import {isValidFormCheck} from "@domains/common/utils/form";
+import { isValidFormCheck } from '@domains/common/utils/form'
 import {
     CIRCLES,
     PARENT_EMAIL,
     PARENT_PHONE,
     STUDENT_NAME,
-    STUDENT_PHONE
-} from "@domains/student/constants/forms/createStudentConstants";
-import {handleSubmitForm} from "@domains/student/handlers/student";
+    STUDENT_PHONE,
+} from '@domains/student/constants/forms/createStudentConstants'
+import { handleSubmitForm } from '@domains/student/handlers/student'
 
 export const CreateStudentForm = () => {
     const validators = useCreateStudentFormValidators()
@@ -29,9 +29,7 @@ export const CreateStudentForm = () => {
     const router = useRouter()
 
     const validationCheck = () => {
-        setIsFormValid(
-            isValidFormCheck(form, [STUDENT_NAME, PARENT_PHONE, STUDENT_PHONE, PARENT_EMAIL, CIRCLES]),
-        )
+        setIsFormValid(isValidFormCheck(form, [STUDENT_NAME, PARENT_PHONE, STUDENT_PHONE, PARENT_EMAIL, CIRCLES]))
     }
 
     return (
@@ -42,8 +40,7 @@ export const CreateStudentForm = () => {
             requiredMark={false}
             onFinish={() => {
                 handleSubmitForm(form, mutation).then((isSuccess) => {
-                    if (isSuccess)
-                        router.push('/student')
+                    if (isSuccess) router.push('/student')
                 })
             }}
             layout='vertical'
@@ -65,11 +62,11 @@ export const CreateStudentForm = () => {
                 className={styles.label}
                 rules={validators.phone}
             >
-                <Input customType='inputPhone' placeholder='Введите телефон обучающегося'  />
+                <Input customType='inputPhone' placeholder='Введите телефон обучающегося' />
             </Form.Item>
             <Form.Item label='Название кружка' name={CIRCLES} className={styles.label} rules={validators.select}>
                 <Select
-                    mode="multiple"
+                    mode='multiple'
                     placeholder='Выберите кружок'
                     className={styles.select}
                     loading={circlesData.isLoading}

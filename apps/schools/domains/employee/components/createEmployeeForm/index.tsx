@@ -24,8 +24,7 @@ export const CreateEmployeeForm = () => {
             requiredMark={false}
             onFinish={() => {
                 handleSubmitForm(organizationId, form, mutation).then((isSucceed) => {
-                    if (isSucceed)
-                        router.push('/employee')
+                    if (isSucceed) router.push('/employee')
                 })
             }}
             layout='vertical'

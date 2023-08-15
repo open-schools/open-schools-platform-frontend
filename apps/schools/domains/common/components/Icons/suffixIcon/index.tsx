@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import {DownOutlined, UpOutlined} from "@ant-design/icons";
-import styles from "./styles/styles.module.scss"
+import { DownOutlined, UpOutlined } from '@ant-design/icons'
+import styles from './styles/styles.module.scss'
 
 const COLLAPSED_SUFFIX_ICON = { fontSize: '125%' }
 

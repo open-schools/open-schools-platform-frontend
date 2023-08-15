@@ -43,7 +43,7 @@ export interface AllCirclesIcalData extends BasePaginationData {
     order?: string
 }
 
-interface CreateStudentBodyData{
+interface CreateStudentBodyData {
     name: string
 }
 
@@ -55,7 +55,7 @@ export interface CreateCircleInviteStudentData {
     circle_id?: string
 }
 
-interface CreateTeacherBodyData{
+interface CreateTeacherBodyData {
     name: string
 }
 

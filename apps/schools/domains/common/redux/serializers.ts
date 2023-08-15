@@ -1,4 +1,4 @@
-import {QueriesTypes} from "@domains/common/redux/interfaces";
+import { QueriesTypes } from '@domains/common/redux/interfaces'
 
 export interface GetListCircle {
     id?: string
@@ -8,7 +8,7 @@ export interface GetListCircle {
     longitude?: string
 }
 
-export interface GetShallowOrganization{
+export interface GetShallowOrganization {
     id: string
     name: string
 }
@@ -34,7 +34,7 @@ export interface GetCircle {
 
 export interface GetQueryStatus {
     id?: string
-    name:string
+    name: string
 }
 
 export interface GetPhoto {
@@ -117,7 +117,6 @@ interface CircleOrganization {
     id?: string
     name?: string
 }
-
 
 interface GetStudentProfile {
     id?: string
@@ -214,4 +213,3 @@ export interface GetRegistrationToken {
     phone?: string
     is_verified?: string
 }
-

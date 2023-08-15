@@ -5,7 +5,8 @@ import {
     NameMustContainMsg,
     NameMustNotStartOrAndMsg,
     PleaseInputYourEmailMsg,
-    PleaseInputYourNameMsg, PleaseSelectOneOfOptionsMsg,
+    PleaseInputYourNameMsg,
+    PleaseSelectOneOfOptionsMsg,
     WrongPhoneFormatMsg,
 } from '@domains/user/components/auth/constants/message'
 import { ValidatorsMap } from '@domains/common/redux/interfaces'
@@ -53,7 +54,7 @@ export const useCreateStudentFormValidators = () => {
                     required: true,
                     message: PleaseSelectOneOfOptionsMsg,
                 },
-            ]
+            ],
         }
     }, [this])
 }

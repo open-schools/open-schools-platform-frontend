@@ -24,8 +24,8 @@ import {
     GetStudent,
     GetStudentJoinCircle,
     GetTeacher,
-    UpdateOrganizationInviteEmployee
-} from "@domains/common/redux/serializers";
+    UpdateOrganizationInviteEmployee,
+} from '@domains/common/redux/serializers'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({

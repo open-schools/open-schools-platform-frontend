@@ -1,5 +1,5 @@
-export const PARENT_PHONE = "parent_phone"
-export const STUDENT_PHONE = "student_phone"
-export const STUDENT_NAME = "student_name"
-export const PARENT_EMAIL = "parent_email"
-export const CIRCLES = "circles_ids"
+export const PARENT_PHONE = 'parent_phone'
+export const STUDENT_PHONE = 'student_phone'
+export const STUDENT_NAME = 'student_name'
+export const PARENT_EMAIL = 'parent_email'
+export const CIRCLES = 'circles_ids'
