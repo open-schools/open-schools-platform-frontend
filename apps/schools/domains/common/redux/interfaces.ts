@@ -7,11 +7,6 @@ export interface ReturnedData<T> {
     results: T
 }
 
-export interface GetPhoto {
-    id?: string
-    image?: string
-}
-
 export interface BasePaginationData {
     page?: number
     page_size?: number
@@ -20,3 +15,5 @@ export interface BasePaginationData {
 export type ValidatorsMap = {
     [key: string]: Rule[]
 }
+
+export type QueriesTypes = 'ACCEPTED' | 'SENT' | 'IN_PROGRESS' | 'DECLINED' | 'CANCELED'

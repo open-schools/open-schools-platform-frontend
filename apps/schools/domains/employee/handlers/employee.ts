@@ -1,25 +1,11 @@
 import { FormInstance, message } from 'antd'
-import {
-    PleaseReloadPageMsg,
-    SuccessInviteEmployeeMsg,
-    WrongPhoneFormatMsg,
-} from '@domains/user/components/auth/constants/message'
-import { normalizePhone } from '@domains/common/utils/phone'
+import { PleaseReloadPageMsg, SuccessInviteEmployeeMsg } from '@domains/user/components/auth/constants/message'
+import { isPhoneValid } from '@domains/common/utils/form'
 
 export async function handleSubmitForm(organizationId: string, formComponent: FormInstance, mutation: any) {
-    let { phone: inputPhone } = formComponent.getFieldsValue(['phone'])
-    inputPhone = '+' + inputPhone
-    const phone = normalizePhone(inputPhone)
+    const isValid = isPhoneValid(formComponent, 'phone')
 
-    if (!phone) {
-        formComponent.setFields([
-            {
-                name: 'phone',
-                errors: [WrongPhoneFormatMsg],
-            },
-        ])
-        return
-    }
+    if (!isValid) return false
 
     let response = await mutation({
         organization_id: organizationId,
@@ -32,7 +18,9 @@ export async function handleSubmitForm(organizationId: string, formComponent: Fo
     })
     if ('data' in response) {
         message.success(SuccessInviteEmployeeMsg)
+        return true
     } else {
         message.error(PleaseReloadPageMsg)
+        return false
     }
 }
