@@ -1,9 +1,46 @@
-.duckContainer {
-  width: 19.167vw;
-  height: 45.926vh;
-}
-
 .container {
   width: 100%;
   height: 100%;
+
+  .duckContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+
+    .textContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .titleText {
+        color: #222;
+        text-align: center;
+        font-family: "Open Sans";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 28px;
+        letter-spacing: -1.5px;
+      }
+
+      .descriptionText {
+        opacity: .6;
+        text-align: center;
+        font-family: "Open Sans";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 28px;
+        letter-spacing: -1.5px;
+      }
+
+      .button {
+        width: 221px;
+        margin-top: 20px;
+      }
+    }
+  }
 }
