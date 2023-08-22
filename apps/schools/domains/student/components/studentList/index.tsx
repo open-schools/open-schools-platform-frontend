@@ -10,6 +10,7 @@ import { RowType, TableType } from './interfaces'
 import { searchInvitesColumns, searchStudentsColumns } from './constants'
 import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domains/organization/redux/organizationApi'
 import { QueryStatuses } from '@domains/common/constants/Enums'
+import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -56,7 +57,15 @@ export function StudentList() {
     }
 
     return (
-        <>
+        <EmptyWrapper
+            titleText={'Список обучающихся пока пуст'}
+            descriptionText={'Вы можете добавить их, нажав на кнопку'}
+            buttonText={'Добавить обучающегося'}
+            pageTitle={'Обучающиеся'}
+            data={data}
+            isLoading={isLoadingStudents && isLoadingInvites}
+            handleRunTask={() => router.push('/student/create')}
+        >
             <div className={styles.header}>
                 <Typography.Title level={1}>Обучающиеся</Typography.Title>
                 <Button
@@ -83,6 +92,6 @@ export function StudentList() {
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
             />
-        </>
+        </EmptyWrapper>
     )
 }
