@@ -7,6 +7,7 @@ import {
 import { message } from 'antd'
 import { Button } from '../domains/common/components/button'
 import { Input } from '../domains/common/components/input'
+import EmptyWrapper from "@domains/common/components/containers/EmptyWrapper";
 
 export async function logoutHandler (logout: any) {
     let response = await logout()
@@ -49,29 +50,35 @@ const DevRequestsPage = () => {
 
     return (
         <>
-            <div style={{ marginTop: '100px', marginBottom: '10px' }}>
-                /user-management/auth/jwt/logout
-            </div>
-            <Button onClick={() => logoutHandler(logout)}>
-                Logout
-            </Button>
+          <EmptyWrapper titleText={'Список обучающихся пока пуст'}
+                        descriptionText={'Вы можете добавить их, нажав на кнопку'}
+                        buttonText={'Добавить обучающегося'}
+                        pageTitle={'Обучающиеся'}>
+            Не пустая она, ты.
+          </EmptyWrapper>
+            {/*<div style={{ marginTop: '100px', marginBottom: '10px' }}>*/}
+            {/*    /user-management/auth/jwt/logout*/}
+            {/*</div>*/}
+            {/*<Button onClick={() => logoutHandler(logout)}>*/}
+            {/*    Logout*/}
+            {/*</Button>*/}
 
-            <div style={{ marginTop: '100px', marginBottom: '10px' }}>
-                /user-management/auth/me PATCH
-            </div>
-            <Input onChange={(event) => setUserName(event.target.value)}/>
-            <Button onClick={() => updateUserHandler(userName, updateUser)}>
-                Дмитрий Красноголовый
-            </Button>
+            {/*<div style={{ marginTop: '100px', marginBottom: '10px' }}>*/}
+            {/*    /user-management/auth/me PATCH*/}
+            {/*</div>*/}
+            {/*<Input onChange={(event) => setUserName(event.target.value)}/>*/}
+            {/*<Button onClick={() => updateUserHandler(userName, updateUser)}>*/}
+            {/*    Дмитрий Красноголовый*/}
+            {/*</Button>*/}
 
-            <div style={{ marginTop: '100px', marginBottom: '10px' }}>
-                /user-management/auth/me PATCH
-            </div>
-            <Input placeholder={'Старый пароль'} onChange={(event) => setOldPassword(event.target.value)}/>
-            <Input placeholder={'Новый пароль'} onChange={(event) => setNewPassword(event.target.value)}/>
-            <Button onClick={() => updatePasswordHandler(oldPassword, newPassword, updatePassword)}>
-                Сменить пароль
-            </Button>
+            {/*<div style={{ marginTop: '100px', marginBottom: '10px' }}>*/}
+            {/*    /user-management/auth/me PATCH*/}
+            {/*</div>*/}
+            {/*<Input placeholder={'Старый пароль'} onChange={(event) => setOldPassword(event.target.value)}/>*/}
+            {/*<Input placeholder={'Новый пароль'} onChange={(event) => setNewPassword(event.target.value)}/>*/}
+            {/*<Button onClick={() => updatePasswordHandler(oldPassword, newPassword, updatePassword)}>*/}
+            {/*    Сменить пароль*/}
+            {/*</Button>*/}
         </>
     )
 }
