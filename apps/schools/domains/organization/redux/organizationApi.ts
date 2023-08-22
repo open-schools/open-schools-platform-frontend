@@ -133,10 +133,10 @@ const organizationApi = commonApi.injectEndpoints({
             }),
         }),
         getAllStudentInvitations: build.query<ReturnedData<GetCircleInviteStudent[]>, getAllStudentInvitationsData>({
-            query: (data) => ({
+            query: (params) => ({
                 url: `/organization-management/organizations/students-invitations`,
                 method: 'GET',
-                params: data,
+                params: params,
             }),
         }),
     }),
