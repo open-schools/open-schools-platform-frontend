@@ -12,12 +12,14 @@ import {
     ExportStudentsData,
     AllQueriesData,
     AllTeachersData,
-    AllQueriesOfOrganizationData, getAllStudentInvitationsData,
+    AllQueriesOfOrganizationData,
+    getAllStudentInvitationsData,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
 import {
     CreateOrganizationInviteEmployee,
-    GetAnalytics, GetCircleInviteStudent,
+    GetAnalytics,
+    GetCircleInviteStudent,
     GetOrganizationInviteEmployee,
     GetOrganizationSender,
     GetQueryStatus,

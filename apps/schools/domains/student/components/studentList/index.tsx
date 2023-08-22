@@ -6,12 +6,10 @@ import { useOrganization } from '@domains/organization/providers/organizationPro
 import { Button } from '@domains/common/components/button'
 import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
-import {RowType, TableType} from './interfaces'
-import {searchInvitesColumns, searchStudentsColumns} from './constants'
-import {useGetAllStudentInvitationsQuery, useGetAllStudentsQuery} from "@domains/organization/redux/organizationApi";
-import {QueryStatuses} from "@domains/common/constants/Enums";
-
-
+import { RowType, TableType } from './interfaces'
+import { searchInvitesColumns, searchStudentsColumns } from './constants'
+import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domains/organization/redux/organizationApi'
+import { QueryStatuses } from '@domains/common/constants/Enums'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -23,36 +21,39 @@ export function StudentList() {
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
     })
 
-
-
     const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
     })
-
 
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
         next: invites?.next ?? '',
         previous: invites?.previous ?? '',
         results: (invites?.results ?? [])
-            .map((x) => ({
-                id: x.body.id,
-                student_name: x.body.name,
-                student_phone: x.additional.phone,
-                parent_phone: x.recipient.parent_phones.replaceAll(",", "\n"),
-                circle_name: x.sender.name
-            } as RowType))
+            .map(
+                (x) =>
+                    ({
+                        id: x.body.id,
+                        student_name: x.body.name,
+                        student_phone: x.additional.phone,
+                        parent_phone: x.recipient.parent_phones.replaceAll(',', '\n'),
+                        circle_name: x.sender.name,
+                    }) as RowType,
+            )
             .concat(
-                (students?.results ?? []).map((x) => ({
-                    id: x.id,
-                    student_name: x.name,
-                    student_phone: x.student_profile.phone,
-                    parent_phone: x.student_profile.parent_phones.replaceAll(",", "\n"),
-                    circle_name: x.circle.name
-                } as RowType))
+                (students?.results ?? []).map(
+                    (x) =>
+                        ({
+                            id: x.id,
+                            student_name: x.name,
+                            student_phone: x.student_profile.phone,
+                            parent_phone: x.student_profile.parent_phones.replaceAll(',', '\n'),
+                            circle_name: x.circle.name,
+                        }) as RowType,
+                ),
             ),
-    };
+    }
 
     return (
         <>
@@ -73,12 +74,12 @@ export function StudentList() {
                     ['ФИО', 'student_name'],
                     ['Кружок', 'circle_name'],
                     ['Телефон обучающегося', 'student_phone'],
-                    ['Телефон родителя', 'parent_phone']
+                    ['Телефон родителя', 'parent_phone'],
                 ]}
                 data={data}
                 isLoading={isLoadingInvites && isLoadingStudents}
                 mainRoute={'/student'}
-                searchFields={["student_name", "student_phone", "parent_phone", "circle_name"]}
+                searchFields={['student_name', 'student_phone', 'parent_phone', 'circle_name']}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
             />

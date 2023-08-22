@@ -56,9 +56,8 @@ export function objectReBuilder<DataItemType>(
         const newItem: any = {}
         for (const field of fields) {
             if (searchFields.includes(field))
-                newItem[field] = <HighlightText text={item[field] ?? ""} searchText={searchText} />
-            else
-                newItem[field] = item[field]
+                newItem[field] = <HighlightText text={item[field] ?? ''} searchText={searchText} />
+            else newItem[field] = item[field]
         }
         if (needId) newItem.id = item.id
         resultArray.push(newItem)

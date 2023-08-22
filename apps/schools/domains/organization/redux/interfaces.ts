@@ -77,15 +77,15 @@ export interface AllQueriesOfOrganizationData extends BasePaginationData {
 }
 
 export interface getAllStudentInvitationsData extends BasePaginationData {
-    id?: string;
-    status?: string;
-    or_search?: string;
-    circle__id?: string;
-    circle__organization__id?: string;
-    circle__address?: string;
-    circle__name?: string;
-    family__id?: string;
-    family__name?: string;
-    student__id?: string;
-    student__name?: string;
+    id?: string
+    status?: string
+    or_search?: string
+    circle__id?: string
+    circle__organization__id?: string
+    circle__address?: string
+    circle__name?: string
+    family__id?: string
+    family__name?: string
+    student__id?: string
+    student__name?: string
 }

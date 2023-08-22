@@ -131,7 +131,7 @@ interface GetStudentProfile {
     age?: number
     phone?: string
     photo: GetPhoto
-    parent_phones: string,
+    parent_phones: string
 }
 
 export interface GetAnalytics {
@@ -229,26 +229,26 @@ export interface GetRegistrationToken {
 }
 
 export interface GetCircleInviteStudent {
-    id: string;
-    status: string;
-    sender: GetCircleSender;
-    recipient: GetFamilyRecipient;
-    body: GetStudentBody;
+    id: string
+    status: string
+    sender: GetCircleSender
+    recipient: GetFamilyRecipient
+    body: GetStudentBody
     additional: GetCircleInviteStudentContext
 }
 
-export interface GetCircleInviteStudentContext{
-    id: string;
-    name: string;
-    phone: string;
+export interface GetCircleInviteStudentContext {
+    id: string
+    name: string
+    phone: string
 }
 
-export interface GetShallowCircle{
-    id: string;
-    name: string;
-    address: string;
-    capacity: number;
-    description: string;
-    latitude: string;
-    longitude: string;
+export interface GetShallowCircle {
+    id: string
+    name: string
+    address: string
+    capacity: number
+    description: string
+    latitude: string
+    longitude: string
 }

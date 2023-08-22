@@ -38,10 +38,12 @@ export const WithTooltip: React.FC<WithTooltipProps> = (props) => {
                     placement='right'
                     color={overlayInnerColor}
                     title={tooltipText}
-                    style={{ height: "auto" }}
+                    style={{ height: 'auto' }}
                     overlayInnerStyle={overlayInnerStyle}
                 >
-                    <QuestionCircleFilled style={{ top: `${margin}`, position: "relative", fontSize: ICON_SIZES[iconSize] }} />
+                    <QuestionCircleFilled
+                        style={{ top: `${margin}`, position: 'relative', fontSize: ICON_SIZES[iconSize] }}
+                    />
                 </Tooltip>
             </div>
         </Row>
