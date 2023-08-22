@@ -24,9 +24,8 @@ const menuList: MenuItemObj[] = [
         isOrganizationSelected,
         permanentDisabled,
     ]),
-    new MenuItemObj('students', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [
+    new MenuItemObj('student', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [
         isOrganizationSelected,
-        permanentDisabled,
     ]),
     new MenuItemObj('queries', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [
         isOrganizationSelected,

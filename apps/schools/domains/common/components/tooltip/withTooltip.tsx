@@ -15,7 +15,7 @@ interface WithTooltipProps {
     children: React.ReactNode
     tooltipText: string
     iconSize?: 'small' | 'medium' | 'large'
-    margin?: number
+    margin?: string
     overlayInnerStyle?: {}
     overlayInnerColor?: string
 }
@@ -33,17 +33,17 @@ export const WithTooltip: React.FC<WithTooltipProps> = (props) => {
     return (
         <Row className={styles.itemRow}>
             <div className={styles.fieldDiv}>{children}</div>
-            <Tooltip
-                placement='right'
-                color={overlayInnerColor}
-                title={tooltipText}
-                overlayClassName={styles.tooltip}
-                overlayInnerStyle={overlayInnerStyle}
-            >
-                <div className={styles.icon}>
-                    <QuestionCircleFilled style={{ fontSize: ICON_SIZES[iconSize], marginTop: `${margin}px` }} />
-                </div>
-            </Tooltip>
+            <div className={styles.tooltipContainer}>
+                <Tooltip
+                    placement='right'
+                    color={overlayInnerColor}
+                    title={tooltipText}
+                    style={{ height: "auto" }}
+                    overlayInnerStyle={overlayInnerStyle}
+                >
+                    <QuestionCircleFilled style={{ top: `${margin}`, position: "relative", fontSize: ICON_SIZES[iconSize] }} />
+                </Tooltip>
+            </div>
         </Row>
     )
 }

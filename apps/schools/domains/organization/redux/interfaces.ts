@@ -25,11 +25,11 @@ export interface StudentJoinCircleData extends BasePaginationData {
 export interface AllStudentsData extends BasePaginationData {
     id?: string
     name?: string
-    circle: string
+    circle?: string
     student_profile?: string
-    student_profile_phone?: string
-    circle_name?: string
-    circle_organization?: string
+    student_profile__phone?: string
+    circle__name?: string
+    circle__organization?: string
     or_search?: string
 }
 
@@ -74,4 +74,18 @@ export interface AllTeachersData extends BasePaginationData {
 export interface AllQueriesOfOrganizationData extends BasePaginationData {
     organization: string
     student_profile: string
+}
+
+export interface getAllStudentInvitationsData extends BasePaginationData {
+    id?: string;
+    status?: string;
+    or_search?: string;
+    circle__id?: string;
+    circle__organization__id?: string;
+    circle__address?: string;
+    circle__name?: string;
+    family__id?: string;
+    family__name?: string;
+    student__id?: string;
+    student__name?: string;
 }

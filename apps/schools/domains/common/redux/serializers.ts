@@ -54,7 +54,14 @@ export interface GetCircleRecipient {
     address: string
 }
 
-interface GetStudentBody {
+export interface GetCircleSender {
+    id?: string
+    name: string
+    organization: GetShallowOrganization
+    address: string
+}
+
+export interface GetStudentBody {
     id?: string
     name: string
 }
@@ -71,7 +78,7 @@ export interface GetStudentJoinCircle {
 export interface GetStudent {
     id?: string
     name: string
-    circle?: string
+    circle: GetShallowCircle
     student_profile: GetStudentProfile
 }
 
@@ -124,6 +131,7 @@ interface GetStudentProfile {
     age?: number
     phone?: string
     photo: GetPhoto
+    parent_phones: string,
 }
 
 export interface GetAnalytics {
@@ -184,6 +192,12 @@ export interface GetFamily {
     name: string
 }
 
+export interface GetFamilyRecipient {
+    id?: string
+    name: string
+    parent_phones: string
+}
+
 export interface GetFamilySender {
     id?: string
     name: string
@@ -212,4 +226,29 @@ export interface GetRegistrationToken {
     key?: string
     phone?: string
     is_verified?: string
+}
+
+export interface GetCircleInviteStudent {
+    id: string;
+    status: string;
+    sender: GetCircleSender;
+    recipient: GetFamilyRecipient;
+    body: GetStudentBody;
+    additional: GetCircleInviteStudentContext
+}
+
+export interface GetCircleInviteStudentContext{
+    id: string;
+    name: string;
+    phone: string;
+}
+
+export interface GetShallowCircle{
+    id: string;
+    name: string;
+    address: string;
+    capacity: number;
+    description: string;
+    latitude: string;
+    longitude: string;
 }

@@ -14,9 +14,10 @@ import {
     PARENT_PHONE,
     STUDENT_NAME,
     STUDENT_PHONE,
-} from '@domains/student/constants/forms/createStudentConstants'
+} from '@domains/student/components/createStudentForm/constants'
 import { handleSubmitForm } from '@domains/student/handlers/student'
 import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
+import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentForm/styles/constants'
 
 export const CreateStudentForm = () => {
     const validators = useCreateStudentFormValidators()
@@ -48,45 +49,62 @@ export const CreateStudentForm = () => {
             onValuesChange={validationCheck}
         >
             <Typography.Title level={1}>Добавление обучаещегося</Typography.Title>
-            <Form.Item label='Ф. И. О. сотрудника' name={STUDENT_NAME} className={styles.label} rules={validators.name}>
-                <WithTooltip
-                    tooltipText={'Ф. И. О. ученика необходимо для ведения отчетности и добавления его в списки.'}
+            <WithTooltip
+                tooltipText={'Ф. И. О. ученика необходимо для ведения отчетности и добавления его в списки.'}
+                margin={TOOLTIP_MARGIN_TOP}
+            >
+                <Form.Item
+                    label='Ф. И. О. сотрудника'
+                    name={STUDENT_NAME}
+                    className={styles.label}
+                    rules={validators.name}
                 >
                     <Input placeholder='Введите Ф. И. О. обучающегося' />
-                </WithTooltip>
-            </Form.Item>
-            <Form.Item label='Телефон родителя' name={PARENT_PHONE} className={styles.label} rules={validators.phone}>
-                <WithTooltip
-                    tooltipText={
-                        'Телефон родителя или законного' +
-                        'представителя необходим для связи и донесения важной информации. '
-                    }
+                </Form.Item>
+            </WithTooltip>
+            <WithTooltip
+                tooltipText={
+                    'Телефон родителя или законного' +
+                    'представителя необходим для связи и донесения важной информации. '
+                }
+                margin={TOOLTIP_MARGIN_TOP}
+            >
+                <Form.Item
+                    label='Телефон родителя'
+                    name={PARENT_PHONE}
+                    className={styles.label}
+                    rules={validators.phone}
                 >
                     <Input customType='inputPhone' placeholder='Введите телефон родителя' />
-                </WithTooltip>
-            </Form.Item>
-            <Form.Item label='Email родителя' name={PARENT_EMAIL} className={styles.label} rules={validators.email}>
-                <WithTooltip
-                    tooltipText={
-                        'E-mail родителя или законного представителя' +
-                        ' необходим для связи и донесения важной информации.'
-                    }
-                >
-                    <Input type='email' placeholder='Введите email родителя' />
-                </WithTooltip>
-            </Form.Item>
-            <Form.Item
-                label='Телефон обучающегося'
-                name={STUDENT_PHONE}
-                className={styles.label}
-                rules={validators.phone}
+                </Form.Item>
+            </WithTooltip>
+
+            <WithTooltip
+                tooltipText={
+                    'E-mail родителя или законного представителя' +
+                    ' необходим для связи и донесения важной информации.'
+                }
+                margin={TOOLTIP_MARGIN_TOP}
             >
-                <WithTooltip tooltipText={'Для связи с учеником при возникновении нештатной ситуации.'}>
+                <Form.Item label='Email родителя' name={PARENT_EMAIL} className={styles.label} rules={validators.email}>
+                    <Input type='email' placeholder='Введите email родителя' />
+                </Form.Item>
+            </WithTooltip>
+            <WithTooltip
+                tooltipText={'Для связи с учеником при возникновении нештатной ситуации.'}
+                margin={TOOLTIP_MARGIN_TOP}
+            >
+                <Form.Item
+                    label='Телефон обучающегося'
+                    name={STUDENT_PHONE}
+                    className={styles.label}
+                    rules={validators.phone}
+                >
                     <Input customType='inputPhone' placeholder='Введите телефон обучающегося' />
-                </WithTooltip>
-            </Form.Item>
-            <Form.Item label='Название кружка' name={CIRCLES} className={styles.label} rules={validators.select}>
-                <WithTooltip tooltipText={'Укажите кружок, на который будет ходить ученик.'}>
+                </Form.Item>
+            </WithTooltip>
+            <WithTooltip tooltipText={'Укажите кружок, на который будет ходить ученик.'} margin={TOOLTIP_MARGIN_TOP}>
+                <Form.Item label='Название кружка' name={CIRCLES} className={styles.label} rules={validators.select}>
                     <Select
                         mode='multiple'
                         placeholder='Выберите кружок'
@@ -99,8 +117,8 @@ export const CreateStudentForm = () => {
                             }
                         })}
                     />
-                </WithTooltip>
-            </Form.Item>
+                </Form.Item>
+            </WithTooltip>
             <Form.Item name='button'>
                 <Button
                     disabled={!isFormValid}
