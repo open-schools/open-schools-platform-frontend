@@ -63,7 +63,7 @@ export function StudentList() {
             buttonText={'Добавить обучающегося'}
             pageTitle={'Обучающиеся'}
             data={data}
-            isLoading={isLoadingStudents && isLoadingInvites}
+            isLoading={isLoadingStudents || isLoadingInvites}
             handleRunTask={() => router.push('/student/create')}
             searchTrigger={searchRequestText}
         >
