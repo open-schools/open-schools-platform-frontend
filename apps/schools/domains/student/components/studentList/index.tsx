@@ -64,6 +64,7 @@ export function StudentList() {
             pageTitle={'Обучающиеся'}
             data={data}
             isLoading={isLoadingStudents && isLoadingInvites}
+            handleRunTask={() => router.push('/student/create')}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Обучающиеся</Typography.Title>
