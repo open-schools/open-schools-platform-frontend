@@ -3,7 +3,6 @@ import {
     EmailIsNotValidMsg,
     NameMustContainMsg,
     NameMustNotStartOrAndMsg,
-    PleaseInputYourEmailMsg,
     PleaseInputYourNameMsg,
     WrongPhoneFormatMsg,
 } from '@domains/user/components/auth/constants/message'
@@ -41,10 +40,6 @@ export const useCreateEmployeeFormValidators = () => {
                 {
                     type: 'email',
                     message: EmailIsNotValidMsg,
-                },
-                {
-                    required: true,
-                    message: PleaseInputYourEmailMsg,
                 },
             ],
         }
