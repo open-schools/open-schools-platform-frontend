@@ -36,7 +36,13 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
 
     useEffect(() => {
         if (!isLoading && data) {
-            const result = objectReBuilder<DataItemType>(data.results, searchFields, searchRequestText, true)
+            const result = objectReBuilder<DataItemType>(
+                data.results,
+                columnsTitlesAndKeys.map((x) => x[1]),
+                searchFields,
+                searchRequestText,
+                true,
+            )
             setDataSource(result)
             setIsTableLoading(false)
         }
