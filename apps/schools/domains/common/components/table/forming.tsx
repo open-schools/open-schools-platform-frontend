@@ -45,6 +45,7 @@ function HighlightText({ text, searchText }: HighlightTextProps) {
 
 export function objectReBuilder<DataItemType>(
     data: Array<DataItemType>,
+    fields: string[],
     searchFields: string[],
     searchRequestText: string,
     needId: boolean,
@@ -53,8 +54,10 @@ export function objectReBuilder<DataItemType>(
     const searchText = getSearchText(searchRequestText)
     data.forEach((item: any) => {
         const newItem: any = {}
-        for (const field of searchFields) {
-            newItem[field] = <HighlightText text={item[field]} searchText={searchText} />
+        for (const field of fields) {
+            if (searchFields.includes(field))
+                newItem[field] = <HighlightText text={item[field] ?? ''} searchText={searchText} />
+            else newItem[field] = item[field]
         }
         if (needId) newItem.id = item.id
         resultArray.push(newItem)

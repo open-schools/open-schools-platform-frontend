@@ -1,7 +1,6 @@
 @import '../../../../common/components/styles/abstracts/colors';
 
 .label {
-  margin-top: 30px;
   font-family: 'Roboto';
   font-size: 14px;
   font-style: normal;
@@ -11,7 +10,7 @@
   .select {
     :global {
       .ant-select-selection-item {
-        font-family: Roboto;
+        font-family: 'Roboto';
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
