@@ -31,7 +31,7 @@ export const CreateStudentForm = () => {
     const router = useRouter()
 
     const validationCheck = () => {
-        setIsFormValid(isValidFormCheck(form, [STUDENT_NAME, PARENT_PHONE, STUDENT_PHONE, PARENT_EMAIL, CIRCLES]))
+        setIsFormValid(isValidFormCheck(form, [STUDENT_NAME, PARENT_PHONE, CIRCLES]))
     }
 
     return (
@@ -54,7 +54,11 @@ export const CreateStudentForm = () => {
                 margin={TOOLTIP_MARGIN_TOP}
             >
                 <Form.Item
-                    label='Ф. И. О. сотрудника'
+                    label={
+                        <span>
+                            <span className={styles.requiredMark}>*</span> Ф. И. О. обучающегося
+                        </span>
+                    }
                     name={STUDENT_NAME}
                     className={styles.label}
                     rules={validators.name}
@@ -70,7 +74,11 @@ export const CreateStudentForm = () => {
                 margin={TOOLTIP_MARGIN_TOP}
             >
                 <Form.Item
-                    label='Телефон родителя'
+                    label={
+                        <span>
+                            <span className={styles.requiredMark}>*</span> Телефон родителя
+                        </span>
+                    }
                     name={PARENT_PHONE}
                     className={styles.label}
                     rules={validators.phone}
@@ -104,7 +112,16 @@ export const CreateStudentForm = () => {
                 </Form.Item>
             </WithTooltip>
             <WithTooltip tooltipText={'Укажите кружок, на который будет ходить ученик.'} margin={TOOLTIP_MARGIN_TOP}>
-                <Form.Item label='Название кружка' name={CIRCLES} className={styles.label} rules={validators.select}>
+                <Form.Item
+                    label={
+                        <span>
+                            <span className={styles.requiredMark}>*</span> Название кружка
+                        </span>
+                    }
+                    name={CIRCLES}
+                    className={styles.label}
+                    rules={validators.select}
+                >
                     <Select
                         mode='multiple'
                         placeholder='Выберите кружок'
