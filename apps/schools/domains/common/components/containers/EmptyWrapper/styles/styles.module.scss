@@ -1,3 +1,6 @@
+@import '../../../styles/abstracts/colors.scss';
+@import '../../../styles/abstracts/_typography.scss';
+
 .container {
   width: 100%;
   height: 100%;
@@ -14,11 +17,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 8px;
 
       .titleText {
         color: #222;
         text-align: center;
-        font-family: "Open Sans";
+        font-family: "Open Sans", sans-serif;
         font-size: 24px;
         font-style: normal;
         font-weight: 600;
@@ -29,8 +33,8 @@
       .descriptionText {
         opacity: .6;
         text-align: center;
-        font-family: "Open Sans";
-        font-size: 18px;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
         font-style: normal;
         font-weight: 600;
         line-height: 28px;
@@ -39,7 +43,7 @@
 
       .button {
         width: 221px;
-        margin-top: 20px;
+        margin-top: 32px;
       }
     }
   }

@@ -5,9 +5,10 @@ export interface EmptyWrapperProps extends Omit<PropsWithChildren, 'type'> {
     className?: string
     data?: any
     handleRunTask?: () => void
-    isLoading?: boolean
+    isLoading: boolean
     pageTitle?: string
     titleText?: string
     descriptionText?: string
     buttonText?: string
+    searchTrigger: string | boolean
 }
