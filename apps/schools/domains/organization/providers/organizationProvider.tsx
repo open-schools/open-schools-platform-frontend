@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useLayoutEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetAllOrganizationsQuery } from '../redux/organizationApi'
 import { OrganizationInfo } from '../interfaces/organizationProvider'
@@ -29,7 +29,7 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
     const [organization, setOrganization] = useState({})
     const { data } = useGetAllOrganizationsQuery({})
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const organizationId = typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
 
         if (organizationId) {
