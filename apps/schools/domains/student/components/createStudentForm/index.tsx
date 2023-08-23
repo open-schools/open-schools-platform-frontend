@@ -28,7 +28,6 @@ export const CreateStudentForm = () => {
     const circlesData = useGetAllCirclesQuery({
         organization: organization.id,
     })
-    const router = useRouter()
 
     const validationCheck = () => {
         setIsFormValid(isValidFormCheck(form, [STUDENT_NAME, PARENT_PHONE, CIRCLES]))
@@ -42,7 +41,7 @@ export const CreateStudentForm = () => {
             requiredMark={false}
             onFinish={() => {
                 handleSubmitForm(form, mutation).then((isSuccess) => {
-                    if (isSuccess) router.push('/student')
+                    if (isSuccess) window.location.href = '/student'
                 })
             }}
             layout='vertical'
