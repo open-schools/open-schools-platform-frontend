@@ -87,7 +87,7 @@ export function StudentList() {
                     ['Телефон родителя', 'parent_phone'],
                 ]}
                 data={data}
-                isLoading={isLoadingInvites && isLoadingStudents}
+                isLoading={isLoadingInvites || isLoadingStudents}
                 mainRoute={'/student'}
                 searchFields={['student_name', 'student_phone', 'parent_phone', 'circle_name']}
                 searchRequestText={searchRequestText}
