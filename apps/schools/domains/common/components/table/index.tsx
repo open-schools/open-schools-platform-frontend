@@ -87,13 +87,15 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                     children={
                         <>
                             <SearchOutlined className={styles.search} />
-                            <CloseCircleOutlined
+                            {inputText &&
+                              <CloseCircleOutlined
                                 className={styles.cross}
                                 onClick={() => {
-                                    setInputText('')
-                                    setSearchRequestText('')
+                                  setInputText('')
+                                  setSearchRequestText('')
                                 }}
-                            />
+                              />
+                            }
                         </>
                     }
                 />

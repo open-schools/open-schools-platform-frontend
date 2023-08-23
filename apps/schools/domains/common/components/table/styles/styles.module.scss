@@ -12,9 +12,16 @@
 }
 
 .cross {
+  opacity: 0;
+  animation: ani 0.5s forwards;
   font-size: 100%;
   position: absolute;
   right: 60px;
+
+  @keyframes ani {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
 
   :hover {
     opacity: .6;
