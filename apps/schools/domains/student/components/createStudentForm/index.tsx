@@ -5,7 +5,6 @@ import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
 import { useCreateStudentFormValidators } from './hooks'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
-import { useRouter } from 'next/router'
 import { useGetAllCirclesQuery, useInviteStudentMutation } from '@domains/circle/redux/circleApi'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import {
@@ -47,7 +46,7 @@ export const CreateStudentForm = () => {
             layout='vertical'
             onValuesChange={validationCheck}
         >
-            <Typography.Title level={1}>Добавление обучаещегося</Typography.Title>
+            <Typography.Title level={1}>Добавление обучающегося</Typography.Title>
             <WithTooltip
                 tooltipText={'Ф. И. О. ученика необходимо для ведения отчетности и добавления его в списки.'}
                 margin={TOOLTIP_MARGIN_TOP}
@@ -80,7 +79,7 @@ export const CreateStudentForm = () => {
                     }
                     name={PARENT_PHONE}
                     className={styles.label}
-                    rules={validators.phone}
+                    rules={validators.parentPhone}
                 >
                     <Input customType='inputPhone' placeholder='Введите телефон родителя' />
                 </Form.Item>
@@ -105,7 +104,7 @@ export const CreateStudentForm = () => {
                     label='Телефон обучающегося'
                     name={STUDENT_PHONE}
                     className={styles.label}
-                    rules={validators.phone}
+                    rules={validators.studentPhone}
                 >
                     <Input customType='inputPhone' placeholder='Введите телефон обучающегося' />
                 </Form.Item>
