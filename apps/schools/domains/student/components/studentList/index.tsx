@@ -86,6 +86,7 @@ export function StudentList() {
                     ['Телефон обучающегося', 'student_phone'],
                     ['Телефон родителя', 'parent_phone'],
                 ]}
+                filterFields={['circle_name']}
                 data={data}
                 isLoading={isLoadingInvites || isLoadingStudents}
                 mainRoute={'/student'}
