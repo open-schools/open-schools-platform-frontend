@@ -4,7 +4,6 @@ import {
     EmailIsNotValidMsg,
     NameMustContainMsg,
     NameMustNotStartOrAndMsg,
-    PleaseInputYourEmailMsg,
     PleaseInputYourNameMsg,
     PleaseSelectOneOfOptionsMsg,
     WrongPhoneFormatMsg,
@@ -14,9 +13,15 @@ import { ValidatorsMap } from '@domains/common/redux/interfaces'
 export const useCreateStudentFormValidators = () => {
     return useMemo<ValidatorsMap>(() => {
         return {
-            phone: [
+            parentPhone: [
                 {
                     required: true,
+                    message: WrongPhoneFormatMsg,
+                },
+            ],
+            studentPhone: [
+                {
+                    required: false,
                     message: WrongPhoneFormatMsg,
                 },
             ],
@@ -43,10 +48,6 @@ export const useCreateStudentFormValidators = () => {
                 {
                     type: 'email',
                     message: EmailIsNotValidMsg,
-                },
-                {
-                    required: true,
-                    message: PleaseInputYourEmailMsg,
                 },
             ],
             select: [

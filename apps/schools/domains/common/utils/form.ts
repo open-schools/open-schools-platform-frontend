@@ -28,3 +28,11 @@ export function isPhoneValid(form: FormInstance, field_name: string) {
     }
     return 1
 }
+
+export function removeEmpty(obj: any): any {
+    return Object.fromEntries(
+        Object.entries(obj)
+            .filter(([_, v]) => v != null && v != '' && v != undefined)
+            .map(([k, v]) => [k, v === Object(v) ? removeEmpty(v) : v]),
+    )
+}
