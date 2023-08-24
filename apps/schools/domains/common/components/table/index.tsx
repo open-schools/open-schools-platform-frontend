@@ -49,11 +49,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         }
     }, [isLoading, data, searchRequestText])
 
-    const columns = useGenerateFullColumns<RowType>(
-        baseColumns,
-        data ? data?.results : [],
-        filterFields,
-    )
+    const columns = useGenerateFullColumns<RowType>(baseColumns, data ? data?.results : [], filterFields)
 
     if (typeTable.includes(customType)) {
         return (
