@@ -3,16 +3,49 @@ import React from 'react'
 import styles from './styles/styles.module.scss'
 import { getSearchText } from '@domains/common/utils/searchText'
 import { HighlightTextProps } from '@domains/common/components/table/interfaces'
+import { filterTextShaper } from '@domains/common/utils/filterTextShaper'
 
 export interface RawColumnType<RowType> extends ColumnType<RowType> {
     hidden?: boolean
     dataIndex: string
 }
 
-export function useGenerateFullColumns<RowType>(baseColumns: RawColumnType<RowType>[]): ColumnType<RowType>[] {
-    return baseColumns.map((column) => ({
-        ...column,
-    }))
+export function useGenerateFullColumns<RowType>(
+    baseColumns?: RawColumnType<RowType>[],
+    data?: any[],
+    filterFields?: string[],
+): ColumnType<RowType>[] {
+    const uniqueFilters: Record<string, any[]> = {}
+
+    if (!filterFields) {
+        filterFields = []
+    }
+
+    for (const field of filterFields) {
+        const uniqueValues = Array.from(new Set(data!.map((item) => item[field])))
+        uniqueFilters[field] = uniqueValues.map((value) => ({
+            text: filterTextShaper(value),
+            value: value,
+        }))
+    }
+
+    return baseColumns!.map((column) => {
+        const isFilterable = filterFields!.includes(column.dataIndex as string)
+
+        if (isFilterable) {
+            const filters = uniqueFilters[column.dataIndex]
+
+            return {
+                filters,
+                onFilter: (value, record) => {
+                    return (record as any)[column.dataIndex].props.text === value
+                },
+                ...column,
+            }
+        } else {
+            return column
+        }
+    })
 }
 
 function escapeRegExp(text: string) {

@@ -4,6 +4,7 @@ import { ReturnedData } from '@domains/common/redux/interfaces'
 export interface CustomTableProps<RowType, DataItemType> {
     customType?: 'tableWithSearch' | 'tableWithoutSearch'
     columnsTitlesAndKeys: Array<string[]>
+    filterFields?: string[]
     data?: ReturnedData<DataItemType[]>
     isLoading: boolean
     searchFields: string[]
