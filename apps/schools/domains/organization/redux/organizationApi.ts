@@ -1,29 +1,33 @@
-import { commonApi } from '../../../store/commonApi'
+import { commonApi } from '@store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
 import {
-    createOrganizationData,
+    CreateOrganizationData,
     AllOrganizationsData,
-    GetOrganizationSender,
-    UpdateOrganizationInviteEmployee,
     StudentJoinCircleData,
     AllStudentsData,
     StudentData,
     TeacherData,
     DeleteOrganizationData,
     AnalyticsData,
-    CreateOrganizationInviteEmployee,
     ExportStudentsData,
     AllQueriesData,
     AllTeachersData,
     AllQueriesOfOrganizationData,
-    GetTeacher,
-    GetStudentJoinCircle,
-    GetOrganizationInviteEmployee,
-    GetStudent,
-    GetQueryStatus,
-    GetAnalytics,
+    getAllStudentInvitationsData,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
+import {
+    CreateOrganizationInviteEmployee,
+    GetAnalytics,
+    GetCircleInviteStudent,
+    GetOrganizationInviteEmployee,
+    GetOrganizationSender,
+    GetQueryStatus,
+    GetStudent,
+    GetStudentJoinCircle,
+    GetTeacher,
+    UpdateOrganizationInviteEmployee,
+} from '@domains/common/redux/serializers'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -34,7 +38,7 @@ const organizationApi = commonApi.injectEndpoints({
                 params: params,
             }),
         }),
-        createOrganization: build.mutation<{ creator_employee: GetEmployee }, createOrganizationData>({
+        createOrganization: build.mutation<{ creator_employee: GetEmployee }, CreateOrganizationData>({
             query: (data) => ({
                 url: '/organization-management/organizations',
                 method: 'POST',
@@ -58,11 +62,11 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getAllStudents: build.query<{ results: GetStudent }, AllStudentsData>({
-            query: (data) => ({
+        getAllStudents: build.query<ReturnedData<GetStudent[]>, AllStudentsData>({
+            query: (params) => ({
                 url: '/organization-management/organizations/students',
                 method: 'GET',
-                body: data,
+                params: params,
             }),
         }),
         getStudent: build.query<{ student: GetStudent }, StudentData>({
@@ -128,6 +132,13 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
+        getAllStudentInvitations: build.query<ReturnedData<GetCircleInviteStudent[]>, getAllStudentInvitationsData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/students-invitations`,
+                method: 'GET',
+                params: params,
+            }),
+        }),
     }),
 })
 
@@ -146,4 +157,5 @@ export const {
     useExportStudentsQuery,
     useGetAllTeachersQuery,
     useGetAllQueriesOfOrganizationQuery,
+    useGetAllStudentInvitationsQuery,
 } = organizationApi

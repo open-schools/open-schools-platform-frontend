@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetAllOrganizationsQuery } from '../redux/organizationApi'
-import { OrganizationInfo } from '../interfaces/OrganizationProvider'
+import { OrganizationInfo } from '../interfaces/organizationProvider'
 export const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 export const OrganizationContext = createContext<{

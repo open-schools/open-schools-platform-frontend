@@ -10,6 +10,14 @@ body {
         'Noto Color Emoji';
 }
 
+// TODO: This is an extreme solution, we need to get rid of it
+.ant-dropdown {
+    width: min(382px, 19.293vw) !important;
+    height: min(222px, 20.556vh) !important;
+    border-radius: 12px;
+    box-shadow: black;
+}
+
 .centralized {
     justify-content: center;
     align-items: center;
@@ -17,8 +25,9 @@ body {
 }
 
 .pageContent {
+    width: 100%;
+    height: 100%;
     flex: auto;
     align-self: center;
-    max-width: 77.020vw;
     min-width: initial;
 }

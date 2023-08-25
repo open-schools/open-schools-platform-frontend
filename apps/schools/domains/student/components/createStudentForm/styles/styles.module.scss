@@ -1,0 +1,48 @@
+@import '../../../../common/components/styles/abstracts/colors';
+
+.label {
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+
+  .select {
+    :global {
+      .ant-select-selection-item {
+        font-family: 'Roboto';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+      }
+
+      .ant-select-selector {
+        border-radius: 8px;
+        min-height: 48px;
+      }
+    }
+
+    border-radius: 8px;
+    margin-top: 7px;
+    width: 100%;
+    color: $color-black;
+  }
+}
+
+.button {
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.table {
+  max-width: 600px;
+}
+
+.requiredMark{
+  color: $color-required-mark;
+}

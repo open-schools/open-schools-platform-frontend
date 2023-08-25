@@ -1,5 +1,5 @@
-import { GetOrganizationSender } from '../../organization/redux/interfaces'
 import { BasePaginationData } from '../../common/redux/interfaces'
+import { GetOrganizationSender } from '@domains/common/redux/serializers'
 
 export interface GetEmployee {
     id?: string
