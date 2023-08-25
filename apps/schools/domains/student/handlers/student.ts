@@ -1,5 +1,5 @@
 import { FormInstance, message } from 'antd'
-import { PleaseReloadPageMsg, SuccessInviteEmployeeMsg } from '@domains/user/components/auth/constants/message'
+import { SuccessInviteEmployeeMsg } from '@domains/user/components/auth/constants/message'
 import {
     CIRCLES,
     PARENT_EMAIL,
@@ -14,7 +14,7 @@ export async function handleSubmitForm(form: FormInstance, mutation: any) {
     if (!isPhoneValid(form, PARENT_PHONE)) return false
     if (form.getFieldValue(STUDENT_PHONE) && !isPhoneValid(form, STUDENT_PHONE)) return false
 
-    await withLoadingMessage(
+    const isSuccess = await withLoadingMessage(
         'Выполняется запрос...',
         async () => {
             for (let circle_id of form.getFieldValue(CIRCLES)) {
@@ -31,14 +31,17 @@ export async function handleSubmitForm(form: FormInstance, mutation: any) {
                 )
 
                 if (!('data' in response)) {
-                    message.error(PleaseReloadPageMsg)
                     return false
                 }
             }
+            return true
         },
         [],
     )
 
-    message.success(SuccessInviteEmployeeMsg)
-    return true
+    if (isSuccess) {
+        message.success(SuccessInviteEmployeeMsg)
+    }
+
+    return isSuccess
 }
