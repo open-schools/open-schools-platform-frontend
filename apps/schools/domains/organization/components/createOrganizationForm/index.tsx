@@ -5,16 +5,10 @@ import { handleSubmitCreateOrganizationForm } from '@domains/organization/handle
 import { Input } from '@domains/common/components/input'
 import { useCreateOrganizationFormValidators } from '@domains/organization/components/createOrganizationForm/hooks'
 import { useCreateOrganizationMutation } from '@domains/organization/redux/organizationApi'
-import { CustomCreateOrganizationFormProps } from "@domains/organization/components/createOrganizationForm/interfaces";
+import { CustomCreateOrganizationFormProps } from '@domains/organization/components/createOrganizationForm/interfaces'
 
 const CreateOrganizationForm: React.FC<CustomCreateOrganizationFormProps> = (props) => {
-    const {
-        isModalVisible,
-        setIsModalVisible,
-        organizationCookieChange,
-        children,
-        ...restProps
-    } = props
+    const { isModalVisible, setIsModalVisible, organizationCookieChange, children, ...restProps } = props
 
     const OK_BUTTON_STYLE: React.CSSProperties = {
         width: '160px',
@@ -69,4 +63,4 @@ const CreateOrganizationForm: React.FC<CustomCreateOrganizationFormProps> = (pro
     )
 }
 
-export default CreateOrganizationForm;
+export default CreateOrganizationForm

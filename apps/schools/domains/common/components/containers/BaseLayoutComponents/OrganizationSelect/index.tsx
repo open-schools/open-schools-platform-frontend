@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { Button, Select, SelectProps } from "antd";
+import { Button, Select, SelectProps } from 'antd'
 import styles from './styles/styles.module.scss'
-import { useGetAllOrganizationsQuery } from "@domains/organization/redux/organizationApi";
+import { useGetAllOrganizationsQuery } from '@domains/organization/redux/organizationApi'
 
 import { OrganizationSelectProps } from './interfaces'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { SuffixIcon } from '@domains/common/components/Icons/suffixIcon'
-import CreateOrganizationForm from "@domains/organization/components/createOrganizationForm";
+import CreateOrganizationForm from '@domains/organization/components/createOrganizationForm'
 
 const { Option } = Select
 
@@ -82,13 +82,13 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => 
                             {organization.name}
                         </Option>
                     ))}
-                    <Option style={ DISPLAY_NONE }>Empty</Option>
+                    <Option style={DISPLAY_NONE}>Empty</Option>
                 </Select>
             )}
             <CreateOrganizationForm
-              isModalVisible={isModalVisible}
-              setIsModalVisible={setIsModalVisible}
-              organizationCookieChange={organizationCookieChange}
+                isModalVisible={isModalVisible}
+                setIsModalVisible={setIsModalVisible}
+                organizationCookieChange={organizationCookieChange}
             />
         </div>
     )
