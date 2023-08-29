@@ -1,9 +1,6 @@
 @import '../../../../styles/abstracts/_colors.scss';
 @import '../../../../styles/abstracts/_typography.scss';
 
-.modal {
-  border-radius: 25px;
-}
 
 .dropdown {
   width: 200px;
@@ -11,7 +8,7 @@
   color: var(--character-title-85, $color-black);
 
   .addButton {
-    font-family: "Roboto";
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -37,7 +34,7 @@
       size: 16px;
       weight: 600;
     }
-    font-family: "Roboto";
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -48,7 +45,7 @@
     :global {
       .ant-select-selection-item {
         color: var(--unnamed, $color-selected-organization);
-        font-family: "Roboto";
+        font-family: 'Roboto', sans-serif;
         font-size: 15px;
         font-style: normal;
         font-weight: 400;
