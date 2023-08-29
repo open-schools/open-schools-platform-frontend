@@ -10,8 +10,8 @@ import {
     CREATE_BUTTON_STYLE,
     DISPLAY_NONE,
     DROPDOWN_STYLE,
-    SELECT_LIST_HEIGHT
-} from "./styles/styles";
+    SELECT_LIST_HEIGHT,
+} from './styles/styles'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { SuffixIcon } from '@domains/common/components/Icons/suffixIcon'
 import CreateOrganizationForm from '@domains/organization/components/createOrganizationForm'
