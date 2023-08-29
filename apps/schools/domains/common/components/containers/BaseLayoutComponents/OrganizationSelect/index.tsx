@@ -5,16 +5,18 @@ import { useGetAllOrganizationsQuery } from '@domains/organization/redux/organiz
 
 import { OrganizationSelectProps } from './interfaces'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
+import {
+    COLLAPSED_SELECT_STYLE,
+    CREATE_BUTTON_STYLE,
+    DISPLAY_NONE,
+    DROPDOWN_STYLE,
+    SELECT_LIST_HEIGHT
+} from "./styles/styles";
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { SuffixIcon } from '@domains/common/components/Icons/suffixIcon'
 import CreateOrganizationForm from '@domains/organization/components/createOrganizationForm'
 
 const { Option } = Select
-
-const COLLAPSED_SELECT_STYLE = { height: '35px', width: '35px' }
-const CREATE_BUTTON_STYLE = { height: '35px', width: '35px' }
-const DISPLAY_NONE: React.CSSProperties = { display: 'none' }
 
 export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => {
     const { collapsed } = props

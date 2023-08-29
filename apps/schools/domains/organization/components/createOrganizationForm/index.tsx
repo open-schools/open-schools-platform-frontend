@@ -6,19 +6,10 @@ import { Input } from '@domains/common/components/input'
 import { useCreateOrganizationFormValidators } from '@domains/organization/components/createOrganizationForm/hooks'
 import { useCreateOrganizationMutation } from '@domains/organization/redux/organizationApi'
 import { CustomCreateOrganizationFormProps } from '@domains/organization/components/createOrganizationForm/interfaces'
+import { DISPLAY_NONE, OK_BUTTON_STYLE } from "@domains/organization/components/createOrganizationForm/styles/styles";
 
 const CreateOrganizationForm: React.FC<CustomCreateOrganizationFormProps> = (props) => {
     const { isModalVisible, setIsModalVisible, organizationCookieChange, children, ...restProps } = props
-
-    const OK_BUTTON_STYLE: React.CSSProperties = {
-        width: '160px',
-        height: '40px',
-        borderRadius: '12px',
-        padding: '0',
-        fontFamily: 'OpenSans, sans-serif',
-        fontSize: '16px',
-    }
-    const DISPLAY_NONE: React.CSSProperties = { display: 'none' }
 
     const validators = useCreateOrganizationFormValidators()
     const [form] = Form.useForm()
