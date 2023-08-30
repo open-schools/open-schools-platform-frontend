@@ -8,4 +8,3 @@ export const OK_BUTTON_STYLE: React.CSSProperties = {
     fontFamily: 'OpenSans, sans-serif',
     fontSize: '16px',
 }
-export const DISPLAY_NONE: React.CSSProperties = { display: 'none' }
