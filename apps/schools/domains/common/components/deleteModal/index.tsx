@@ -6,7 +6,7 @@ import { DISPLAY_NONE } from '@domains/common/components/styles/constantStyles'
 import { CustomModalProps } from './interfaces'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
-import { handleDeleteButtonClick } from "@domains/common/handlers/deleteModal";
+import { handleDeleteButtonClick } from '@domains/common/handlers/deleteModal'
 
 const DeleteModal: React.FC<CustomModalProps> = (props) => {
     const {
@@ -47,4 +47,4 @@ const DeleteModal: React.FC<CustomModalProps> = (props) => {
     )
 }
 
-export default DeleteModal;
+export default DeleteModal
