@@ -25,7 +25,7 @@ const circleApi = commonApi.injectEndpoints({
                 method: 'GET',
             }),
         }),
-        deleteCircle: build.query<{ circle: GetCircle }, CircleData>({
+        deleteCircle: build.mutation<{ circle: GetCircle }, CircleData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}`,
                 method: 'DELETE',
@@ -45,6 +45,6 @@ export const {
     useGetAllCirclesQuery,
     useCreateCircleMutation,
     useGetCircleQuery,
-    useDeleteCircleQuery,
+    useDeleteCircleMutation,
     useInviteStudentMutation,
 } = circleApi

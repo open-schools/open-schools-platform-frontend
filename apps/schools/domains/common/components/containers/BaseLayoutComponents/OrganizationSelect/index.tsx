@@ -5,16 +5,11 @@ import { useGetAllOrganizationsQuery } from '@domains/organization/redux/organiz
 
 import { OrganizationSelectProps } from './interfaces'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import {
-    COLLAPSED_SELECT_STYLE,
-    CREATE_BUTTON_STYLE,
-    DISPLAY_NONE,
-    DROPDOWN_STYLE,
-    SELECT_LIST_HEIGHT,
-} from './styles/styles'
+import { COLLAPSED_SELECT_STYLE, CREATE_BUTTON_STYLE, DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { SuffixIcon } from '@domains/common/components/Icons/suffixIcon'
 import CreateOrganizationForm from '@domains/organization/components/createOrganizationForm'
+import { DISPLAY_NONE } from '@domains/common/components/styles/constantStyles'
 
 const { Option } = Select
 
