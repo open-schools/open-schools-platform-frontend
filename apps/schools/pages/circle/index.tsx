@@ -5,7 +5,7 @@ import { PageContent } from '@domains/common/components/containers/PageContent'
 import {
     OrganizationRequired,
 } from '@domains/common/components/containers/OrganizationRequired'
-import {CircleList} from "@domains/circle/components/studentList";
+import {CircleList} from "@domains/circle/components/circleList";
 
 const CirclesPageContent = () => {
     return (

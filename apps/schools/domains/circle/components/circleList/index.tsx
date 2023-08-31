@@ -24,7 +24,7 @@ export function CircleList() {
     })
 
     const reformattedData = mapReturnedData(circles, (circle) => {
-        const transformedCircle = structuredClone(circle) as TableType
+        const transformedCircle = structuredClone(circle) as unknown as TableType
         transformedCircle.accepted_count = circle.student_profile_queries.ACCEPTED
         return transformedCircle
     })
