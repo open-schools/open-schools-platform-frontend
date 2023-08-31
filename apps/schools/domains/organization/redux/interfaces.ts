@@ -1,4 +1,5 @@
 import { BasePaginationData } from '../../common/redux/interfaces'
+import { GetAnalytics } from '@domains/common/redux/serializers'
 
 export interface AllOrganizationsData extends BasePaginationData {
     id?: string
@@ -88,4 +89,29 @@ export interface getAllStudentInvitationsData extends BasePaginationData {
     family__name?: string
     student__id?: string
     student__name?: string
+}
+
+export interface GetOrganizationCircleList {
+    id?: string
+    name: string
+    address: string
+    student_profile_queries: GetAnalytics
+}
+
+export interface GetOrganizationCircleListData extends BasePaginationData {
+    id?: string
+    organization?: string
+    organization__id?: string
+    organization_id?: string
+    capacity?: number
+    description?: string
+    ids?: string
+    or_search?: string
+    address?: string
+    organization_name?: string
+    radius?: string
+    user_location?: string
+    student_profile?: string
+    name?: string
+    order?: string
 }

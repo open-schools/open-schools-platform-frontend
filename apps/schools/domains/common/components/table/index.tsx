@@ -12,6 +12,7 @@ import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWid
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
         customType = 'tableWithSearch',
+        customFields = {},
         filterFields,
         columnsTitlesAndKeys,
         data,
@@ -42,6 +43,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 columnsTitlesAndKeys.map((x) => x[1]),
                 searchFields,
                 searchRequestText,
+                customFields,
                 true,
             )
             setDataSource(result)

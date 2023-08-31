@@ -20,10 +20,7 @@ const menuList: MenuItemObj[] = [
         isOrganizationSelected,
         permanentDisabled,
     ]),
-    new MenuItemObj('circles', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected,
-        permanentDisabled,
-    ]),
+    new MenuItemObj('circle', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
     new MenuItemObj('student', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
     new MenuItemObj('queries', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [
         isOrganizationSelected,
