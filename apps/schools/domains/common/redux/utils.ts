@@ -1,12 +1,12 @@
 import { ReturnedData } from '@domains/common/redux/interfaces'
 
-export function mapReturnedData<T>(x: ReturnedData<T[]> | undefined, delegate: (x: T) => any) {
-    return x !== undefined
+export function mapReturnedData<T>(response: ReturnedData<T[]> | undefined, delegate: (x: T) => any) {
+    return response !== undefined
         ? ({
-              count: x.count,
-              next: x.next,
-              previous: x.previous,
-              results: x.results.map(delegate),
+              count: response.count,
+              next: response.next,
+              previous: response.previous,
+              results: response.results.map(delegate),
           } as ReturnedData<any>)
         : undefined
 }

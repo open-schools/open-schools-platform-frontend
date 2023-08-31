@@ -23,10 +23,10 @@ export function CircleList() {
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
     })
 
-    const reformattedData = mapReturnedData(circles, (x) => {
-        const y = structuredClone(x) as TableType
-        y.accepted_count = x.student_profile_queries.ACCEPTED
-        return y
+    const reformattedData = mapReturnedData(circles, (circle) => {
+        const transformedCircle = structuredClone(circle) as TableType
+        transformedCircle.accepted_count = circle.student_profile_queries.ACCEPTED
+        return transformedCircle
     })
 
     return (
@@ -45,7 +45,6 @@ export function CircleList() {
                 <Button
                     type='schoolDefault'
                     block
-                    style={{ width: '14%' }}
                     className={styles.button}
                     onClick={() => router.push('/circle/create')}
                 >

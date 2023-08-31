@@ -19,6 +19,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
+    width: 14%;
   }
 }
 
@@ -43,7 +44,7 @@
 }
 
 .additionalTextAddress {
-  color: var(--unnamed, #434343);
+  color: $color-background;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -52,7 +53,7 @@
 }
 
 .textAddress {
-  color: var(--unnamed, rgba(67, 67, 67, 0.80));
+  color: $color-foreground;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-style: normal;

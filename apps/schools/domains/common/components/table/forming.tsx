@@ -90,7 +90,6 @@ export function objectReBuilder<DataItemType>(
         const newItem: any = {}
         for (const field of fields) {
             if (field in customFields) {
-                console.log(customFields[field](item[field], searchText))
                 newItem[field] = customFields[field]({ text: item[field], searchText: searchText })
             } else if (searchFields.includes(field))
                 newItem[field] = <HighlightText text={item[field] ?? ''} searchText={searchText} />
