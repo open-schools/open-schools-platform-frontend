@@ -5,7 +5,8 @@ import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
 import { useCreateStudentFormValidators } from './hooks'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
-import { useGetAllCirclesQuery, useInviteStudentMutation } from '@domains/circle/redux/circleApi'
+import { useInviteStudentMutation } from '@domains/circle/redux/circleApi'
+import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi';
 import { isValidFormCheck } from '@domains/common/utils/form'
 import {
     CIRCLES,
@@ -25,7 +26,7 @@ export const CreateStudentForm = () => {
     const { organization } = useOrganization()
     const [mutation] = useInviteStudentMutation()
     const circlesData = useGetAllCirclesQuery({
-        organization: organization.id,
+        organization_id: organization.id,
     })
 
     const validationCheck = () => {
