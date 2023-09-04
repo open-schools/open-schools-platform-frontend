@@ -18,6 +18,7 @@ export interface CustomTableProps<RowType, DataItemType> extends TableProps<any>
     searchFields: string[]
     customFields?: CustomFieldsProps
     searchRequestText: string
+    needNumbering?: boolean
     setSearchRequestText: React.Dispatch<React.SetStateAction<string>>
     mainRoute: string
 }

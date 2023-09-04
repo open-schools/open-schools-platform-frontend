@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
+import { ColumnType } from "antd/lib/table/interface";
 
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
@@ -21,6 +22,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         searchRequestText,
         setSearchRequestText,
         mainRoute,
+        needNumbering,
         ...restProps
     } = props
 
@@ -30,6 +32,16 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         title,
         width: calculateAverageWidth(columnsTitlesAndKeys.map(([title]) => title)),
     }))
+
+    const columnsWithIndex = [
+        {
+            title: 'Номер',
+            dataIndex: 'index',
+            key: 'index',
+            align: 'center',
+        },
+        ...baseColumns,
+    ]
 
     const [isTableLoading, setIsTableLoading] = useState(false)
     const [inputText, setInputText] = useState('')
@@ -46,7 +58,17 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 customFields,
                 true,
             )
-            setDataSource(result)
+
+            if (needNumbering) {
+                const numberedResult = result.map((item, index) => ({
+                    ...item,
+                    index: index + 1,
+                }))
+
+                setDataSource(numberedResult)
+            } else {
+                setDataSource(result)
+            }
             setIsTableLoading(false)
         }
     }, [isLoading, data, searchRequestText])
@@ -59,7 +81,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={columns}
+                    columns={needNumbering ? columnsWithIndex as any : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {
@@ -105,7 +127,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={columns}
+                    columns={needNumbering ? columnsWithIndex as ColumnType<RowType>[] : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {

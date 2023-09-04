@@ -127,11 +127,12 @@ interface CircleOrganization {
 
 interface GetStudentProfile {
     id?: string
-    name?: string
+    name: string
     age?: number
     phone?: string
     photo: GetPhoto
-    parent_phones: string
+    parent_names?: string
+    parent_phones?: string
 }
 
 export interface GetAnalytics {
@@ -244,11 +245,11 @@ export interface GetCircleInviteStudentContext {
 }
 
 export interface GetShallowCircle {
-    id: string
+    id?: string
     name: string
-    address: string
-    capacity: number
-    description: string
-    latitude: string
-    longitude: string
+    address?: string
+    capacity?: number
+    description?: string
+    latitude?: string
+    longitude?: string
 }

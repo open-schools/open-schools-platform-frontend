@@ -16,6 +16,7 @@ import {
     getAllStudentInvitationsData,
     GetOrganizationCircleList,
     GetOrganizationCircleListData,
+    GetCurrentCircleData,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
 import {
@@ -74,6 +75,13 @@ const organizationApi = commonApi.injectEndpoints({
         getAllCircles: build.query<ReturnedData<GetOrganizationCircleList[]>, GetOrganizationCircleListData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/circles`,
+                method: 'GET',
+                params: params,
+            }),
+        }),
+        getCurrentCircle: build.query<{ circle: GetOrganizationCircleList }, GetCurrentCircleData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/circles/${params.circle_id}`,
                 method: 'GET',
                 params: params,
             }),
@@ -156,6 +164,7 @@ export const {
     useCreateOrganizationMutation,
     useUpdateInviteEmployeeMutation,
     useStudentJoinCircleQuery,
+    useGetCurrentCircleQuery,
     useGetAllStudentsQuery,
     useGetStudentQuery,
     useGetTeacherQuery,

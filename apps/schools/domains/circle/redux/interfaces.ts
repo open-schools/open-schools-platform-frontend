@@ -79,3 +79,17 @@ export interface AllStudentsData extends BasePaginationData {
 export interface CircleData {
     circle_id?: string
 }
+
+export interface CircleStudentsData extends BasePaginationData {
+    id?: string
+    name?: string
+    circle?: string
+    student_profile?: string
+    student_profile__phone?: string
+    circle__name?: string
+    student_profile__name?: string
+    circle__organization?: string
+    parent_phone?: string
+    or_search?: string
+    circle_id?: string
+}

@@ -59,7 +59,7 @@ export function CircleList() {
                 ]}
                 data={reformattedData}
                 isLoading={isLoading}
-                mainRoute={'/student'}
+                mainRoute={'/circle'}
                 searchFields={['name', 'address']}
                 customFields={{
                     address: ({ text, searchText }) => {
