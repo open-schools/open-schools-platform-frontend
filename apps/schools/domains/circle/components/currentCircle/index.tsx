@@ -8,7 +8,7 @@ import { useDeleteCircleMutation, useGetCircleQuery, useGetCircleStudentsQuery }
 import { useGetCurrentCircleQuery } from '@domains/organization/redux/organizationApi'
 import DeleteModal from '@domains/common/components/deleteModal'
 import { Button } from '@domains/common/components/button'
-import { getUuid } from '@domains/common/utils/getUuid'
+import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { CARD_HEAD_STYLE } from '@domains/circle/components/currentCircle/styles/styles'
 import { Table } from '@domains/common/components/table'
@@ -27,7 +27,7 @@ const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [searchRequestText, setSearchRequestText] = useState('')
     const [mutation] = useDeleteCircleMutation()
-    const uuid = getUuid()
+    const uuid = getUuidFromUrl()
     const { organizationId } = useOrganization()
 
     const { data: circle } = useGetCircleQuery({ circle_id: uuid[0] })
