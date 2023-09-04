@@ -49,7 +49,7 @@ export function StudentList() {
                             id: x.id,
                             student_name: x.name,
                             student_phone: x.student_profile.phone,
-                            parent_phone: x.student_profile.parent_phones.replaceAll(',', '\n'),
+                            parent_phone: x.student_profile.parent_phones?.replaceAll(',', '\n'),
                             circle_name: x.circle.name,
                         }) as RowType,
                 ),

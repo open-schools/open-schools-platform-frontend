@@ -115,3 +115,8 @@ export interface GetOrganizationCircleListData extends BasePaginationData {
     name?: string
     order?: string
 }
+
+export interface GetCurrentCircleData {
+    circle_id: string
+    organization_id: string
+}
