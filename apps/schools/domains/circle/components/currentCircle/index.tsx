@@ -106,21 +106,23 @@ const CurrentCircle = () => {
                     </div>
                 </Col>
             </Row>
-            <Table<CurrentCircleRowType, CurrentCircleRowType>
-                columnsTitlesAndKeys={[
-                    ['Ф. И. О обучающегося', 'student_name'],
-                    ['Телефон обучающегося', 'student_phone'],
-                    ['Ф. И. О родителя', 'parent_names'],
-                    ['Телефон родителя', 'parent_phones'],
-                ]}
-                data={reformattedData}
-                mainRoute={'/student'}
-                isLoading={isLoading}
-                needNumbering={true}
-                searchFields={['student_name', 'student_phone', 'parent_names', 'parent_phones']}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
-            />
+            <div className={styles.tableContainer}>
+                <Table<CurrentCircleRowType, CurrentCircleRowType>
+                    columnsTitlesAndKeys={[
+                        ['Ф. И. О обучающегося', 'student_name'],
+                        ['Телефон обучающегося', 'student_phone'],
+                        ['Ф. И. О родителя', 'parent_names'],
+                        ['Телефон родителя', 'parent_phones'],
+                    ]}
+                    data={reformattedData}
+                    mainRoute={'/student'}
+                    isLoading={isLoading}
+                    needNumbering={true}
+                    searchFields={['student_name', 'student_phone', 'parent_names', 'parent_phones']}
+                    searchRequestText={searchRequestText}
+                    setSearchRequestText={setSearchRequestText}
+                />
+            </div>
             <Col span={24} className={styles.buttonBar}>
                 <ActionBar
                     actions={[

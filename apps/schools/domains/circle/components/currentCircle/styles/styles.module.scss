@@ -1,6 +1,12 @@
 @import '@domains/common/components/styles/abstracts/_colors.scss';
 @import '@domains/common/components/styles/abstracts/typography.scss';
 
+.tableContainer {
+  :global .ant-table-empty {
+    margin-bottom: 50px;
+  }
+}
+
 .Row {
   display: flex;
   align-items: center;
