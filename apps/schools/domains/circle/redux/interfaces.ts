@@ -90,6 +90,7 @@ export interface CircleStudentsData extends BasePaginationData {
     student_profile__name?: string
     circle__organization?: string
     parent_phone?: string
+    parent_name?: string
     or_search?: string
     circle_id?: string
 }
