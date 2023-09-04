@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import router from "next/router";
+import router from 'next/router'
 import { Col, Row, Typography } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,12 +15,12 @@ import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 import { mapReturnedData } from '@domains/common/redux/utils'
 import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
-import { sumObjectValues } from "@domains/common/utils/sumObjectValues";
+import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
 
 import android from '@public/image/Android.svg'
 
 import { searchColumns } from './constants'
-import { CurrentCircleRowType } from "./interfaces";
+import { CurrentCircleRowType } from './interfaces'
 import styles from './styles/styles.module.scss'
 
 const CurrentCircle = () => {
@@ -102,7 +102,7 @@ const CurrentCircle = () => {
                         </Col>
                     </div>
                     <div className={styles.mobile}>
-                        <Image src={android} alt={'Android with analytics'} className={styles.mobileImage}/>
+                        <Image src={android} alt={'Android with analytics'} className={styles.mobileImage} />
                     </div>
                 </Col>
             </Row>
@@ -125,9 +125,11 @@ const CurrentCircle = () => {
                 <ActionBar
                     actions={[
                         <Button
-                          className={styles.changeButton}
-                          onClick={() => router.push(`/circle/${uuid[0]}/change`)}
-                        >Редактировать данные кружка</Button>,
+                            className={styles.changeButton}
+                            onClick={() => router.push(`/circle/${uuid[0]}/change`)}
+                        >
+                            Редактировать данные кружка
+                        </Button>,
                         <Button
                             antdType={'ghost'}
                             className={styles.deleteButton}
@@ -154,4 +156,4 @@ const CurrentCircle = () => {
     )
 }
 
-export default CurrentCircle;
+export default CurrentCircle

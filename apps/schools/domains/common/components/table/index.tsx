@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
-import { ColumnType } from "antd/lib/table/interface";
+import { ColumnType } from 'antd/lib/table/interface'
 
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
@@ -81,7 +81,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={needNumbering ? columnsWithIndex as any : columns}
+                    columns={needNumbering ? (columnsWithIndex as any) : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {
@@ -127,7 +127,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={needNumbering ? columnsWithIndex as ColumnType<RowType>[] : columns}
+                    columns={needNumbering ? (columnsWithIndex as ColumnType<RowType>[]) : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {

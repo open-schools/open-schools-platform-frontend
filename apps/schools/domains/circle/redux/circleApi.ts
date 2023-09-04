@@ -5,9 +5,9 @@ import {
     CircleData,
     CircleStudentsData,
     CreateCircleData,
-    CreateCircleInviteStudentData
-} from "./interfaces";
-import { GetCircle, GetQueryStatus, GetStudent } from "@domains/common/redux/serializers";
+    CreateCircleInviteStudentData,
+} from './interfaces'
+import { GetCircle, GetQueryStatus, GetStudent } from '@domains/common/redux/serializers'
 
 const circleApi = commonApi.injectEndpoints({
     endpoints: (build) => ({

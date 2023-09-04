@@ -1,6 +1,6 @@
 import { message } from 'antd'
 import { successDeleteMsg } from '@domains/common/constants/deleteModal'
-import { getUuid } from "@domains/common/utils/getUuid";
+import { getUuid } from '@domains/common/utils/getUuid'
 
 export async function handleDeleteButtonClick(
     setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
@@ -10,7 +10,7 @@ export async function handleDeleteButtonClick(
 ) {
     const uuid = getUuid()
 
-    if (uuid === null ) return
+    if (uuid === null) return
     const mutationData = { [dataField]: uuid[0] }
     let response = await mutation(mutationData)
 

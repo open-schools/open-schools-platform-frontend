@@ -6,7 +6,7 @@ import { Button } from '@domains/common/components/button'
 import { useCreateStudentFormValidators } from './hooks'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { useInviteStudentMutation } from '@domains/circle/redux/circleApi'
-import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi';
+import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import {
     CIRCLES,
