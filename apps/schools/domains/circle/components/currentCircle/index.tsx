@@ -69,21 +69,21 @@ const CurrentCircle = () => {
                     <Row className={styles.Row}>
                         <div>Всего</div>
                         <span></span>
-                        <Link href={'/profile'} style={{ color: '#222' }}>
+                        <Link href={'/profile'} className={styles.colorCountAllQueries}>
                             {countAllQueries}
                         </Link>
                     </Row>
                     <Row className={styles.Row}>
                         <div>Принято</div>
                         <span></span>
-                        <Link href={'/profile'} style={{ color: '#4CD174' }}>
+                        <Link href={'/profile'} className={styles.colorCountAcceptedQueries}>
                             {queriesCount.ACCEPTED}
                         </Link>
                     </Row>
                     <Row className={styles.Row}>
                         <div>На рассмотрении</div>
                         <span></span>
-                        <Link href={'/profile'} style={{ color: '#2698FF' }}>
+                        <Link href={'/profile'} className={styles.colorCountInProgressQueries}>
                             {queriesCount.IN_PROGRESS}
                         </Link>
                     </Row>
