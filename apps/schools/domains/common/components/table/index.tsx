@@ -81,7 +81,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={needNumbering ? (columnsWithIndex as any) : columns}
+                    columns={needNumbering ? (columnsWithIndex as ColumnType<RowType>[]) : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {
