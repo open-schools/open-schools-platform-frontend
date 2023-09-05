@@ -21,6 +21,7 @@ export interface CustomTableProps<RowType, DataItemType> extends TableProps<any>
     needNumbering?: boolean
     setSearchRequestText: React.Dispatch<React.SetStateAction<string>>
     mainRoute: string
+    customWidths?: number[]
 }
 
 export interface HighlightTextProps {
