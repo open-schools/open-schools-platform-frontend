@@ -125,7 +125,6 @@ export const CreateCircleForm = () => {
                             htmlType='submit'
                             block
                             data-cy='resetcomplete-button'
-                            style={{ width: '30%' }}
                             className={styles.button}
                         >
                             Добавить кружок
@@ -138,7 +137,6 @@ export const CreateCircleForm = () => {
                 <Typography.Title level={3} className={styles.text}>
                     Родители смогут увидеть ваш кружок с помощью карты и узнать информацию о нём!
                 </Typography.Title>
-                {/*<Image src={mobileApp} alt={"Мобильное приложения на странице создания кружка"}/>*/}
             </div>
         </Row>
     )

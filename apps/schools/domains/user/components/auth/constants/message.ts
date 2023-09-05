@@ -11,6 +11,7 @@ export const UserAlreadyExitsMsg = 'Пользователь с таким те�
 export const SendNewSmsCodeMsg = 'Вам отправлен новый смс-код'
 export const WrongSmsCodeMsg = 'Неверный смс-код'
 export const LoadingMsg = 'Загрузка...'
+export const LoadingRequestMsg = 'Выполняется...'
 export const SuccessSignInMsg = 'Вы успешно вошли в аккаунт'
 export const SuccessResetPasswordMsg = 'Вы успешно сменили пароль'
 export const SuccessRegistrationMsg = 'Вы успешно зарегистрировались'

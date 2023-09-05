@@ -51,13 +51,14 @@
         .mapButton {
           width: 24%;
           margin-top: 38px;
-          color: #2698FF;
+          color: $main-blue-color;
           padding-left: 1%;
         }
       }
 
 
       .button {
+        width: 30%;
         text-align: center;
         font-family: 'Roboto', sans-serif;
         font-size: 16px;
