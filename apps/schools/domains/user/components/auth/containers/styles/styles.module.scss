@@ -45,4 +45,25 @@
             letter-spacing: -1.5px;
         }
     }
+
+    .containerCookie {
+        position: fixed;
+        bottom: 2em;
+        left: 50%;
+        transform: translateX(-50%);
+        align-items: center;
+        display: flex;
+        border-radius: 10px;
+        background: #1890FF;
+        padding: 20px;
+
+        .cookieText {
+            color: white;
+        }
+
+        .successButton {
+            background: white;
+            color: blue;
+        }
+    }
 }

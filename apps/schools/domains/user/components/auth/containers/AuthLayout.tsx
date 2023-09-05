@@ -1,4 +1,4 @@
-import { Row } from 'antd'
+import { Row, Typography } from 'antd'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import Link from 'next/link'
@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { AuthBackground } from '../authBackground'
 import getConfig from 'next/config'
 import { CustomLogo } from '@domains/common/components/Logo'
+import { Button } from "@domains/common/components/button";
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement
@@ -39,8 +40,17 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
                     <div className={styles.emailText}>{SUPPORT_EMAIL}</div>
                 </a>
             </Row>
+            <div className={styles.containerCookie}>
+                <Typography.Text strong className={styles.cookieText}>
+                    Наш сайт использует файлы cookie, чтобы улучшить работу сайта, повысить его эффективность и
+                    удобство. Продолжая использовать этот сайт, вы даете согласие на обработку файлов cookie.
+                </Typography.Text>
+                <Button className={styles.successButton}>
+                    Принимаю
+                </Button>
+            </div>
         </div>
     )
 }
 
-export default AuthLayout
+export default AuthLayout;
