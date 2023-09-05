@@ -30,7 +30,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
     let baseColumns: any[]
 
     if (customWidths && customWidths.length !== columnsTitlesAndKeys.length) {
-        throw new Error('Длина customWidths должна соответствовать длине columnsTitlesAndKeys.');
+        throw new Error('Длина customWidths должна соответствовать длине columnsTitlesAndKeys.')
     }
 
     if (!customWidths) {
