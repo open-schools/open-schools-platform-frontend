@@ -78,6 +78,7 @@ export function CircleList() {
                         )
                     },
                 }}
+                customWidths={[60, 25, 15]}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
             />

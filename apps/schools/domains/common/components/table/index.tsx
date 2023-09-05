@@ -23,15 +23,27 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         setSearchRequestText,
         mainRoute,
         needNumbering,
+        customWidths,
         ...restProps
     } = props
 
-    const baseColumns = columnsTitlesAndKeys.map(([title, key]) => ({
-        dataIndex: key,
-        key,
-        title,
-        width: calculateAverageWidth(columnsTitlesAndKeys.map(([title]) => title)),
-    }))
+    let baseColumns: any[]
+
+    if (!customWidths) {
+        baseColumns = columnsTitlesAndKeys.map(([title, key]) => ({
+            dataIndex: key,
+            key,
+            title,
+            width: calculateAverageWidth(columnsTitlesAndKeys.map(([title]) => title)),
+        }))
+    } else {
+        baseColumns = columnsTitlesAndKeys.map(([title, key], index: number) => ({
+            dataIndex: key,
+            key,
+            title,
+            width: `${customWidths[index]}%`,
+        }))
+    }
 
     const columnsWithIndex = [
         {
@@ -39,6 +51,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
             dataIndex: 'index',
             key: 'index',
             align: 'center',
+            width: '5%',
         },
         ...baseColumns,
     ]
