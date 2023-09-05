@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { AuthBackground } from '../authBackground'
 import getConfig from 'next/config'
 import { CustomLogo } from '@domains/common/components/Logo'
-import { Button } from "@domains/common/components/button";
+import { Button } from '@domains/common/components/button'
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement
@@ -45,12 +45,10 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
                     Наш сайт использует файлы cookie, чтобы улучшить работу сайта, повысить его эффективность и
                     удобство. Продолжая использовать этот сайт, вы даете согласие на обработку файлов cookie.
                 </Typography.Text>
-                <Button className={styles.successButton}>
-                    Принимаю
-                </Button>
+                <Button className={styles.successButton}>Принимаю</Button>
             </div>
         </div>
     )
 }
 
-export default AuthLayout;
+export default AuthLayout
