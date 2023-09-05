@@ -12,7 +12,7 @@ import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationA
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
-import { getVarsForAddressColumn } from '@domains/student/components/studentList/utils'
+import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')

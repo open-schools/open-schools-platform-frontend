@@ -6,7 +6,7 @@ import {
     PARENT_PHONE,
     STUDENT_NAME,
     STUDENT_PHONE,
-} from '@domains/student/components/createStudentForm/constants'
+} from '../components/createStudentForm/constants'
 import { isPhoneValid, removeEmpty } from '@domains/common/utils/form'
 import { withLoadingMessage } from '@domains/common/utils/loading'
 

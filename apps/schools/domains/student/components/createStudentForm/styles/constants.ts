@@ -1,1 +1,1 @@
-export const TOOLTIP_MARGIN_TOP = '45%'
+export const TOOLTIP_MARGIN_TOP = '47px'

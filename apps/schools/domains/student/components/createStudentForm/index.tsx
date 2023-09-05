@@ -1,4 +1,4 @@
-import { Form, Select, Typography } from 'antd'
+import { Form, Typography } from 'antd'
 import React, { useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
@@ -6,7 +6,7 @@ import { Button } from '@domains/common/components/button'
 import { useCreateStudentFormValidators } from './hooks'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { useInviteStudentMutation } from '@domains/circle/redux/circleApi'
-import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi';
+import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import {
     CIRCLES,
@@ -18,6 +18,7 @@ import {
 import { handleSubmitForm } from '@domains/student/handlers/student'
 import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
 import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentForm/styles/constants'
+import { Select } from '@domains/common/components/select'
 
 export const CreateStudentForm = () => {
     const validators = useCreateStudentFormValidators()
@@ -123,6 +124,7 @@ export const CreateStudentForm = () => {
                 >
                     <Select
                         mode='multiple'
+                        customType={'selectMultiple'}
                         placeholder='Выберите кружок'
                         className={styles.select}
                         loading={circlesData.isLoading}
