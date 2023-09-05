@@ -17,8 +17,8 @@
             gap: 10px;
 
             .logoText {
-                color: var(--unnamed, #2698FF);
-                font-family: "Roboto";
+                color: $main-blue-color;
+                font-family: "Roboto", sans-serif;
                 font-size: 20px;
                 font-style: normal;
                 font-weight: 700;
@@ -37,7 +37,7 @@
 
         .emailText {
             color: var(--unnamed, #434343);
-            font-family: "Roboto";
+            font-family: "Roboto", sans-serif;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;

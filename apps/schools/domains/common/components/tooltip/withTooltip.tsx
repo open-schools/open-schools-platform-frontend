@@ -1,6 +1,6 @@
 import styles from './styles/styles.module.scss'
 
-import { Row, Tooltip } from 'antd'
+import { Row, RowProps, Tooltip } from 'antd'
 import { QuestionCircleFilled } from '@ant-design/icons'
 import React from 'react'
 import {
@@ -11,7 +11,7 @@ import {
     ICON_SIZES,
 } from '@domains/common/components/tooltip/styles/styles'
 
-interface WithTooltipProps {
+interface WithTooltipProps extends RowProps {
     children: React.ReactNode
     tooltipText: string
     iconSize?: 'small' | 'medium' | 'large'
@@ -20,7 +20,7 @@ interface WithTooltipProps {
     overlayInnerColor?: string
 }
 
-export const WithTooltip: React.FC<WithTooltipProps> = (props) => {
+export const WithTooltip: React.FC<WithTooltipProps> = (params) => {
     const {
         children,
         tooltipText,
@@ -28,10 +28,11 @@ export const WithTooltip: React.FC<WithTooltipProps> = (props) => {
         margin = DEFAULT_MARGIN,
         overlayInnerStyle = DEFAULT_OVERLAY_INNER_STYLE,
         overlayInnerColor = DEFAULT_OVERLAY_INNER_COLOR,
-    } = props
+        ...props
+    } = params
 
     return (
-        <Row className={styles.itemRow}>
+        <Row className={styles.itemRow} {...props}>
             <div className={styles.fieldDiv}>{children}</div>
             <div className={styles.tooltipContainer}>
                 <Tooltip

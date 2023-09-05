@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import {
     EmailIsNotValidMsg,
-    NameMustContainMsg,
-    NameMustNotStartOrAndMsg,
+    PersonNameMustContainMsg,
+    PersonNameMustNotStartOrAndMsg,
     PasswordIsTooShortMsg,
     PleaseConfirmYourPasswordMsg,
     PleaseInputYourNameMsg,
@@ -23,12 +23,12 @@ export const useRegisterFormValidators = () => {
                     type: 'string',
                 },
                 {
-                    message: NameMustContainMsg,
+                    message: PersonNameMustContainMsg,
                     // TODO: move code above regexps to constants
                     pattern: /^[А-Яа-яA-Za-z]+(?: [А-Яа-яA-Za-z]+)*$/,
                 },
                 {
-                    message: NameMustNotStartOrAndMsg,
+                    message: PersonNameMustNotStartOrAndMsg,
                     // TODO: move code above regexps to constants
                     validator: (_, value) =>
                         !/[-]\s|\s[-]/.test(value && value.trim()) ? Promise.resolve() : Promise.reject(),
