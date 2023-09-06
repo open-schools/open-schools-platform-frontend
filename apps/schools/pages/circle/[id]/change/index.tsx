@@ -1,11 +1,22 @@
-import React from "react";
+import React from 'react'
+import Head from 'next/head'
+import { PageContent } from '@domains/common/components/containers/PageContent'
+import { OrganizationRequired } from '@domains/common/components/containers/OrganizationRequired'
+import {ChangeCircleForm} from "@domains/circle/components/changeCircleForm";
 
-const Index = () => {
+export const Change = () => {
   return (
-    <div>
+      <>
+        <Head>
+          <title>Редактирование кружка</title>
+        </Head>
+        <PageContent>
+          <OrganizationRequired>
+            <ChangeCircleForm />
+          </OrganizationRequired>
+        </PageContent>
+      </>
+  )
+}
 
-    </div>
-  );
-};
-
-export default Index;
+export default Change

@@ -29,3 +29,4 @@ export const PleaseInputYourEmailMsg = 'Пожалуйста, введите в�
 export const PleaseSelectOneOfOptionsMsg = 'Пожалуйста, выберите один из вариантов'
 export const SuccessInviteEmployeeMsg = 'Приглашение отправлено'
 export const SuccessCreateCircleMsg = 'Кружок успешно создан'
+export const SuccessUpdateCircleMsg = 'Кружок успешно изменён'

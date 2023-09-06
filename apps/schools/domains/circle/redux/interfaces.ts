@@ -26,6 +26,13 @@ export interface CreateCircleData {
     location: string
 }
 
+export interface ChangeCircleData {
+    name?: string
+    address?: string
+    location?: string
+    circle_id: string
+}
+
 export interface AllCirclesIcalData extends BasePaginationData {
     id?: string
     organization?: string
