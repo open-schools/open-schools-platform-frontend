@@ -22,6 +22,7 @@ import android from '@public/image/Android.svg'
 import { searchColumns } from './constants'
 import { CurrentCircleRowType } from './interfaces'
 import styles from './styles/styles.module.scss'
+import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -56,6 +57,7 @@ const CurrentCircle = () => {
     })
 
     const countAllQueries = sumObjectValues(queriesCount)
+    const addressVars = getVarsForAddressColumn(circle?.circle.address ?? '')
 
     return (
         <>
@@ -64,7 +66,7 @@ const CurrentCircle = () => {
             </Typography.Title>
             <Row className={styles.headersBlock}>
                 <Col lg={12} md={24} xs={24} sm={24} className={styles.queriesBlock}>
-                    <Col span={24}>{circle?.circle.address}</Col>
+                    <Col span={24}>{`${addressVars[0]}, ${addressVars[1]}`}</Col>
                     <Typography.Title level={2}>Заявки</Typography.Title>
                     <Row className={styles.Row}>
                         <div>Всего</div>

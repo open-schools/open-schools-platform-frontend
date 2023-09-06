@@ -22,9 +22,11 @@ export const Select: React.FC<CustomInputProps> = (props) => {
             <div className={defaultStyles.selectContainer}>
                 <label>{label}</label>
                 <BaseSelect
+                    disabled={disabled}
                     className={classNames(defaultStyles.select, className)}
                     placeholder={placeholder}
                     data-testid='select'
+                    options={options}
                     {...restProps}
                 >
                     {children}
@@ -57,6 +59,7 @@ export const Select: React.FC<CustomInputProps> = (props) => {
                     className={classNames(selectStyleDictionary['selectDefault']?.select, className)}
                     {...restProps}
                     showSearch={true}
+                    disabled={disabled}
                     onSearch={handleSearch}
                     onSelect={() => setAddressText('')}
                     placeholder={placeholder}
@@ -72,9 +75,11 @@ export const Select: React.FC<CustomInputProps> = (props) => {
             <div className={selectStyleDictionary[customType]?.selectContainer}>
                 <label>{label}</label>
                 <BaseSelect
+                    disabled={disabled}
                     className={classNames(selectStyleDictionary[customType]?.select, className)}
                     {...restProps}
                     placeholder={placeholder}
+                    options={options}
                     data-testid='select'
                 >
                     {children}
