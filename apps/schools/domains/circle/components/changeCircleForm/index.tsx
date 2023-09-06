@@ -13,7 +13,7 @@ import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
 import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
-import { handleSubmitForm } from '../../handlers/circle'
+import { handleSubmitForm } from '../../handlers/circleUpdate'
 import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
@@ -104,10 +104,10 @@ export const ChangeCircleForm = () => {
                                             customType={'selectInput'}
                                             className={styles.select}
                                             loading={circlesData.isLoading}
-                                            options={circlesAddresses?.map((x: string | undefined) => {
+                                            options={circlesAddresses?.map((address: string | undefined) => {
                                                 return {
-                                                    value: x,
-                                                    label: x,
+                                                    value: address,
+                                                    label: address,
                                                 }
                                             })}
                                         />

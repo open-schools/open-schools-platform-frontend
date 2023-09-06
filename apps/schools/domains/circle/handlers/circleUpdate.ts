@@ -1,7 +1,7 @@
 import { FormInstance, message } from 'antd'
 import { LoadingRequestMsg, SuccessUpdateCircleMsg } from '@domains/user/components/auth/constants/message'
 import { removeEmpty } from '@domains/common/utils/form'
-import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from '../components/createCircleForm/constants'
+import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from '../components/changeCircleForm/constants'
 import { withLoadingMessage } from '@domains/common/utils/loading'
 import { ADDRESS_SEPARATOR } from '@domains/common/utils/geo'
 
