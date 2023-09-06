@@ -1,0 +1,11 @@
+
+.form {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.20);
+  background-color: white;
+  z-index: 1; /* Чтобы форма находилась выше карты */
+}
