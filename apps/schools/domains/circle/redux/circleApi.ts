@@ -6,6 +6,7 @@ import {
     CircleStudentsData,
     CreateCircleData,
     CreateCircleInviteStudentData,
+    ChangeCircleData,
 } from './interfaces'
 import { GetCircle, GetQueryStatus, GetStudent } from '@domains/common/redux/serializers'
 
@@ -22,6 +23,13 @@ const circleApi = commonApi.injectEndpoints({
             query: (data) => ({
                 url: '/organization-management/circles',
                 method: 'POST',
+                body: data,
+            }),
+        }),
+        changeCircle: build.mutation<{ circle: GetCircle }, ChangeCircleData>({
+            query: (data) => ({
+                url: `/organization-management/circles/${data.circle_id}`,
+                method: 'PATCH',
                 body: data,
             }),
         }),
@@ -61,4 +69,5 @@ export const {
     useGetCircleQuery,
     useDeleteCircleMutation,
     useInviteStudentMutation,
+    useChangeCircleMutation,
 } = circleApi

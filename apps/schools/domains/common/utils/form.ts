@@ -6,10 +6,13 @@ export function checkIfNotEmptyValue(x: any) {
     return Boolean(Array.isArray(x) ? x.length !== 0 : x)
 }
 
-export function isValidFormCheck(form: FormInstance, required_fields: string[]) {
-    return Object.entries(form.getFieldsValue()).every(
-        (x) => checkIfNotEmptyValue(x[1]) || !required_fields.includes(x[0]),
-    )
+export function isValidFormCheck(form: FormInstance, required_fields: string[], initial_values: any = {}) {
+    if (Object.keys(initial_values).length === 0)
+        return Object.entries(form.getFieldsValue()).every(
+            (x) => checkIfNotEmptyValue(x[1]) || !required_fields.includes(x[0]),
+        )
+
+    return !Object.entries(form.getFieldsValue()).every((x) => x[1] === initial_values[x[0]])
 }
 
 export function isPhoneValid(form: FormInstance, field_name: string) {

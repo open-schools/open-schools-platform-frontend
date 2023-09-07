@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
-import { useCreateCircleFormValidators } from './hooks'
+import { useChangeCircleFormValidators } from './hooks'
 import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
@@ -13,28 +13,43 @@ import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
 import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
-import { handleSubmitForm } from '../../handlers/circleCreate'
-import { useCreateCircleMutation } from '../../redux/circleApi'
+import { handleSubmitForm } from '../../handlers/circleUpdate'
+import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
+import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 
-export const CreateCircleForm = () => {
-    const validators = useCreateCircleFormValidators()
-    const { organization, organizationId } = useOrganization()
+export const ChangeCircleForm = () => {
+    const validators = useChangeCircleFormValidators()
+    const { organizationId } = useOrganization()
     const [form] = Form.useForm()
     const [isFormValid, setIsFormValid] = useState(false)
-    const [mutation] = useCreateCircleMutation()
+    const [mutation] = useChangeCircleMutation()
+
+    const circleId = getUuidFromUrl()[0]
+
+    const circleData = useGetCircleQuery({
+        circle_id: circleId,
+    })
+    const currentCircle = circleData?.data?.circle
+
     const circlesData = useGetAllCirclesQuery({
-        organization_id: organization.id,
+        organization_id: organizationId,
     })
     const circlesAddresses = Array.from(
         new Set(circlesData?.data?.results.map((x) => getVarsForAddressColumn(x.address)[0])),
     )
 
-    const validationCheck = () => {
-        setIsFormValid(isValidFormCheck(form, [CIRCLE_NAME, CIRCLE_ADDRESS]))
+    const initialValues = {
+        [CIRCLE_NAME]: currentCircle?.name,
+        [CIRCLE_ADDRESS]: getVarsForAddressColumn(currentCircle?.address ?? '')[0],
+        [ADDRESS_ROOM]: getVarsForAddressColumn(currentCircle?.address ?? '')[1],
     }
 
-    return (
+    const validationCheck = () => {
+        setIsFormValid(isValidFormCheck(form, [], initialValues))
+    }
+
+    return !circleData.isLoading ? (
         <Row className={styles.mainRow}>
             <div className={styles.formContainer}>
                 <Form
@@ -44,13 +59,13 @@ export const CreateCircleForm = () => {
                     requiredMark={false}
                     onValuesChange={validationCheck}
                     onFinish={() => {
-                        handleSubmitForm(organizationId, form, mutation).then((isSucceed) => {
-                            if (isSucceed) window.location.href = '/circle'
+                        handleSubmitForm(circleId, form, mutation).then((isSucceed) => {
+                            if (isSucceed) window.location.href = `/circle/${circleId}`
                         })
                     }}
                     layout='vertical'
                 >
-                    <Typography.Title level={1}>Добавление кружка</Typography.Title>
+                    <Typography.Title level={1}>Редактирование кружка</Typography.Title>
                     <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
                         <Form.Item
                             required={true}
@@ -62,6 +77,7 @@ export const CreateCircleForm = () => {
                             name={CIRCLE_NAME}
                             className={styles.label}
                             rules={validators.name}
+                            initialValue={initialValues[CIRCLE_NAME]}
                         >
                             <Input required={true} placeholder='Введите название кружка' />
                         </Form.Item>
@@ -79,7 +95,7 @@ export const CreateCircleForm = () => {
                                             </span>
                                         }
                                         name={CIRCLE_ADDRESS}
-                                        initialValue={circlesAddresses[0]}
+                                        initialValue={initialValues[CIRCLE_ADDRESS]}
                                         className={classnames(styles.label, styles.address)}
                                         rules={validators.address}
                                     >
@@ -101,7 +117,7 @@ export const CreateCircleForm = () => {
                                         label={'Помещение'}
                                         name={ADDRESS_ROOM}
                                         className={classnames(styles.label, styles.room)}
-                                        initialValue={''}
+                                        initialValue={initialValues[ADDRESS_ROOM]}
                                         rules={validators.room}
                                     >
                                         <Input className={styles.input} placeholder='Помещение и номер' />
@@ -127,17 +143,13 @@ export const CreateCircleForm = () => {
                             data-cy='resetcomplete-button'
                             className={styles.button}
                         >
-                            Добавить кружок
+                            Сохранить изменения
                         </Button>
                     </Form.Item>
                 </Form>
             </div>
-            <div className={styles.mobileApp}>
-                <Typography.Title level={3}>Приложение родителей</Typography.Title>
-                <Typography.Title level={3} className={styles.text}>
-                    Родители смогут увидеть ваш кружок с помощью карты и узнать информацию о нём!
-                </Typography.Title>
-            </div>
         </Row>
+    ) : (
+        <Spin></Spin>
     )
 }
