@@ -8,8 +8,6 @@ import getConfig from 'next/config'
 import { Input } from '@domains/common/components/input'
 import { Select } from '@domains/common/components/select'
 
-
-
 const MapComponent = () => {
     const {
         publicRuntimeConfig: {
@@ -63,10 +61,12 @@ const MapComponent = () => {
 
             if ((accurateAddress.match(/,/g) || []).length === 3) {
                 const commaIndex = accurateAddress.indexOf(',')
-                const currentCity = accurateAddress.substring(commaIndex + 1, accurateAddress.indexOf(',', commaIndex + 1)).trim();
-                const newAddress = accurateAddress.substring(accurateAddress.indexOf(',', commaIndex + 1) + 1).trim();
-                form.setFieldValue('address', newAddress);
-                form.setFieldValue('city', currentCity);
+                const currentCity = accurateAddress
+                    .substring(commaIndex + 1, accurateAddress.indexOf(',', commaIndex + 1))
+                    .trim()
+                const newAddress = accurateAddress.substring(accurateAddress.indexOf(',', commaIndex + 1) + 1).trim()
+                form.setFieldValue('address', newAddress)
+                form.setFieldValue('city', currentCity)
             } else {
                 const commaIndex = address.indexOf(',')
                 const currentCity = address.slice(0, commaIndex).trim()
@@ -104,16 +104,16 @@ const MapComponent = () => {
     }
 
     const handleCityChange = (e) => {
-        const selectedCity = cities.find(city => city.name === e);
+        const selectedCity = cities.find((city) => city.name === e)
 
         if (selectedCity) {
             setMapState({
                 center: selectedCity.coordinates,
                 zoom: 12,
-            });
-            form.setFieldValue('city', selectedCity.name);
+            })
+            form.setFieldValue('city', selectedCity.name)
         } else {
-            console.error('Город не найден');
+            console.error('Город не найден')
         }
     }
 
@@ -168,4 +168,4 @@ const MapComponent = () => {
     )
 }
 
-export default MapComponent;
+export default MapComponent

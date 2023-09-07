@@ -16,7 +16,7 @@ import { Select } from '@domains/common/components/select'
 import { handleSubmitForm } from '../../handlers/circleCreate'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
-import AddressForm from "@domains/circle/components/addressForm";
+import AddressForm from '@domains/circle/components/addressForm'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
@@ -139,7 +139,7 @@ export const CreateCircleForm = () => {
                     Родители смогут увидеть ваш кружок с помощью карты и узнать информацию о нём!
                 </Typography.Title>
             </div>
-            <AddressForm/>
+            <AddressForm />
         </Row>
     )
 }
