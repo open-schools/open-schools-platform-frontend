@@ -14,11 +14,11 @@ const points = [
 const MapComponent = () => {
     const [form] = Form.useForm()
 
-    const style = {
+    const style: React.CSSProperties = {
         position: 'relative',
         width: '100%',
         height: '600px',
-    } as React.CSSProperties
+    }
 
     return (
         <YMaps>
