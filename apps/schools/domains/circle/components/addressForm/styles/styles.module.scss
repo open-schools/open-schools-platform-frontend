@@ -1,3 +1,32 @@
 .container {
   width: 100%;
+
+  .buttonContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 30px;
+    margin-top: 50px;
+
+    .cancelButton {
+      background-color: white;
+      color: #2698FF;
+      width: 79px;
+      border-color: #2698FF;
+
+      &:hover {
+        background-color: rgba(24, 144, 255, 0.1);
+      }
+
+      &:active {
+        background-color: #1890FF;
+        color: #FFFFFF;
+      }
+    }
+
+    .saveButton {
+      width: 112px;
+    }
+  }
 }
