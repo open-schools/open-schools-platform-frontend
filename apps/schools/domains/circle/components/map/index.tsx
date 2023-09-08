@@ -89,7 +89,7 @@ const MapComponent = () => {
 
             setAddress(newAddress)
 
-            if ((accurateAddress.match(/,/g) || []).length !== 1) {
+            if ((accurateAddress.match(/,/g) || []).length !== 2 && (accurateAddress.match(/,/g) || []).length !== 1) {
                 const commaIndex = accurateAddress.indexOf(',')
                 const currentCity = accurateAddress
                     .substring(commaIndex + 1, accurateAddress.indexOf(',', commaIndex + 1))
