@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { YMaps, Map } from '@pbe/react-yandex-maps'
-import {Form, message, Typography} from 'antd'
+import { Form, message, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'
 import cities from '@public/cities.json'
@@ -56,8 +56,8 @@ const MapComponent = () => {
         const customIconLayout = ymaps.current.templateLayoutFactory.createClass(
             `<div style="background-color: transparent; width: 50px; height: 50px; margin-left: -30px; margin-top: -80px">
                 ${placeMarkSvg}
-            </div>`
-        );
+            </div>`,
+        )
 
         return new ymaps.current.Placemark(
             coords,
@@ -119,7 +119,7 @@ const MapComponent = () => {
     }
 
     const onMapClick = (e: { get: (prop: string) => any }) => {
-        const coords = e.get('coords');
+        const coords = e.get('coords')
 
         if (placeMarkRef.current) {
             placeMarkRef.current.geometry.setCoordinates(coords)

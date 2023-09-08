@@ -1,8 +1,8 @@
 import React from 'react'
-import {Row, Typography} from 'antd'
+import { Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import MapComponent from '@domains/circle/components/map'
-import {Button} from "@domains/common/components/button";
+import { Button } from '@domains/common/components/button'
 
 const AddressForm = () => {
     return (
@@ -14,8 +14,12 @@ const AddressForm = () => {
             </Typography.Title>
             <MapComponent />
             <Row className={styles.buttonContainer}>
-                <Button className={styles.cancelButton} onClick={() => window.location.href = './'}>Назад</Button>
-                <Button className={styles.saveButton} onClick={() => window.location.href = './'}>Сохранить</Button>
+                <Button className={styles.cancelButton} onClick={() => (window.location.href = './')}>
+                    Назад
+                </Button>
+                <Button className={styles.saveButton} onClick={() => (window.location.href = './')}>
+                    Сохранить
+                </Button>
             </Row>
         </div>
     )

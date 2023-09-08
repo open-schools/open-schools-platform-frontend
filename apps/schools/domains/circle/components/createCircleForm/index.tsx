@@ -16,7 +16,7 @@ import { Select } from '@domains/common/components/select'
 import { handleSubmitForm } from '../../handlers/circleCreate'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
@@ -110,7 +110,12 @@ export const CreateCircleForm = () => {
                                     </Form.Item>
                                 </AntdInput.Group>
 
-                                <Button className={styles.mapButton} onClick={() => router.push('create/map')} antdType={'text'} icon={<AimOutlined />}>
+                                <Button
+                                    className={styles.mapButton}
+                                    onClick={() => router.push('create/map')}
+                                    antdType={'text'}
+                                    icon={<AimOutlined />}
+                                >
                                     Выбрать на карте
                                 </Button>
                             </>
