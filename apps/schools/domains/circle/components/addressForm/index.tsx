@@ -3,7 +3,7 @@ import { Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import MapComponent from '@domains/circle/components/map'
 import { Button } from '@domains/common/components/button'
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
 const AddressForm = () => {
     const router = useRouter()
