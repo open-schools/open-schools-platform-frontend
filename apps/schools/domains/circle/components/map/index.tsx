@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React from 'react'
-import { YMaps, Map } from '@pbe/react-yandex-maps'
+import { YMaps, Map } from 'react-yandex-maps'
 import { Form, message, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'

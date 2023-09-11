@@ -3,8 +3,11 @@ import { Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import MapComponent from '@domains/circle/components/map'
 import { Button } from '@domains/common/components/button'
+import { useRouter } from "next/router";
 
 const AddressForm = () => {
+    const router = useRouter()
+
     return (
         <div className={styles.container}>
             <Typography.Title level={1}>Добавление кружка</Typography.Title>
@@ -14,10 +17,10 @@ const AddressForm = () => {
             </Typography.Title>
             <MapComponent />
             <Row className={styles.buttonContainer}>
-                <Button className={styles.cancelButton} onClick={() => (window.location.href = './')}>
+                <Button className={styles.cancelButton} onClick={() => router.push('./')}>
                     Назад
                 </Button>
-                <Button className={styles.saveButton} onClick={() => (window.location.href = './')}>
+                <Button className={styles.saveButton} onClick={() => router.push('./')}>
                     Сохранить
                 </Button>
             </Row>
