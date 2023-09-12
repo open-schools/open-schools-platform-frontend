@@ -19,11 +19,14 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         data,
         isLoading,
         searchFields,
+        customFilterFields,
         searchRequestText,
         setSearchRequestText,
         mainRoute,
         needNumbering,
         customWidths,
+        sortFields,
+        loading,
         ...restProps
     } = props
 
@@ -90,13 +93,13 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         }
     }, [isLoading, data, searchRequestText])
 
-    const columns = useGenerateFullColumns<RowType>(baseColumns, data ? data?.results : [], filterFields)
+    const columns = useGenerateFullColumns<RowType>(baseColumns, data ? data?.results : [], filterFields, sortFields, customFilterFields)
 
     if (typeTable.includes(customType)) {
         return (
             <>
                 <DefaultTable
-                    loading={isTableLoading || isLoading}
+                    loading={isTableLoading || isLoading || loading}
                     className={styles.tableContainer}
                     columns={needNumbering ? (columnsWithIndex as ColumnType<RowType>[]) : columns}
                     dataSource={dataSource}
@@ -142,7 +145,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                     }
                 />
                 <DefaultTable
-                    loading={isTableLoading || isLoading}
+                    loading={isTableLoading || isLoading || loading}
                     className={styles.tableContainer}
                     columns={needNumbering ? (columnsWithIndex as ColumnType<RowType>[]) : columns}
                     dataSource={dataSource}

@@ -2,8 +2,13 @@ import { ColumnType } from 'antd/lib/table/interface'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import { getSearchText } from '@domains/common/utils/searchText'
-import { CustomFieldsProps, HighlightTextProps } from '@domains/common/components/table/interfaces'
+import {
+    CustomFieldsProps,
+    CustomFilterFieldsProps,
+    HighlightTextProps
+} from '@domains/common/components/table/interfaces'
 import { filterTextShaper } from '@domains/common/utils/filterTextShaper'
+import { isReactElement} from '@domains/common/utils/react'
 
 export interface RawColumnType<RowType> extends ColumnType<RowType> {
     hidden?: boolean
@@ -14,6 +19,8 @@ export function useGenerateFullColumns<RowType>(
     baseColumns?: RawColumnType<RowType>[],
     data?: any[],
     filterFields?: string[],
+    sortFields?: string[],
+    customFilterFields?: CustomFilterFieldsProps<RowType>
 ): ColumnType<RowType>[] {
     const uniqueFilters: Record<string, any[]> = {}
 
@@ -31,20 +38,45 @@ export function useGenerateFullColumns<RowType>(
 
     return baseColumns!.map((column) => {
         const isFilterable = filterFields!.includes(column.dataIndex as string)
+        const isCustomFilterable = customFilterFields && (column.dataIndex as string) in customFilterFields!
+        const isSortable = sortFields && sortFields!.includes(column.dataIndex as string)
+
+        let columnDict = column
 
         if (isFilterable) {
             const filters = uniqueFilters[column.dataIndex]
 
-            return {
+            columnDict = {
                 filters,
                 onFilter: (value, record) => {
-                    return (record as any)[column.dataIndex].props.text === value
+                    const obj = (record as any)[column.dataIndex]
+
+                    if (!isReactElement(obj)) return obj === value
+                    return obj.props.text === value
                 },
-                ...column,
+                ...columnDict,
             }
-        } else {
-            return column
         }
+
+        if (isCustomFilterable) {
+            const filtersProps = customFilterFields[column.dataIndex]
+
+            columnDict = {
+                filters: filtersProps.filters || columnDict.filters,
+                filteredValue: filtersProps.filteredValue,
+                onFilter: filtersProps.onFilter || columnDict.onFilter,
+                ...columnDict,
+            }
+        }
+
+        if (isSortable)
+            columnDict = {
+                sorter: (a, b) =>
+                    column.dataIndex && (a as any)[column.dataIndex] < (b as any)[column.dataIndex] ? 1 : -1,
+                ...columnDict,
+            }
+
+        return columnDict
     })
 }
 

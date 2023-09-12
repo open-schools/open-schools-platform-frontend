@@ -30,9 +30,11 @@ const EmptyWrapper: React.FC<EmptyWrapperProps> = ({
                             {titleText}
                         </Typography.Title>
                         <span className={styles.descriptionText}>{descriptionText}</span>
-                        <Button className={styles.button} onClick={handleRunTask}>
-                            {buttonText}
-                        </Button>
+                        {buttonText && (
+                            <Button className={styles.button} onClick={handleRunTask}>
+                                {buttonText}
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>
