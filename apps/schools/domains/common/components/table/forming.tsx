@@ -2,7 +2,7 @@ import { ColumnType } from 'antd/lib/table/interface'
 import React from 'react'
 import styles from './styles/styles.module.scss'
 import { getSearchText } from '@domains/common/utils/searchText'
-import { HighlightTextProps } from '@domains/common/components/table/interfaces'
+import { CustomFieldsProps, HighlightTextProps } from '@domains/common/components/table/interfaces'
 import { filterTextShaper } from '@domains/common/utils/filterTextShaper'
 
 export interface RawColumnType<RowType> extends ColumnType<RowType> {
@@ -52,7 +52,7 @@ function escapeRegExp(text: string) {
     return text.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&')
 }
 
-function HighlightText({ text, searchText }: HighlightTextProps) {
+export function HighlightText({ text, searchText }: HighlightTextProps) {
     const isMatch = text.toLowerCase().includes(searchText.toLowerCase())
 
     if (isMatch) {
@@ -81,6 +81,7 @@ export function objectReBuilder<DataItemType>(
     fields: string[],
     searchFields: string[],
     searchRequestText: string,
+    customFields: CustomFieldsProps,
     needId: boolean,
 ): Array<Object> {
     let resultArray: Array<Object> = []
@@ -88,7 +89,9 @@ export function objectReBuilder<DataItemType>(
     data.forEach((item: any) => {
         const newItem: any = {}
         for (const field of fields) {
-            if (searchFields.includes(field))
+            if (field in customFields) {
+                newItem[field] = customFields[field]({ text: item[field], searchText: searchText })
+            } else if (searchFields.includes(field))
                 newItem[field] = <HighlightText text={item[field] ?? ''} searchText={searchText} />
             else newItem[field] = item[field]
         }

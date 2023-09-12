@@ -1,7 +1,14 @@
 import { commonApi } from '@store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
-import { AllCirclesData, CircleData, CreateCircleData, CreateCircleInviteStudentData } from './interfaces'
-import { GetCircle, GetQueryStatus } from '@domains/common/redux/serializers'
+import {
+    AllCirclesData,
+    CircleData,
+    CircleStudentsData,
+    CreateCircleData,
+    CreateCircleInviteStudentData,
+    ChangeCircleData,
+} from './interfaces'
+import { GetCircle, GetQueryStatus, GetStudent } from '@domains/common/redux/serializers'
 
 const circleApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -19,13 +26,27 @@ const circleApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
+        changeCircle: build.mutation<{ circle: GetCircle }, ChangeCircleData>({
+            query: (data) => ({
+                url: `/organization-management/circles/${data.circle_id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+        }),
         getCircle: build.query<{ circle: GetCircle }, CircleData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}`,
                 method: 'GET',
             }),
         }),
-        deleteCircle: build.query<{ circle: GetCircle }, CircleData>({
+        getCircleStudents: build.query<ReturnedData<GetStudent[]>, CircleStudentsData>({
+            query: (params) => ({
+                url: `/organization-management/circles/${params.circle_id}/students`,
+                method: 'GET',
+                params: params,
+            }),
+        }),
+        deleteCircle: build.mutation<{ circle: GetCircle }, CircleData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}`,
                 method: 'DELETE',
@@ -43,8 +64,10 @@ const circleApi = commonApi.injectEndpoints({
 
 export const {
     useGetAllCirclesQuery,
+    useGetCircleStudentsQuery,
     useCreateCircleMutation,
     useGetCircleQuery,
-    useDeleteCircleQuery,
+    useDeleteCircleMutation,
     useInviteStudentMutation,
+    useChangeCircleMutation,
 } = circleApi

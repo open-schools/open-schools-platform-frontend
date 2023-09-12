@@ -1,0 +1,44 @@
+@import "@domains/common/components/styles/abstracts/typography";
+
+.label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-bottom: 20px !important;
+}
+
+.modal {
+  :global {
+    .ant-modal-content {
+      border-radius: 16px !important;
+    }
+
+    .ant-modal-header {
+      border-radius: 16px 16px 0 0 !important;
+      padding: 20px 24px;
+      border-bottom: unset;
+    }
+
+    .ant-form-item-label {
+      padding: 0 !important;
+    }
+
+    .ant-modal-title {
+      font-family: 'Open-Sans', sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 28px;
+    }
+
+    .ant-modal-body {
+      padding: 0 24px 30px 24px !important;
+    }
+  }
+
+  .deleteButton {
+    width: 160px;
+  }
+}

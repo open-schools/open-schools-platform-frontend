@@ -1,0 +1,107 @@
+@import '@domains/common/components/styles/abstracts/_colors.scss';
+@import '@domains/common/components/styles/abstracts/typography.scss';
+
+.tableContainer {
+  :global .ant-table-empty {
+    margin-bottom: 50px;
+  }
+}
+
+.Row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  .colorCountAllQueries {
+    color: #222
+  }
+
+  .colorCountAllQueries {
+    color: #4CD174
+  }
+
+  .colorCountInProgressQueries {
+    color: #2698FF
+  }
+}
+
+.Row span {
+  bottom: -6px;
+  flex: 1;
+  position: relative;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.20);
+}
+
+.headersBlock {
+  height: initial;
+  margin-bottom: 42px;
+
+  .queriesBlock {
+    padding-right: 30px;
+
+    @media (max-width: 992px) {
+      padding-right: unset;
+      margin-bottom: 15px;
+    }
+  }
+
+  .card {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    position: relative;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 30px 23px 30px 30px;
+      position: relative;
+    }
+
+    & .ant-card-head {
+      padding: 0 28px;
+    }
+
+    :global .ant-card-body {
+      padding: 0 28px 15px 28px !important;
+    }
+
+    .mobile {
+      position: relative;
+      overflow-y: hidden;
+      width: 50%;
+      height: 100%;
+      flex: 0 0 182px;
+
+      .mobileImage {
+        position: absolute;
+      }
+    }
+  }
+}
+
+.name {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -1.5px;
+}
+
+.buttonBar {
+  margin-bottom: 50px;
+}
+
+
+.deleteButton {
+  width: 160px;
+}
+
+.changeButton {
+  width: 268px;
+}

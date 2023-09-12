@@ -6,7 +6,7 @@ import {
     EMPLOYEE_NAME,
     EMPLOYEE_PHONE,
     EMPLOYEE_POSITION,
-} from '@domains/employee/components/createEmployeeForm/constants'
+} from '../components/createEmployeeForm/constants'
 
 export async function handleSubmitForm(organizationId: string, formComponent: FormInstance, mutation: any) {
     const isValid = isPhoneValid(formComponent, EMPLOYEE_PHONE)

@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import { Button, Modal, Select, SelectProps } from 'antd'
+import { Button, Select, SelectProps } from 'antd'
 import styles from './styles/styles.module.scss'
 import { useGetAllOrganizationsQuery } from '@domains/organization/redux/organizationApi'
 
 import { OrganizationSelectProps } from './interfaces'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
+import { COLLAPSED_SELECT_STYLE, CREATE_BUTTON_STYLE, DROPDOWN_STYLE, SELECT_LIST_HEIGHT } from './styles/styles'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { SuffixIcon } from '@domains/common/components/Icons/suffixIcon'
+import CreateOrganizationForm from '@domains/organization/components/createOrganizationForm'
+import { DISPLAY_NONE } from '@domains/common/components/styles/constantStyles'
 
 const { Option } = Select
-
-const COLLAPSED_SELECT_STYLE = { height: '35px', width: '35px' }
-const CREATE_BUTTON_STYLE = { height: '35px', width: '35px' }
 
 export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => {
     const { collapsed } = props
@@ -80,17 +79,14 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => 
                             {organization.name}
                         </Option>
                     ))}
-                    <Option style={{ display: 'none' }}>Empty</Option>
+                    <Option style={DISPLAY_NONE}>Empty</Option>
                 </Select>
             )}
-            <Modal
-                className={styles.modal}
-                visible={isModalVisible}
-                footer={null}
-                onCancel={() => setIsModalVisible(false)}
-            >
-                {/*<CreateOrganization modalVisible={setIsModalVisible} />*/}
-            </Modal>
+            <CreateOrganizationForm
+                isModalVisible={isModalVisible}
+                setIsModalVisible={setIsModalVisible}
+                organizationCookieChange={organizationCookieChange}
+            />
         </div>
     )
 }

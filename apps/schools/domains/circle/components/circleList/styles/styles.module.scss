@@ -1,0 +1,62 @@
+@import '../../../../common/components/styles/abstracts/common';
+
+.tableContainer {
+  @extend %table;
+}
+
+.header {
+  margin-bottom: 31px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .button {
+    min-width: 200px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    width: 14%;
+  }
+}
+
+.search {
+  font-size: 150%;
+  position: absolute;
+  right: 30px;
+}
+
+.cross {
+  font-size: 100%;
+  position: absolute;
+  right: 60px;
+
+  :hover {
+    opacity: .6;
+  }
+
+  :active, :focus {
+    opacity: .8;
+  }
+}
+
+.additionalTextAddress {
+  color: $color-background;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.textAddress {
+  color: $color-foreground;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}

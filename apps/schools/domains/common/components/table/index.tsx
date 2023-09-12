@@ -8,10 +8,12 @@ import { useRouter } from 'next/router'
 import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
+import { ColumnType } from 'antd/lib/table/interface'
 
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
         customType = 'tableWithSearch',
+        customFields = {},
         filterFields,
         columnsTitlesAndKeys,
         data,
@@ -20,15 +22,43 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
         searchRequestText,
         setSearchRequestText,
         mainRoute,
+        needNumbering,
+        customWidths,
         ...restProps
     } = props
 
-    const baseColumns = columnsTitlesAndKeys.map(([title, key]) => ({
-        dataIndex: key,
-        key,
-        title,
-        width: calculateAverageWidth(columnsTitlesAndKeys.map(([title]) => title)),
-    }))
+    let baseColumns: any[]
+
+    if (customWidths && customWidths.length !== columnsTitlesAndKeys.length) {
+        throw new TypeError('Длина customWidths должна соответствовать длине columnsTitlesAndKeys.')
+    }
+
+    if (!customWidths) {
+        baseColumns = columnsTitlesAndKeys.map(([title, key]) => ({
+            dataIndex: key,
+            key,
+            title,
+            width: calculateAverageWidth(columnsTitlesAndKeys.map(([title]) => title)),
+        }))
+    } else {
+        baseColumns = columnsTitlesAndKeys.map(([title, key], index: number) => ({
+            dataIndex: key,
+            key,
+            title,
+            width: `${customWidths[index]}%`,
+        }))
+    }
+
+    const columnsWithIndex = [
+        {
+            title: 'Номер',
+            dataIndex: 'index',
+            key: 'index',
+            align: 'center',
+            width: '5%',
+        },
+        ...baseColumns,
+    ]
 
     const [isTableLoading, setIsTableLoading] = useState(false)
     const [inputText, setInputText] = useState('')
@@ -42,9 +72,20 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 columnsTitlesAndKeys.map((x) => x[1]),
                 searchFields,
                 searchRequestText,
+                customFields,
                 true,
             )
-            setDataSource(result)
+
+            if (needNumbering) {
+                const numberedResult = result.map((item, index) => ({
+                    ...item,
+                    index: index + 1,
+                }))
+
+                setDataSource(numberedResult)
+            } else {
+                setDataSource(result)
+            }
             setIsTableLoading(false)
         }
     }, [isLoading, data, searchRequestText])
@@ -57,7 +98,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={columns}
+                    columns={needNumbering ? (columnsWithIndex as ColumnType<RowType>[]) : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {
@@ -103,7 +144,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                 <DefaultTable
                     loading={isTableLoading || isLoading}
                     className={styles.tableContainer}
-                    columns={columns}
+                    columns={needNumbering ? (columnsWithIndex as ColumnType<RowType>[]) : columns}
                     dataSource={dataSource}
                     rowKey={(record) => record.id}
                     onRow={(element) => {

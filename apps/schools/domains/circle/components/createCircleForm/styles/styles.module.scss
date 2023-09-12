@@ -1,0 +1,89 @@
+@import '../../../../common/components/styles/abstracts/colors';
+
+.mainRow {
+  height: 100px;
+  justify-content: space-between;
+
+  .formContainer {
+    width: 700px;
+
+    .table {
+      max-width: 550px;
+
+      .requiredMark {
+        color: $color-required-mark;
+      }
+
+      .label {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+      }
+
+      .complexInputContainer {
+        width: 125%;
+
+        .complexInput {
+          width: 76%;
+
+          .address {
+            width: 65%;
+            border-radius: 0;
+
+            .input {
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+          }
+
+          .room {
+            width: 35%;
+
+            .input {
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
+            }
+          }
+        }
+
+        .mapButton {
+          width: 24%;
+          margin-top: 38px;
+          color: $main-blue-color;
+          padding-left: 1%;
+        }
+      }
+
+
+      .button {
+        width: 30%;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+  }
+
+  .mobileApp {
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 30px;
+    margin-top: 20px;
+    height: 814px;
+    width: 505px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(24, 144, 255, 0.3) 0%, rgba(245, 245, 245, 0.00) 100%);
+
+    .text{
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 130%;
+    }
+  }
+}

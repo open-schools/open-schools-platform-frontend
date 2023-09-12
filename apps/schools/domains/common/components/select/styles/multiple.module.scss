@@ -1,0 +1,14 @@
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  :global {
+    .ant-select-selector {
+      width: 100% !important;
+      min-height: 40px !important;
+      border-radius: 12px !important;
+    }
+  }
+}
