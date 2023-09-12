@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export function isReactElement(element: any) {
-    return React.isValidElement(element);
+    return React.isValidElement(element)
 }

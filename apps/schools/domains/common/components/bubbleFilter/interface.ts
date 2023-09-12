@@ -4,8 +4,8 @@ export interface BubbleFilterListItem {
     count?: number | boolean
     color: string
     isSelected?: boolean
-    onClick?: () => void;
-    onExit?: () => void;
+    onClick?: () => void
+    onExit?: () => void
 }
 
 export interface BubbleFilterProps {

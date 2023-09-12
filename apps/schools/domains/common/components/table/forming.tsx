@@ -5,10 +5,10 @@ import { getSearchText } from '@domains/common/utils/searchText'
 import {
     CustomFieldsProps,
     CustomFilterFieldsProps,
-    HighlightTextProps
+    HighlightTextProps,
 } from '@domains/common/components/table/interfaces'
 import { filterTextShaper } from '@domains/common/utils/filterTextShaper'
-import { isReactElement} from '@domains/common/utils/react'
+import { isReactElement } from '@domains/common/utils/react'
 
 export interface RawColumnType<RowType> extends ColumnType<RowType> {
     hidden?: boolean
@@ -20,7 +20,7 @@ export function useGenerateFullColumns<RowType>(
     data?: any[],
     filterFields?: string[],
     sortFields?: string[],
-    customFilterFields?: CustomFilterFieldsProps<RowType>
+    customFilterFields?: CustomFilterFieldsProps<RowType>,
 ): ColumnType<RowType>[] {
     const uniqueFilters: Record<string, any[]> = {}
 
