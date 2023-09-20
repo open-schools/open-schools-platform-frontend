@@ -61,7 +61,11 @@ export function QueryList() {
     }
 
     useEffect(() => {
-        if (statusFilter.length > 0) router.push(`${router.route}?queries=[${statusFilter}]`)
+        setStatusFilter(router.query['statuses'] ? (router.query['statuses'] as string) : '')
+    }, [router.query])
+
+    useEffect(() => {
+        if (statusFilter.length > 0) router.push(`${router.route}?statuses=${statusFilter}`)
     }, [statusFilter])
 
     const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
