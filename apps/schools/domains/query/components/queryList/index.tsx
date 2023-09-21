@@ -1,0 +1,215 @@
+import React, { useEffect, useState } from 'react'
+import { Tag, Typography } from 'antd'
+import styles from './styles/styles.module.scss'
+import { useOrganization } from '@domains/organization/providers/organizationProvider'
+import { Table } from '@domains/common/components/table'
+import { createSearchTextForRequest } from '@domains/common/utils/searchText'
+import { RowType, TableType } from './interfaces'
+import { searchStudentsColumns, StatusDictionary } from './constants'
+import {
+    useGetAllJoinCircleQueriesQuery,
+    useGetOrganizationAnalyticsQuery,
+} from '@domains/organization/redux/organizationApi'
+import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
+import { mapReturnedData } from '@domains/common/redux/utils'
+import { HighlightText } from '@domains/common/components/table/forming'
+import { isReactElement } from '@domains/common/utils/react'
+import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
+import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
+import { Input } from '@domains/common/components/input'
+import { BubbleFilter } from '@domains/common/components/bubbleFilter'
+import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
+import router from 'next/router'
+import {FilterValue} from "antd/es/table/interface";
+
+export function QueryList() {
+    const [searchRequestText, setSearchRequestText] = useState('')
+    const { organizationId } = useOrganization()
+    const [isTableLoading, setIsTableLoading] = useState(false)
+
+    const [inputText, setInputText] = useState('')
+
+    const [statusFilter, setStatusFilter] = useState('')
+    const [circleFilter, setCircleFilter] = useState<FilterValue>([])
+
+    const selectedStatuses = new Set(statusFilter.split(',').filter((x) => x in StatusDictionary))
+    const bubbleFilterItems: any = {}
+
+    const { data: analytics, isLoading: isAnalyticsLoading } = useGetOrganizationAnalyticsQuery({
+        organization_id: organizationId,
+    })
+
+    for (const key in StatusDictionary) {
+        const obj = StatusDictionary[key]
+
+        bubbleFilterItems[key] = {
+            key: key,
+            text: obj.text,
+            color: obj.color,
+            count: analytics ? (analytics.analytics as unknown as { [index: string]: number })[key] : 0,
+            isSelected: selectedStatuses.has(key),
+            onClick: () => {
+                selectedStatuses.add(key)
+                setStatusFilter(Array.from(selectedStatuses).join(','))
+            },
+            onExit: () => {
+                setStatusFilter(
+                    Array.from(selectedStatuses)
+                        .filter((value) => value != key)
+                        .join(','),
+                )
+            },
+        } as BubbleFilterListItem
+    }
+
+    useEffect(() => {
+        setStatusFilter(router.query['status'] ? (router.query['status'] as string) : '')
+    }, [router.query])
+
+    useEffect(() => {
+        if (statusFilter.length > 0) router.push(`${router.route}?status=${statusFilter}`)
+    }, [statusFilter])
+
+    const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
+        circle__organization__id: organizationId,
+        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+    })
+
+    const countAllQueries = !isAnalyticsLoading && analytics ? sumObjectValues(analytics?.analytics) : 0
+
+    const reformattedData = mapReturnedData(queries, (query) => {
+        const transformedQuery = structuredClone(query) as unknown as TableType
+        transformedQuery.parent_name = query.additional.parent_name
+        transformedQuery.parent_phone = query.additional.parent_phone
+        transformedQuery.circle_name = query.recipient.name
+        transformedQuery.student_name = query.body.name
+        return transformedQuery
+    })
+
+    useEffect(() => {
+        if (!isQueriesLoading && queries) {
+            setIsTableLoading(false)
+        }
+    }, [queries])
+
+    return (
+        <EmptyWrapper
+            titleText={'Список заявок пока пуст'}
+            descriptionText={'Дождитесь первой заявки'}
+            pageTitle={'Заявки'}
+            data={queries}
+            isLoading={isQueriesLoading}
+            searchTrigger={searchRequestText}
+        >
+            <div className={styles.header}>
+                <Typography.Title level={1}>Заявки</Typography.Title>
+            </div>
+            <Input
+                onChange={(text) => {
+                    setIsTableLoading(true)
+                    setInputText(text.target.value)
+                    setTimeout(() => {
+                        setSearchRequestText(text.target.value)
+                    }, 1000)
+                }}
+                customType={'inputSearch'}
+                placeholder={'Поиск'}
+                value={inputText}
+                children={
+                    <>
+                        <SearchOutlined className={styles.search} />
+                        {inputText && (
+                            <CloseCircleOutlined
+                                className={styles.cross}
+                                onClick={() => {
+                                    setInputText('')
+                                    setSearchRequestText('')
+                                }}
+                            />
+                        )}
+                    </>
+                }
+            />
+            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`${countAllQueries} заявок`} />
+            <Table<RowType, TableType>
+                loading={isTableLoading}
+                customType={'tableWithoutSearch'}
+                columnsTitlesAndKeys={[
+                    ['Дата и время', 'created_at'],
+                    ['Статус', 'status'],
+                    ['Ф. И. О. обучающегося', 'student_name'],
+                    ['Ф. И. О. родителя', 'parent_name'],
+                    ['Телефон родителя', 'parent_phone'],
+                    ['Кружок', 'circle_name'],
+                ]}
+                data={reformattedData}
+                isLoading={isQueriesLoading}
+                mainRoute={'/query'}
+                searchFields={[
+                    'created_at',
+                    'student_name',
+                    'student_phone',
+                    'parent_phone',
+                    'parent_name',
+                    'circle_name',
+                ]}
+                customFields={{
+                    created_at: ({ text, searchText }) => {
+                        const [date, time] = new Intl.DateTimeFormat('pt-BR', {
+                            dateStyle: 'short',
+                            timeStyle: 'short',
+                        })
+                            .format(new Date(text))
+                            .replaceAll('/', '.')
+                            .split(',')
+
+                        return (
+                            <div>
+                                <div className={styles.additionalTextAddress}>
+                                    <HighlightText text={date} searchText={searchText} />
+                                </div>
+
+                                <div className={styles.textAddress}>
+                                    <HighlightText text={time} searchText={searchText} />
+                                </div>
+                            </div>
+                        )
+                    },
+                    status: ({ text }) => {
+                        return (
+                            <Tag color={StatusDictionary[text].color} key={text}>
+                                {StatusDictionary[text].text}
+                            </Tag>
+                        )
+                    },
+                }}
+                filterFields={['circle_name']}
+                customFilterFields={{
+                    status: {
+                        filters: Object.entries(StatusDictionary).map(([key, value]) => ({
+                            value: key,
+                            text: value.text,
+                        })),
+                        filteredValue: Array.from(selectedStatuses),
+                        onFilter: (value, record) => {
+                            const obj = (record as any)['status']
+                            if (!isReactElement(obj)) return obj === value
+
+                            return obj.key === value
+                        },
+                    },
+                    circle_name: {
+                        filteredValue: Array.from(circleFilter),
+                    }
+                }}
+                sortFields={['created_at']}
+                searchRequestText={searchRequestText}
+                setSearchRequestText={setSearchRequestText}
+                onChange={(pagination, filters, sorter) => {
+                    setCircleFilter(filters["circle_name"] ?? [])
+                    setStatusFilter((filters["status"] ?? []).join(','))
+                }}
+            />
+        </EmptyWrapper>
+    )
+}

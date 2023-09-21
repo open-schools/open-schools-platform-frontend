@@ -29,12 +29,13 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         label,
         className,
         children,
+        inputContainerClass,
         ...restProps
     } = props
 
     if (!typeInput.includes(customType)) {
         return (
-            <div className={defaultStyles.inputContainer}>
+            <div className={classNames(defaultStyles.inputContainer, inputContainerClass)}>
                 <label>{label}</label>
                 <BaseInput
                     className={classNames(defaultStyles.input, className)}
@@ -48,7 +49,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         )
     } else if (customType === 'inputPhone') {
         return (
-            <div className={defaultStyles.inputContainer}>
+            <div className={classNames(defaultStyles.inputContainer, inputContainerClass)}>
                 <label>{label}</label>
                 <PhoneInput
                     onChange={(value, data, event, formattedValue) => {
@@ -68,7 +69,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         )
     } else if (customType === 'inputPassword') {
         return (
-            <div className={defaultStyles.inputContainer}>
+            <div className={classNames(defaultStyles.inputContainer, inputContainerClass)}>
                 <label>{label}</label>
                 <BaseInput.Password
                     iconRender={(visible: boolean) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -82,7 +83,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         )
     } else {
         return (
-            <div className={inputStyleDictionary[customType]?.inputContainer}>
+            <div className={classNames(inputStyleDictionary[customType]?.inputContainer, inputContainerClass)}>
                 <label>{label}</label>
                 <BaseInput
                     className={classNames(inputStyleDictionary[customType]?.input, className)}
