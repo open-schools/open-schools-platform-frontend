@@ -20,6 +20,7 @@ import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import router from 'next/router'
+import {FilterValue} from "antd/es/table/interface";
 
 export function QueryList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -29,8 +30,9 @@ export function QueryList() {
     const [inputText, setInputText] = useState('')
 
     const [statusFilter, setStatusFilter] = useState('')
+    const [circleFilter, setCircleFilter] = useState<FilterValue>([])
 
-    const selectedItems = new Set(statusFilter.split(',').filter((x) => x in StatusDictionary))
+    const selectedStatuses = new Set(statusFilter.split(',').filter((x) => x in StatusDictionary))
     const bubbleFilterItems: any = {}
 
     const { data: analytics, isLoading: isAnalyticsLoading } = useGetOrganizationAnalyticsQuery({
@@ -45,14 +47,14 @@ export function QueryList() {
             text: obj.text,
             color: obj.color,
             count: analytics ? (analytics.analytics as unknown as { [index: string]: number })[key] : 0,
-            isSelected: selectedItems.has(key),
+            isSelected: selectedStatuses.has(key),
             onClick: () => {
-                selectedItems.add(key)
-                setStatusFilter(Array.from(selectedItems).join(','))
+                selectedStatuses.add(key)
+                setStatusFilter(Array.from(selectedStatuses).join(','))
             },
             onExit: () => {
                 setStatusFilter(
-                    Array.from(selectedItems)
+                    Array.from(selectedStatuses)
                         .filter((value) => value != key)
                         .join(','),
                 )
@@ -61,11 +63,11 @@ export function QueryList() {
     }
 
     useEffect(() => {
-        setStatusFilter(router.query['statuses'] ? (router.query['statuses'] as string) : '')
+        setStatusFilter(router.query['status'] ? (router.query['status'] as string) : '')
     }, [router.query])
 
     useEffect(() => {
-        if (statusFilter.length > 0) router.push(`${router.route}?statuses=${statusFilter}`)
+        if (statusFilter.length > 0) router.push(`${router.route}?status=${statusFilter}`)
     }, [statusFilter])
 
     const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
@@ -188,7 +190,7 @@ export function QueryList() {
                             value: key,
                             text: value.text,
                         })),
-                        filteredValue: Array.from(selectedItems),
+                        filteredValue: Array.from(selectedStatuses),
                         onFilter: (value, record) => {
                             const obj = (record as any)['status']
                             if (!isReactElement(obj)) return obj === value
@@ -196,10 +198,17 @@ export function QueryList() {
                             return obj.key === value
                         },
                     },
+                    circle_name: {
+                        filteredValue: Array.from(circleFilter),
+                    }
                 }}
                 sortFields={['created_at']}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
+                onChange={(pagination, filters, sorter) => {
+                    setCircleFilter(filters["circle_name"] ?? [])
+                    setStatusFilter((filters["status"] ?? []).join(','))
+                }}
             />
         </EmptyWrapper>
     )

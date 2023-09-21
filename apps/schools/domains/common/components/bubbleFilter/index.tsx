@@ -8,24 +8,24 @@ import { CloseOutlined } from '@ant-design/icons'
 export const BubbleFilter: React.FC<BubbleFilterProps> = (params) => {
     const { text, items } = params
 
-    const listItems = items.map((x) =>
-        x.count && x.count > 0 ? (
+    const listItems = items.map((item) =>
+        item.count && item.count > 0 ? (
             <Row
-                className={x.isSelected ? styles.bubbleContainerSelected : styles.bubbleContainer}
-                onClick={x.isSelected ? () => {} : x.onClick}
-                style={{ backgroundColor: x.isSelected ? x.color : '' }}
-                key={x.key}
+                className={item.isSelected ? styles.bubbleContainerSelected : styles.bubbleContainer}
+                onClick={item.isSelected ? () => {} : item.onClick}
+                style={{ backgroundColor: item.isSelected ? item.color : '' }}
+                key={item.key}
             >
-                {x.count && (
-                    <div className={styles.circle} style={{ backgroundColor: x.isSelected ? '' : x.color }}>
-                        {x.count}
+                {item.count && (
+                    <div className={styles.circle} style={{ backgroundColor: item.isSelected ? '' : item.color }}>
+                        {item.count}
                     </div>
                 )}
-                <div className={styles.bubbleText}>{x.text}</div>
-                {x.isSelected && <CloseOutlined onClick={x.onExit} className={styles.closeIcon} />}
+                <div className={styles.bubbleText}>{item.text}</div>
+                {item.isSelected && <CloseOutlined onClick={item.onExit} className={styles.closeIcon} />}
             </Row>
         ) : (
-            <div key={x.key}></div>
+            <div key={item.key}></div>
         ),
     )
 

@@ -47,6 +47,7 @@ export function useGenerateFullColumns<RowType>(
             const filters = uniqueFilters[column.dataIndex]
 
             columnDict = {
+                ...columnDict,
                 filters,
                 onFilter: (value, record) => {
                     const obj = (record as any)[column.dataIndex]
@@ -54,7 +55,6 @@ export function useGenerateFullColumns<RowType>(
                     if (!isReactElement(obj)) return obj === value
                     return obj.props.text === value
                 },
-                ...columnDict,
             }
         }
 
@@ -62,18 +62,18 @@ export function useGenerateFullColumns<RowType>(
             const filtersProps = customFilterFields[column.dataIndex]
 
             columnDict = {
+                ...columnDict,
                 filters: filtersProps.filters || columnDict.filters,
                 filteredValue: filtersProps.filteredValue,
                 onFilter: filtersProps.onFilter || columnDict.onFilter,
-                ...columnDict,
             }
         }
 
         if (isSortable)
             columnDict = {
+                ...columnDict,
                 sorter: (a, b) =>
                     column.dataIndex && (a as any)[column.dataIndex] < (b as any)[column.dataIndex] ? 1 : -1,
-                ...columnDict,
             }
 
         return columnDict
