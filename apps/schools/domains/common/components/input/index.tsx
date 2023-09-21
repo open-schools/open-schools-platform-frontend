@@ -39,6 +39,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 <BaseInput
                     className={classNames(defaultStyles.input, className)}
                     placeholder={placeholder}
+                    disabled={disabled}
                     data-testid='input'
                     {...restProps}
                 />
