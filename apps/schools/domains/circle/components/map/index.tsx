@@ -9,7 +9,7 @@ import cities from '@public/cities.json'
 import getConfig from 'next/config'
 import { Input } from '@domains/common/components/input'
 import { Select } from '@domains/common/components/select'
-import {placeMarkSvg} from "@domains/common/components/Icons/placeMarkSvg";
+import { placeMarkSvg } from '@domains/common/components/Icons/placeMarkSvg'
 
 const MapComponent = () => {
     const {
