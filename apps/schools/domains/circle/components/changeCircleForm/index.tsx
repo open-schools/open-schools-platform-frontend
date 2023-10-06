@@ -17,11 +17,14 @@ import { handleSubmitForm } from '../../handlers/circleUpdate'
 import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
+import AddressForm from "@domains/circle/components/addressForm";
 
 export const ChangeCircleForm = () => {
     const validators = useChangeCircleFormValidators()
     const { organizationId } = useOrganization()
     const [form] = Form.useForm()
+    const [step, setStep] = useState<'Form' | 'Map'>('Form')
+    const [point, setPoint] = useState('')
     const [isFormValid, setIsFormValid] = useState(false)
     const [mutation] = useChangeCircleMutation()
 
@@ -45,10 +48,16 @@ export const ChangeCircleForm = () => {
         [ADDRESS_ROOM]: getVarsForAddressColumn(currentCircle?.address ?? '')[1],
     }
 
+    if (point) {
+        circlesAddresses.unshift(point);
+        form.setFieldValue(CIRCLE_ADDRESS, point)
+    }
+
     const validationCheck = () => {
         setIsFormValid(isValidFormCheck(form, [], initialValues))
     }
 
+    if (step === 'Form') {
     return !circleData.isLoading ? (
         <Row className={styles.mainRow}>
             <div className={styles.formContainer}>
@@ -110,6 +119,7 @@ export const ChangeCircleForm = () => {
                                                     label: address,
                                                 }
                                             })}
+                                            onChange={(value) => setPoint(value)}
                                         />
                                     </Form.Item>
 
@@ -124,7 +134,12 @@ export const ChangeCircleForm = () => {
                                     </Form.Item>
                                 </AntdInput.Group>
 
-                                <Button className={styles.mapButton} antdType={'text'} icon={<AimOutlined />}>
+                                <Button
+                                    className={styles.mapButton}
+                                    onClick={() => setStep('Map')}
+                                    antdType={'text'}
+                                    icon={<AimOutlined />}
+                                >
                                     Выбрать на карте
                                 </Button>
                             </>
@@ -151,5 +166,7 @@ export const ChangeCircleForm = () => {
         </Row>
     ) : (
         <Spin></Spin>
-    )
+    )} else {
+        return <AddressForm setStep={setStep} point={point ? point : initialValues[CIRCLE_ADDRESS]} setPoint={setPoint}/>
+    }
 }

@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React from 'react'
-import { YMaps, Map } from 'react-yandex-maps'
+import {YMaps, Map, YMapsApi} from 'react-yandex-maps'
 import { Form, message, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'
@@ -11,12 +11,19 @@ import { Input } from '@domains/common/components/input'
 import { Select } from '@domains/common/components/select'
 import { placeMarkSvg } from '@domains/common/components/Icons/placeMarkSvg'
 
-const MapComponent = () => {
+interface MapComponentProps {
+    setPoint?: React.Dispatch<React.SetStateAction<string>>
+    point?: string
+}
+
+const MapComponent = (props: MapComponentProps) => {
     const {
         publicRuntimeConfig: {
             YandexMapApiKey: { key: YandexApiKey },
         },
     } = getConfig()
+
+    const { point, setPoint } = props
 
     const [form] = Form.useForm()
     const ymaps = React.useRef(null)
@@ -27,6 +34,29 @@ const MapComponent = () => {
         center: [56.838926, 60.605702],
         zoom: 10,
     })
+
+    const initialYMaps = (Ymap: YMapsApi) => {
+        ymaps.current = Ymap;
+
+        if (point) {
+            const temp = ymaps.current.geocode(point)
+            temp.then(function(response){
+                const coords = response.geoObjects.get(0).geometry._coordinates;
+
+                placeMarkRef.current = createPlaceMark(coords)
+                mapRef.current.geoObjects.add(placeMarkRef.current)
+                placeMarkRef.current.events.add('dragend', function () {
+                    getAddress(placeMarkRef.current.geometry.getCoordinates())
+                })
+
+                getAddress(coords)
+                setMapState({
+                    center: coords,
+                    zoom: 10,
+                })
+            })
+        }
+    }
 
     const createPlaceMark = (coords: number[]) => {
         const customIconLayout = ymaps.current.templateLayoutFactory.createClass(
@@ -73,12 +103,14 @@ const MapComponent = () => {
                 const streetAddress = accurateAddress.substring(accurateAddress.indexOf(',', commaIndex + 1) + 1).trim()
                 form.setFieldValue('address', streetAddress)
                 form.setFieldValue('city', currentCity)
+                setPoint(currentCity + ', ' + streetAddress)
             } else {
                 const commaIndex = accurateAddress.indexOf(',')
                 const currentCity = accurateAddress.slice(0, commaIndex).trim()
                 const newAddress = accurateAddress.slice(commaIndex + 1).trim()
                 form.setFieldValue('address', newAddress)
                 form.setFieldValue('city', currentCity)
+                setPoint(currentCity + ', ' + newAddress)
             }
 
             placeMarkRef.current.properties.set({
@@ -130,7 +162,7 @@ const MapComponent = () => {
                     style={style}
                     modules={['templateLayoutFactory', 'Placemark', 'geocode', 'geoObject.addon.balloon']}
                     instanceRef={mapRef}
-                    onLoad={(ymapsInstance) => (ymaps.current = ymapsInstance)}
+                    onLoad={(ymapsInstance) => initialYMaps(ymapsInstance)}
                     onClick={onMapClick}
                     state={mapState}
                 >
