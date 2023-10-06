@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { YMaps, Map, YMapsApi } from 'react-yandex-maps'
-import {Form, message, Row, Typography} from 'antd'
+import { Form, message, Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'
 import cities from '@public/cities.json'
@@ -10,11 +10,11 @@ import getConfig from 'next/config'
 import { Input } from '@domains/common/components/input'
 import { Select } from '@domains/common/components/select'
 import { placeMarkSvg } from '@domains/common/components/Icons/placeMarkSvg'
-import {Button} from "@domains/common/components/button";
+import { Button } from '@domains/common/components/button'
 
 interface MapComponentProps {
     setPoint?: React.Dispatch<React.SetStateAction<string>>
-    setStep?: React.Dispatch<React.SetStateActionn<"Form" | "Map">>
+    setStep?: React.Dispatch<React.SetStateActionn<'Form' | 'Map'>>
     point?: string
 }
 
@@ -25,7 +25,7 @@ const MapComponent = (props: MapComponentProps) => {
         },
     } = getConfig()
 
-    const { point, setPoint,setStep } = props
+    const { point, setPoint, setStep } = props
 
     const [form] = Form.useForm()
     const ymaps = React.useRef(null)
@@ -205,10 +205,13 @@ const MapComponent = (props: MapComponentProps) => {
                     <Button className={styles.cancelButton} onClick={() => setStep('Form')}>
                         Назад
                     </Button>
-                    <Button className={styles.saveButton} onClick={() => {
-                        setPoint(form.getFieldValue('city') + ', ' + form.getFieldValue('address'))
-                        setStep('Form')
-                    }}>
+                    <Button
+                        className={styles.saveButton}
+                        onClick={() => {
+                            setPoint(form.getFieldValue('city') + ', ' + form.getFieldValue('address'))
+                            setStep('Form')
+                        }}
+                    >
                         Сохранить
                     </Button>
                 </Row>
