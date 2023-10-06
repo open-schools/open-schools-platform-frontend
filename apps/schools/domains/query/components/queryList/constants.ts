@@ -1,9 +1,11 @@
 import { QueryStatuses } from '@domains/common/constants/Enums'
 import {
-    ACCEPTED_FILTER_COLOR, CANCELED_FILTER_COLOR, DECLINED_FILTER_COLOR,
+    ACCEPTED_FILTER_COLOR,
+    CANCELED_FILTER_COLOR,
+    DECLINED_FILTER_COLOR,
     IN_PROGRESS_FILTER_COLOR,
-    SENT_FILTER_COLOR
-} from "@domains/query/components/queryList/styles/styles";
+    SENT_FILTER_COLOR,
+} from '@domains/query/components/queryList/styles/styles'
 
 export const searchStudentsColumns = [
     'student__name',

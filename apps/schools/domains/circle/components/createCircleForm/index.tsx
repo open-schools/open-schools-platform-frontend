@@ -1,5 +1,5 @@
 import { Form, Typography, Input as AntdInput, Row, Spin } from 'antd'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
@@ -16,7 +16,7 @@ import { Select } from '@domains/common/components/select'
 import { handleSubmitForm } from '../../handlers/circleCreate'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
-import AddressForm from "@domains/circle/components/addressForm";
+import AddressForm from '@domains/circle/components/addressForm'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
@@ -31,10 +31,10 @@ export const CreateCircleForm = () => {
     })
     const circlesAddresses = Array.from(
         new Set(circlesData?.data?.results.map((x) => getVarsForAddressColumn(x.address)[0])),
-    );
+    )
 
     if (point) {
-        circlesAddresses.unshift(point);
+        circlesAddresses.unshift(point)
         form.setFieldValue(CIRCLE_ADDRESS, point)
     }
 
@@ -65,8 +65,8 @@ export const CreateCircleForm = () => {
                                 required={true}
                                 label={
                                     <span>
-                                    <span className={styles.requiredMark}>*</span> Название
-                                </span>
+                                        <span className={styles.requiredMark}>*</span> Название
+                                    </span>
                                 }
                                 name={CIRCLE_NAME}
                                 className={styles.label}
@@ -79,13 +79,13 @@ export const CreateCircleForm = () => {
                         <Row className={styles.complexInputContainer}>
                             {!circlesData.isLoading ? (
                                 <>
-                                    <AntdInput.Group compact className={styles.complexInput} >
+                                    <AntdInput.Group compact className={styles.complexInput}>
                                         <Form.Item
                                             required={true}
                                             label={
                                                 <span>
-                                                <span className={styles.requiredMark}>*</span> Адрес
-                                            </span>
+                                                    <span className={styles.requiredMark}>*</span> Адрес
+                                                </span>
                                             }
                                             name={CIRCLE_ADDRESS}
                                             initialValue={circlesAddresses[0]}
@@ -156,6 +156,6 @@ export const CreateCircleForm = () => {
             </Row>
         )
     } else {
-        return <AddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint}/>
+        return <AddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
     }
 }

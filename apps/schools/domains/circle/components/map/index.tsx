@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React from 'react'
-import {YMaps, Map, YMapsApi} from 'react-yandex-maps'
+import { YMaps, Map, YMapsApi } from 'react-yandex-maps'
 import { Form, message, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'
@@ -36,12 +36,12 @@ const MapComponent = (props: MapComponentProps) => {
     })
 
     const initialYMaps = (Ymap: YMapsApi) => {
-        ymaps.current = Ymap;
+        ymaps.current = Ymap
 
         if (point) {
             const temp = ymaps.current.geocode(point)
-            temp.then(function(response){
-                const coords = response.geoObjects.get(0).geometry._coordinates;
+            temp.then(function (response) {
+                const coords = response.geoObjects.get(0).geometry._coordinates
 
                 placeMarkRef.current = createPlaceMark(coords)
                 mapRef.current.geoObjects.add(placeMarkRef.current)
