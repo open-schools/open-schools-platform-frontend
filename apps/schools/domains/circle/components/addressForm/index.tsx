@@ -1,8 +1,7 @@
 import React from 'react'
-import { Row, Typography } from 'antd'
+import { Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import MapComponent from '@domains/circle/components/map'
-import { Button } from '@domains/common/components/button'
 
 interface AddressFormProps {
     setStep: React.Dispatch<React.SetStateAction<'Form' | 'Map'>>
@@ -20,15 +19,7 @@ const AddressForm = (props: AddressFormProps) => {
                 Выберите на карте расположение кружка, для этого: выберете город, найдите нужную улицу, дом и нажмите на
                 него
             </Typography.Title>
-            <MapComponent setPoint={setPoint} point={point} />
-            <Row className={styles.buttonContainer}>
-                <Button className={styles.cancelButton} onClick={() => setStep('Form')}>
-                    Назад
-                </Button>
-                <Button className={styles.saveButton} onClick={() => setStep('Form')}>
-                    Сохранить
-                </Button>
-            </Row>
+            <MapComponent setPoint={setPoint} point={point} setStep={setStep} />
         </div>
     )
 }
