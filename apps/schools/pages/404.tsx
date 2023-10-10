@@ -6,11 +6,24 @@ import { SharedErrorPage } from '@domains/common/components/errors'
 import router from 'next/router'
 import ducks from '@public/image/404Ducks.svg'
 
+const imageWidthPercent = 0.6;
+
 export default function Custom404() {
-    const [width, setWidth] = useState(0)
+    const [windowSize, setWindowSize] = useState({
+        width: 0,
+        height: 0,
+    });
 
     useEffect(() => {
-        setWidth(window.screen.width * 0.6)
+        function handleResize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
     }, [])
 
 
@@ -24,7 +37,7 @@ export default function Custom404() {
                 descriptionText={'К сожалению, страница не нашлась. Вернитесь на главную и попробуйте еще раз'}
                 buttonText={'Вернуться на главную'}
                 image={ducks}
-                imageWidth={width}
+                imageWidth={windowSize.width * imageWidthPercent}
                 handleRunTask={() => {
                     router.push('/')
                 }}
