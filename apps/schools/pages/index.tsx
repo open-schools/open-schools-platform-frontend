@@ -9,7 +9,7 @@ const IndexPage = () => {
 
     useEffect(() => {
         localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME);
-        router.push('/user')
+        router.push('/query')
     }, [organization, router])
     return <></>
 }
