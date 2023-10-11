@@ -42,6 +42,7 @@ const employeeApi = commonApi.injectEndpoints({
 export const {
     useDeleteEmployeeByIdMutation,
     useGetAllEmployeesQuery,
+    useLazyGetAllEmployeesQuery,
     useGetInvitationsQuery,
     useUpdateEmployeeByIdMutation,
 } = employeeApi

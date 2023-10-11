@@ -59,10 +59,10 @@ export interface GetUserProfiles {
     id?: string
     phone?: string
     name?: string
-    parent_profile: GetParentProfile
-    employee_profile: GetEmployeeProfile
-    student_profile: GetStudentProfile
-    teacher_profile: GetTeacherProfile
+    parent_profile?: GetParentProfile
+    employee_profile?: GetEmployeeProfile
+    student_profile?: GetStudentProfile
+    teacher_profile?: GetTeacherProfile
 }
 
 interface GetParentProfile {
@@ -75,6 +75,7 @@ interface GetEmployeeProfile {
     id?: string
     name: string
     user: string
+    email: string
 }
 
 interface GetStudentProfile {
