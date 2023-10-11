@@ -20,7 +20,7 @@ import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import router from 'next/router'
-import {FilterValue} from "antd/es/table/interface";
+import { FilterValue } from 'antd/es/table/interface'
 
 export function QueryList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -200,14 +200,14 @@ export function QueryList() {
                     },
                     circle_name: {
                         filteredValue: Array.from(circleFilter),
-                    }
+                    },
                 }}
                 sortFields={['created_at']}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
                 onChange={(pagination, filters, sorter) => {
-                    setCircleFilter(filters["circle_name"] ?? [])
-                    setStatusFilter((filters["status"] ?? []).join(','))
+                    setCircleFilter(filters['circle_name'] ?? [])
+                    setStatusFilter((filters['status'] ?? []).join(','))
                 }}
             />
         </EmptyWrapper>
