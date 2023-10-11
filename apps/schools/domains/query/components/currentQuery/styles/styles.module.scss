@@ -1,3 +1,5 @@
+@import '@domains/common/components/styles/abstracts/colors';
+
 .selectContainer {
   position: relative;
   width: 150px;
@@ -32,7 +34,7 @@
     .mainBlock {
       .description {
         margin-bottom: 40px;
-        color: var(--unnamed, #434343);
+        color: $color-background;
         font-family: 'Roboto', sans-serif;
         font-size: 16px;
         font-style: normal;
@@ -47,16 +49,16 @@
         }
 
         .row > :first-child {
-          color: var(--unnamed, rgba(67, 67, 67, 0.80));
+          color: $color-field-name;
           font-family: 'Open Sans', sans-serif;
           font-size: 20px;
           font-style: normal;
           font-weight: 600;
-          line-height: 28px; /* 140% */
+          line-height: 28px;
         }
 
         .row > :last-child {
-          color: var(--unnamed, #222);
+          color: $color-field-value;
           font-family: 'Open Sans', sans-serif;
           font-size: 20px;
           font-style: normal;
@@ -69,21 +71,21 @@
 
           .queryTextHeader {
             margin-bottom: 10px;
-            color: var(--unnamed, rgba(67, 67, 67, 0.80));
+            color: $color-field-name;
             font-family: 'Open Sans', sans-serif;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;
-            line-height: 130%; /* 26px */
+            line-height: 130%;
           }
 
           .queryTextContent {
-            color: var(--unnamed, #222);
+            color: $color-field-value;
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
             font-style: normal;
             font-weight: 400;
-            line-height: 24px; /* 120% */
+            line-height: 24px;
           }
         }
       }
