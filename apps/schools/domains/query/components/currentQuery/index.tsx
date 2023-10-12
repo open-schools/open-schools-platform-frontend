@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Col, Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import { Select } from '@domains/common/components/select'
@@ -6,8 +6,6 @@ import queryChat from '@public/image/chatWithParents.svg'
 import Image from 'next/image'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { useGetAllJoinCircleQueriesQuery } from '@domains/organization/redux/organizationApi'
-import { createSearchTextForRequest } from '@domains/common/utils/searchText'
-import { searchStudentsColumns } from '@domains/query/components/queryList/constants'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import { format } from 'date-fns'
 import ruLocale from 'date-fns/locale/ru'
@@ -18,7 +16,7 @@ import { handleQueryStatusChange } from '@domains/query/handlers/queryUpdate'
 export const CurrentQuery = () => {
     const { organizationId } = useOrganization()
     const uuid = getUuidFromUrl()
-    const { data: queries, isLoading: isQueryLoading } = useGetAllJoinCircleQueriesQuery({
+    const { data: queries } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         id: uuid[0],
     })
@@ -40,12 +38,12 @@ export const CurrentQuery = () => {
     const [currentStatus, setCurrentStatus] = useState<string>('')
     const [currentDependencies, setCurrentDependencies] = useState<string[]>([])
 
-    const graph: { [key: string]: string | string[] } = {
+    const graph: { [key: string]: string[] } = {
         Отправлена: ['Принята', 'На рассмотрении', 'Отклонена', 'Отменена'],
         'На рассмотрении': ['Принята', 'Отклонена'],
-        Принята: 'Принята',
-        Отклонена: 'Отклонена',
-        Отменена: 'Отменена',
+        Принята: ['Принята'],
+        Отклонена: ['Отклонена'],
+        Отменена: ['Отменена'],
     }
 
     const handleStatusChange = (value: string) => {
@@ -58,12 +56,7 @@ export const CurrentQuery = () => {
         }
         handleQueryStatusChange(mutation, uuid[0], translatedStatus)
         setCurrentStatus(value)
-        const dependencies = graph[value]
-        if (Array.isArray(dependencies)) {
-            setCurrentDependencies(dependencies)
-        } else {
-            setCurrentDependencies([dependencies])
-        }
+        setCurrentDependencies(graph[value] || [])
     }
 
     const createdAt = query?.created_at
@@ -87,16 +80,16 @@ export const CurrentQuery = () => {
                     className={styles.select}
                     options={
                         currentDependencies.length !== 0
-                            ? Object.values(currentDependencies).map((status) => ({
+                            ? currentDependencies.map((status) => ({
                                   value: status,
                                   label: status,
                               }))
-                            : Object.values(
-                                  graph[translateStatus(query?.status)] ? graph[translateStatus(query?.status)] : [],
-                              ).map((status) => ({
-                                  value: status,
-                                  label: status,
-                              }))
+                            : (graph[translateStatus(query?.status)] ? graph[translateStatus(query?.status)] : []).map(
+                                  (status) => ({
+                                      value: status,
+                                      label: status,
+                                  }),
+                              )
                     }
                     onChange={(value) => handleStatusChange(value)}
                 />
