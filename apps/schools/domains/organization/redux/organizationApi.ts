@@ -60,13 +60,6 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        studentJoinCircle: build.query<{ results: GetStudentJoinCircle }, StudentJoinCircleData>({
-            query: (data) => ({
-                url: '/organization-management/organizations/student-join-circle-query',
-                method: 'GET',
-                body: data,
-            }),
-        }),
         getAllStudents: build.query<ReturnedData<GetStudent[]>, AllStudentsData>({
             query: (params) => ({
                 url: '/organization-management/organizations/students',
@@ -179,7 +172,6 @@ export const {
     useGetAllOrganizationsQuery,
     useCreateOrganizationMutation,
     useUpdateInviteEmployeeMutation,
-    useStudentJoinCircleQuery,
     useGetCurrentCircleQuery,
     useGetAllStudentsQuery,
     useGetStudentQuery,

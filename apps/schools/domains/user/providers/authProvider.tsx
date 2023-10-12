@@ -1,15 +1,15 @@
-import React, {createContext, useContext, useEffect, useState} from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetUserQuery } from '../redux/authenticationApi'
 import Cookies from 'universal-cookie'
-import {GetUserProfiles} from "@domains/user/redux/interfaces";
+import { GetUserProfiles } from '@domains/user/redux/interfaces'
 
 export const UserProfileContext = createContext<{
     token: string
     user: GetUserProfiles
 }>({
-    token: "",
-    user: {}
+    token: '',
+    user: {},
 })
 
 interface AuthProviderProps {
@@ -50,5 +50,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [error])
 
-    return <UserProfileContext.Provider value={{token: token, user: user}} >{children}</UserProfileContext.Provider>
+    return <UserProfileContext.Provider value={{ token: token, user: user }}>{children}</UserProfileContext.Provider>
 }

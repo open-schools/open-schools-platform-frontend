@@ -6,7 +6,7 @@ import styles from './styles/styles.module.scss'
 import Image from 'next/image'
 import duckEmptyPage from '@public/image/duckEmptyPage.svg'
 import { useUserProfile } from '@domains/user/providers/authProvider'
-import { useLazyGetAllEmployeesQuery } from "@domains/employee/redux/employeeApi";
+import { useLazyGetAllEmployeesQuery } from '@domains/employee/redux/employeeApi'
 
 export function ProfileInfo() {
     const { user } = useUserProfile()
@@ -59,26 +59,27 @@ export function ProfileInfo() {
                         <Spin />
                     </div>
                 ) : (
-                    results.data?.results.map(employee =>
-                    <div key={employee.id}>
-                        <Row gutter={[0, 24]} className={styles.itemContainer}>
-                            <Col className={styles.fieldName} lg={10} xs={10}>
-                                Организация:
-                            </Col>
-                            <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                                {employee.organization__name}
-                            </Col>
-                        </Row>
+                    results.data?.results.map((employee) => (
+                        <div key={employee.id}>
+                            <Row gutter={[0, 24]} className={styles.itemContainer}>
+                                <Col className={styles.fieldName} lg={10} xs={10}>
+                                    Организация:
+                                </Col>
+                                <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
+                                    {employee.organization__name}
+                                </Col>
+                            </Row>
 
-                        <Row gutter={[0, 24]} className={styles.itemContainer} style={{ marginBottom: '50px' }}>
-                            <Col className={styles.fieldName} lg={10} xs={10}>
-                                Должность:
-                            </Col>
-                            <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                                {employee.position ? employee.position : "Не определено"}
-                            </Col>
-                        </Row>
-                    </div>)
+                            <Row gutter={[0, 24]} className={styles.itemContainer} style={{ marginBottom: '50px' }}>
+                                <Col className={styles.fieldName} lg={10} xs={10}>
+                                    Должность:
+                                </Col>
+                                <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
+                                    {employee.position ? employee.position : 'Не определено'}
+                                </Col>
+                            </Row>
+                        </div>
+                    ))
                 )}
 
                 <Button type='schoolDefault' block style={{ width: '50%' }} onClick={() => router.push('/user/edit')}>
