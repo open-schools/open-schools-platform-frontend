@@ -30,37 +30,39 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
     const { data } = useGetAllOrganizationsQuery({})
 
     useEffect(() => {
-        const organizationId = typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
+        const localOrganizationId =
+            typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
 
-        if (organizationId) {
-            setOrganizationId(organizationId)
+        if (localOrganizationId) {
+            setOrganizationId(localOrganizationId)
         }
     }, [])
 
     useEffect(() => {
-        const organization = data?.results.filter((x) => x.id === organizationId)[0]
-        if (UUID_REGEXP.test(organizationId) && organization) {
-            setOrganization({
-                id: organization.id,
-                name: organization.name,
-                inn: organization.inn,
-            })
-            localStorage.setItem(ORGANIZATION_ID_STORAGE_NAME, organizationId)
-        } else {
-            localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME)
-        }
-    }, [organizationId, data])
+        if (data) {
+            const organization = data?.results.filter((x) => x.id === organizationId)[0]
+            if (UUID_REGEXP.test(organizationId) && organization) {
+                setOrganization({
+                    id: organization.id,
+                    name: organization.name,
+                    inn: organization.inn,
+                })
+                localStorage.setItem(ORGANIZATION_ID_STORAGE_NAME, organizationId)
+            } else {
+                localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME)
+                setOrganizationId('')
+            }
 
-    useEffect(() => {
-        if (data !== undefined && data.count === 0) {
-            if (!router.asPath.endsWith('/user') && !router.asPath.includes('/auth/')) router.push('/user')
-        } else {
-            const firstOrganization = data?.results[0]
-            if (organizationId === '' && firstOrganization && firstOrganization.id) {
-                setOrganizationId(firstOrganization.id)
+            if (data.count === 0) {
+                if (!router.asPath.endsWith('/user') && !router.asPath.includes('/auth/')) router.push('/user')
+            } else {
+                const firstOrganization = data?.results[0]
+                if (organizationId === '' && firstOrganization && firstOrganization.id) {
+                    setOrganizationId(firstOrganization.id)
+                }
             }
         }
-    }, [data])
+    }, [organizationId, data])
 
     return (
         <OrganizationContext.Provider value={{ organization, organizationId, setOrganizationId }}>
