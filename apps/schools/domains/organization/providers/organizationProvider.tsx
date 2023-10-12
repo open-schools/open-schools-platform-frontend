@@ -30,7 +30,8 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
     const { data } = useGetAllOrganizationsQuery({})
 
     useEffect(() => {
-        const localOrganizationId = typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
+        const localOrganizationId =
+            typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
 
         if (localOrganizationId) {
             setOrganizationId(localOrganizationId)
@@ -49,7 +50,7 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
                 localStorage.setItem(ORGANIZATION_ID_STORAGE_NAME, organizationId)
             } else {
                 localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME)
-                setOrganizationId("")
+                setOrganizationId('')
             }
 
             if (data.count === 0) {
