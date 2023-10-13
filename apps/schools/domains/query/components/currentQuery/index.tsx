@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Row, Typography } from 'antd'
+import { Col, Row, Spin, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import { Select } from '@domains/common/components/select'
 import queryChat from '@public/image/chatWithParents.svg'
@@ -16,7 +16,7 @@ import { handleQueryStatusChange } from '@domains/query/handlers/queryUpdate'
 export const CurrentQuery = () => {
     const { organizationId } = useOrganization()
     const uuid = getUuidFromUrl()
-    const { data: queries } = useGetAllJoinCircleQueriesQuery({
+    const { data: queries, isLoading } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         id: uuid[0],
     })
@@ -67,7 +67,7 @@ export const CurrentQuery = () => {
         formattedDate = format(parsedDate, 'dd MMMM yyyy г. в HH:mm', { locale: ruLocale })
     }
 
-    return (
+    return !isLoading ? (
         <div>
             <Typography.Title className={styles.name} level={1}>
                 Заявка
@@ -127,5 +127,9 @@ export const CurrentQuery = () => {
                 </Col>
             </Row>
         </div>
+    ) : (
+        <>
+            <Spin></Spin>
+        </>
     )
 }
