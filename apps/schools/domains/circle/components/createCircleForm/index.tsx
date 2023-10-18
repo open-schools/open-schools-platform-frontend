@@ -59,6 +59,7 @@ export const CreateCircleForm = () => {
                         requiredMark={false}
                         onValuesChange={validationCheck}
                         onFinish={() => {
+                            setPoint(form.getFieldValue(CIRCLE_ADDRESS))
                             setStep(FormMapSteps.Confirm)
                         }}
                         layout='vertical'
@@ -124,7 +125,10 @@ export const CreateCircleForm = () => {
 
                                     <Button
                                         className={styles.mapButton}
-                                        onClick={() => setStep(FormMapSteps.Map)}
+                                        onClick={() => {
+                                            setPoint(form.getFieldValue(CIRCLE_ADDRESS))
+                                            setStep(FormMapSteps.Map)
+                                        }}
                                         antdType={'text'}
                                         icon={<AimOutlined />}
                                     >
