@@ -17,8 +17,8 @@ import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
-import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
-import { FormMapSteps } from "@domains/circle/constants/Enums";
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
+import { FormMapSteps } from '@domains/circle/constants/Enums'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()

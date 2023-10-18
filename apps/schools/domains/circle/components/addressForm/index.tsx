@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import MapComponent from '@domains/circle/components/map/adressMap'
-import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
 
 interface AddressFormProps {
     setStep: React.Dispatch<React.SetStateAction<mapSteps>>

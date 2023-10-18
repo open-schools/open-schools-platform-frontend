@@ -11,8 +11,8 @@ import { Input } from '@domains/common/components/input'
 import { Select } from '@domains/common/components/select'
 import { placeMarkSvg } from '@domains/common/components/Icons/placeMarkSvg'
 import { Button } from '@domains/common/components/button'
-import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
-import { FormMapSteps } from "@domains/circle/constants/Enums";
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
+import { FormMapSteps } from '@domains/circle/constants/Enums'
 
 interface MapComponentProps {
     setPoint?: React.Dispatch<React.SetStateAction<string>>

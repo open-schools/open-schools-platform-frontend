@@ -18,8 +18,8 @@ import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
-import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
-import { FormMapSteps } from "@domains/circle/constants/Enums";
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
+import { FormMapSteps } from '@domains/circle/constants/Enums'
 
 export const ChangeCircleForm = () => {
     const validators = useChangeCircleFormValidators()
@@ -169,7 +169,11 @@ export const ChangeCircleForm = () => {
         )
     } else if (step === FormMapSteps.Map) {
         return (
-            <MapAddressForm setStep={setStep} point={point ? point : initialValues[CIRCLE_ADDRESS]} setPoint={setPoint} />
+            <MapAddressForm
+                setStep={setStep}
+                point={point ? point : initialValues[CIRCLE_ADDRESS]}
+                setPoint={setPoint}
+            />
         )
     } else {
         return (

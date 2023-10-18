@@ -14,8 +14,8 @@ import { handleSubmitForm as handleSubmitCreateForm } from '@domains/circle/hand
 import { handleSubmitForm as handleSubmitUpdateForm } from '@domains/circle/handlers/circleUpdate'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
-import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
-import { FormMapSteps } from "@domains/circle/constants/Enums";
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
+import { FormMapSteps } from '@domains/circle/constants/Enums'
 
 interface MapComponentProps {
     mode: 'Change' | 'Create'
