@@ -48,6 +48,10 @@ export const CreateCircleForm = () => {
         window.scrollTo(0, 0)
     }, [step])
 
+    useEffect(() => {
+        validationCheck()
+    }, [point, form.getFieldValue(CIRCLE_ADDRESS)]);
+
     if (step === FormMapSteps.Form) {
         return (
             <Row className={styles.mainRow}>
