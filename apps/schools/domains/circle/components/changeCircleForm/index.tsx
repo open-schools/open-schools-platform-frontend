@@ -17,7 +17,7 @@ import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleAp
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import AddressForm from '@domains/circle/components/addressForm'
-import { ConfirmForm } from "@domains/circle/components/confirmForm";
+import { ConfirmForm } from '@domains/circle/components/confirmForm'
 
 export const ChangeCircleForm = () => {
     const validators = useChangeCircleFormValidators()
@@ -171,7 +171,13 @@ export const ChangeCircleForm = () => {
         )
     } else {
         return (
-          <ConfirmForm setStep={setStep} point={point ? point : circlesAddresses[0]} mode={'Change'} form={form} mutation={mutation} />
+            <ConfirmForm
+                setStep={setStep}
+                point={point ? point : circlesAddresses[0]}
+                mode={'Change'}
+                form={form}
+                mutation={mutation}
+            />
         )
     }
 }

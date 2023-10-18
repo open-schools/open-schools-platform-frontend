@@ -1,5 +1,5 @@
 import { Form, Typography, Input as AntdInput, Row, Spin } from 'antd'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
@@ -16,7 +16,7 @@ import { Select } from '@domains/common/components/select'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import AddressForm from '@domains/circle/components/addressForm'
-import { ConfirmForm } from "@domains/circle/components/confirmForm";
+import { ConfirmForm } from '@domains/circle/components/confirmForm'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
@@ -157,11 +157,17 @@ export const CreateCircleForm = () => {
                 </div>
             </Row>
         )
-    }  else if (step === 'Map') {
+    } else if (step === 'Map') {
         return <AddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
     } else {
         return (
-          <ConfirmForm setStep={setStep} point={point ? point : circlesAddresses[0]} mode={'Create'} form={form} mutation={mutation} />
+            <ConfirmForm
+                setStep={setStep}
+                point={point ? point : circlesAddresses[0]}
+                mode={'Create'}
+                form={form}
+                mutation={mutation}
+            />
         )
     }
 }
