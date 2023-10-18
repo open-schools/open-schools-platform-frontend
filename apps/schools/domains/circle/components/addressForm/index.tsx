@@ -9,7 +9,7 @@ interface AddressFormProps {
     point?: string
 }
 
-const AddressForm = (props: AddressFormProps) => {
+const MapAddressForm = (props: AddressFormProps) => {
     const { setStep, setPoint, point } = props
 
     return (
@@ -24,4 +24,4 @@ const AddressForm = (props: AddressFormProps) => {
     )
 }
 
-export default AddressForm
+export default MapAddressForm

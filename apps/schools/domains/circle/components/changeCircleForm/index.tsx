@@ -16,7 +16,7 @@ import { Select } from '@domains/common/components/select'
 import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
-import AddressForm from '@domains/circle/components/addressForm'
+import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
 
 export const ChangeCircleForm = () => {
@@ -167,7 +167,7 @@ export const ChangeCircleForm = () => {
         )
     } else if (step === 'Map') {
         return (
-            <AddressForm setStep={setStep} point={point ? point : initialValues[CIRCLE_ADDRESS]} setPoint={setPoint} />
+            <MapAddressForm setStep={setStep} point={point ? point : initialValues[CIRCLE_ADDRESS]} setPoint={setPoint} />
         )
     } else {
         return (

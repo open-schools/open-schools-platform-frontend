@@ -15,7 +15,7 @@ import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
-import AddressForm from '@domains/circle/components/addressForm'
+import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
 
 export const CreateCircleForm = () => {
@@ -158,7 +158,7 @@ export const CreateCircleForm = () => {
             </Row>
         )
     } else if (step === 'Map') {
-        return <AddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
+        return <MapAddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
     } else {
         return (
             <ConfirmForm
