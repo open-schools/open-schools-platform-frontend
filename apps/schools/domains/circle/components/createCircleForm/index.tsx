@@ -108,7 +108,6 @@ export const CreateCircleForm = () => {
                                                         label: address,
                                                     }
                                                 })}
-                                                onChange={(value) => setPoint(value)}
                                             />
                                         </Form.Item>
 
