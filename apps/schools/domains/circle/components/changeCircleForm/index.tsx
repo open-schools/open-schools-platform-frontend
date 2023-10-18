@@ -1,5 +1,5 @@
 import { Form, Typography, Input as AntdInput, Row, Spin } from 'antd'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
@@ -61,7 +61,7 @@ export const ChangeCircleForm = () => {
 
     useEffect(() => {
         validationCheck()
-    }, [point, form.getFieldValue(CIRCLE_ADDRESS)]);
+    }, [point, form.getFieldValue(CIRCLE_ADDRESS)])
 
     if (step === FormMapSteps.Form) {
         return !circleData.isLoading ? (

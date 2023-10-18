@@ -50,7 +50,7 @@ export const CreateCircleForm = () => {
 
     useEffect(() => {
         validationCheck()
-    }, [point, form.getFieldValue(CIRCLE_ADDRESS)]);
+    }, [point, form.getFieldValue(CIRCLE_ADDRESS)])
 
     if (step === FormMapSteps.Form) {
         return (
