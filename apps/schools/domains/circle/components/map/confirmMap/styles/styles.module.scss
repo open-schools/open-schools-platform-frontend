@@ -1,5 +1,5 @@
-@import '@domains/common/components/styles/abstracts/_variables';
-@import '@domains/common/components/styles/abstracts/_colors.scss';
+@import '@domains/common/components/styles/abstracts/variables';
+@import '@domains/common/components/styles/abstracts/colors';
 
 .form {
   position: absolute;
@@ -38,10 +38,33 @@
   gap: 30px;
   margin: 50px 0;
 
+  .addButton {
+    width: auto;
+    padding: 8px 16px;
+  }
+
   .cancelButton {
     background-color: white;
     color: #2698FF;
-    width: 79px;
+    width: auto;
+    padding: 8px 16px;
+    border-color: #2698FF;
+
+    &:hover {
+      background-color: rgba(24, 144, 255, 0.1);
+    }
+
+    &:active {
+      background-color: #1890FF;
+      color: #FFFFFF;
+    }
+  }
+
+  .changeAddressButton {
+    background-color: white;
+    color: #2698FF;
+    width: auto;
+    padding: 8px 16px;
     border-color: #2698FF;
 
     &:hover {

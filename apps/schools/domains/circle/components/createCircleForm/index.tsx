@@ -1,5 +1,5 @@
 import { Form, Typography, Input as AntdInput, Row, Spin } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
@@ -13,16 +13,16 @@ import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
 import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
-import { handleSubmitForm } from '../../handlers/circleCreate'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import AddressForm from '@domains/circle/components/addressForm'
+import { ConfirmForm } from "@domains/circle/components/confirmForm";
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
-    const [step, setStep] = useState<'Form' | 'Map'>('Form')
+    const [step, setStep] = useState<'Form' | 'Map' | 'Confirm'>('Form')
     const [point, setPoint] = useState('')
-    const { organization, organizationId } = useOrganization()
+    const { organization } = useOrganization()
     const [form] = Form.useForm()
     const [isFormValid, setIsFormValid] = useState(false)
     const [mutation] = useCreateCircleMutation()
@@ -42,6 +42,10 @@ export const CreateCircleForm = () => {
         setIsFormValid(isValidFormCheck(form, [CIRCLE_NAME, CIRCLE_ADDRESS]))
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [step])
+
     if (step === 'Form') {
         return (
             <Row className={styles.mainRow}>
@@ -53,9 +57,7 @@ export const CreateCircleForm = () => {
                         requiredMark={false}
                         onValuesChange={validationCheck}
                         onFinish={() => {
-                            handleSubmitForm(organizationId, form, mutation).then((isSucceed) => {
-                                if (isSucceed) window.location.href = '/circle'
-                            })
+                            setStep('Confirm')
                         }}
                         layout='vertical'
                     >
@@ -142,7 +144,7 @@ export const CreateCircleForm = () => {
                                 data-cy='resetcomplete-button'
                                 className={styles.button}
                             >
-                                Добавить кружок
+                                Подтвердить адрес кружка
                             </Button>
                         </Form.Item>
                     </Form>
@@ -155,7 +157,11 @@ export const CreateCircleForm = () => {
                 </div>
             </Row>
         )
-    } else {
+    }  else if (step === 'Map') {
         return <AddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
+    } else {
+        return (
+          <ConfirmForm setStep={setStep} point={point ? point : circlesAddresses[0]} mode={'Create'} form={form} mutation={mutation} />
+        )
     }
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Typography } from 'antd'
 import styles from './styles/styles.module.scss'
-import MapComponent from '@domains/circle/components/map'
+import MapComponent from '@domains/circle/components/map/adressMap'
 
 interface AddressFormProps {
-    setStep: React.Dispatch<React.SetStateAction<'Form' | 'Map'>>
+    setStep: React.Dispatch<React.SetStateAction<'Form' | 'Map' | 'Confirm'>>
     setPoint?: React.Dispatch<React.SetStateAction<string>>
     point?: string
 }

@@ -13,17 +13,17 @@ import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
 import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
-import { handleSubmitForm } from '../../handlers/circleUpdate'
 import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import AddressForm from '@domains/circle/components/addressForm'
+import { ConfirmForm } from "@domains/circle/components/confirmForm";
 
 export const ChangeCircleForm = () => {
     const validators = useChangeCircleFormValidators()
     const { organizationId } = useOrganization()
     const [form] = Form.useForm()
-    const [step, setStep] = useState<'Form' | 'Map'>('Form')
+    const [step, setStep] = useState<'Form' | 'Map' | 'Confirm'>('Form')
     const [point, setPoint] = useState('')
     const [isFormValid, setIsFormValid] = useState(false)
     const [mutation] = useChangeCircleMutation()
@@ -68,9 +68,7 @@ export const ChangeCircleForm = () => {
                         requiredMark={false}
                         onValuesChange={validationCheck}
                         onFinish={() => {
-                            handleSubmitForm(circleId, form, mutation).then((isSucceed) => {
-                                if (isSucceed) window.location.href = `/circle/${circleId}`
-                            })
+                            setStep('Confirm')
                         }}
                         layout='vertical'
                     >
@@ -158,7 +156,7 @@ export const ChangeCircleForm = () => {
                                 data-cy='resetcomplete-button'
                                 className={styles.button}
                             >
-                                Сохранить изменения
+                                Подтвердить изменения
                             </Button>
                         </Form.Item>
                     </Form>
@@ -167,9 +165,13 @@ export const ChangeCircleForm = () => {
         ) : (
             <Spin></Spin>
         )
-    } else {
+    } else if (step === 'Map') {
         return (
             <AddressForm setStep={setStep} point={point ? point : initialValues[CIRCLE_ADDRESS]} setPoint={setPoint} />
+        )
+    } else {
+        return (
+          <ConfirmForm setStep={setStep} point={point ? point : circlesAddresses[0]} mode={'Change'} form={form} mutation={mutation} />
         )
     }
 }

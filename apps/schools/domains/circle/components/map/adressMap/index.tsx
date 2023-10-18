@@ -14,7 +14,7 @@ import { Button } from '@domains/common/components/button'
 
 interface MapComponentProps {
     setPoint?: React.Dispatch<React.SetStateAction<string>>
-    setStep?: React.Dispatch<React.SetStateActionn<'Form' | 'Map'>>
+    setStep?: React.Dispatch<React.SetStateAction<'Form' | 'Map' | 'Confirm'>>
     point?: string
 }
 
