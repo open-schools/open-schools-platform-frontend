@@ -97,30 +97,32 @@ export const CurrentQuery = () => {
             <Row className={styles.cardsContainer}>
                 <Col lg={12} md={24} xs={24} sm={24} className={styles.card}>
                     <div className={styles.mainBlock}>
-                    <div className={styles.description}>Дата отправки {formattedDate || 'Не определена'}</div>
-                    <div className={styles.information}>
-                        <Row className={styles.row}>
-                            <Col span={12}>Получено от:</Col>
-                            <Col span={12}>{query?.additional.parent_name || 'Не определено'}</Col>
-                        </Row>
-                        <Row className={styles.row}>
-                            <Col span={12}>Обучающийся:</Col>
-                            <Col span={12}>{query?.body.name || 'Не определен'}</Col>
-                        </Row>
-                        <Row className={styles.row}>
-                            <Col span={12}>Телефон родителя:</Col>
-                            <Col span={12}>{query?.additional.parent_phone || 'Не определен'}</Col>
-                        </Row>
-                        <Row className={styles.row}>
-                            <Col span={12}>Кружок:</Col>
-                            <Col span={12}>{query?.recipient.name || 'Не определен'}</Col>
-                        </Row>
-                        <div className={styles.queryText}>
-                            <div className={styles.queryTextHeader}>Текст заявки:</div>
-                            <div className={styles.queryTextContent}>{query?.additional.text || 'Не определен'}</div>
+                        <div className={styles.description}>Дата отправки {formattedDate || 'Не определена'}</div>
+                        <div className={styles.information}>
+                            <Row className={styles.row}>
+                                <Col span={12}>Получено от:</Col>
+                                <Col span={12}>{query?.additional.parent_name || 'Не определено'}</Col>
+                            </Row>
+                            <Row className={styles.row}>
+                                <Col span={12}>Обучающийся:</Col>
+                                <Col span={12}>{query?.body.name || 'Не определен'}</Col>
+                            </Row>
+                            <Row className={styles.row}>
+                                <Col span={12}>Телефон родителя:</Col>
+                                <Col span={12}>{query?.additional.parent_phone || 'Не определен'}</Col>
+                            </Row>
+                            <Row className={styles.row}>
+                                <Col span={12}>Кружок:</Col>
+                                <Col span={12}>{query?.recipient.name || 'Не определен'}</Col>
+                            </Row>
+                            <div className={styles.queryText}>
+                                <div className={styles.queryTextHeader}>Текст заявки:</div>
+                                <div className={styles.queryTextContent}>
+                                    {query?.additional.text || 'Не определен'}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </Col>
                 <Col lg={12} md={24} xs={24} sm={24} className={styles.imageCard}>
                     <Image className={styles.image} src={queryChat} alt={'Chat with parents'} />
