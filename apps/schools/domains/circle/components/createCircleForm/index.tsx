@@ -17,10 +17,12 @@ import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
+import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
+import { FormMapSteps } from "@domains/circle/constants/Enums";
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
-    const [step, setStep] = useState<'Form' | 'Map' | 'Confirm'>('Form')
+    const [step, setStep] = useState<mapSteps>(FormMapSteps.Form)
     const [point, setPoint] = useState('')
     const { organization } = useOrganization()
     const [form] = Form.useForm()
@@ -46,7 +48,7 @@ export const CreateCircleForm = () => {
         window.scrollTo(0, 0)
     }, [step])
 
-    if (step === 'Form') {
+    if (step === FormMapSteps.Form) {
         return (
             <Row className={styles.mainRow}>
                 <div className={styles.formContainer}>
@@ -57,7 +59,7 @@ export const CreateCircleForm = () => {
                         requiredMark={false}
                         onValuesChange={validationCheck}
                         onFinish={() => {
-                            setStep('Confirm')
+                            setStep(FormMapSteps.Confirm)
                         }}
                         layout='vertical'
                     >
@@ -122,7 +124,7 @@ export const CreateCircleForm = () => {
 
                                     <Button
                                         className={styles.mapButton}
-                                        onClick={() => setStep('Map')}
+                                        onClick={() => setStep(FormMapSteps.Map)}
                                         antdType={'text'}
                                         icon={<AimOutlined />}
                                     >
@@ -157,7 +159,7 @@ export const CreateCircleForm = () => {
                 </div>
             </Row>
         )
-    } else if (step === 'Map') {
+    } else if (step === FormMapSteps.Map) {
         return <MapAddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
     } else {
         return (

@@ -14,10 +14,12 @@ import { handleSubmitForm as handleSubmitCreateForm } from '@domains/circle/hand
 import { handleSubmitForm as handleSubmitUpdateForm } from '@domains/circle/handlers/circleUpdate'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
+import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
+import { FormMapSteps } from "@domains/circle/constants/Enums";
 
 interface MapComponentProps {
     mode: 'Change' | 'Create'
-    setStep: React.Dispatch<React.SetStateAction<'Form' | 'Map' | 'Confirm'>>
+    setStep: React.Dispatch<React.SetStateAction<mapSteps>>
     point?: string
     mainForm: FormInstance
     mutation: any
@@ -186,12 +188,12 @@ const ConfirmMap = (props: MapComponentProps) => {
                     <Button
                         className={styles.changeAddressButton}
                         onClick={() => {
-                            setStep('Map')
+                            setStep(FormMapSteps.Map)
                         }}
                     >
                         Изменить адрес
                     </Button>
-                    <Button className={styles.cancelButton} onClick={() => setStep('Form')}>
+                    <Button className={styles.cancelButton} onClick={() => setStep(FormMapSteps.Form)}>
                         Назад
                     </Button>
                 </Row>

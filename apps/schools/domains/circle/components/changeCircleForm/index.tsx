@@ -18,12 +18,14 @@ import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
+import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
+import { FormMapSteps } from "@domains/circle/constants/Enums";
 
 export const ChangeCircleForm = () => {
     const validators = useChangeCircleFormValidators()
     const { organizationId } = useOrganization()
     const [form] = Form.useForm()
-    const [step, setStep] = useState<'Form' | 'Map' | 'Confirm'>('Form')
+    const [step, setStep] = useState<mapSteps>('Form')
     const [point, setPoint] = useState('')
     const [isFormValid, setIsFormValid] = useState(false)
     const [mutation] = useChangeCircleMutation()
@@ -57,7 +59,7 @@ export const ChangeCircleForm = () => {
         setIsFormValid(isValidFormCheck(form, [], initialValues))
     }
 
-    if (step === 'Form') {
+    if (step === FormMapSteps.Form) {
         return !circleData.isLoading ? (
             <Row className={styles.mainRow}>
                 <div className={styles.formContainer}>
@@ -165,7 +167,7 @@ export const ChangeCircleForm = () => {
         ) : (
             <Spin></Spin>
         )
-    } else if (step === 'Map') {
+    } else if (step === FormMapSteps.Map) {
         return (
             <MapAddressForm setStep={setStep} point={point ? point : initialValues[CIRCLE_ADDRESS]} setPoint={setPoint} />
         )

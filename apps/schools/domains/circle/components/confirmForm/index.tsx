@@ -2,10 +2,11 @@ import React from 'react'
 import styles from './styles/styles.module.scss'
 import { FormInstance, Typography } from 'antd'
 import ConfirmMap from '@domains/circle/components/map/confirmMap'
+import { mapSteps } from "@domains/circle/interfaces/mapStepsType";
 
 interface ConfirmFormProps {
     mode: 'Change' | 'Create'
-    setStep: React.Dispatch<React.SetStateAction<'Form' | 'Map' | 'Confirm'>>
+    setStep: React.Dispatch<React.SetStateAction<mapSteps>>
     point?: string
     form: FormInstance
     mutation: any
