@@ -1,9 +1,7 @@
 import { Menu } from 'antd'
 import {
-    BarChartOutlined,
     FileDoneOutlined,
     ReadOutlined,
-    SlidersOutlined,
     TeamOutlined,
     UserAddOutlined,
 } from '@ant-design/icons'
@@ -13,25 +11,14 @@ import styles from './styles/styles.module.scss'
 
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { MenuItemObj } from '../classes'
-import { isOrganizationSelected, permanentDisabled, RulesDictionary } from '@domains/common/access/rules'
+import { isOrganizationSelected, RulesDictionary } from '@domains/common/access/rules'
 
 const menuList: MenuItemObj[] = [
-    new MenuItemObj('analytics', 'Аналитика', <BarChartOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected,
-        permanentDisabled,
-    ]),
     new MenuItemObj('circle', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
     new MenuItemObj('student', 'Обучающиеся', <TeamOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
-    new MenuItemObj('queries', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected,
-        permanentDisabled,
-    ]),
+    new MenuItemObj('query', 'Заявки', <FileDoneOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
     new MenuItemObj('employee', 'Сотрудники', <UserAddOutlined style={{ fontSize: '150%' }} />, [
         isOrganizationSelected,
-    ]),
-    new MenuItemObj('settings', 'Настройки', <SlidersOutlined style={{ fontSize: '150%' }} />, [
-        isOrganizationSelected,
-        permanentDisabled,
     ]),
 ]
 
