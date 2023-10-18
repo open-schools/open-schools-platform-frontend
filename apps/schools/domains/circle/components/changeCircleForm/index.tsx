@@ -25,7 +25,7 @@ export const ChangeCircleForm = () => {
     const validators = useChangeCircleFormValidators()
     const { organizationId } = useOrganization()
     const [form] = Form.useForm()
-    const [step, setStep] = useState<mapSteps>('Form')
+    const [step, setStep] = useState<mapSteps>(FormMapSteps.Form)
     const [point, setPoint] = useState('')
     const [isFormValid, setIsFormValid] = useState(false)
     const [mutation] = useChangeCircleMutation()
@@ -70,7 +70,7 @@ export const ChangeCircleForm = () => {
                         requiredMark={false}
                         onValuesChange={validationCheck}
                         onFinish={() => {
-                            setStep('Confirm')
+                            setStep(FormMapSteps.Confirm)
                         }}
                         layout='vertical'
                     >
@@ -136,7 +136,7 @@ export const ChangeCircleForm = () => {
 
                                     <Button
                                         className={styles.mapButton}
-                                        onClick={() => setStep('Map')}
+                                        onClick={() => setStep(FormMapSteps.Map)}
                                         antdType={'text'}
                                         icon={<AimOutlined />}
                                     >
