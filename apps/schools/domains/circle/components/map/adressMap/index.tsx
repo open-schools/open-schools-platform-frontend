@@ -1,8 +1,8 @@
 // @ts-nocheck
 
 import React from 'react'
-import { YMaps, Map } from 'react-yandex-maps'
-import { Form, message, Typography } from 'antd'
+import { YMaps, Map, YMapsApi } from 'react-yandex-maps'
+import { Form, message, Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import classnames from 'classnames'
 import cities from '@public/cities.json'
@@ -10,13 +10,24 @@ import getConfig from 'next/config'
 import { Input } from '@domains/common/components/input'
 import { Select } from '@domains/common/components/select'
 import { placeMarkSvg } from '@domains/common/components/Icons/placeMarkSvg'
+import { Button } from '@domains/common/components/button'
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
+import { FormMapSteps } from '@domains/circle/constants/Enums'
 
-const MapComponent = () => {
+interface MapComponentProps {
+    setPoint?: React.Dispatch<React.SetStateAction<string>>
+    setStep?: React.Dispatch<React.SetStateAction<mapSteps>>
+    point?: string
+}
+
+const MapComponent = (props: MapComponentProps) => {
     const {
         publicRuntimeConfig: {
             YandexMapApiKey: { key: YandexApiKey },
         },
     } = getConfig()
+
+    const { point, setPoint, setStep } = props
 
     const [form] = Form.useForm()
     const ymaps = React.useRef(null)
@@ -27,6 +38,29 @@ const MapComponent = () => {
         center: [56.838926, 60.605702],
         zoom: 10,
     })
+
+    const initialYMaps = (Ymap: YMapsApi) => {
+        ymaps.current = Ymap
+
+        if (point) {
+            const temp = ymaps.current.geocode(point)
+            temp.then(function (response) {
+                const coords = response.geoObjects.get(0).geometry._coordinates
+
+                placeMarkRef.current = createPlaceMark(coords)
+                mapRef.current.geoObjects.add(placeMarkRef.current)
+                placeMarkRef.current.events.add('dragend', function () {
+                    getAddress(placeMarkRef.current.geometry.getCoordinates())
+                })
+
+                getAddress(coords)
+                setMapState({
+                    center: coords,
+                    zoom: 10,
+                })
+            })
+        }
+    }
 
     const createPlaceMark = (coords: number[]) => {
         const customIconLayout = ymaps.current.templateLayoutFactory.createClass(
@@ -130,7 +164,7 @@ const MapComponent = () => {
                     style={style}
                     modules={['templateLayoutFactory', 'Placemark', 'geocode', 'geoObject.addon.balloon']}
                     instanceRef={mapRef}
-                    onLoad={(ymapsInstance) => (ymaps.current = ymapsInstance)}
+                    onLoad={(ymapsInstance) => initialYMaps(ymapsInstance)}
                     onClick={onMapClick}
                     state={mapState}
                 >
@@ -169,6 +203,20 @@ const MapComponent = () => {
                         </Form.Item>
                     </Form>
                 </Map>
+                <Row className={styles.buttonContainer}>
+                    <Button className={styles.cancelButton} onClick={() => setStep(FormMapSteps.Form)}>
+                        Назад
+                    </Button>
+                    <Button
+                        className={styles.saveButton}
+                        onClick={() => {
+                            setPoint(form.getFieldValue('city') + ', ' + form.getFieldValue('address'))
+                            setStep(FormMapSteps.Form)
+                        }}
+                    >
+                        Сохранить
+                    </Button>
+                </Row>
             </div>
         </YMaps>
     )

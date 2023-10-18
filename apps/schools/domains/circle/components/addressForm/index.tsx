@@ -1,12 +1,17 @@
 import React from 'react'
-import { Row, Typography } from 'antd'
+import { Typography } from 'antd'
 import styles from './styles/styles.module.scss'
-import MapComponent from '@domains/circle/components/map'
-import { Button } from '@domains/common/components/button'
-import { useRouter } from 'next/router'
+import MapComponent from '@domains/circle/components/map/adressMap'
+import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
 
-const AddressForm = () => {
-    const router = useRouter()
+interface AddressFormProps {
+    setStep: React.Dispatch<React.SetStateAction<mapSteps>>
+    setPoint?: React.Dispatch<React.SetStateAction<string>>
+    point?: string
+}
+
+const MapAddressForm = (props: AddressFormProps) => {
+    const { setStep, setPoint, point } = props
 
     return (
         <div className={styles.container}>
@@ -15,17 +20,9 @@ const AddressForm = () => {
                 Выберите на карте расположение кружка, для этого: выберете город, найдите нужную улицу, дом и нажмите на
                 него
             </Typography.Title>
-            <MapComponent />
-            <Row className={styles.buttonContainer}>
-                <Button className={styles.cancelButton} onClick={() => router.push('./')}>
-                    Назад
-                </Button>
-                <Button className={styles.saveButton} onClick={() => router.push('./')}>
-                    Сохранить
-                </Button>
-            </Row>
+            <MapComponent setPoint={setPoint} point={point} setStep={setStep} />
         </div>
     )
 }
 
-export default AddressForm
+export default MapAddressForm
