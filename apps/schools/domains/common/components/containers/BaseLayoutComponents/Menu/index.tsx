@@ -1,10 +1,5 @@
 import { Menu } from 'antd'
-import {
-    FileDoneOutlined,
-    ReadOutlined,
-    TeamOutlined,
-    UserAddOutlined,
-} from '@ant-design/icons'
+import { FileDoneOutlined, ReadOutlined, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from './styles/styles.module.scss'
