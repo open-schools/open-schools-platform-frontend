@@ -27,9 +27,9 @@ const CreateOrganizationForm: React.FC<CustomCreateOrganizationFormProps> = (pro
             okButtonProps={{ style: OK_BUTTON_STYLE }}
             onCancel={() => setIsModalVisible(false)}
             onOk={() => {
-                form.validateFields().then(() => {
+                form.validateFields().then(async () => {
                     try {
-                        organizationCookieChange(String(handleSubmitCreateOrganizationForm(form, mutation)))
+                        organizationCookieChange(String(await handleSubmitCreateOrganizationForm(form, mutation)))
                         setIsModalVisible(false)
                         form.resetFields()
                     } catch (error: any) {

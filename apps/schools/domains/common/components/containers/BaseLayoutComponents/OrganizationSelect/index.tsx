@@ -24,8 +24,10 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => 
     const ORGANIZATION_SELECT_SHOW_ACTIONS: SelectProps<string>['showAction'] = ['focus', 'click']
 
     const organizationCookieChange = (value: string) => {
-        setOrganizationId(value)
-        setTimeout(() => refetch(), 1000)
+        refetch()
+        setTimeout(() => {
+            setOrganizationId(value)
+        }, 1000)
     }
 
     const showModal = () => {
