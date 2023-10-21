@@ -25,7 +25,7 @@ export function ProfileInfo() {
             <Image src={duckEmptyPage} alt={'Duck with a magnifying glass'} width={190} />
             <Col className={styles.infoContainer}>
                 <Typography.Title className={styles.title} level={1}>
-                    {user.name}
+                    {user.employee_profile?.name ? user.employee_profile?.name : 'Имя не определено'}
                 </Typography.Title>
                 <Row gutter={[0, 20]} className={styles.itemContainer}>
                     <Col className={styles.fieldName} lg={10} xs={10}>
@@ -41,7 +41,7 @@ export function ProfileInfo() {
                         E-mail:
                     </Col>
                     <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                        {user.employee_profile?.email ?? 'Не определено'}
+                        {user.employee_profile?.email ? user.employee_profile?.email : 'Не определено'}
                     </Col>
                 </Row>
 

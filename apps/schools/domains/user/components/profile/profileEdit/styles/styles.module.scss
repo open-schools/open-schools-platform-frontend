@@ -1,0 +1,21 @@
+.baseRowContainer {
+  padding-bottom: 50px;
+
+  .infoContainer {
+    margin-left: 70px;
+    min-width: 600px;
+
+    .title {
+      margin-bottom: 50px;
+    }
+
+    .itemContainer {
+      margin-bottom: 30px;
+    }
+
+    .buttonsContainer {
+      gap: 20px;
+      width: 550px;
+    }
+  }
+}

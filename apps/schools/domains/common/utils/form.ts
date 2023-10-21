@@ -32,10 +32,10 @@ export function isPhoneValid(form: FormInstance, field_name: string) {
     return 1
 }
 
-export function removeEmpty(obj: any): any {
+export function removeEmpty(obj: any, exceptList: string[] = []): any {
     return Object.fromEntries(
         Object.entries(obj)
-            .filter(([_, v]) => v != null && v != '' && v != undefined)
+            .filter(([_, v]) => (v != null && v != '' && v != undefined) || exceptList.includes(_))
             .map(([k, v]) => [k, v === Object(v) ? removeEmpty(v) : v]),
     )
 }
