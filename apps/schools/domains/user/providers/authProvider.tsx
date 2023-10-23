@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useGetUserQuery } from '../redux/authenticationApi'
 import Cookies from 'universal-cookie'
 import { GetUserProfiles } from '@domains/user/redux/interfaces'
-import { EventKey, useEventBus } from '@domains/common/providers/refetchProvider'
+import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
 
 export const UserProfileContext = createContext<{
     token: string

@@ -24,12 +24,12 @@ export const EventBusContext = createContext<EventBus>({
     once(key: EventKey, handler: EventHandler): void {},
 })
 
-interface RefetchProviderProps {
+interface EventBusProps {
     children: React.ReactNode
 }
 
 export const useEventBus = () => useContext(EventBusContext)
-export const RefetchProvider: React.FC<RefetchProviderProps> = ({ children }) => {
+export const EventBusProvider: React.FC<EventBusProps> = ({ children }) => {
     const [bus, setBus] = useState<{ [key: string]: Array<EventHandler> }>({})
 
     const off: EventBus['off'] = (key, handler) => {

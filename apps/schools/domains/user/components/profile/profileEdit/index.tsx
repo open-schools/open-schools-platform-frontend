@@ -13,7 +13,7 @@ import Link from 'next/link'
 import { useChangeUserProfileFormValidators } from '@domains/user/components/profile/profileEdit/hooks'
 import { useUpdateEmployeeProfileByIdMutation } from '@domains/employee/redux/employeeApi'
 import { handleSubmitForm } from '@domains/user/handlers/profile/profileEdit'
-import { EventKey, useEventBus } from '@domains/common/providers/refetchProvider'
+import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
 
 export function ProfileEdit() {
     const { emit } = useEventBus()

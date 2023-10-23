@@ -11,7 +11,7 @@ import { OrganizationProvider } from '@domains/organization/providers/organizati
 import { BaseLayout } from '@domains/common/components/containers/BaseLayoutComponents/BaseLayout'
 import { LayoutContextProvider } from '@domains/user/providers/baseLayoutProvider'
 import { message } from 'antd'
-import { RefetchProvider } from '@domains/common/providers/refetchProvider'
+import { EventBusProvider } from '@domains/common/providers/eventBusProvider'
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
 
     return (
         <Provider store={store}>
-            <RefetchProvider>
+            <EventBusProvider>
                 <AuthProvider>
                     <LayoutContextProvider>
                         <OrganizationProvider>
@@ -59,7 +59,7 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
                         </OrganizationProvider>
                     </LayoutContextProvider>
                 </AuthProvider>
-            </RefetchProvider>
+            </EventBusProvider>
         </Provider>
     )
 }
