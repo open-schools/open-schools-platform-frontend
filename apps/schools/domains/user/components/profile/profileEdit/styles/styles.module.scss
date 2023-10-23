@@ -3,7 +3,7 @@
 
   .infoContainer {
     margin-left: 70px;
-    min-width: 600px;
+    max-width: 600px;
 
     .title {
       margin-bottom: 50px;
@@ -15,7 +15,6 @@
 
     .buttonsContainer {
       gap: 20px;
-      width: 550px;
     }
   }
 }

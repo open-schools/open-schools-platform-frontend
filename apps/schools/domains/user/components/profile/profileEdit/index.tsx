@@ -13,8 +13,10 @@ import Link from 'next/link'
 import { useChangeUserProfileFormValidators } from '@domains/user/components/profile/profileEdit/hooks'
 import { useUpdateEmployeeProfileByIdMutation } from '@domains/employee/redux/employeeApi'
 import { handleSubmitForm } from '@domains/user/handlers/profile/profileEdit'
+import { EventKey, useEventBus } from '@domains/common/providers/refetchProvider'
 
 export function ProfileEdit() {
+    const { emit } = useEventBus()
     const { user } = useUserProfile()
 
     const [form] = Form.useForm()
@@ -48,7 +50,10 @@ export function ProfileEdit() {
                         onValuesChange={validationCheck}
                         onFinish={() => {
                             handleSubmitForm(user.employee_profile?.id ?? '', form, mutation).then((isSuccess) => {
-                                if (isSuccess) window.location.href = '/user'
+                                if (isSuccess) {
+                                    emit(EventKey.RefetchProfileQuery)
+                                    router.push('/user')
+                                }
                             })
                         }}
                         layout='vertical'
@@ -80,21 +85,14 @@ export function ProfileEdit() {
                         </Form.Item>
 
                         <Row className={styles.buttonsContainer}>
-                            <Button
-                                type='schoolDefault'
-                                htmlType='submit'
-                                disabled={!isFormValid}
-                                block
-                                style={{ width: '40%' }}
-                            >
+                            <Button type='schoolDefaultAuto' htmlType='submit' disabled={!isFormValid} block>
                                 Сохранить изменения
                             </Button>
 
                             <Button
-                                type='schoolDefault'
+                                type='schoolDefaultAuto'
                                 antdType={'default'}
                                 block
-                                style={{ width: '20%' }}
                                 onClick={() => router.push('/user')}
                             >
                                 Отменить

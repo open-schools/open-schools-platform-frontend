@@ -82,7 +82,7 @@ export function ProfileInfo() {
                     ))
                 )}
 
-                <Button type='schoolDefault' block style={{ width: '50%' }} onClick={() => router.push('/user/edit')}>
+                <Button type='schoolDefaultAuto' block onClick={() => router.push('/user/edit')}>
                     Редактировать профиль
                 </Button>
             </Col>

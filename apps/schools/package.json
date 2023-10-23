@@ -8,7 +8,7 @@
     "test:jest": "jest --passWithNoTests",
     "prettier": "prettier --write \"domains/**/*.{ts,tsx}\"",
     "dev": "npm run open-browser && next dev",
-    "row-dev": "next dev",
+    "dev:console": "next dev",
     "open-browser": "start http://localhost:3000",
     "build": "next build",
     "start": "next start",
