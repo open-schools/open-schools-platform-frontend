@@ -1,0 +1,10 @@
+.button {
+  width: auto !important; // antd styles rewrite width style
+  height: 40px;
+  padding: 0 20px 0 20px;
+  border-radius: 12px;
+  font: {
+    family: OpenSans, sans-serif;
+    size: 16px;
+  }
+}
