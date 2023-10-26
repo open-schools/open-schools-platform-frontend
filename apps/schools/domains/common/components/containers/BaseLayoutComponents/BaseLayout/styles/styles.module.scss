@@ -63,7 +63,7 @@
 
 .invitationsContainer {
   width: 100vw;
-  position: absolute;
+  position: fixed;
   box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.10);
   z-index: $z-foreground-2;
   top: 0;
