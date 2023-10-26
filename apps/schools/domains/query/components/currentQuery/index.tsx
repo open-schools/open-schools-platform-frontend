@@ -12,6 +12,7 @@ import ruLocale from 'date-fns/locale/ru'
 import { GetStudentJoinCircle } from '@domains/common/redux/serializers'
 import { useChangeStatusMutation } from '@domains/query/redux/queryApi'
 import { handleQueryStatusChange } from '@domains/query/handlers/queryUpdate'
+import { QueriesTypes } from '@domains/common/redux/interfaces'
 
 export const CurrentQuery = () => {
     const { organizationId } = useOrganization()
@@ -54,7 +55,7 @@ export const CurrentQuery = () => {
                 break
             }
         }
-        handleQueryStatusChange(mutation, uuid[0], translatedStatus)
+        handleQueryStatusChange(mutation, uuid[0], translatedStatus as QueriesTypes)
         setCurrentStatus(value)
         setCurrentDependencies(graph[value] || [])
     }
