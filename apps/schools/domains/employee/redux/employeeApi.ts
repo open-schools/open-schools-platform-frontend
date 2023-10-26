@@ -4,8 +4,10 @@ import {
     DeleteEmployeeByIdData,
     GetAllEmployeesData,
     GetEmployee,
+    GetEmployeeProfile,
     GetListEmployee,
     UpdateEmployeeByIdData,
+    UpdateEmployeeProfile,
 } from './interfaces'
 import { GetOrganizationInviteEmployee } from '@domains/common/redux/serializers'
 
@@ -30,6 +32,13 @@ const employeeApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
+        updateEmployeeProfileById: build.mutation<{ employee_profile: GetEmployeeProfile }, UpdateEmployeeProfile>({
+            query: (data) => ({
+                url: `/organization-management/employees/employee-profile/${data.employee_profile_id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+        }),
         deleteEmployeeById: build.mutation<{}, DeleteEmployeeByIdData>({
             query: (data) => ({
                 url: `/organization-management/employees/${data.employee_id}`,
@@ -43,6 +52,7 @@ export const {
     useDeleteEmployeeByIdMutation,
     useGetAllEmployeesQuery,
     useLazyGetAllEmployeesQuery,
+    useUpdateEmployeeProfileByIdMutation,
     useGetInvitationsQuery,
     useUpdateEmployeeByIdMutation,
 } = employeeApi

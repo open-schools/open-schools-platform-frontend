@@ -49,3 +49,16 @@ export interface UpdateEmployeeByIdData {
 export interface DeleteEmployeeByIdData {
     employee_id: string
 }
+
+export interface UpdateEmployeeProfile {
+    employee_profile_id: string
+    name: string
+    email: string
+}
+
+export interface GetEmployeeProfile {
+    id: string
+    name: string
+    email: string
+    user: string
+}

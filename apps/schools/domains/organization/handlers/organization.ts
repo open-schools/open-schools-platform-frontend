@@ -10,6 +10,6 @@ export async function handleSubmitCreateOrganizationForm(formComponent: FormInst
 
     if ('data' in response) {
         message.success('Организация успешно создана')
-        return response?.creator_employee?.organization?.id
+        return response?.data.creator_employee?.organization?.id
     }
 }

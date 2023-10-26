@@ -30,3 +30,4 @@ export const PleaseSelectOneOfOptionsMsg = 'Пожалуйста, выберит
 export const SuccessInviteEmployeeMsg = 'Приглашение отправлено'
 export const SuccessCreateCircleMsg = 'Кружок успешно создан'
 export const SuccessUpdateCircleMsg = 'Кружок успешно изменён'
+export const SuccessUpdateUserProfileMsg = 'Ваш профиль успешно изменён'

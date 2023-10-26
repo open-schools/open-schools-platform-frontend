@@ -15,7 +15,7 @@ const { Option } = Select
 
 export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => {
     const { collapsed } = props
-    const { isLoading, data } = useGetAllOrganizationsQuery({})
+    const { isLoading, data, refetch } = useGetAllOrganizationsQuery({})
     const { organization, organizationId, setOrganizationId } = useOrganization()
     const [isOpen, setIsOpen] = useState(false)
 
@@ -24,8 +24,7 @@ export const OrganizationSelect: React.FC<OrganizationSelectProps> = (props) => 
     const ORGANIZATION_SELECT_SHOW_ACTIONS: SelectProps<string>['showAction'] = ['focus', 'click']
 
     const organizationCookieChange = (value: string) => {
-        setOrganizationId(value)
-        window.location.reload()
+        refetch().then(() => setOrganizationId(value))
     }
 
     const showModal = () => {
