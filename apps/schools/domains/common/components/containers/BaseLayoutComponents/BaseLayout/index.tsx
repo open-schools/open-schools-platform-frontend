@@ -19,15 +19,17 @@ import { Button } from '@domains/common/components/button'
 import { handleChangeStatusInvitation } from '@domains/common/handlers/changeStatusInvitation'
 import { useChangeStatusMutation } from '@domains/query/redux/queryApi'
 import { useGetInvitationsQuery } from '@domains/employee/redux/employeeApi'
+import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
 
 const { Content, Sider } = Layout
 
 export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
+    const { children } = props
+    const { emit } = useEventBus()
+
     const { isCollapsed, toggleCollapsed } = useLayoutContext()
     const { data: invitations, refetch } = useGetInvitationsQuery({})
     const [mutation] = useChangeStatusMutation()
-
-    const { children } = props
 
     return (
         <>
@@ -49,7 +51,10 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                                                     mutation,
                                                     invite.id,
                                                     QueryStatuses.ACCEPTED,
-                                                ).then(refetch)
+                                                ).then(() => {
+                                                    refetch()
+                                                    emit(EventKey.RefetchOrganizationsQuery)
+                                                })
                                             }
                                         >
                                             Принять

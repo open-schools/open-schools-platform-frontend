@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react'
 import { message } from 'antd'
 
 export enum EventKey {
+    RefetchOrganizationsQuery = 'RefetchOrganizationsQuery',
     RefetchProfileQuery = 'RefetchProfileQuery',
     RefetchAll = 'RefetchAll',
 }
