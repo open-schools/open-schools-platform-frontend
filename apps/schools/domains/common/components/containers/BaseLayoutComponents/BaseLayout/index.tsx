@@ -29,8 +29,6 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
 
     const { children } = props
 
-    invitations?.results.map((invite) => console.log(invite))
-
     return (
         <>
             <Layout className={styles.placement}>
