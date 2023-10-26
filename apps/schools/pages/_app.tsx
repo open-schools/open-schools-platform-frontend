@@ -11,6 +11,7 @@ import { OrganizationProvider } from '@domains/organization/providers/organizati
 import { BaseLayout } from '@domains/common/components/containers/BaseLayoutComponents/BaseLayout'
 import { LayoutContextProvider } from '@domains/user/providers/baseLayoutProvider'
 import { message } from 'antd'
+import { EventBusProvider } from '@domains/common/providers/eventBusProvider'
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
@@ -44,19 +45,21 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
 
     return (
         <Provider store={store}>
-            <AuthProvider>
-                <LayoutContextProvider>
-                    <OrganizationProvider>
-                        <Head>
-                            <title>Открытые школы</title>
-                            <link rel='icon' href='/icons/logo.svg' sizes='any' />
-                        </Head>
-                        <LayoutComponent>
-                            <Component {...pageProps} />
-                        </LayoutComponent>
-                    </OrganizationProvider>
-                </LayoutContextProvider>
-            </AuthProvider>
+            <EventBusProvider>
+                <AuthProvider>
+                    <LayoutContextProvider>
+                        <OrganizationProvider>
+                            <Head>
+                                <title>Открытые школы</title>
+                                <link rel='icon' href='/icons/logo.svg' sizes='any' />
+                            </Head>
+                            <LayoutComponent>
+                                <Component {...pageProps} />
+                            </LayoutComponent>
+                        </OrganizationProvider>
+                    </LayoutContextProvider>
+                </AuthProvider>
+            </EventBusProvider>
         </Provider>
     )
 }
