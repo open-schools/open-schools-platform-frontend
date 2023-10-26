@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetAllOrganizationsQuery } from '../redux/organizationApi'
 import { OrganizationInfo } from '../interfaces/organizationProvider'
+import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
+
 export const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 export const OrganizationContext = createContext<{
@@ -24,17 +26,26 @@ export const ORGANIZATION_ID_STORAGE_NAME = 'organizationId'
 
 export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ children }) => {
     const router = useRouter()
+    const { on } = useEventBus()
 
     const [organizationId, setOrganizationId] = useState('')
     const [organization, setOrganization] = useState({})
-    const { data } = useGetAllOrganizationsQuery({})
+    const { data, refetch } = useGetAllOrganizationsQuery({})
 
     useEffect(() => {
+        const unsubscribeOnRefetchOrganizationsQuery = on(EventKey.RefetchOrganizationsQuery, () => {
+            refetch()
+        })
+
         const localOrganizationId =
             typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
 
         if (localOrganizationId) {
             setOrganizationId(localOrganizationId)
+        }
+
+        return () => {
+            unsubscribeOnRefetchOrganizationsQuery()
         }
     }, [])
 
