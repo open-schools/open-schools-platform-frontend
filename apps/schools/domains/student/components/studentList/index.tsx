@@ -20,12 +20,12 @@ export function StudentList() {
         circle__organization__id: organizationId,
         status: QueryStatuses.SENT,
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
-    })
+    }, { refetchOnMountOrArgChange: true })
 
     const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-    })
+    }, { refetchOnMountOrArgChange: true })
 
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
