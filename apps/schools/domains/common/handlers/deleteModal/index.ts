@@ -1,8 +1,10 @@
 import { message } from 'antd'
 import { successDeleteMsg } from '@domains/common/constants/deleteModal'
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
+import router from 'next/router';
+import React from 'react';
 
-export async function handleDeleteButtonClick(
+export async function handleDeleteButtonClick (
     setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
     mutation: any,
     urlAfterDelete: string,
@@ -17,6 +19,6 @@ export async function handleDeleteButtonClick(
     if (!('error' in response)) {
         setIsModalVisible(false)
         message.success(successDeleteMsg)
-        window.location.href = urlAfterDelete
+        router.push(urlAfterDelete)
     }
 }

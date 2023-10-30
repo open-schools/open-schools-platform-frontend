@@ -21,7 +21,7 @@ export function CircleList() {
     const { data: circles, isLoading: isLoading } = useGetAllCirclesQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-    })
+    }, { refetchOnMountOrArgChange: true })
 
     const reformattedData = mapReturnedData(circles, (circle) => {
         const transformedCircle = structuredClone(circle) as unknown as TableType

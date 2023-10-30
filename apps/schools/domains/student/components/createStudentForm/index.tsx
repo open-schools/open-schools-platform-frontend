@@ -19,6 +19,7 @@ import { handleSubmitForm } from '@domains/student/handlers/student'
 import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
 import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentForm/styles/constants'
 import { Select } from '@domains/common/components/select'
+import router from 'next/router'
 
 export const CreateStudentForm = () => {
     const validators = useCreateStudentFormValidators()
@@ -42,7 +43,7 @@ export const CreateStudentForm = () => {
             requiredMark={false}
             onFinish={() => {
                 handleSubmitForm(form, mutation).then((isSuccess) => {
-                    if (isSuccess) window.location.href = '/student'
+                    if (isSuccess) router.push('/student')
                 })
             }}
             layout='vertical'
