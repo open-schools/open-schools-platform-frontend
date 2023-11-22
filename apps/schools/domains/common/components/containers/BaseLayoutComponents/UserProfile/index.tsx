@@ -3,10 +3,13 @@ import styles from './styles/styles.module.scss'
 import React from 'react'
 import { useRouter } from 'next/router'
 import { MenuItemObj } from '../classes'
-import { UserOutlined } from '@ant-design/icons'
+import {LogoutOutlined, UserOutlined} from '@ant-design/icons'
 import { Menu } from 'antd'
 
-const menuList: MenuItemObj[] = [new MenuItemObj('user', 'Профиль', <UserOutlined style={{ fontSize: '150%' }} />, [])]
+const menuList: MenuItemObj[] = [
+    new MenuItemObj('user', 'Профиль', <UserOutlined style={{ fontSize: '150%' }} />, []),
+    new MenuItemObj('logout', 'Выход', <LogoutOutlined style={{ fontSize: '150%' }} />, [])
+]
 
 const UserProfile = () => {
     const router = useRouter()

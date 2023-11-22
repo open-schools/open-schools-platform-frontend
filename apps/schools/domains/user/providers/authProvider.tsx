@@ -8,8 +8,10 @@ import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvide
 export const UserProfileContext = createContext<{
     token: string
     user: GetUserProfiles
+    logout: () => void
 }>({
     token: '',
+    logout: () => {},
     user: {},
 })
 
@@ -60,5 +62,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [error])
 
-    return <UserProfileContext.Provider value={{ token: token, user: user }}>{children}</UserProfileContext.Provider>
+    const Logout = () => {
+        cookies.remove('jwtToken');
+    }
+
+    return <UserProfileContext.Provider value={{ token: token, user: user, logout: Logout}}>{children}</UserProfileContext.Provider>
 }
