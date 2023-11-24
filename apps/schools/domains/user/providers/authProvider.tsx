@@ -63,8 +63,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [error])
 
     const Logout = () => {
-        cookies.remove('jwtToken');
+        cookies.remove('jwtToken')
     }
 
-    return <UserProfileContext.Provider value={{ token: token, user: user, logout: Logout}}>{children}</UserProfileContext.Provider>
+    return (
+        <UserProfileContext.Provider value={{ token: token, user: user, logout: Logout }}>
+            {children}
+        </UserProfileContext.Provider>
+    )
 }

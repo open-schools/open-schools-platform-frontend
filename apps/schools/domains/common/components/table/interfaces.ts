@@ -2,7 +2,7 @@ import React from 'react'
 import { ReturnedData } from '@domains/common/redux/interfaces'
 import { TableProps } from 'antd'
 import { ColumnFilterItem } from 'antd/lib/table/interface'
-import {Key} from "antd/es/table/interface";
+import { Key } from 'antd/es/table/interface'
 
 export interface CustomFieldsProps {
     [key: string]: React.FC<{
