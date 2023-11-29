@@ -32,11 +32,6 @@ export interface GetCircle {
     longitude?: string
 }
 
-export interface GetQueryStatus {
-    id?: string
-    name: string
-}
-
 export interface GetPhoto {
     id?: string
     image?: string
@@ -73,6 +68,7 @@ export interface GetStudentJoinCircle {
     status: QueriesTypes
     body: GetStudentBody
     additional: GetStudentJoinCircleContext
+    created_at?: string
 }
 
 export interface GetStudent {

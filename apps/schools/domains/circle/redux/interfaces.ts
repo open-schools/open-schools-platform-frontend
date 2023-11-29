@@ -26,6 +26,13 @@ export interface CreateCircleData {
     location: string
 }
 
+export interface ChangeCircleData {
+    name?: string
+    address?: string
+    location?: string
+    circle_id: string
+}
+
 export interface AllCirclesIcalData extends BasePaginationData {
     id?: string
     organization?: string
@@ -43,12 +50,12 @@ export interface AllCirclesIcalData extends BasePaginationData {
     order?: string
 }
 
-interface CreateStudentBodyData {
+export interface CreateStudentBody {
     name: string
 }
 
 export interface CreateCircleInviteStudentData {
-    body: CreateStudentBodyData
+    body: CreateStudentBody
     student_phone?: string
     parent_phone: string
     email: string

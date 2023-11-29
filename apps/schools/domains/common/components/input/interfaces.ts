@@ -10,6 +10,7 @@ export interface CustomInputProps extends InputProps {
     customType?: 'inputDefault' | 'inputPhone' | 'inputPassword' | 'inputCenter' | 'inputSearch'
     placeholder?: string
     label?: string
+    inputContainerClass?: string
     children?: React.ReactNode
 }
 

@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetAllOrganizationsQuery } from '../redux/organizationApi'
 import { OrganizationInfo } from '../interfaces/organizationProvider'
+import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
+
 export const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 export const OrganizationContext = createContext<{
@@ -24,43 +26,54 @@ export const ORGANIZATION_ID_STORAGE_NAME = 'organizationId'
 
 export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ children }) => {
     const router = useRouter()
+    const { on } = useEventBus()
 
     const [organizationId, setOrganizationId] = useState('')
     const [organization, setOrganization] = useState({})
-    const { data } = useGetAllOrganizationsQuery({})
+    const { data, refetch } = useGetAllOrganizationsQuery({})
 
     useEffect(() => {
-        const organizationId = typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
+        const unsubscribeOnRefetchOrganizationsQuery = on(EventKey.RefetchOrganizationsQuery, () => {
+            refetch()
+        })
 
-        if (organizationId) {
-            setOrganizationId(organizationId)
+        const localOrganizationId =
+            typeof window !== 'undefined' ? localStorage.getItem(ORGANIZATION_ID_STORAGE_NAME) : null
+
+        if (localOrganizationId) {
+            setOrganizationId(localOrganizationId)
+        }
+
+        return () => {
+            unsubscribeOnRefetchOrganizationsQuery()
         }
     }, [])
 
     useEffect(() => {
-        const organization = data?.results.filter((x) => x.id === organizationId)[0]
-        if (UUID_REGEXP.test(organizationId) && organization) {
-            setOrganization({
-                id: organization.id,
-                name: organization.name,
-                inn: organization.inn,
-            })
-            localStorage.setItem(ORGANIZATION_ID_STORAGE_NAME, organizationId)
-        } else {
-            localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME)
-        }
-    }, [organizationId, data])
+        if (data) {
+            const organization = data?.results.filter((x) => x.id === organizationId)[0]
+            if (UUID_REGEXP.test(organizationId) && organization) {
+                setOrganization({
+                    id: organization.id,
+                    name: organization.name,
+                    inn: organization.inn,
+                })
+                localStorage.setItem(ORGANIZATION_ID_STORAGE_NAME, organizationId)
+            } else {
+                localStorage.removeItem(ORGANIZATION_ID_STORAGE_NAME)
+                setOrganizationId('')
+            }
 
-    useEffect(() => {
-        if (data !== undefined && data.count === 0) {
-            if (!router.asPath.endsWith('/user') && !router.asPath.includes('/auth/')) router.push('/user')
-        } else {
-            const firstOrganization = data?.results[0]
-            if (organizationId === '' && firstOrganization && firstOrganization.id) {
-                setOrganizationId(firstOrganization.id)
+            if (data.count === 0) {
+                if (!router.asPath.endsWith('/user') && !router.asPath.includes('/auth/')) router.push('/user')
+            } else {
+                const firstOrganization = data?.results[0]
+                if (organizationId === '' && firstOrganization && firstOrganization.id) {
+                    setOrganizationId(firstOrganization.id)
+                }
             }
         }
-    }, [data])
+    }, [organizationId, data])
 
     return (
         <OrganizationContext.Provider value={{ organization, organizationId, setOrganizationId }}>

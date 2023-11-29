@@ -1,22 +1,40 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useGetUserQuery } from '../redux/authenticationApi'
 import Cookies from 'universal-cookie'
+import { GetUserProfiles } from '@domains/user/redux/interfaces'
+import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
 
-export const TokenContext = createContext('')
+export const UserProfileContext = createContext<{
+    token: string
+    user: GetUserProfiles
+    logout: () => void
+}>({
+    token: '',
+    logout: () => {},
+    user: {},
+})
 
 interface AuthProviderProps {
     children: React.ReactNode
 }
 
+export const useUserProfile = () => useContext(UserProfileContext)
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const router = useRouter()
+    const { on } = useEventBus()
     const [token, setToken] = useState('')
+    const [user, setUser] = useState({})
 
-    const { error } = useGetUserQuery({})
+    const { data, error, refetch } = useGetUserQuery({})
     const cookies = new Cookies()
 
     useEffect(() => {
+        const unsubscribeOnRefetchProfileQuery = on(EventKey.RefetchProfileQuery, () => {
+            refetch()
+        })
+
         if (router.pathname === '/mobile-recaptcha') return
 
         const jwtToken = typeof window !== 'undefined' ? cookies.get('jwtToken') : null
@@ -26,7 +44,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } else {
             router.push('/auth/signin')
         }
+
+        return () => {
+            unsubscribeOnRefetchProfileQuery()
+        }
     }, [])
+
+    useEffect(() => {
+        setUser(data?.user ?? {})
+    }, [data])
 
     useEffect(() => {
         if (router.pathname === '/mobile-recaptcha') return
@@ -36,5 +62,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [error])
 
-    return <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
+    const Logout = () => {
+        cookies.remove('jwtToken')
+    }
+
+    return (
+        <UserProfileContext.Provider value={{ token: token, user: user, logout: Logout }}>
+            {children}
+        </UserProfileContext.Provider>
+    )
 }

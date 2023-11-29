@@ -11,8 +11,10 @@ export interface GetEmployee {
 export interface GetListEmployee {
     id?: string
     name?: string
-    employee_profile: GetEmployeeProfileWithUser
+    phone?: string
     organization?: string
+    organization__name?: string
+    employee_profile?: string
     position?: string
 }
 
@@ -29,7 +31,7 @@ export interface GetEmployeeProfileUser {
 }
 
 export interface GetAllEmployeesData extends BasePaginationData {
-    organization: string
+    organization?: string
     employee_profile?: string
     id?: string
     or_search?: string
@@ -46,4 +48,17 @@ export interface UpdateEmployeeByIdData {
 
 export interface DeleteEmployeeByIdData {
     employee_id: string
+}
+
+export interface UpdateEmployeeProfile {
+    employee_profile_id: string
+    name: string
+    email: string
+}
+
+export interface GetEmployeeProfile {
+    id: string
+    name: string
+    email: string
+    user: string
 }

@@ -6,10 +6,13 @@ export function checkIfNotEmptyValue(x: any) {
     return Boolean(Array.isArray(x) ? x.length !== 0 : x)
 }
 
-export function isValidFormCheck(form: FormInstance, required_fields: string[]) {
-    return Object.entries(form.getFieldsValue()).every(
-        (x) => checkIfNotEmptyValue(x[1]) || !required_fields.includes(x[0]),
-    )
+export function isValidFormCheck(form: FormInstance, required_fields: string[], initial_values: any = {}) {
+    if (Object.keys(initial_values).length === 0)
+        return Object.entries(form.getFieldsValue()).every(
+            (x) => checkIfNotEmptyValue(x[1]) || !required_fields.includes(x[0]),
+        )
+
+    return !Object.entries(form.getFieldsValue()).every((x) => x[1] === initial_values[x[0]])
 }
 
 export function isPhoneValid(form: FormInstance, field_name: string) {
@@ -29,10 +32,10 @@ export function isPhoneValid(form: FormInstance, field_name: string) {
     return 1
 }
 
-export function removeEmpty(obj: any): any {
+export function removeEmpty(obj: any, exceptList: string[] = []): any {
     return Object.fromEntries(
         Object.entries(obj)
-            .filter(([_, v]) => v != null && v != '' && v != undefined)
-            .map(([k, v]) => [k, v === Object(v) ? removeEmpty(v) : v]),
+            .filter(([key, value]) => (value != null && value != '' && value != undefined) || exceptList.includes(key))
+            .map(([key, value]) => [key, value === Object(value) ? removeEmpty(value) : value]),
     )
 }
