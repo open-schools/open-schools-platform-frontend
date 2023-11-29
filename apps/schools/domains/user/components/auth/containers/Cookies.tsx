@@ -14,7 +14,7 @@ export const Cookies = () => {
     const [cookiesNotAccepted, setCookiesNotAccepted] = useState(cookie.get(COOKIE_AGREEMENT_KEY) || false)
 
     const acceptCookieAgreement = useCallback(() => {
-        cookie.set(COOKIE_AGREEMENT_KEY, true)
+        cookie.set(COOKIE_AGREEMENT_KEY, 'true')
         setCookiesNotAccepted(true)
     }, [])
 
