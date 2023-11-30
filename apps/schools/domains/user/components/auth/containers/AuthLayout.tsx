@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { AuthBackground } from '../authBackground'
 import getConfig from 'next/config'
 import { CustomLogo } from '@domains/common/components/Logo'
-import { Cookies } from '@domains/user/components/auth/containers/Cookies'
+import { PopupCookie } from '@domains/user/components/auth/containers/PopupCookie'
 
 export interface IAuthLayoutProps {
     headerAction: React.ReactElement
@@ -40,7 +40,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = (props) => {
                     <div className={styles.emailText}>{SUPPORT_EMAIL}</div>
                 </a>
             </Row>
-            <Cookies />
+            <PopupCookie />
         </div>
     )
 }

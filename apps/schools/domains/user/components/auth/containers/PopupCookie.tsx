@@ -6,10 +6,9 @@ import arrowTop from '@public/icons/arrowTop.svg'
 import { Button } from '@domains/common/components/button'
 import { Typography } from 'antd'
 import Cookie from 'universal-cookie'
+import { COOKIE_AGREEMENT_KEY } from '@domains/user/components/auth/constants/variables'
 
-const COOKIE_AGREEMENT_KEY = 'cookieAgreementAccepted'
-
-export const Cookies = () => {
+export const PopupCookie = () => {
     const cookies = new Cookie()
 
     const [isShown, setIsShown] = useState(false)
