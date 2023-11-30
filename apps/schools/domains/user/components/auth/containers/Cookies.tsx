@@ -1,24 +1,33 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styles from '@domains/user/components/auth/containers/styles/styles.module.scss'
 import Image from 'next/image'
 import arrowBottom from '@public/icons/arrowBottom.svg'
 import arrowTop from '@public/icons/arrowTop.svg'
 import { Button } from '@domains/common/components/button'
 import { Typography } from 'antd'
-import cookie from 'js-cookie'
+import Cookie from 'universal-cookie'
 
 const COOKIE_AGREEMENT_KEY = 'cookieAgreementAccepted'
 
 export const Cookies = () => {
+    const cookies = new Cookie()
+
     const [isShown, setIsShown] = useState(false)
-    const [cookiesNotAccepted, setCookiesNotAccepted] = useState(cookie.get(COOKIE_AGREEMENT_KEY) || false)
+    const [cookiesNotAccepted, setCookiesNotAccepted] = useState(true)
 
     const acceptCookieAgreement = useCallback(() => {
-        cookie.set(COOKIE_AGREEMENT_KEY, 'true')
-        setCookiesNotAccepted(true)
+        cookies.set(COOKIE_AGREEMENT_KEY, 'true')
+        setCookiesNotAccepted(false)
     }, [])
 
-    if (cookiesNotAccepted) {
+    useEffect(() => {
+        const cookieValue = cookies.get(COOKIE_AGREEMENT_KEY)
+        if (cookieValue) {
+            setCookiesNotAccepted(false)
+        }
+    }, [])
+
+    if (!cookiesNotAccepted) {
         return null
     }
 
