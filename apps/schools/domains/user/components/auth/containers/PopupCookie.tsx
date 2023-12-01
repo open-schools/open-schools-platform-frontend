@@ -11,18 +11,20 @@ import { COOKIE_AGREEMENT_KEY } from '@domains/user/components/auth/constants/va
 export const PopupCookie = () => {
     const cookies = new Cookie()
 
-    const [isShown, setIsShown] = useState(false)
+    const [isShown, setIsShown] = useState(true)
     const [cookiesNotAccepted, setCookiesNotAccepted] = useState(true)
 
     const acceptCookieAgreement = useCallback(() => {
         cookies.set(COOKIE_AGREEMENT_KEY, 'true')
         setCookiesNotAccepted(false)
+        setIsShown(false)
     }, [])
 
     useEffect(() => {
         const cookieValue = cookies.get(COOKIE_AGREEMENT_KEY)
         if (cookieValue) {
             setCookiesNotAccepted(false)
+            setIsShown(false)
         }
     }, [])
 
@@ -38,14 +40,14 @@ export const PopupCookie = () => {
                 </Typography.Title>
                 <div className={styles.showBlockContainer} onClick={() => setIsShown((prevState) => !prevState)}>
                     <Typography.Text strong className={styles.showButton}>
-                        {!isShown ? 'Подробнее' : 'Скрыть'}
+                        {isShown ? 'Скрыть' : 'Подробнее'}
                     </Typography.Text>
                     <div className={styles.arrowContainer}>
-                        <Image src={!isShown ? arrowBottom : arrowTop} alt={'Shown arrow'} />
+                        <Image src={isShown ? arrowTop : arrowBottom} alt={'Shown arrow'} />
                     </div>
                 </div>
                 <div className={styles.containerText}>
-                    {!isShown && (
+                    {isShown && (
                         <Typography.Text strong className={styles.cookieText}>
                             Наш сайт использует файлы cookie, чтобы улучшить работу сайта, повысить его эффективность и
                             удобство. Продолжая использовать этот сайт, вы даете согласие на обработку файлов cookie.
