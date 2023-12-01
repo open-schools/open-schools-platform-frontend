@@ -30,6 +30,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         className,
         children,
         inputContainerClass,
+        valueName,
         ...restProps
     } = props
 
@@ -63,6 +64,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     buttonStyle={BUTTON_INPUT_PHONE_STYLE}
                     inputStyle={INPUT_PHONE_STYLE}
                     containerStyle={{ marginTop: '8px' }}
+                    value={localStorage.getItem(typeof valueName === 'string' ? valueName : '') ?? '+7'}
                 />
                 {children}
             </div>

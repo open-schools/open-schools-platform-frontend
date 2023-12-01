@@ -1,5 +1,5 @@
 import { Form, Typography } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
 import { Button } from '@domains/common/components/button'
@@ -20,6 +20,7 @@ import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
 import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentForm/styles/constants'
 import { Select } from '@domains/common/components/select'
 import router from 'next/router'
+import { DROPDOWN_STYLE } from '@domains/common/components/containers/BaseLayoutComponents/OrganizationSelect/styles/styles'
 
 export const CreateStudentForm = () => {
     const validators = useCreateStudentFormValidators()
@@ -35,6 +36,13 @@ export const CreateStudentForm = () => {
         setIsFormValid(isValidFormCheck(form, [STUDENT_NAME, PARENT_PHONE, CIRCLES]))
     }
 
+    useEffect(() => {
+        form.setFieldValue(STUDENT_NAME, localStorage.getItem(STUDENT_NAME))
+        form.setFieldValue(PARENT_PHONE, localStorage.getItem(PARENT_PHONE))
+        form.setFieldValue(STUDENT_PHONE, localStorage.getItem(STUDENT_PHONE))
+        form.setFieldValue(PARENT_EMAIL, localStorage.getItem(PARENT_EMAIL))
+    }, [form])
+
     return (
         <Form
             form={form}
@@ -45,6 +53,10 @@ export const CreateStudentForm = () => {
                 handleSubmitForm(form, mutation).then((isSuccess) => {
                     if (isSuccess) router.push('/student')
                 })
+                localStorage.removeItem(STUDENT_NAME)
+                localStorage.removeItem(PARENT_PHONE)
+                localStorage.removeItem(PARENT_EMAIL)
+                localStorage.removeItem(STUDENT_PHONE)
             }}
             layout='vertical'
             onValuesChange={validationCheck}
@@ -64,7 +76,10 @@ export const CreateStudentForm = () => {
                     className={styles.label}
                     rules={validators.name}
                 >
-                    <Input placeholder='Введите Ф. И. О. обучающегося' />
+                    <Input 
+                        onChange={() => localStorage.setItem(STUDENT_NAME, form.getFieldValue(STUDENT_NAME))} 
+                        placeholder='Введите Ф. И. О. обучающегося'
+                    />
                 </Form.Item>
             </WithTooltip>
             <WithTooltip
@@ -84,7 +99,12 @@ export const CreateStudentForm = () => {
                     className={styles.label}
                     rules={validators.parentPhone}
                 >
-                    <Input customType='inputPhone' placeholder='Введите телефон родителя' />
+                    <Input
+                        onChange={() => localStorage.setItem(PARENT_PHONE, form.getFieldValue(PARENT_PHONE))}
+                        valueName={PARENT_PHONE}
+                        customType='inputPhone' 
+                        placeholder='Введите телефон родителя'
+                    />
                 </Form.Item>
             </WithTooltip>
 
@@ -96,7 +116,10 @@ export const CreateStudentForm = () => {
                 margin={TOOLTIP_MARGIN_TOP}
             >
                 <Form.Item label='Email родителя' name={PARENT_EMAIL} className={styles.label} rules={validators.email}>
-                    <Input type='email' placeholder='Введите email родителя' />
+                    <Input
+                        onChange={() => localStorage.setItem(PARENT_EMAIL, form.getFieldValue(PARENT_EMAIL))}
+                        type='email'
+                        placeholder='Введите email родителя' />
                 </Form.Item>
             </WithTooltip>
             <WithTooltip
@@ -109,7 +132,12 @@ export const CreateStudentForm = () => {
                     className={styles.label}
                     rules={validators.studentPhone}
                 >
-                    <Input customType='inputPhone' placeholder='Введите телефон обучающегося' />
+                    <Input
+                        onChange={() => localStorage.setItem(STUDENT_PHONE, form.getFieldValue(STUDENT_PHONE))}
+                        valueName={STUDENT_PHONE}
+                        customType='inputPhone'
+                        placeholder='Введите телефон обучающегося'
+                    />
                 </Form.Item>
             </WithTooltip>
             <WithTooltip tooltipText={'Укажите кружок, на который будет ходить ученик.'} margin={TOOLTIP_MARGIN_TOP}>
@@ -129,6 +157,21 @@ export const CreateStudentForm = () => {
                         placeholder='Выберите кружок'
                         className={styles.select}
                         loading={circlesData.isLoading}
+                        dropdownStyle={DROPDOWN_STYLE}
+                        dropdownRender={(menu) => (
+                            <div className={styles.dropdown}>
+                                {menu}
+                                <Button
+                                    type='schoolDefault'
+                                    block
+                                    style={{ width: '40%', marginLeft: '10px', marginBottom: '6px', marginTop: '10px' }}
+                                    className={styles.button}
+                                    onClick={() => router.push('/circle/create')}
+                                >
+                                  Добавить кружок
+                                </Button>
+                            </div>
+                        )}
                         options={circlesData?.data?.results.map((x) => {
                             return {
                                 value: x.id,
@@ -149,7 +192,7 @@ export const CreateStudentForm = () => {
                     style={{ width: '40%' }}
                     className={styles.button}
                 >
-                    Добавить обучаещегося
+                    Добавить обучающегося
                 </Button>
             </Form.Item>
         </Form>

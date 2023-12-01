@@ -12,6 +12,7 @@ export interface CustomInputProps extends InputProps {
     label?: string
     inputContainerClass?: string
     children?: React.ReactNode
+    valueName?: string;
 }
 
 export interface Dictionary {
