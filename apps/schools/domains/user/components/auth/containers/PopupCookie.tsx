@@ -38,14 +38,14 @@ export const PopupCookie = () => {
                 </Typography.Title>
                 <div className={styles.showBlockContainer} onClick={() => setIsShown((prevState) => !prevState)}>
                     <Typography.Text strong className={styles.showButton}>
-                        {isShown ? 'Подробнее' : 'Скрыть'}
+                        {!isShown ? 'Подробнее' : 'Скрыть'}
                     </Typography.Text>
                     <div className={styles.arrowContainer}>
-                        <Image src={isShown ? arrowBottom : arrowTop} alt={'Shown arrow'} />
+                        <Image src={!isShown ? arrowBottom : arrowTop} alt={'Shown arrow'} />
                     </div>
                 </div>
                 <div className={styles.containerText}>
-                    {isShown && (
+                    {!isShown && (
                         <Typography.Text strong className={styles.cookieText}>
                             Наш сайт использует файлы cookie, чтобы улучшить работу сайта, повысить его эффективность и
                             удобство. Продолжая использовать этот сайт, вы даете согласие на обработку файлов cookie.
