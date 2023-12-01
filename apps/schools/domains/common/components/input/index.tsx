@@ -1,5 +1,5 @@
 import { Input as BaseInput } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import defaultStyles from './styles/default.module.scss'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
@@ -30,8 +30,15 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         className,
         children,
         inputContainerClass,
+        valueName,
         ...restProps
     } = props
+
+    const [phoneValue, setPhoneValue] = useState('')
+
+    useEffect(() => {
+        setPhoneValue(localStorage.getItem(typeof valueName === 'string' ? valueName : '')  ?? '+7')
+    }, [valueName])
 
     if (!typeInput.includes(customType)) {
         return (
@@ -48,6 +55,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             </div>
         )
     } else if (customType === 'inputPhone') {
+
         return (
             <div className={classNames(defaultStyles.inputContainer, inputContainerClass)}>
                 <label>{label}</label>
@@ -63,6 +71,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                     buttonStyle={BUTTON_INPUT_PHONE_STYLE}
                     inputStyle={INPUT_PHONE_STYLE}
                     containerStyle={{ marginTop: '8px' }}
+                    value={phoneValue}
                 />
                 {children}
             </div>
