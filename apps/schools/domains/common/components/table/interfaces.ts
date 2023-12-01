@@ -2,6 +2,7 @@ import React from 'react'
 import { ReturnedData } from '@domains/common/redux/interfaces'
 import { TableProps } from 'antd'
 import { ColumnFilterItem } from 'antd/lib/table/interface'
+import {Key} from "antd/es/table/interface";
 
 export interface CustomFieldsProps {
     [key: string]: React.FC<{
@@ -14,7 +15,7 @@ export interface CustomFilterFieldsProps<RowType> {
     [key: string]: {
         filters?: ColumnFilterItem[]
         filteredValue: any
-        onFilter?: (value: string | number | boolean, record: RowType) => boolean
+        onFilter?: (value: Key | boolean, record: RowType) => boolean
     }
 }
 
