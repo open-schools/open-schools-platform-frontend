@@ -192,16 +192,18 @@ export const CurrentQuery = () => {
                                     {query?.additional.text || 'Не определен'}
                                 </div>
                             </div>
-                            <div className={styles.queryHistory}>
-                                <div className={styles.queryHistoryHeader}>История изменения заявки</div>
-                                {!historyLoading ? (
-                                    <div className={styles.queryHistoryScrollContainer}>{formattedHistory}</div>
-                                ) : (
-                                    <>
-                                        <Spin></Spin>
-                                    </>
-                                )}
-                            </div>
+                            {history?.results.length !== 0 && (
+                                <div className={styles.queryHistory}>
+                                    <div className={styles.queryHistoryHeader}>История изменения заявки</div>
+                                    {!historyLoading ? (
+                                        <div className={styles.queryHistoryScrollContainer}>{formattedHistory}</div>
+                                    ) : (
+                                        <>
+                                            <Spin></Spin>
+                                        </>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Col>
