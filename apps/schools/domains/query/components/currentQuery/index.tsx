@@ -10,9 +10,16 @@ import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import { format } from 'date-fns'
 import ruLocale from 'date-fns/locale/ru'
 import { GetStudentJoinCircle } from '@domains/common/redux/serializers'
-import { useChangeStatusMutation } from '@domains/query/redux/queryApi'
+import { useChangeStatusMutation, useGetQueryHistoryQuery } from '@domains/query/redux/queryApi'
 import { handleQueryStatusChange } from '@domains/query/handlers/queryUpdate'
 import { QueriesTypes } from '@domains/common/redux/interfaces'
+import {
+    ACCEPTED_FILTER_COLOR,
+    CANCELED_FILTER_COLOR,
+    DECLINED_FILTER_COLOR,
+    IN_PROGRESS_FILTER_COLOR,
+    SENT_FILTER_COLOR,
+} from '@domains/query/components/queryList/styles/styles'
 
 export const CurrentQuery = () => {
     const { organizationId } = useOrganization()
@@ -21,17 +28,43 @@ export const CurrentQuery = () => {
         circle__organization__id: organizationId,
         id: uuid[0],
     })
+    const {
+        data: history,
+        isLoading: historyLoading,
+        refetch,
+    } = useGetQueryHistoryQuery({
+        query_id: uuid[0],
+    })
 
-    const statusTranslations: { [key: string]: string } = {
-        SENT: 'Отправлена',
-        ACCEPTED: 'Принята',
-        IN_PROGRESS: 'На рассмотрении',
-        DECLINED: 'Отклонена',
-        CANCELED: 'Отменена',
+    const statusTranslations: { [key: string]: { translate: string; color: string } } = {
+        SENT: {
+            translate: 'Отправлена',
+            color: SENT_FILTER_COLOR,
+        },
+        ACCEPTED: {
+            translate: 'Принята',
+            color: ACCEPTED_FILTER_COLOR,
+        },
+        IN_PROGRESS: {
+            translate: 'На рассмотрении',
+            color: IN_PROGRESS_FILTER_COLOR,
+        },
+        DECLINED: {
+            translate: 'Отклонена',
+            color: DECLINED_FILTER_COLOR,
+        },
+        CANCELED: {
+            translate: 'Отменена',
+            color: CANCELED_FILTER_COLOR,
+        },
     }
 
     const translateStatus = (status: string) => {
-        return statusTranslations[status] || status
+        return statusTranslations[status]?.translate || status
+    }
+
+    const decorateStatus = (status: string) => {
+        return statusTranslations[status]?.color || '#fff'
     }
 
     const query = queries?.results[0] as GetStudentJoinCircle
@@ -50,7 +83,7 @@ export const CurrentQuery = () => {
     const handleStatusChange = (value: string) => {
         let translatedStatus = value
         for (const key in statusTranslations) {
-            if (statusTranslations[key] === value) {
+            if (statusTranslations[key].translate === value) {
                 translatedStatus = key
                 break
             }
@@ -58,6 +91,7 @@ export const CurrentQuery = () => {
         handleQueryStatusChange(mutation, uuid[0], translatedStatus as QueriesTypes)
         setCurrentStatus(value)
         setCurrentDependencies(graph[value] || [])
+        setTimeout(() => refetch(), 1000)
     }
 
     const createdAt = query?.created_at
@@ -68,6 +102,42 @@ export const CurrentQuery = () => {
         formattedDate = format(parsedDate, 'dd MMMM yyyy г. в HH:mm', { locale: ruLocale })
     }
 
+    const formattedHistory = history?.results.map((change, i) => {
+        const changeDate = new Date(change.date)
+        const formattedChangeDate = format(changeDate, 'dd.MM.yyyy, HH:mm', { locale: ruLocale })
+
+        if (change?.previous_status === null)
+            return (
+                <div key={i} className={styles.queryHistoryContainer}>
+                    <div className={styles.queryHistoryTime}>{formattedChangeDate}</div>
+                    <div className={styles.queryHistoryText}>
+                        Администратор {change.user.name} создал заявку со статусом "
+                        <span style={{ color: decorateStatus(change?.new_status || '') }}>
+                            {translateStatus(change?.new_status || '')}
+                        </span>
+                        "
+                    </div>
+                </div>
+            )
+
+        return (
+            <div key={i} className={styles.queryHistoryContainer}>
+                <div className={styles.queryHistoryTime}>{formattedChangeDate}</div>
+                <div className={styles.queryHistoryText}>
+                    Администратор {change.user.name} изменил статус заявки с "
+                    <span style={{ color: decorateStatus(change?.previous_status || '') }}>
+                        {translateStatus(change?.previous_status || '')}
+                    </span>
+                    " на "
+                    <span style={{ color: decorateStatus(change?.new_status || '') }}>
+                        {translateStatus(change?.new_status || '')}
+                    </span>
+                    "
+                </div>
+            </div>
+        )
+    })
+
     return !isLoading ? (
         <div>
             <Typography.Title className={styles.name} level={1}>
@@ -77,7 +147,7 @@ export const CurrentQuery = () => {
                 <Select
                     customType={'selectDefault'}
                     value={currentStatus ? currentStatus : translateStatus(query?.status)}
-                    placeholder='Выберите адрес кружка'
+                    placeholder='Статус отсутсвует'
                     className={styles.select}
                     options={
                         currentDependencies.length !== 0
@@ -121,6 +191,16 @@ export const CurrentQuery = () => {
                                 <div className={styles.queryTextContent}>
                                     {query?.additional.text || 'Не определен'}
                                 </div>
+                            </div>
+                            <div className={styles.queryHistory}>
+                                <div className={styles.queryHistoryHeader}>История изменения заявки</div>
+                                {!historyLoading ? (
+                                    <div className={styles.queryHistoryScrollContainer}>{formattedHistory}</div>
+                                ) : (
+                                    <>
+                                        <Spin></Spin>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
