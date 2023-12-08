@@ -76,8 +76,8 @@ export const CreateStudentForm = () => {
                     className={styles.label}
                     rules={validators.name}
                 >
-                    <Input 
-                        onChange={() => localStorage.setItem(STUDENT_NAME, form.getFieldValue(STUDENT_NAME))} 
+                    <Input
+                        onChange={() => localStorage.setItem(STUDENT_NAME, form.getFieldValue(STUDENT_NAME))}
                         placeholder='Введите Ф. И. О. обучающегося'
                     />
                 </Form.Item>
@@ -102,7 +102,7 @@ export const CreateStudentForm = () => {
                     <Input
                         onChange={() => localStorage.setItem(PARENT_PHONE, form.getFieldValue(PARENT_PHONE))}
                         valueName={PARENT_PHONE}
-                        customType='inputPhone' 
+                        customType='inputPhone'
                         placeholder='Введите телефон родителя'
                     />
                 </Form.Item>
@@ -119,7 +119,8 @@ export const CreateStudentForm = () => {
                     <Input
                         onChange={() => localStorage.setItem(PARENT_EMAIL, form.getFieldValue(PARENT_EMAIL))}
                         type='email'
-                        placeholder='Введите email родителя' />
+                        placeholder='Введите email родителя'
+                    />
                 </Form.Item>
             </WithTooltip>
             <WithTooltip
@@ -168,7 +169,7 @@ export const CreateStudentForm = () => {
                                     className={styles.button}
                                     onClick={() => router.push('/circle/create')}
                                 >
-                                  Добавить кружок
+                                    Добавить кружок
                                 </Button>
                             </div>
                         )}

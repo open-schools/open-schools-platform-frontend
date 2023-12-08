@@ -37,7 +37,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
     const [phoneValue, setPhoneValue] = useState('')
 
     useEffect(() => {
-        setPhoneValue(localStorage.getItem(typeof valueName === 'string' ? valueName : '')  ?? '+7')
+        setPhoneValue(localStorage.getItem(typeof valueName === 'string' ? valueName : '') ?? '+7')
     }, [valueName])
 
     if (!typeInput.includes(customType)) {
@@ -55,7 +55,6 @@ export const Input: React.FC<CustomInputProps> = (props) => {
             </div>
         )
     } else if (customType === 'inputPhone') {
-
         return (
             <div className={classNames(defaultStyles.inputContainer, inputContainerClass)}>
                 <label>{label}</label>
