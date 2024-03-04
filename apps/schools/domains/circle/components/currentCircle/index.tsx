@@ -23,6 +23,7 @@ import { searchColumns } from './constants'
 import { CurrentCircleRowType } from './interfaces'
 import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
+import { QueryStatuses } from '@domains/common/constants/Enums'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -71,21 +72,21 @@ const CurrentCircle = () => {
                     <Row className={styles.Row}>
                         <div>Всего</div>
                         <span></span>
-                        <Link href={'/profile'} className={styles.colorCountAllQueries}>
+                        <Link href={`/query?circles=${circle?.circle.name?.replace(' ', '+')}`} className={styles.colorCountAllQueries}>
                             {countAllQueries}
                         </Link>
                     </Row>
                     <Row className={styles.Row}>
                         <div>Принято</div>
                         <span></span>
-                        <Link href={'/profile'} className={styles.colorCountAcceptedQueries}>
+                        <Link href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name?.replace(' ', '+')}`} className={styles.colorCountAcceptedQueries}>
                             {queriesCount.ACCEPTED}
                         </Link>
                     </Row>
                     <Row className={styles.Row}>
                         <div>На рассмотрении</div>
                         <span></span>
-                        <Link href={'/profile'} className={styles.colorCountInProgressQueries}>
+                        <Link href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name?.replace(' ', '+')}`} className={styles.colorCountInProgressQueries}>
                             {queriesCount.IN_PROGRESS}
                         </Link>
                     </Row>
