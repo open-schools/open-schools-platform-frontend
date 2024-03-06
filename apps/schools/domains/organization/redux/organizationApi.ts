@@ -1,9 +1,8 @@
-import { commonApi } from '@store/commonApi'
+import { commonApi, providesList } from '@store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
 import {
     CreateOrganizationData,
     AllOrganizationsData,
-    StudentJoinCircleData,
     AllStudentsData,
     StudentData,
     TeacherData,
@@ -66,6 +65,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Student' ),
         }),
         getAllCircles: build.query<ReturnedData<GetOrganizationCircleList[]>, GetOrganizationCircleListData>({
             query: (params) => ({
@@ -73,6 +73,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Circle' ),
         }),
         getCurrentCircle: build.query<{ circle: GetOrganizationCircleList }, GetCurrentCircleData>({
             query: (params) => ({
@@ -146,14 +147,15 @@ const organizationApi = commonApi.injectEndpoints({
         }),
         getAllStudentInvitations: build.query<ReturnedData<GetCircleInviteStudent[]>, getAllStudentInvitationsData>({
             query: (params) => ({
-                url: `/organization-management/organizations/students-invitations`,
+                url: '/organization-management/organizations/students-invitations',
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Student' ),
         }),
         getAllJoinCircleQueries: build.query<ReturnedData<GetStudentJoinCircle[]>, AllStudentJoinCircleQueriesData>({
             query: (params) => ({
-                url: `/organization-management/organizations/student-join-circle-query`,
+                url: '/organization-management/organizations/student-join-circle-query',
                 method: 'GET',
                 params: params,
             }),

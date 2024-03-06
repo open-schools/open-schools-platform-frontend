@@ -21,7 +21,7 @@ export interface GetTeacher {
 }
 
 export interface GetCircle {
-    id?: string
+    id: string
     name?: string
     organization?: GetShallowOrganization
     teachers?: [GetTeacher]
@@ -72,7 +72,7 @@ export interface GetStudentJoinCircle {
 }
 
 export interface GetStudent {
-    id?: string
+    id: string
     name: string
     circle: GetShallowCircle
     student_profile: GetStudentProfile

@@ -16,6 +16,18 @@ interface ErrorType {
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_URL
 const cookies = new Cookies()
 
+export function providesList<R extends { id: string | undefined }[], T extends string>(
+    resultsWithIds: R | undefined,
+    tagType: T
+) {
+    return resultsWithIds
+        ? [
+            { type: tagType, id: 'LIST' },
+            ...resultsWithIds.map(({ id }) => ({ type: tagType, id })),
+        ]
+        : [{ type: tagType, id: 'LIST' }]
+}
+
 export const commonApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
@@ -34,6 +46,7 @@ export const commonApi = createApi({
             return headers
         },
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
+    tagTypes: ['Circle', 'Student'],
     endpoints: _ => ({}),
 })
 

@@ -18,12 +18,11 @@ export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
-    const { data: circles, isLoading: isLoading } = useGetAllCirclesQuery(
+    const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery(
         {
             organization_id: organizationId,
             or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
         },
-        { refetchOnMountOrArgChange: true },
     )
 
     const reformattedData = mapReturnedData(circles, (circle) => {
@@ -39,7 +38,7 @@ export function CircleList() {
             buttonText={'Добавить кружок'}
             pageTitle={'Кружки'}
             data={circles}
-            isLoading={isLoading}
+            isLoading={isFetching}
             handleRunTask={() => router.push('/circle/create')}
             searchTrigger={searchRequestText}
         >
@@ -61,7 +60,7 @@ export function CircleList() {
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
                 data={reformattedData}
-                isLoading={isLoading}
+                isLoading={isFetching}
                 mainRoute={'/circle'}
                 searchFields={['name', 'address']}
                 customFields={{
