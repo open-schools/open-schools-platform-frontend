@@ -29,9 +29,13 @@ const CurrentCircle = () => {
     const [searchRequestText, setSearchRequestText] = useState('')
     const [mutation] = useDeleteCircleMutation()
     const uuid = getUuidFromUrl()
+
+    if (uuid.length === 0)
+        return null;
+
     const { organizationId } = useOrganization()
 
-    const { data: circle } = useGetCircleQuery({ circle_id: uuid[0] }, { refetchOnMountOrArgChange: true })
+    const { data: circle } = useGetCircleQuery({ circle_id: uuid[0] })
     const { data: students, isLoading } = useGetCircleStudentsQuery({
         circle_id: uuid[0],
         or_search: createSearchTextForRequest(searchRequestText, searchColumns),

@@ -51,12 +51,14 @@ export const CreateStudentForm = () => {
             requiredMark={false}
             onFinish={() => {
                 handleSubmitForm(form, mutation).then((isSuccess) => {
-                    if (isSuccess) router.push('/student')
+                    if (isSuccess) {
+                        localStorage.removeItem(STUDENT_NAME)
+                        localStorage.removeItem(PARENT_PHONE)
+                        localStorage.removeItem(PARENT_EMAIL)
+                        localStorage.removeItem(STUDENT_PHONE)
+                        router.push('/student')
+                    }
                 })
-                localStorage.removeItem(STUDENT_NAME)
-                localStorage.removeItem(PARENT_PHONE)
-                localStorage.removeItem(PARENT_EMAIL)
-                localStorage.removeItem(STUDENT_PHONE)
             }}
             layout='vertical'
             onValuesChange={validationCheck}

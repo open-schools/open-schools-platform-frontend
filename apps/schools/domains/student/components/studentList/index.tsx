@@ -22,7 +22,6 @@ export function StudentList() {
             status: QueryStatuses.SENT,
             or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
         },
-        { refetchOnMountOrArgChange: true },
     )
 
     const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery(
@@ -30,7 +29,6 @@ export function StudentList() {
             circle__organization: organizationId,
             or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
         },
-        { refetchOnMountOrArgChange: true },
     )
 
     const data = {

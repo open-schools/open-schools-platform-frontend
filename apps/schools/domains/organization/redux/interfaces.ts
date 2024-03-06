@@ -113,7 +113,7 @@ export interface GetOrganizationAnalyticsData {
 }
 
 export interface GetOrganizationCircleList {
-    id?: string
+    id: string
     name: string
     address: string
     student_profile_queries: GetAnalytics
