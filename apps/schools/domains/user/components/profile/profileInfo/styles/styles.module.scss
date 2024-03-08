@@ -11,30 +11,6 @@
       margin-bottom: 50px;
     }
 
-    .itemContainer {
-      margin-bottom: 30px;
-
-      .fieldName {
-        color: $color-field-name;
-
-        font-family: "Open Sans", sans-serif;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 130%;
-      }
-
-      .fieldValue {
-        color: $color-field-value;
-
-        font-family: "Open Sans", sans-serif;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 130%;
-      }
-    }
-
     button {
       padding: 0 20px 0 20px;
       width: auto;

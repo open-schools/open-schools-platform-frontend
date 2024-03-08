@@ -7,6 +7,7 @@ import Image from 'next/image'
 import duckEmptyPage from '@public/image/duckEmptyPage.svg'
 import { useUserProfile } from '@domains/user/providers/authProvider'
 import { useLazyGetAllEmployeesQuery } from '@domains/employee/redux/employeeApi'
+import { Field } from '@domains/common/components/field'
 
 export function ProfileInfo() {
     const { user } = useUserProfile()
@@ -27,32 +28,9 @@ export function ProfileInfo() {
                 <Typography.Title className={styles.title} level={1}>
                     {user.employee_profile?.name ? user.employee_profile?.name : 'Имя не определено'}
                 </Typography.Title>
-                <Row gutter={[0, 20]} className={styles.itemContainer}>
-                    <Col className={styles.fieldName} lg={10} xs={10}>
-                        Телефон:
-                    </Col>
-                    <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                        {user.phone}
-                    </Col>
-                </Row>
-
-                <Row gutter={[0, 24]} className={styles.itemContainer}>
-                    <Col className={styles.fieldName} lg={10} xs={10}>
-                        E-mail:
-                    </Col>
-                    <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                        {user.employee_profile?.email ? user.employee_profile?.email : 'Не определено'}
-                    </Col>
-                </Row>
-
-                <Row gutter={[0, 24]} className={styles.itemContainer} style={{ marginBottom: '50px' }}>
-                    <Col className={styles.fieldName} lg={10} xs={10}>
-                        Пароль:
-                    </Col>
-                    <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                        *********
-                    </Col>
-                </Row>
+                <Field fieldName={'Телефон:'} fieldValue={user.phone} defaultValue={'Не определено'} />
+                <Field fieldName={'E-mail:'} fieldValue={user.employee_profile?.email} defaultValue={'Не определено'} />
+                <Field fieldName={'Пароль:'} fieldValue={'*********'} />
 
                 {results.isLoading ? (
                     <div className={styles.itemContainer}>
@@ -61,23 +39,17 @@ export function ProfileInfo() {
                 ) : (
                     results.data?.results.map((employee) => (
                         <div key={employee.id}>
-                            <Row gutter={[0, 24]} className={styles.itemContainer}>
-                                <Col className={styles.fieldName} lg={10} xs={10}>
-                                    Организация:
-                                </Col>
-                                <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                                    {employee.organization__name}
-                                </Col>
-                            </Row>
-
-                            <Row gutter={[0, 24]} className={styles.itemContainer} style={{ marginBottom: '50px' }}>
-                                <Col className={styles.fieldName} lg={10} xs={10}>
-                                    Должность:
-                                </Col>
-                                <Col className={styles.fieldValue} lg={10} xs={10} offset={2}>
-                                    {employee.position ? employee.position : 'Не определено'}
-                                </Col>
-                            </Row>
+                            <Field
+                                fieldName={'Организация:'}
+                                fieldValue={employee.organization__name}
+                                type={'center'}
+                            />
+                            <Field
+                                fieldName={'Должность:'}
+                                fieldValue={employee.position}
+                                defaultValue={'Не определено'}
+                                type={'center'}
+                            />
                         </div>
                     ))
                 )}
