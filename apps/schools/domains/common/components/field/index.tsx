@@ -26,7 +26,7 @@ export const Field = (props: FieldProps) => {
                 {fieldName}
             </Col>
             <Col className={styles.fieldValue} lg={24 - lgxs} xs={24 - lgxs}>
-                {fieldValue ?? defaultValue}
+                {fieldValue || defaultValue}
             </Col>
         </Row>
     )
