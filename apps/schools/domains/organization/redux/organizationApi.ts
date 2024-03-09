@@ -87,6 +87,7 @@ const organizationApi = commonApi.injectEndpoints({
                 url: `/organization-management/organizations/students/${data.student_id}`,
                 method: 'GET',
             }),
+            providesTags: (result, error, arg) => [{ type: 'Student', id: arg.student_id }],
         }),
         getTeacher: build.query<{ teacher: GetTeacher }, TeacherData>({
             query: (data) => ({

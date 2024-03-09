@@ -12,13 +12,14 @@ import router from 'next/router'
 import duckEmptyPage from '@public/image/duckEmptyPage.svg'
 import { Button } from '@domains/common/components/button'
 import { Field } from '@domains/common/components/field'
+import { useDeleteStudentMutation } from '@domains/student/redux/studentApi'
+import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
+import DeleteModal from '@domains/common/components/deleteModal'
 
 const CurrentStudent = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
-    // const [mutation, isDeleteFinished] = useDeleteCircleMutation()
+    const [mutation, isDeleteFinished] = useDeleteStudentMutation()
     const uuid = getUuidFromUrl()
-
-    console.log(uuid)
 
     const { data: student, error: studentError, isLoading } = useGetStudentQuery({ student_id: uuid[0] })
 
@@ -28,7 +29,7 @@ const CurrentStudent = () => {
         }
     }, [studentError])
 
-    // if (isDeleteFinished.isSuccess) return null
+    if (isDeleteFinished.isSuccess) return null
     if (uuid.length === 0) router.push('/404')
 
     return (
@@ -44,7 +45,7 @@ const CurrentStudent = () => {
             searchTrigger={false}
         >
             <Row className={styles.headersBlock}>
-                <Col lg={14} md={24} xs={24} sm={24} className={styles.queriesBlock}>
+                <Col lg={14} md={24} xs={24} sm={24} className={styles.infoBlock}>
                     <Row className={styles.baseRowContainer}>
                         <Col lg={4} className={styles.image}>
                             <Image src={duckEmptyPage} alt={'Duck with a magnifying glass'} width={190} />
@@ -58,10 +59,6 @@ const CurrentStudent = () => {
                                 fieldValue={student?.student.student_profile?.phone}
                             />
                             <Field fieldName={'Кружок:'} fieldValue={student?.student.circle?.name} />
-
-                            <Button type='schoolDefaultAuto' block onClick={() => router.push('/student/edit')}>
-                                Редактировать профиль
-                            </Button>
                         </Col>
                     </Row>
                 </Col>
@@ -82,6 +79,35 @@ const CurrentStudent = () => {
                     </div>
                 </Col>
             </Row>
+            <ActionBar
+                actions={[
+                    <Button
+                        key={'edit'}
+                        className={styles.changeButton}
+                        onClick={() => router.push(`/student/${uuid[0]}/change`)}
+                    >
+                        Редактировать профиль
+                    </Button>,
+                    <Button
+                        antdType={'ghost'}
+                        className={styles.deleteButton}
+                        key='submit'
+                        danger
+                        onClick={() => setIsModalVisible(true)}
+                    >
+                        Удалить
+                    </Button>,
+                ]}
+            />
+            <DeleteModal
+                isModalVisible={isModalVisible}
+                mutation={mutation}
+                setIsModalVisible={setIsModalVisible}
+                titleText={'Удалить обучающегося?'}
+                buttonText={'Удалить обучающегося'}
+                urlAfterDelete={'/student'}
+                dataField={'student_id'}
+            />
         </EmptyWrapper>
     )
 }
