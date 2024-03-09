@@ -2,7 +2,6 @@ import { isRejected, Middleware, MiddlewareAPI } from '@reduxjs/toolkit'
 import { message } from 'antd'
 import router from 'next/router'
 
-
 interface ErrorCodes {
     [status: number]: string | { [code: string]: string }
 }
@@ -25,9 +24,9 @@ const errorCodes: ErrorCodes = {
 }
 
 interface Action {
-    type: string,
+    type: string
     payload: {
-        status: number,
+        status: number
         data: {
             error: {
                 code: string
@@ -36,11 +35,11 @@ interface Action {
     }
 }
 
-export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => (action: Action) => {
+export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => (next) => (action: Action) => {
     if (router.pathname === '/mobile-recaptcha') return next(action)
 
     if (isRejected()(action)) {
-        const { status, data } = action.payload
+        const { status, data } = action.payload // TODO: if some query or mutation is invalid it will fail on this line. We should think is it ok.
         const errorData = data && data.error
         const errorType = errorCodes[status]
 

@@ -65,7 +65,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
-            providesTags: (result) => providesList(result?.results, 'Student' ),
+            providesTags: (result) => providesList(result?.results, 'Student'),
         }),
         getAllCircles: build.query<ReturnedData<GetOrganizationCircleList[]>, GetOrganizationCircleListData>({
             query: (params) => ({
@@ -73,7 +73,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
-            providesTags: (result) => providesList(result?.results, 'Circle' ),
+            providesTags: (result) => providesList(result?.results, 'Circle'),
         }),
         getCurrentCircle: build.query<{ circle: GetOrganizationCircleList }, GetCurrentCircleData>({
             query: (params) => ({
@@ -86,7 +86,6 @@ const organizationApi = commonApi.injectEndpoints({
             query: (data) => ({
                 url: `/organization-management/organizations/students/${data.student_id}`,
                 method: 'GET',
-                body: data,
             }),
         }),
         getTeacher: build.query<{ teacher: GetTeacher }, TeacherData>({
@@ -151,7 +150,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
-            providesTags: (result) => providesList(result?.results, 'Student' ),
+            providesTags: (result) => providesList(result?.results, 'Student'),
         }),
         getAllJoinCircleQueries: build.query<ReturnedData<GetStudentJoinCircle[]>, AllStudentJoinCircleQueriesData>({
             query: (params) => ({
