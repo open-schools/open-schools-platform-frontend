@@ -1,5 +1,5 @@
 import { FormInstance, message } from 'antd'
-import { LoadingRequestMsg, SuccessInviteEmployeeMsg } from '@domains/user/components/auth/constants/message'
+import { LoadingRequestMsg, SuccessCreateStudentMsg } from '@domains/user/components/auth/constants/message'
 import {
     CIRCLES,
     PARENT_EMAIL,
@@ -40,7 +40,7 @@ export async function handleSubmitForm(form: FormInstance, mutation: any) {
     )
 
     if (isSuccess) {
-        message.success(SuccessInviteEmployeeMsg)
+        message.success(SuccessCreateStudentMsg)
     }
 
     return isSuccess

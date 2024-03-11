@@ -15,7 +15,7 @@ import {
     STUDENT_NAME,
     STUDENT_PHONE,
 } from '@domains/student/components/createStudentForm/constants'
-import { handleSubmitForm } from '@domains/student/handlers/student'
+import { handleSubmitForm } from '@domains/student/handlers/studentCreate'
 import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
 import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentForm/styles/constants'
 import { Select } from '@domains/common/components/select'
