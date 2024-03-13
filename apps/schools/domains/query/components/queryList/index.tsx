@@ -206,7 +206,7 @@ export function QueryList() {
                     );
                     const localCircles = [...(filters['circle_name'] ?? [])] as string[];
                     setCircles(
-                        localStatuses.length === 0 ? null : localCircles
+                        localCircles.length === 0 ? null : localCircles
                     );
                 }}
             />
