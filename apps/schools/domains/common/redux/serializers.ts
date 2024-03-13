@@ -62,7 +62,7 @@ export interface GetStudentBody {
 }
 
 export interface GetStudentJoinCircle {
-    id?: string
+    id: string
     sender: GetStudentProfileSenderForOrganization
     recipient: GetCircleRecipient
     status: QueriesTypes
