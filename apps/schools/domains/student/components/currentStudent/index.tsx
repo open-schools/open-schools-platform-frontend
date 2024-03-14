@@ -59,6 +59,28 @@ const CurrentStudent = () => {
                                 fieldValue={student?.student.student_profile?.phone}
                             />
                             <Field fieldName={'Кружок:'} fieldValue={student?.student.circle?.name} />
+                            <div className={styles.stickyBlock}>
+                                <ActionBar
+                                    actions={[
+                                        <Button
+                                            key={'edit'}
+                                            className={styles.changeButton}
+                                            onClick={() => router.push(`/student/${uuid[0]}/change`)}
+                                        >
+                                            Редактировать профиль
+                                        </Button>,
+                                        <Button
+                                            antdType={'ghost'}
+                                            className={styles.deleteButton}
+                                            key='submit'
+                                            danger
+                                            onClick={() => setIsModalVisible(true)}
+                                        >
+                                            Удалить
+                                        </Button>,
+                                    ]}
+                                />
+                            </div>
                         </Col>
                     </Row>
                 </Col>
@@ -79,26 +101,6 @@ const CurrentStudent = () => {
                     </div>
                 </Col>
             </Row>
-            <ActionBar
-                actions={[
-                    <Button
-                        key={'edit'}
-                        className={styles.changeButton}
-                        onClick={() => router.push(`/student/${uuid[0]}/change`)}
-                    >
-                        Редактировать профиль
-                    </Button>,
-                    <Button
-                        antdType={'ghost'}
-                        className={styles.deleteButton}
-                        key='submit'
-                        danger
-                        onClick={() => setIsModalVisible(true)}
-                    >
-                        Удалить
-                    </Button>,
-                ]}
-            />
             <DeleteModal
                 isModalVisible={isModalVisible}
                 mutation={mutation}

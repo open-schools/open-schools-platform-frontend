@@ -4,7 +4,7 @@ import { PageContent } from '@domains/common/components/containers/PageContent'
 import { OrganizationRequired } from '@domains/common/components/containers/OrganizationRequired'
 import CurrentStudent from 'domains/student/components/currentStudent'
 
-const CirclePageContent = () => {
+const StudentPageContent = () => {
     return (
         <>
             <Head>
@@ -19,4 +19,4 @@ const CirclePageContent = () => {
     )
 }
 
-export default CirclePageContent
+export default StudentPageContent
