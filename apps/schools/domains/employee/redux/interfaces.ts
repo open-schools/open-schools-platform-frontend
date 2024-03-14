@@ -45,6 +45,7 @@ export interface GetAllEmployeesData extends BasePaginationData {
 
 export interface UpdateEmployeeByIdData {
     name: string
+    position: string
     employee_id: string
 }
 
