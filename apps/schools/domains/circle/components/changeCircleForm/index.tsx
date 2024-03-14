@@ -11,7 +11,7 @@ import { TOOLTIP_MARGIN } from './styles/styles'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
-// import { AimOutlined } from '@ant-design/icons'
+import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
 import { useChangeCircleMutation, useGetCircleQuery } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
@@ -145,7 +145,7 @@ export const ChangeCircleForm = () => {
                                             setStep(FormMapSteps.Map)
                                         }}
                                         antdType={'text'}
-                                        // icon={<AimOutlined />}
+                                        icon={<AimOutlined />}
                                     >
                                         Выбрать на карте
                                     </Button>
