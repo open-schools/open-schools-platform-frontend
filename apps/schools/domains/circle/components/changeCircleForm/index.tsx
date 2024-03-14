@@ -145,6 +145,7 @@ export const ChangeCircleForm = () => {
                                             setStep(FormMapSteps.Map)
                                         }}
                                         antdType={'text'}
+                                        // @ts-ignore
                                         icon={<AimOutlined />}
                                     >
                                         Выбрать на карте
