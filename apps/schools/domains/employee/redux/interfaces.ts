@@ -4,12 +4,14 @@ import { GetOrganizationSender } from '@domains/common/redux/serializers'
 export interface GetEmployee {
     id?: string
     name?: string
+    email?: string
     organization?: GetOrganizationSender
     position?: string
+    phone?: string
 }
 
 export interface GetListEmployee {
-    id?: string
+    id: string
     name?: string
     phone?: string
     organization?: string
@@ -47,6 +49,10 @@ export interface UpdateEmployeeByIdData {
 }
 
 export interface DeleteEmployeeByIdData {
+    employee_id: string
+}
+
+export interface GetEmployeeByIdData {
     employee_id: string
 }
 
