@@ -1,2 +1,2 @@
-export const EMPLOYEE_NAME = 'student_name'
-export const EMPLOYEE_POSITION = 'student_position'
+export const EMPLOYEE_NAME = 'employee_name'
+export const EMPLOYEE_POSITION = 'employee_position'
