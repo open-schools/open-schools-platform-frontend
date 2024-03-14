@@ -76,7 +76,8 @@ jobs:
           echo HELP_REQUISITES=${{secrets.HELP_REQUISITES}} >> .env
       - name: Install dependencies
         run: yarn
-      - name: Run ESLint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
+      - uses: stefanoeb/eslint-action@1.0.2
+        with:
+          files: apps/
       - name: Yarn build
         run: cd apps/schools && yarn build
