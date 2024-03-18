@@ -32,7 +32,7 @@
         left: 0;
         bottom: 0;
         height: 90px;
-        padding: 38px;
+        padding: 36px;
         width: 400px;
 
         .emailText {
@@ -43,6 +43,87 @@
             font-weight: 600;
             line-height: 28px;
             letter-spacing: -1.5px;
+        }
+    }
+
+    .containerCookie {
+        position: fixed;
+        padding-top: 18px;
+        width: 957px;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 10px;
+        background: #1890FF;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .titleCookie {
+            color: white;
+        }
+
+        .containerText {
+            padding: 10px 20px 20px 20px;
+            align-items: center;
+            gap: 20px;
+            display: flex;
+
+            .cookieText {
+                color: white;
+            }
+
+            @media (max-width: 992px) {
+                flex-direction: column;
+            }
+        }
+
+        .showBlockContainer {
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+
+            .showButton {
+                text-decoration-line: underline;
+                color: white;
+            }
+        }
+
+        @media (max-width: 1520px) {
+            bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            width: 728px;
+            bottom: 60px;
+        }
+
+        @media (max-width: 768px) {
+            width: 440px;
+        }
+
+        @media (max-width: 480px) {
+            width: 320px;
+        }
+
+        .successButton {
+            background: white;
+            color: #000000;
+            width: auto;
+            padding: 0 16px;
+
+            &:hover, {
+                background-color: #FFFFFF;
+                opacity: .81;
+            }
+
+            &:active {
+                background-color: #096DD9;
+                color: white;
+                opacity: 1;
+                box-shadow: 0 0 12px 3px rgb(189, 218, 252);
+            }
         }
     }
 }

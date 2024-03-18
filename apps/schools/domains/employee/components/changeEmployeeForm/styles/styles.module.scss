@@ -1,0 +1,26 @@
+.baseRowContainer {
+  .image {
+    @media (max-width: 1700px) {
+      display: none;
+    }
+  }
+
+  padding-bottom: 50px;
+
+  .infoContainer {
+    margin-left: 70px;
+    max-width: 600px;
+
+    .title {
+      margin-bottom: 50px;
+    }
+
+    .itemContainer {
+      margin-bottom: 30px;
+    }
+
+    .buttonsContainer {
+      gap: 20px;
+    }
+  }
+}

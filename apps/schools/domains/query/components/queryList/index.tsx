@@ -19,8 +19,8 @@ import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
-import router from 'next/router'
-import { FilterValue } from 'antd/es/table/interface'
+import { useQueryState } from 'next-usequerystate'
+import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 
 export function QueryList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -29,10 +29,14 @@ export function QueryList() {
 
     const [inputText, setInputText] = useState('')
 
-    const [statusFilter, setStatusFilter] = useState('')
-    const [circleFilter, setCircleFilter] = useState<FilterValue>([])
+    const [statuses, setStatuses] = useQueryState('statuses', parseAsArrayOf(parseAsString).withOptions({
+        history: 'push'
+    }));
 
-    const selectedStatuses = new Set(statusFilter.split(',').filter((x) => x in StatusDictionary))
+    const [circles, setCircles] = useQueryState('circles', parseAsArrayOf(parseAsString).withOptions({
+        history: 'push'
+    }));
+
     const bubbleFilterItems: any = {}
 
     const { data: analytics, isLoading: isAnalyticsLoading } = useGetOrganizationAnalyticsQuery({
@@ -47,28 +51,18 @@ export function QueryList() {
             text: obj.text,
             color: obj.color,
             count: analytics ? (analytics.analytics as unknown as { [index: string]: number })[key] : 0,
-            isSelected: selectedStatuses.has(key),
+            isSelected: statuses?.includes(key) ?? false,
             onClick: () => {
-                selectedStatuses.add(key)
-                setStatusFilter(Array.from(selectedStatuses).join(','))
+                setStatuses(x => [...(x ?? []), key])
             },
             onExit: () => {
-                setStatusFilter(
-                    Array.from(selectedStatuses)
-                        .filter((value) => value != key)
-                        .join(','),
-                )
+                setStatuses(x => {
+                    const res = [...(x ?? []).filter(y => y != key)];
+                    return res.length === 0 ? null : res;
+                })
             },
         } as BubbleFilterListItem
     }
-
-    useEffect(() => {
-        setStatusFilter(router.query['status'] ? (router.query['status'] as string) : '')
-    }, [router.query])
-
-    useEffect(() => {
-        if (statusFilter.length > 0) router.push(`${router.route}?status=${statusFilter}`)
-    }, [statusFilter])
 
     const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
@@ -190,7 +184,7 @@ export function QueryList() {
                             value: key,
                             text: value.text,
                         })),
-                        filteredValue: Array.from(selectedStatuses),
+                        filteredValue: statuses ?? [],
                         onFilter: (value, record) => {
                             const obj = (record as any)['status']
                             if (!isReactElement(obj)) return obj === value
@@ -199,15 +193,21 @@ export function QueryList() {
                         },
                     },
                     circle_name: {
-                        filteredValue: Array.from(circleFilter),
+                        filteredValue: circles ?? [],
                     },
                 }}
                 sortFields={['created_at']}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
                 onChange={(pagination, filters, sorter) => {
-                    setCircleFilter(filters['circle_name'] ?? [])
-                    setStatusFilter((filters['status'] ?? []).join(','))
+                    const localStatuses = [...(filters['status'] ?? [])] as string[];
+                    setStatuses(
+                        localStatuses.length === 0 ? null : localStatuses
+                    );
+                    const localCircles = [...(filters['circle_name'] ?? [])] as string[];
+                    setCircles(
+                        localCircles.length === 0 ? null : localCircles
+                    );
                 }}
             />
         </EmptyWrapper>

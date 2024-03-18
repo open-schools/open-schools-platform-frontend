@@ -1,9 +1,8 @@
-import { commonApi } from '@store/commonApi'
+import { commonApi, providesList } from '@store/commonApi'
 import { ReturnedData } from '../../common/redux/interfaces'
 import {
     CreateOrganizationData,
     AllOrganizationsData,
-    StudentJoinCircleData,
     AllStudentsData,
     StudentData,
     TeacherData,
@@ -66,6 +65,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Student'),
         }),
         getAllCircles: build.query<ReturnedData<GetOrganizationCircleList[]>, GetOrganizationCircleListData>({
             query: (params) => ({
@@ -73,6 +73,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Circle'),
         }),
         getCurrentCircle: build.query<{ circle: GetOrganizationCircleList }, GetCurrentCircleData>({
             query: (params) => ({
@@ -80,13 +81,14 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result, error, arg) => [{ type: 'Student', id: arg.circle_id }],
         }),
         getStudent: build.query<{ student: GetStudent }, StudentData>({
             query: (data) => ({
                 url: `/organization-management/organizations/students/${data.student_id}`,
                 method: 'GET',
-                body: data,
             }),
+            providesTags: (result, error, arg) => [{ type: 'Student', id: arg.student_id }],
         }),
         getTeacher: build.query<{ teacher: GetTeacher }, TeacherData>({
             query: (data) => ({
@@ -95,12 +97,13 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        deleteOrganization: build.query<{}, DeleteOrganizationData>({
+        deleteOrganization: build.mutation<{}, DeleteOrganizationData>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization_id}`,
                 method: 'DELETE',
                 body: data,
             }),
+            invalidatesTags: ['Organization'],
         }),
         analytics: build.query<{ analytics: GetAnalytics }, AnalyticsData>({
             query: (data) => ({
@@ -108,6 +111,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 body: data,
             }),
+            providesTags: ['StudentJoinCircleQuery'],
         }),
         inviteEmployee: build.mutation<{ query: GetQueryStatus }, CreateOrganizationInviteEmployee>({
             query: (data) => ({
@@ -129,6 +133,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 body: data,
             }),
+            providesTags: ['Student'],
         }),
         getAllTeachers: build.query<ReturnedData<GetTeacher>, AllTeachersData>({
             query: (data) => ({
@@ -137,26 +142,29 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getAllQueriesOfOrganization: build.query<ReturnedData<GetStudentJoinCircle>, AllQueriesOfOrganizationData>({
+        getAllQueriesOfOrganization: build.query<ReturnedData<GetStudentJoinCircle[]>, AllQueriesOfOrganizationData>({
             query: (data) => ({
                 url: `/organization-management/organizations/${data.organization}/student-profiles/${data.student_profile}/queries`,
                 method: 'GET',
                 body: data,
             }),
+            providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
         getAllStudentInvitations: build.query<ReturnedData<GetCircleInviteStudent[]>, getAllStudentInvitationsData>({
             query: (params) => ({
-                url: `/organization-management/organizations/students-invitations`,
+                url: '/organization-management/organizations/students-invitations',
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Student'),
         }),
         getAllJoinCircleQueries: build.query<ReturnedData<GetStudentJoinCircle[]>, AllStudentJoinCircleQueriesData>({
             query: (params) => ({
-                url: `/organization-management/organizations/student-join-circle-query`,
+                url: '/organization-management/organizations/student-join-circle-query',
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
         getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetOrganizationAnalyticsData>({
             query: (params) => ({
@@ -164,6 +172,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: ['StudentJoinCircleQuery'],
         }),
     }),
 })
@@ -176,7 +185,7 @@ export const {
     useGetAllStudentsQuery,
     useGetStudentQuery,
     useGetTeacherQuery,
-    useDeleteOrganizationQuery,
+    useDeleteOrganizationMutation,
     useAnalyticsQuery,
     useInviteEmployeeMutation,
     useGetAllQueriesQuery,

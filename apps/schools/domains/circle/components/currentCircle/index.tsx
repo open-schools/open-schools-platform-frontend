@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import router from 'next/router'
 import { Col, Row, Typography } from 'antd'
 import Image from 'next/image'
@@ -23,15 +23,18 @@ import { searchColumns } from './constants'
 import { CurrentCircleRowType } from './interfaces'
 import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
+import { QueryStatuses } from '@domains/common/constants/Enums'
+import { ErrorType } from '@store/commonApi'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [searchRequestText, setSearchRequestText] = useState('')
-    const [mutation] = useDeleteCircleMutation()
+    const [mutation, isDeleteFinished] = useDeleteCircleMutation()
     const uuid = getUuidFromUrl()
+
     const { organizationId } = useOrganization()
 
-    const { data: circle } = useGetCircleQuery({ circle_id: uuid[0] })
+    const { data: circle, error: circleError } = useGetCircleQuery({ circle_id: uuid[0] })
     const { data: students, isLoading } = useGetCircleStudentsQuery({
         circle_id: uuid[0],
         or_search: createSearchTextForRequest(searchRequestText, searchColumns),
@@ -59,6 +62,15 @@ const CurrentCircle = () => {
     const countAllQueries = sumObjectValues(queriesCount)
     const addressVars = getVarsForAddressColumn(circle?.circle.address ?? '')
 
+    useEffect(() => {
+        if (circleError && (circleError as ErrorType).status == 404) {
+            router.push('/circle')
+        }
+    }, [circleError])
+
+    if (isDeleteFinished.isSuccess) return null
+    if (uuid.length === 0) router.push('/404')
+
     return (
         <>
             <Typography.Title className={styles.name} level={1}>
@@ -71,21 +83,30 @@ const CurrentCircle = () => {
                     <Row className={styles.Row}>
                         <div>Всего</div>
                         <span></span>
-                        <Link href={'/profile'} className={styles.colorCountAllQueries}>
+                        <Link
+                            href={`/query?circles=${circle?.circle.name ?? ''}`}
+                            className={styles.colorCountAllQueries}
+                        >
                             {countAllQueries}
                         </Link>
                     </Row>
                     <Row className={styles.Row}>
                         <div>Принято</div>
                         <span></span>
-                        <Link href={'/profile'} className={styles.colorCountAcceptedQueries}>
+                        <Link
+                            href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name}`}
+                            className={styles.colorCountAcceptedQueries}
+                        >
                             {queriesCount.ACCEPTED}
                         </Link>
                     </Row>
                     <Row className={styles.Row}>
                         <div>На рассмотрении</div>
                         <span></span>
-                        <Link href={'/profile'} className={styles.colorCountInProgressQueries}>
+                        <Link
+                            href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name}`}
+                            className={styles.colorCountInProgressQueries}
+                        >
                             {queriesCount.IN_PROGRESS}
                         </Link>
                     </Row>

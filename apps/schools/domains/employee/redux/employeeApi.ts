@@ -1,9 +1,9 @@
-import { commonApi } from '@store/commonApi'
+import { commonApi, providesList } from '@store/commonApi'
 import { ReturnedData } from '@domains/common/redux/interfaces'
 import {
     DeleteEmployeeByIdData,
     GetAllEmployeesData,
-    GetEmployee,
+    GetEmployee, GetEmployeeByIdData,
     GetEmployeeProfile,
     GetListEmployee,
     UpdateEmployeeByIdData,
@@ -19,6 +19,7 @@ const employeeApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: (result) => providesList(result?.results, 'Employee'),
         }),
         getInvitations: build.query<{ results: GetOrganizationInviteEmployee[] }, {}>({
             query: () => ({
@@ -31,6 +32,7 @@ const employeeApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
+            invalidatesTags: (result, error, arg) => [{ type: 'Employee', id: arg.employee_id }, { type: 'Employee', id: 'LIST' }],
         }),
         updateEmployeeProfileById: build.mutation<{ employee_profile: GetEmployeeProfile }, UpdateEmployeeProfile>({
             query: (data) => ({
@@ -38,12 +40,21 @@ const employeeApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
+            invalidatesTags: ['Employee'],
         }),
         deleteEmployeeById: build.mutation<{}, DeleteEmployeeByIdData>({
             query: (data) => ({
                 url: `/organization-management/employees/${data.employee_id}`,
                 method: 'DELETE',
             }),
+            invalidatesTags: (result, error, arg) => [{ type: 'Employee', id: 'LIST' }],
+        }),
+        getEmployee: build.query<{ employee: GetEmployee }, GetEmployeeByIdData>({
+            query: (data) => ({
+                url: `/organization-management/employees/${data.employee_id}`,
+                method: 'GET',
+            }),
+            providesTags: (result, error, arg) => [{ type: 'Employee', id: arg.employee_id }],
         }),
     }),
 })
@@ -54,5 +65,6 @@ export const {
     useLazyGetAllEmployeesQuery,
     useUpdateEmployeeProfileByIdMutation,
     useGetInvitationsQuery,
+    useGetEmployeeQuery,
     useUpdateEmployeeByIdMutation,
 } = employeeApi

@@ -2,7 +2,7 @@
 
 ## Getting started
 
-> **Node should be > 16.** You can check node version using `node -v` command in your terminal.
+> **Node should be > 16.14.0** You can check node version using `node -v` command in your terminal.
 
 > **You need a raised [backend](https://github.com/LamArt/open-schools-platform/tree/dev) server nearby**
 
