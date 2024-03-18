@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Row, Typography } from 'antd'
+import { Col, Row, Spin, Typography } from 'antd'
 import Image from 'next/image'
 
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
@@ -22,6 +22,7 @@ const CurrentEmployee = () => {
     const {
         data: employee,
         error: employeeError,
+        isLoading,
     } = useGetEmployeeQuery({
         employee_id: uuid[0],
     })
@@ -35,7 +36,9 @@ const CurrentEmployee = () => {
     if (isDeleteFinished.isSuccess) return null
     if (uuid.length === 0) router.push('/404')
 
-    return (
+    return isLoading ? (
+        <Spin />
+    ) : (
         <>
             <Col className={styles.headersBlock}>
                 <Row className={styles.baseRowContainer}>
