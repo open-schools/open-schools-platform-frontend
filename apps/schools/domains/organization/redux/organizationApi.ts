@@ -192,6 +192,7 @@ export const {
     useExportStudentsQuery,
     useGetAllTeachersQuery,
     useGetAllQueriesOfOrganizationQuery,
+    useLazyGetAllStudentInvitationsQuery,
     useGetAllStudentInvitationsQuery,
     useGetAllCirclesQuery,
     useGetAllJoinCircleQueriesQuery,
