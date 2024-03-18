@@ -84,7 +84,7 @@ const CurrentCircle = () => {
                         <div>Всего</div>
                         <span></span>
                         <Link
-                            href={`/query?circles=${circle?.circle.name?.replace(' ', '+')}`}
+                            href={`/query?circles=${circle?.circle.name ?? ''}`}
                             className={styles.colorCountAllQueries}
                         >
                             {countAllQueries}
@@ -94,10 +94,7 @@ const CurrentCircle = () => {
                         <div>Принято</div>
                         <span></span>
                         <Link
-                            href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name?.replace(
-                                ' ',
-                                '+',
-                            )}`}
+                            href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name}`}
                             className={styles.colorCountAcceptedQueries}
                         >
                             {queriesCount.ACCEPTED}
@@ -107,10 +104,7 @@ const CurrentCircle = () => {
                         <div>На рассмотрении</div>
                         <span></span>
                         <Link
-                            href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name?.replace(
-                                ' ',
-                                '+',
-                            )}`}
+                            href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name}`}
                             className={styles.colorCountInProgressQueries}
                         >
                             {queriesCount.IN_PROGRESS}

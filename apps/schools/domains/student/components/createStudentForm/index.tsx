@@ -167,7 +167,6 @@ export const CreateStudentForm = () => {
                                 <Button
                                     type='schoolDefault'
                                     block
-                                    style={{ width: '40%', marginLeft: '10px', marginBottom: '6px', marginTop: '10px' }}
                                     className={styles.button}
                                     onClick={() => router.push('/circle/create')}
                                 >

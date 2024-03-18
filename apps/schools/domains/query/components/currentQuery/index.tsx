@@ -20,6 +20,7 @@ import {
     IN_PROGRESS_FILTER_COLOR,
     SENT_FILTER_COLOR,
 } from '@domains/query/components/queryList/styles/styles'
+import { TIMEOUT_HISTORY_DELAY } from '@domains/query/components/currentQuery/constants'
 
 export const CurrentQuery = () => {
     const { organizationId } = useOrganization()
@@ -91,7 +92,7 @@ export const CurrentQuery = () => {
         handleQueryStatusChange(mutation, uuid[0], translatedStatus as QueriesTypes)
         setCurrentStatus(value)
         setCurrentDependencies(graph[value] || [])
-        setTimeout(() => refetch(), 1000)
+        setTimeout(() => refetch(), TIMEOUT_HISTORY_DELAY)
     }
 
     const createdAt = query?.created_at

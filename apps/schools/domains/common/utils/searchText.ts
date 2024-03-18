@@ -5,3 +5,7 @@ export function getSearchText(text: string) {
 export function createSearchTextForRequest(text: string, searchColumns: string[]) {
     return `${text}:[${searchColumns.map((searchColumn: string) => searchColumn)}]`
 }
+
+export function replaceSpaces(text: string) {
+    return text.replace(' ', '+')
+}
