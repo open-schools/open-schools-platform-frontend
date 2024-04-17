@@ -1,4 +1,4 @@
-import { Form, Typography, Input as AntdInput, Row, Spin } from 'antd'
+import { Form, Typography, Input as AntdInput, Row, Spin, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
@@ -11,7 +11,7 @@ import { TOOLTIP_MARGIN } from './styles/styles'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
-import { AimOutlined } from '@ant-design/icons'
+import { AimOutlined, QuestionCircleFilled } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
@@ -19,6 +19,15 @@ import MapAddressForm from '@domains/circle/components/addressForm'
 import { ConfirmForm } from '@domains/circle/components/confirmForm'
 import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
 import { FormMapSteps } from '@domains/circle/constants/Enums'
+import Image from 'next/image'
+import android from '@public/image/Android 11.png'
+import {
+    DEFAULT_ICON_SIZE,
+    DEFAULT_MARGIN,
+    DEFAULT_OVERLAY_INNER_COLOR,
+    DEFAULT_OVERLAY_INNER_STYLE,
+    ICON_SIZES,
+} from '@domains/common/components/tooltip/styles/styles'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
@@ -54,7 +63,7 @@ export const CreateCircleForm = () => {
 
     if (step === FormMapSteps.Form) {
         return (
-            <Row className={styles.mainRow}>
+            <div className={styles.mainRow}>
                 <div className={styles.formContainer}>
                     <Form
                         form={form}
@@ -69,7 +78,7 @@ export const CreateCircleForm = () => {
                         layout='vertical'
                     >
                         <Typography.Title level={1}>Добавление кружка</Typography.Title>
-                        <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
+                        <div className={styles.nameInput}>
                             <Form.Item
                                 required={true}
                                 label={
@@ -81,9 +90,32 @@ export const CreateCircleForm = () => {
                                 className={styles.label}
                                 rules={validators.name}
                             >
-                                <Input required={true} placeholder='Введите название кружка' />
+                                <Input
+                                    required={true}
+                                    inputContainerClass={styles.inputWithTooltipContainer}
+                                    className={styles.inputWithTooltip}
+                                    placeholder='Введите название кружка'
+                                >
+                                    <div className={styles.tooltipContainer}>
+                                        <Tooltip
+                                            placement='right'
+                                            title={'Здесь будет текст тултипа'}
+                                            color={DEFAULT_OVERLAY_INNER_COLOR}
+                                            style={{ height: 'auto' }}
+                                            overlayInnerStyle={DEFAULT_OVERLAY_INNER_STYLE}
+                                        >
+                                            <QuestionCircleFilled
+                                                style={{
+                                                    top: `${TOOLTIP_MARGIN}`,
+                                                    marginBottom: '10px',
+                                                    fontSize: ICON_SIZES[DEFAULT_ICON_SIZE],
+                                                }}
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                </Input>
                             </Form.Item>
-                        </WithTooltip>
+                        </div>
 
                         <Row className={styles.complexInputContainer}>
                             {!circlesData.isLoading ? (
@@ -163,8 +195,11 @@ export const CreateCircleForm = () => {
                     <Typography.Title level={3} className={styles.text}>
                         Родители смогут увидеть ваш кружок с помощью карты и узнать информацию о нём!
                     </Typography.Title>
+                    <div className={styles.mobile}>
+                        <Image src={android} alt={'Android with app'} className={styles.mobileImage} />
+                    </div>
                 </div>
-            </Row>
+            </div>
         )
     } else if (step === FormMapSteps.Map) {
         return <MapAddressForm setStep={setStep} point={point ? point : circlesAddresses[0]} setPoint={setPoint} />
