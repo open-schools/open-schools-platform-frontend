@@ -18,7 +18,7 @@ const circleApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
-            providesTags: (result) => providesList(result?.results, 'Circle' ),
+            providesTags: (result) => providesList(result?.results, 'Circle'),
         }),
         createCircle: build.mutation<{ circle: GetCircle }, CreateCircleData>({
             query: (data) => ({
@@ -64,7 +64,10 @@ const circleApi = commonApi.injectEndpoints({
                 method: 'POST',
                 body: body,
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Circle', id: arg.circle_id }, { type: 'Student', id: 'LIST' }],
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Circle', id: arg.circle_id },
+                { type: 'Student', id: 'LIST' },
+            ],
         }),
     }),
 })

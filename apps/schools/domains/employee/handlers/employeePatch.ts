@@ -1,8 +1,5 @@
 import { FormInstance, message } from 'antd'
-import {
-    LoadingRequestMsg,
-    SuccessUpdateEmployeeMsg,
-} from '@domains/user/components/auth/constants/message'
+import { LoadingRequestMsg, SuccessUpdateEmployeeMsg } from '@domains/user/components/auth/constants/message'
 import { removeEmpty } from '@domains/common/utils/form'
 import { withLoadingMessage } from '@domains/common/utils/loading'
 import { EMPLOYEE_NAME, EMPLOYEE_POSITION } from '@domains/employee/components/changeEmployeeForm/constants'

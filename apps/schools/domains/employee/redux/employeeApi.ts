@@ -3,7 +3,8 @@ import { ReturnedData } from '@domains/common/redux/interfaces'
 import {
     DeleteEmployeeByIdData,
     GetAllEmployeesData,
-    GetEmployee, GetEmployeeByIdData,
+    GetEmployee,
+    GetEmployeeByIdData,
     GetEmployeeProfile,
     GetListEmployee,
     UpdateEmployeeByIdData,
@@ -32,7 +33,10 @@ const employeeApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Employee', id: arg.employee_id }, { type: 'Employee', id: 'LIST' }],
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Employee', id: arg.employee_id },
+                { type: 'Employee', id: 'LIST' },
+            ],
         }),
         updateEmployeeProfileById: build.mutation<{ employee_profile: GetEmployeeProfile }, UpdateEmployeeProfile>({
             query: (data) => ({

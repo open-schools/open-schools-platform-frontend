@@ -11,11 +11,7 @@ const queryApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
-            invalidatesTags: (result, error, arg) => [
-                'StudentJoinCircleQuery',
-                'Student',
-                'Circle',
-            ],
+            invalidatesTags: (result, error, arg) => ['StudentJoinCircleQuery', 'Student', 'Circle'],
         }),
         GetQueryHistory: build.query<ReturnedData<QueryStatusChanges[]>, { query_id: string }>({
             query: (params) => ({
@@ -23,9 +19,7 @@ const queryApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
-            providesTags: (result, error, arg) => [
-                { type: 'StudentJoinCircleQuery', id: arg.query_id },
-            ],
+            providesTags: (result, error, arg) => [{ type: 'StudentJoinCircleQuery', id: arg.query_id }],
         }),
     }),
 })
