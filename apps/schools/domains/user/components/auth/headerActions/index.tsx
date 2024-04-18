@@ -4,6 +4,7 @@ import React from 'react'
 
 import styles from './styles/styles.module.scss'
 import { ITabsActionsProps } from './interfaces'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const TabsAuthAction: React.FC<ITabsActionsProps> = (props) => {
     const { currentActiveKey, title } = props
@@ -26,8 +27,8 @@ export const TabsAuthAction: React.FC<ITabsActionsProps> = (props) => {
                     </>
                 ) : (
                     <>
-                        <Tabs.TabPane key='/auth/register?step=inputPhone' tab={registerTab} />
-                        <Tabs.TabPane key='/auth/signin' tab={signInTab} />
+                        <Tabs.TabPane key={`${RoutePath[AppRoutes.AUTH_REGISTER]}?step=inputPhone`} tab={registerTab} />
+                        <Tabs.TabPane key={RoutePath[AppRoutes.AUTH_SIGN_IN]} tab={signInTab} />
                     </>
                 )}
             </Tabs>

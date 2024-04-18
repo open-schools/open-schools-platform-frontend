@@ -25,6 +25,7 @@ import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { QueryStatuses } from '@domains/common/constants/Enums'
 import { ErrorType } from '@store/commonApi'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -64,12 +65,12 @@ const CurrentCircle = () => {
 
     useEffect(() => {
         if (circleError && (circleError as ErrorType).status == 404) {
-            router.push('/circle')
+            router.push(RoutePath[AppRoutes.CIRCLE_LIST])
         }
     }, [circleError])
 
     if (isDeleteFinished.isSuccess) return null
-    if (uuid.length === 0) router.push('/404')
+    if (uuid.length === 0) router.push(RoutePath[AppRoutes.NOT_FOUND])
 
     return (
         <>
@@ -138,7 +139,7 @@ const CurrentCircle = () => {
                         ['Телефон родителя', 'parent_phones'],
                     ]}
                     data={reformattedData}
-                    mainRoute={'/student'}
+                    mainRoute={RoutePath[AppRoutes.STUDENT_LIST]}
                     isLoading={isLoading}
                     needNumbering={true}
                     searchFields={['student_name', 'student_phone', 'parent_names', 'parent_phones']}
@@ -151,7 +152,7 @@ const CurrentCircle = () => {
                     actions={[
                         <Button
                             className={styles.changeButton}
-                            onClick={() => router.push(`/circle/${uuid[0]}/change`)}
+                            onClick={() => router.push(`${RoutePath[AppRoutes.CIRCLE_LIST]}/${uuid[0]}/change`)}
                         >
                             Редактировать данные кружка
                         </Button>,
@@ -174,7 +175,7 @@ const CurrentCircle = () => {
                 setIsModalVisible={setIsModalVisible}
                 titleText={'Удалить кружок?'}
                 buttonText={'Удалить кружок'}
-                urlAfterDelete={'/circle'}
+                urlAfterDelete={RoutePath[AppRoutes.CIRCLE_LIST]}
                 dataField={'circle_id'}
             />
         </>

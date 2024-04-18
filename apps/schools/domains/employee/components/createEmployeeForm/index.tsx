@@ -7,7 +7,7 @@ import { useCreateEmployeeFormValidators } from './hooks'
 import { useInviteEmployeeMutation } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { handleSubmitForm } from '@domains/employee/handlers/employeeCreate'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
 import { TOOLTIP_MARGIN } from '@domains/employee/components/createEmployeeForm/styles/styles'
 import { isValidFormCheck } from '@domains/common/utils/form'
@@ -17,6 +17,7 @@ import {
     EMPLOYEE_PHONE,
     EMPLOYEE_POSITION,
 } from '@domains/employee/components/createEmployeeForm/constants'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const CreateEmployeeForm = () => {
     const validators = useCreateEmployeeFormValidators()
@@ -39,7 +40,7 @@ export const CreateEmployeeForm = () => {
             onValuesChange={validationCheck}
             onFinish={() => {
                 handleSubmitForm(organizationId, form, mutation).then((isSucceed) => {
-                    if (isSucceed) router.push('/employee')
+                    if (isSucceed) router.push(RoutePath[AppRoutes.EMPLOYEE_LIST])
                 })
             }}
             layout='vertical'

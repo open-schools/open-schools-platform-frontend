@@ -10,6 +10,8 @@ import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 import { GetListEmployee } from '@domains/employee/redux/interfaces'
 import { RowType } from '@domains/employee/components/employeeList/interfaces'
 import { searchColumns } from '@domains/employee/components/employeeList/constants'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import App from 'next/app'
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -29,7 +31,7 @@ export function EmployeeList() {
                     block
                     style={{ width: '14%' }}
                     className={styles.button}
-                    onClick={() => router.push('/employee/create')}
+                    onClick={() => router.push(RoutePath[AppRoutes.EMPLOYEE_CREATE])}
                 >
                     Добавить сотрудника
                 </Button>
@@ -42,7 +44,7 @@ export function EmployeeList() {
                 ]}
                 data={data}
                 isLoading={isLoading}
-                mainRoute={'/employee'}
+                mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 searchFields={searchColumns}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}

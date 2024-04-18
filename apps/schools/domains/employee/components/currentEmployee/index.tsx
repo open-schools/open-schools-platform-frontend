@@ -13,6 +13,7 @@ import { Field } from '@domains/common/components/field'
 import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
 import DeleteModal from '@domains/common/components/deleteModal'
 import { useDeleteEmployeeByIdMutation, useGetEmployeeQuery } from '@domains/employee/redux/employeeApi'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const CurrentEmployee = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -29,12 +30,12 @@ const CurrentEmployee = () => {
 
     useEffect(() => {
         if (employeeError && (employeeError as ErrorType).status == 404) {
-            router.push('/employee')
+            router.push(RoutePath[AppRoutes.EMPLOYEE_LIST])
         }
     }, [employeeError])
 
     if (isDeleteFinished.isSuccess) return null
-    if (uuid.length === 0) router.push('/404')
+    if (uuid.length === 0) router.push(RoutePath[AppRoutes.NOT_FOUND])
 
     return isLoading ? (
         <Spin />
@@ -70,7 +71,9 @@ const CurrentEmployee = () => {
                                     <Button
                                         key={'edit'}
                                         className={styles.changeButton}
-                                        onClick={() => router.push(`/employee/${uuid[0]}/change`)}
+                                        onClick={() =>
+                                            router.push(`${RoutePath[AppRoutes.EMPLOYEE_LIST]}/${uuid[0]}/change`)
+                                        }
                                     >
                                         Редактировать профиль
                                     </Button>,
@@ -95,7 +98,7 @@ const CurrentEmployee = () => {
                 setIsModalVisible={setIsModalVisible}
                 titleText={'Удалить сотрудника?'}
                 buttonText={'Удалить сотрудника'}
-                urlAfterDelete={'/employee'}
+                urlAfterDelete={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 dataField={'employee_id'}
             />
         </>

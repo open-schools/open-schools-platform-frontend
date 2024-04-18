@@ -12,6 +12,7 @@ import { BaseLayout } from '@domains/common/components/containers/BaseLayoutComp
 import { LayoutContextProvider } from '@domains/user/providers/baseLayoutProvider'
 import { message } from 'antd'
 import { EventBusProvider } from '@domains/common/providers/eventBusProvider'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export interface ContainerPage<PropsType> extends React.FC {
     container: React.FC<PropsType>
@@ -30,7 +31,7 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
     const LayoutComponent = Component.container || BaseLayout
     const router = useRouter()
 
-    if (router.pathname === '/mobile-recaptcha')
+    if (router.pathname === RoutePath[AppRoutes.MOBILE_RECAPTCHA])
         return (
             <Provider store={store}>
                 <Head>
