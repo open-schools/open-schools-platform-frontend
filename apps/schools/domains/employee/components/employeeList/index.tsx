@@ -11,7 +11,6 @@ import { GetListEmployee } from '@domains/employee/redux/interfaces'
 import { RowType } from '@domains/employee/components/employeeList/interfaces'
 import { searchColumns } from '@domains/employee/components/employeeList/constants'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import App from 'next/app'
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
