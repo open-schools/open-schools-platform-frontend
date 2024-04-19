@@ -11,7 +11,6 @@ import { Input } from '@domains/common/components/input'
 
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 
-
 import { ErrorType } from '@store/commonApi'
 import { useGetEmployeeQuery, useUpdateEmployeeByIdMutation } from '@domains/employee/redux/employeeApi'
 import { useChangeEmployeeFormValidators } from '@domains/employee/components/changeEmployeeForm/hooks'
