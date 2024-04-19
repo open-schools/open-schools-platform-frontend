@@ -12,6 +12,7 @@ import {
 } from '@domains/user/components/auth/constants/message'
 import { withLoadingMessage } from '@domains/common/utils/loading'
 import Cookies from 'universal-cookie'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export async function tokenHandler(
     recaptchaToken: string,
@@ -42,7 +43,7 @@ export async function tokenHandler(
     })
     if ('data' in response) {
         localStorage.setItem('token', response.data.token)
-        Router.push(`/auth/${nextUrl}?token=${37128937218937}`)
+        Router.push(`${RoutePath[AppRoutes.AUTH]}/${nextUrl}?token=${37128937218937}`)
         onFinish()
     } else {
         message.error(PleaseReloadPageMsg)

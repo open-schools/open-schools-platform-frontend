@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useGetAllOrganizationsQuery } from '../redux/organizationApi'
 import { OrganizationInfo } from '../interfaces/organizationProvider'
 import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
@@ -65,7 +66,11 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
             }
 
             if (data.count === 0) {
-                if (!router.asPath.endsWith('/user') && !router.asPath.includes('/auth/')) router.push('/user')
+                if (
+                    !router.asPath.endsWith(RoutePath[AppRoutes.USER_LIST]) &&
+                    !router.asPath.includes(`${RoutePath[AppRoutes.AUTH]}/`)
+                )
+                    router.push(RoutePath[AppRoutes.USER_LIST])
             } else {
                 const firstOrganization = data?.results[0]
                 if (organizationId === '' && firstOrganization && firstOrganization.id) {

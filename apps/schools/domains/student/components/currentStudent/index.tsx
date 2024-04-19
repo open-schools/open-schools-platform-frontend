@@ -19,6 +19,7 @@ import { GetStudent } from '@domains/common/redux/serializers'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import parentAcceptedPhone from '@public/icons/parentAcceptedMobile.svg'
 import parentDeclinedPhone from '@public/icons/parentDeclinedMobile.svg'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const CurrentStudent = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -34,7 +35,7 @@ const CurrentStudent = () => {
 
     useEffect(() => {
         if (studentError && ((studentError as ErrorType).status == 404 || (studentError as ErrorType).status == 403)) {
-            router.push('/student')
+            router.push(RoutePath[AppRoutes.STUDENT_LIST])
         }
     }, [studentError])
 
@@ -65,7 +66,7 @@ const CurrentStudent = () => {
     }, [studentInfoAdditional])
 
     if (isDeleteFinished.isSuccess) return null
-    if (uuid.length === 0) router.push('/404')
+    if (uuid.length === 0) router.push(RoutePath[AppRoutes.NOT_FOUND])
 
     return (
         <EmptyWrapper
@@ -116,7 +117,11 @@ const CurrentStudent = () => {
                                                 <Button
                                                     key={'edit'}
                                                     className={styles.changeButton}
-                                                    onClick={() => router.push(`/student/${uuid[0]}/change`)}
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `${RoutePath[AppRoutes.STUDENT_LIST]}/${uuid[0]}/change`,
+                                                        )
+                                                    }
                                                 >
                                                     Редактировать профиль
                                                 </Button>,
@@ -161,7 +166,7 @@ const CurrentStudent = () => {
                         setIsModalVisible={setIsModalVisible}
                         titleText={'Удалить обучающегося?'}
                         buttonText={'Удалить обучающегося'}
-                        urlAfterDelete={'/student'}
+                        urlAfterDelete={RoutePath[AppRoutes.STUDENT_LIST]}
                         dataField={'student_id'}
                     />
                 </>

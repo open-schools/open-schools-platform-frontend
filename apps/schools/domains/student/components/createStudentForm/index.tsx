@@ -21,6 +21,7 @@ import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentFor
 import { Select } from '@domains/common/components/select'
 import router from 'next/router'
 import { DROPDOWN_STYLE } from '@domains/common/components/containers/BaseLayoutComponents/OrganizationSelect/styles/styles'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const CreateStudentForm = () => {
     const validators = useCreateStudentFormValidators()
@@ -56,7 +57,7 @@ export const CreateStudentForm = () => {
                         localStorage.removeItem(PARENT_PHONE)
                         localStorage.removeItem(PARENT_EMAIL)
                         localStorage.removeItem(STUDENT_PHONE)
-                        router.push('/student')
+                        router.push(RoutePath[AppRoutes.STUDENT_LIST])
                     }
                 })
             }}
@@ -168,7 +169,7 @@ export const CreateStudentForm = () => {
                                     type='schoolDefault'
                                     block
                                     className={styles.button}
-                                    onClick={() => router.push('/circle/create')}
+                                    onClick={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
                                 >
                                     Добавить кружок
                                 </Button>

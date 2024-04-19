@@ -26,7 +26,7 @@ export const ValidatePhoneForm: React.FC<IValidatePhoneFormProps> = ({ onFinish,
     const [smsCode, setSmsCode] = useState('')
     const [isPhoneVisible, setIsPhoneVisible] = useState(false)
     const [phoneValidateError, setPhoneValidateError] = useState(null)
-    const PhoneToggleLabel = isPhoneVisible ? 'Показать' : 'Скрыть'
+    const PhoneToggleLabel = isPhoneVisible ? 'Скрыть' : 'Показать'
 
     const SMS_VALIDATOR = useCallback(
         () => ({

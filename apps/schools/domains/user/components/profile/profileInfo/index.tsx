@@ -8,6 +8,7 @@ import duckEmptyPage from '@public/image/duckEmptyPage.svg'
 import { useUserProfile } from '@domains/user/providers/authProvider'
 import { useLazyGetAllEmployeesQuery } from '@domains/employee/redux/employeeApi'
 import { Field } from '@domains/common/components/field'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function ProfileInfo() {
     const { user } = useUserProfile()
@@ -54,7 +55,7 @@ export function ProfileInfo() {
                     ))
                 )}
 
-                <Button type='schoolDefaultAuto' block onClick={() => router.push('/user/edit')}>
+                <Button type='schoolDefaultAuto' block onClick={() => router.push(RoutePath[AppRoutes.USER_EDIT])}>
                     Редактировать профиль
                 </Button>
             </Col>

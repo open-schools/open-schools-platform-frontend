@@ -17,6 +17,7 @@ import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
 import { FormMapSteps } from '@domains/circle/constants/Enums'
 import router from 'next/router'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 interface MapComponentProps {
     mode: 'Change' | 'Create'
@@ -175,11 +176,11 @@ const ConfirmMap = (props: MapComponentProps) => {
                         onClick={() => {
                             if (mode === 'Create') {
                                 handleSubmitCreateForm(organizationId, mainForm, mutation).then((isSucceed) => {
-                                    if (isSucceed) router.push('/circle')
+                                    if (isSucceed) router.push(RoutePath[AppRoutes.CIRCLE_LIST])
                                 })
                             } else if (mode === 'Change') {
                                 handleSubmitUpdateForm(circleId, mainForm, mutation).then((isSucceed) => {
-                                    if (isSucceed) router.push(`/circle/${circleId}`)
+                                    if (isSucceed) router.push(`${RoutePath[AppRoutes.CIRCLE_LIST]}/${circleId}`)
                                 })
                             }
                         }}

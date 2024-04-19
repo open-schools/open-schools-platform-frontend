@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Row } from 'antd'
 import { CustomLogo } from '@domains/common/components/Logo'
 import getConfig from 'next/config'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const {
     publicRuntimeConfig: {
@@ -16,7 +17,7 @@ export const EmptyLayout: React.FC<any> = (props) => {
 
     return (
         <div className={styles.container}>
-            <Link className={styles.logoContainer} href={'/'}>
+            <Link className={styles.logoContainer} href={RoutePath[AppRoutes.MAIN]}>
                 <Row className={styles.rowWithGap}>
                     <CustomLogo minified={true} />
                     <div className={styles.logoText}>

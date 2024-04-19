@@ -21,6 +21,7 @@ import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function QueryList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -144,7 +145,7 @@ export function QueryList() {
                 ]}
                 data={reformattedData}
                 isLoading={isQueriesLoading}
-                mainRoute={'/query'}
+                mainRoute={RoutePath[AppRoutes.QUERY_LIST]}
                 searchFields={[
                     'created_at',
                     'student_name',
