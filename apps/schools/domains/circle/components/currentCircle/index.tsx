@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import router from 'next/router'
+import router, { useRouter } from 'next/router'
 import { Col, Row, Typography } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -32,8 +32,11 @@ const CurrentCircle = () => {
     const [searchRequestText, setSearchRequestText] = useState('')
     const [mutation, isDeleteFinished] = useDeleteCircleMutation()
     const uuid = getUuidFromUrl()
+    const router = useRouter()
 
     const { organizationId } = useOrganization()
+
+    const backQuery = `&back=true`
 
     const { data: circle, error: circleError } = useGetCircleQuery({ circle_id: uuid[0] })
     const { data: students, isLoading } = useGetCircleStudentsQuery({
@@ -85,7 +88,7 @@ const CurrentCircle = () => {
                         <div>Всего</div>
                         <span></span>
                         <Link
-                            href={`/query?circles=${circle?.circle.name ?? ''}`}
+                            href={`/query?circles=${circle?.circle.name ?? ''}${backQuery}`}
                             className={styles.colorCountAllQueries}
                         >
                             {countAllQueries}
@@ -95,7 +98,7 @@ const CurrentCircle = () => {
                         <div>Принято</div>
                         <span></span>
                         <Link
-                            href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name}`}
+                            href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name}${backQuery}`}
                             className={styles.colorCountAcceptedQueries}
                         >
                             {queriesCount.ACCEPTED}
@@ -105,7 +108,7 @@ const CurrentCircle = () => {
                         <div>На рассмотрении</div>
                         <span></span>
                         <Link
-                            href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name}`}
+                            href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name}${backQuery}`}
                             className={styles.colorCountInProgressQueries}
                         >
                             {queriesCount.IN_PROGRESS}

@@ -1,5 +1,10 @@
 @import '@domains/common/components/styles/abstracts/_variables.scss';
 
+.emptyBackPage {
+  display: none;
+  visibility: hidden;
+}
+
 .backPage {
   width: fit-content;
   display: flex;
