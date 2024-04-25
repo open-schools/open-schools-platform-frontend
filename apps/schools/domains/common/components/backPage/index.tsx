@@ -10,7 +10,7 @@ export const BackPage: React.FC<BackPageProps> = ({ className, path, onClick, te
     const router = useRouter()
     const { back } = router.query
 
-    if (window.history.length <= 1 || (!back && returnable)) {
+    if (!(typeof window !== 'undefined') || window.history.length <= 1 || (!back && returnable)) {
         return <div className={classNames(styles.emptyBackPage, className)}></div>
     }
 
