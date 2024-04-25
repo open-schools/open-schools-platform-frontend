@@ -1,0 +1,16 @@
+@import '@domains/common/components/styles/abstracts/_variables.scss';
+
+.backPage {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #2698FF;
+  position: relative;
+  top: -2%;
+
+  .text {
+    color: #2698FF;
+  }
+}

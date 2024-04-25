@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { PageContent } from '@domains/common/components/containers/PageContent'
 import { OrganizationRequired } from '@domains/common/components/containers/OrganizationRequired'
 import { ChangeEmployeeForm } from '@domains/employee/components/changeEmployeeForm'
+import { BackPage } from '@domains/common/components/backPage'
 
 export const ChangeEmployee = () => {
     return (
@@ -12,6 +13,7 @@ export const ChangeEmployee = () => {
             </Head>
             <PageContent>
                 <OrganizationRequired>
+                    <BackPage />
                     <ChangeEmployeeForm />
                 </OrganizationRequired>
             </PageContent>
