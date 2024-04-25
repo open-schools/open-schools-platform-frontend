@@ -3,4 +3,5 @@ export interface BackPageProps {
     path?: string
     onClick?: () => void
     text?: string
+    returnable?: boolean
 }

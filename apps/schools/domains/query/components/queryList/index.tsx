@@ -178,7 +178,7 @@ export function QueryList() {
                     },
                     status: ({ text }) => {
                         return (
-                            <Tag color={StatusDictionary[text].antdColor} key={text}>
+                            <Tag color={StatusDictionary[text].antdColor} className={styles.tags} key={text}>
                                 {StatusDictionary[text].text}
                             </Tag>
                         )
