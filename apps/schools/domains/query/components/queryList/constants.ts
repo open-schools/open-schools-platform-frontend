@@ -1,4 +1,4 @@
-import { QueryStatuses } from '@domains/common/constants/Enums'
+import { StatusesEnum } from '@domains/common/constants/Enums'
 import {
     ACCEPTED_FILTER_COLOR,
     CANCELED_FILTER_COLOR,
@@ -23,9 +23,9 @@ interface TagType {
 }
 
 export const StatusDictionary: { [key: string]: TagType } = {
-    [QueryStatuses.SENT]: { text: 'Отправлено', color: SENT_FILTER_COLOR, antdColor: 'gold' },
-    [QueryStatuses.IN_PROGRESS]: { text: 'На рассмотрении', color: IN_PROGRESS_FILTER_COLOR, antdColor: 'blue' },
-    [QueryStatuses.ACCEPTED]: { text: 'Принято', color: ACCEPTED_FILTER_COLOR, antdColor: 'green' },
-    [QueryStatuses.CANCELED]: { text: 'Отменено', color: CANCELED_FILTER_COLOR, antdColor: 'volcano' },
-    [QueryStatuses.DECLINED]: { text: 'Отклонено', color: DECLINED_FILTER_COLOR, antdColor: 'red' },
+    [StatusesEnum.SENT]: { text: 'Отправлено', color: SENT_FILTER_COLOR, antdColor: 'gold' },
+    [StatusesEnum.IN_PROGRESS]: { text: 'На рассмотрении', color: IN_PROGRESS_FILTER_COLOR, antdColor: 'blue' },
+    [StatusesEnum.ACCEPTED]: { text: 'Принято', color: ACCEPTED_FILTER_COLOR, antdColor: 'green' },
+    [StatusesEnum.CANCELED]: { text: 'Отменено', color: CANCELED_FILTER_COLOR, antdColor: 'volcano' },
+    [StatusesEnum.DECLINED]: { text: 'Отклонено', color: DECLINED_FILTER_COLOR, antdColor: 'red' },
 }

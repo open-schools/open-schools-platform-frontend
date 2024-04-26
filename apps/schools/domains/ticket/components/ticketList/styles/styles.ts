@@ -1,3 +1,5 @@
-export const NEW_FILTER_COLOR = '#EB3468'
-export const OPENED_FILTER_COLOR = '#2F54EB'
-export const CLOSED_FILTER_COLOR = '#52C41A'
+export const ACCEPTED_FILTER_COLOR = '#B7EB8F'
+export const IN_PROGRESS_FILTER_COLOR = '#2F54EB'
+export const SENT_FILTER_COLOR = '#FF9500'
+export const CANCELED_FILTER_COLOR = '#EB3468'
+export const DECLINED_FILTER_COLOR = '#FFA39E'

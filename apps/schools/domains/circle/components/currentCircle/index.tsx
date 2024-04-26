@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Col, Row, Typography } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ import { searchColumns } from './constants'
 import { CurrentCircleRowType } from './interfaces'
 import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
-import { QueryStatuses } from '@domains/common/constants/Enums'
+import { StatusesEnum } from '@domains/common/constants/Enums'
 import { ErrorType } from '@store/commonApi'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
@@ -98,7 +98,7 @@ const CurrentCircle = () => {
                         <div>Принято</div>
                         <span></span>
                         <Link
-                            href={`/query?statuses=${QueryStatuses.ACCEPTED}&circles=${circle?.circle.name}${backQuery}`}
+                            href={`/query?statuses=${StatusesEnum.ACCEPTED}&circles=${circle?.circle.name}${backQuery}`}
                             className={styles.colorCountAcceptedQueries}
                         >
                             {queriesCount.ACCEPTED}
@@ -108,7 +108,7 @@ const CurrentCircle = () => {
                         <div>На рассмотрении</div>
                         <span></span>
                         <Link
-                            href={`/query?statuses=${QueryStatuses.IN_PROGRESS}&circles=${circle?.circle.name}${backQuery}`}
+                            href={`/query?statuses=${StatusesEnum.IN_PROGRESS}&circles=${circle?.circle.name}${backQuery}`}
                             className={styles.colorCountInProgressQueries}
                         >
                             {queriesCount.IN_PROGRESS}
