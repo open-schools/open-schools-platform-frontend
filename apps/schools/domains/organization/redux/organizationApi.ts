@@ -30,7 +30,6 @@ import {
     GetStudent,
     GetStudentJoinCircle,
     GetTeacher,
-    GetTicketAnalytics,
     UpdateOrganizationInviteEmployee,
 } from '@domains/common/redux/serializers'
 import { GetTicket, GetTicketsData } from '@domains/ticket/redux/serializers'
@@ -168,7 +167,7 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
-        getOrganizationAnalytics: build.query<GetAnalytics, GetAnalyticsData>({
+        getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetAnalyticsData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/analytics`,
                 method: 'GET',
@@ -176,7 +175,7 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             providesTags: ['StudentJoinCircleQuery'],
         }),
-        getTicketsAnalytics: build.query<GetTicketAnalytics, GetAnalyticsData>({
+        getTicketsAnalytics: build.query<{ 'ticket-analytics': GetAnalytics }, GetAnalyticsData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/ticket-analytics`,
                 method: 'GET',

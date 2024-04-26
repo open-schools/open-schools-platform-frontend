@@ -132,13 +132,11 @@ interface GetStudentProfile {
 }
 
 export interface GetAnalytics {
-    analytics: {
-        IN_PROGRESS: number
-        SENT: number
-        ACCEPTED: number
-        DECLINED: number
-        CANCELED: number
-    }
+    IN_PROGRESS: number
+    SENT: number
+    ACCEPTED: number
+    DECLINED: number
+    CANCELED: number
 }
 
 export interface GetTicketAnalytics {
