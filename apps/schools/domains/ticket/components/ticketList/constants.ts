@@ -1,15 +1,9 @@
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import type { LiteralUnion } from 'antd/lib/_util/type'
 import type { PresetColorType, PresetStatusColorType } from 'antd/lib/_util/colors'
-import {
-    ACCEPTED_FILTER_COLOR,
-    CANCELED_FILTER_COLOR,
-    DECLINED_FILTER_COLOR,
-    IN_PROGRESS_FILTER_COLOR,
-    SENT_FILTER_COLOR,
-} from './styles/styles'
+import { CANCELED_FILTER_COLOR, IN_PROGRESS_FILTER_COLOR, SENT_FILTER_COLOR } from './styles/styles'
 
-export const searchTicketsColumns = ['family__name', 'created_at']
+export const searchTicketsColumns = ['family__name', 'ticket_comment__value']
 
 interface TagType {
     text: string
@@ -18,9 +12,7 @@ interface TagType {
 }
 
 export const StatusDictionary: { [key: string]: TagType } = {
-    [StatusesEnum.SENT]: { text: 'Отправлено', color: SENT_FILTER_COLOR, antdColor: 'gold' },
-    [StatusesEnum.IN_PROGRESS]: { text: 'На рассмотрении', color: IN_PROGRESS_FILTER_COLOR, antdColor: 'blue' },
-    [StatusesEnum.ACCEPTED]: { text: 'Принято', color: ACCEPTED_FILTER_COLOR, antdColor: 'green' },
-    [StatusesEnum.CANCELED]: { text: 'Отменено', color: CANCELED_FILTER_COLOR, antdColor: 'volcano' },
-    [StatusesEnum.DECLINED]: { text: 'Отклонено', color: DECLINED_FILTER_COLOR, antdColor: 'red' },
+    [StatusesEnum.SENT]: { text: 'Новое', color: SENT_FILTER_COLOR, antdColor: 'red' },
+    [StatusesEnum.IN_PROGRESS]: { text: 'Открыто', color: IN_PROGRESS_FILTER_COLOR, antdColor: 'blue' },
+    [StatusesEnum.CANCELED]: { text: 'Закрыто', color: CANCELED_FILTER_COLOR, antdColor: 'green' },
 }

@@ -10,6 +10,7 @@ import {
     useGetAllJoinCircleQueriesQuery,
     useGetAllTicketsQuery,
     useGetOrganizationAnalyticsQuery,
+    useGetTicketsAnalyticsQuery,
 } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { mapReturnedData } from '@domains/common/redux/utils'
@@ -37,6 +38,10 @@ export function TicketList() {
         }),
     )
 
+    const { data: analytics, isLoading: isAnalyticsLoading } = useGetTicketsAnalyticsQuery({
+        organization_id: organizationId,
+    })
+
     const bubbleFilterItems: any = {}
 
     for (const key in StatusDictionary) {
@@ -46,6 +51,7 @@ export function TicketList() {
             key: key,
             text: obj.text,
             color: obj.color,
+            count: analytics ? (analytics['ticket-analytics'] as unknown as { [index: string]: number })[key] : 0,
             isSelected: statuses?.includes(key) ?? false,
             onClick: () => {
                 setStatuses((x) => [...(x ?? []), key])

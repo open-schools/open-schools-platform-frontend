@@ -36,5 +36,7 @@ export interface GetTicketsData extends BasePaginationData {
     family__id?: string
     family__name?: string
     family__parent_phone?: string
+    ticket_comment__id?: string
+    ticket_comment__value?: string
     organization_id?: string
 }
