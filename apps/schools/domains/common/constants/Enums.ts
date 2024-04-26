@@ -5,3 +5,9 @@ export enum QueryStatuses {
     DECLINED = 'DECLINED',
     CANCELED = 'CANCELED',
 }
+
+export enum TicketStatuses {
+    NEW = 'NEW',
+    OPENED = 'OPENED',
+    CLOSED = 'CLOSED',
+}

@@ -6,7 +6,6 @@
   align-items: center;
   margin-bottom: 20px;
   gap: 10px;
-  cursor: pointer;
 
   .text {
     font-family: "Open Sans", sans-serif;
@@ -22,6 +21,7 @@
     padding: 7px 10px 7px 5px;
     border: 1px solid #D9D9D9;
     border-radius: 20px;
+    cursor: pointer;
 
     &:hover {
       background-color: #f1f1f1;

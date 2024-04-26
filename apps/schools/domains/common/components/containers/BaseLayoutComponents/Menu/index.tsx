@@ -1,5 +1,5 @@
 import { Menu } from 'antd'
-import { FileDoneOutlined, ReadOutlined, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
+import { FileDoneOutlined, MailOutlined, ReadOutlined, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -15,6 +15,7 @@ const menuList: MenuItemObj[] = [
     new MenuItemObj('employee', 'Сотрудники', <UserAddOutlined style={{ fontSize: '150%' }} />, [
         isOrganizationSelected,
     ]),
+    new MenuItemObj('ticket', 'Обращения', <MailOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
 ]
 
 const MenuCustom = () => {
