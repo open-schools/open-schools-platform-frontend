@@ -9,7 +9,7 @@ import {
     SENT_FILTER_COLOR,
 } from './styles/styles'
 
-export const searchTicketsColumns = ['family__name']
+export const searchTicketsColumns = ['family__name', 'created_at']
 
 interface TagType {
     text: string
