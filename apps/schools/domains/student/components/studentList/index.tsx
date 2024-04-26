@@ -9,7 +9,7 @@ import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 import { RowType, TableType } from './interfaces'
 import { searchInvitesColumns, searchStudentsColumns } from './constants'
 import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domains/organization/redux/organizationApi'
-import { QueryStatuses } from '@domains/common/constants/Enums'
+import { StatusesEnum } from '@domains/common/constants/Enums'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
@@ -19,7 +19,7 @@ export function StudentList() {
 
     const { data: invites, isLoading: isLoadingInvites } = useGetAllStudentInvitationsQuery({
         circle__organization__id: organizationId,
-        status: QueryStatuses.SENT,
+        status: StatusesEnum.SENT,
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
     })
 

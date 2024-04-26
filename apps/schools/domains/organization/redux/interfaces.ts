@@ -106,12 +106,6 @@ export interface AllStudentJoinCircleQueriesData extends BasePaginationData {
     student__student_profile__phone?: string
 }
 
-export interface GetOrganizationAnalyticsData {
-    date_from?: string
-    date_to?: string
-    organization_id: string
-}
-
 export interface GetOrganizationCircleList {
     id: string
     name: string

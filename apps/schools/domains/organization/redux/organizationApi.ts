@@ -17,12 +17,12 @@ import {
     GetOrganizationCircleListData,
     GetCurrentCircleData,
     AllStudentJoinCircleQueriesData,
-    GetOrganizationAnalyticsData,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
 import {
     CreateOrganizationInviteEmployee,
     GetAnalytics,
+    GetAnalyticsData,
     GetCircleInviteStudent,
     GetOrganizationInviteEmployee,
     GetOrganizationSender,
@@ -32,6 +32,7 @@ import {
     GetTeacher,
     UpdateOrganizationInviteEmployee,
 } from '@domains/common/redux/serializers'
+import { GetTicket, GetTicketsData } from '@domains/ticket/redux/serializers'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -166,13 +167,27 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
-        getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetOrganizationAnalyticsData>({
+        getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetAnalyticsData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/analytics`,
                 method: 'GET',
                 params: params,
             }),
             providesTags: ['StudentJoinCircleQuery'],
+        }),
+        getTicketsAnalytics: build.query<{ 'ticket-analytics': GetAnalytics }, GetAnalyticsData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/ticket-analytics`,
+                method: 'GET',
+                params: params,
+            }),
+        }),
+        getAllTickets: build.query<ReturnedData<GetTicket[]>, GetTicketsData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/family-tickets`,
+                method: 'GET',
+                params: params,
+            }),
         }),
     }),
 })
@@ -197,4 +212,6 @@ export const {
     useGetAllCirclesQuery,
     useGetAllJoinCircleQueriesQuery,
     useGetOrganizationAnalyticsQuery,
+    useGetTicketsAnalyticsQuery,
+    useGetAllTicketsQuery,
 } = organizationApi

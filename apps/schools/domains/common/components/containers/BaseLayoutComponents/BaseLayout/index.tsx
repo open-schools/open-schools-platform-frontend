@@ -12,7 +12,7 @@ import { IBaseLayoutProps } from './interfaces'
 import { OrganizationSelect } from '../OrganizationSelect'
 import { useLayoutContext } from '@domains/user/providers/baseLayoutProvider'
 import { COLLAPSED_DIVIDER_WIDTH, COLLAPSED_LAYOUT_WIDTH, DIVIDER_WIDTH, LAYOUT_WIDTH } from './styles/styles'
-import { QueryStatuses } from '@domains/common/constants/Enums'
+import { StatusesEnum } from '@domains/common/constants/Enums'
 import Image from 'next/image'
 import ExclamationCircleOutlined from '@public/icons/ExclamationCircleOutlined.svg'
 import { Button } from '@domains/common/components/button'
@@ -36,7 +36,7 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
             <Layout className={styles.placement}>
                 <div className={styles.invitationsContainer}>
                     {invitations?.results.map((invite) => {
-                        if (invite.status === QueryStatuses.SENT || invite.status === QueryStatuses.IN_PROGRESS) {
+                        if (invite.status === StatusesEnum.SENT || invite.status === StatusesEnum.IN_PROGRESS) {
                             return (
                                 <div className={styles.inviteContainer} key={invite.id}>
                                     <div className={styles.leftContainer}>
@@ -50,7 +50,7 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                                                 handleChangeStatusInvitation(
                                                     mutation,
                                                     invite.id,
-                                                    QueryStatuses.ACCEPTED,
+                                                    StatusesEnum.ACCEPTED,
                                                 ).then(() => {
                                                     refetch()
                                                     emit(EventKey.RefetchOrganizationsQuery)
@@ -65,7 +65,7 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
                                                 handleChangeStatusInvitation(
                                                     mutation,
                                                     invite.id,
-                                                    QueryStatuses.DECLINED,
+                                                    StatusesEnum.DECLINED,
                                                 ).then(refetch)
                                             }
                                         >

@@ -139,6 +139,16 @@ export interface GetAnalytics {
     CANCELED: number
 }
 
+export interface GetTicketAnalytics {
+    'ticket-analytics': {
+        IN_PROGRESS: number
+        SENT: number
+        ACCEPTED: number
+        DECLINED: number
+        CANCELED: number
+    }
+}
+
 export interface GetQueryStatus {
     id?: string
     status: QueriesTypes
@@ -187,6 +197,12 @@ export interface GetOrganization {
 export interface GetFamily {
     id?: string
     name: string
+}
+
+export interface GetAnalyticsData {
+    date_from?: string
+    date_to?: string
+    organization_id: string
 }
 
 export interface GetFamilyRecipient {
