@@ -156,9 +156,12 @@ const CurrentTicket = () => {
                 break
             }
         }
-        handleQueryStatusChange(mutation, uuid[0], translatedStatus as QueriesTypes)
-        setCurrentStatus(value)
-        setCurrentDependencies(graph[value] || [])
+        handleQueryStatusChange(mutation, uuid[0], translatedStatus as QueriesTypes).then((changeStatus) => {
+            if (changeStatus) {
+                setCurrentStatus(value)
+                setCurrentDependencies(graph[value] || [])
+            }
+        })
     }
 
     useEffect(() => {

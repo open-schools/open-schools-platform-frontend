@@ -9,5 +9,9 @@ export async function handleQueryStatusChange(mutation: any, id: string, status:
         status: status,
     })
 
-    if ('data' in response) message.success(`Вы успешно сменили статус`)
+    if ('data' in response) {
+        message.success(`Вы успешно сменили статус`)
+    } else {
+        return false
+    }
 }
