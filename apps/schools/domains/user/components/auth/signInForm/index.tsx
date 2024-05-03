@@ -62,7 +62,7 @@ export const SignInForm = (): React.ReactElement => {
                         <Col span={24}>
                             <Form.Item>
                                 Забыли пароль?&nbsp;
-                                <Typography.Link onClick={() => Router.push(RoutePath[AppRoutes.AUTH_REGISTER])}>
+                                <Typography.Link onClick={() => Router.push(RoutePath[AppRoutes.AUTH_FORGOT])}>
                                     {'Сбросить'}
                                 </Typography.Link>
                             </Form.Item>
