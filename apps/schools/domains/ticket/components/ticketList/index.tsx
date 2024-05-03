@@ -75,7 +75,7 @@ export function TicketList() {
     const reformattedData = mapReturnedData(tickets, (query) => {
         const transformedQuery = structuredClone(query) as unknown as TableType
         transformedQuery.last_message = query.last_comment.value
-        transformedQuery.sender = query.last_comment?.sender?.name || query.sender?.name
+        transformedQuery.sender = 'Семья ' + query.sender?.name
         return transformedQuery
     })
 

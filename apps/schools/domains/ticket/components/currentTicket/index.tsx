@@ -75,6 +75,7 @@ const CurrentTicket = () => {
     const [currentDependencies, setCurrentDependencies] = useState<string[]>([])
 
     const { organizationId } = useOrganization()
+    const { user } = useUserProfile()
     const uuid = getUuidFromUrl()
 
     const [mutation] = useChangeStatusMutation()
@@ -92,6 +93,7 @@ const CurrentTicket = () => {
 
     const { data, isLoading } = useGetAllEmployeesQuery({
         organization: organizationId,
+        employee_profile: user.employee_profile?.id,
     })
 
     const SendComment = () => {
