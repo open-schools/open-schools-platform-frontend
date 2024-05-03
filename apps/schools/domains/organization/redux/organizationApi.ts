@@ -32,7 +32,7 @@ import {
     GetTeacher,
     UpdateOrganizationInviteEmployee,
 } from '@domains/common/redux/serializers'
-import { GetTicket, GetTicketsData } from '@domains/ticket/redux/serializers'
+import { GetTicket, GetTicketData, GetTicketsData } from '@domains/ticket/redux/serializers'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -181,10 +181,19 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: ['Ticket'],
         }),
         getAllTickets: build.query<ReturnedData<GetTicket[]>, GetTicketsData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/family-tickets`,
+                method: 'GET',
+                params: params,
+            }),
+            providesTags: ['Ticket'],
+        }),
+        getTicket: build.query<{ ticket: GetTicket }, GetTicketData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/family-tickets/${params.ticket_id}`,
                 method: 'GET',
                 params: params,
             }),
@@ -214,4 +223,5 @@ export const {
     useGetOrganizationAnalyticsQuery,
     useGetTicketsAnalyticsQuery,
     useGetAllTicketsQuery,
+    useGetTicketQuery,
 } = organizationApi
