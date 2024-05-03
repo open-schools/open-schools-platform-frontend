@@ -2,6 +2,7 @@ import { MIN_PASSWORD_LENGTH, SMS_CODE_LENGTH } from './numbers'
 
 export const PleaseConfirmYourPasswordMsg = 'Пароли не совпадают'
 export const NeedConfirmField = 'Необходимо заполнить'
+export const NeedConfirmComment = 'Необходимо заполнить поле комментария'
 export const CodeMustContainCaetrainLength = `Код должен содержать ${SMS_CODE_LENGTH} цифр`
 export const PasswordIsTooShortMsg = `Пароль должен содержать не менее ${MIN_PASSWORD_LENGTH} символов`
 export const PleaseInputYourPasswordMsg = 'Пожалуйста, введите пароль'
@@ -32,6 +33,7 @@ export const SuccessInviteEmployeeMsg = 'Приглашение отправле
 export const SuccessCreateCircleMsg = 'Кружок успешно создан'
 export const SuccessUpdateCircleMsg = 'Кружок успешно изменён'
 export const SuccessCreateStudentMsg = 'Обучающийся успешно создан'
+export const SuccessCreateCommentMsg = 'Комментарий успешно отправлен'
 export const SuccessUpdateStudentMsg = 'Обучающийся успешно изменён'
 export const SuccessUpdateEmployeeMsg = 'Сотрудник успешно изменён'
 export const SuccessUpdateUserProfileMsg = 'Ваш профиль успешно изменён'
