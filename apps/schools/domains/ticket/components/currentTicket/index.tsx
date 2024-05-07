@@ -4,7 +4,7 @@ import router from 'next/router'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import {
-    ACCEPTED_FILTER_COLOR,
+    CLOSED_FILTER_COLOR,
     IN_PROGRESS_FILTER_COLOR,
     SENT_FILTER_COLOR,
 } from '@domains/ticket/components/ticketList/styles/styles'
@@ -98,11 +98,13 @@ const CurrentTicket = () => {
 
     const SendComment = () => {
         setIsButtonDisabled(true)
-        handleCreateComment(uuid[0], mutationCreateComment, text, data?.results[0].id, isInternal).then(() => {
+        handleCreateComment(uuid[0], mutationCreateComment, text, data?.results[0].id, isInternal).then((success) => {
+            if (success) {
+                setIsInternal(false)
+                setText('')
+                handleChange
+            }
             setIsButtonDisabled(false)
-            setIsInternal(false)
-            setText('')
-            handleChange
         })
     }
 
@@ -128,9 +130,9 @@ const CurrentTicket = () => {
             translate: 'Открыто',
             color: IN_PROGRESS_FILTER_COLOR,
         },
-        ACCEPTED: {
+        CLOSED: {
             translate: 'Закрыто',
-            color: ACCEPTED_FILTER_COLOR,
+            color: CLOSED_FILTER_COLOR,
         },
     }
 

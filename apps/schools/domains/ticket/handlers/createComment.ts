@@ -15,7 +15,7 @@ export async function handleCreateComment(
 ) {
     if (value.length === 0) {
         message.error(NeedConfirmComment)
-        return
+        return false
     }
 
     let response = await withLoadingMessage(LoadingMsg, mutation, {
@@ -29,5 +29,7 @@ export async function handleCreateComment(
 
     if ('data' in response) {
         message.success(SuccessCreateCommentMsg)
+        return true
     }
+    return false
 }
