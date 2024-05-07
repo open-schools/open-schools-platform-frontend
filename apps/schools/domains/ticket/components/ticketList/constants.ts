@@ -1,7 +1,7 @@
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import type { LiteralUnion } from 'antd/lib/_util/type'
 import type { PresetColorType, PresetStatusColorType } from 'antd/lib/_util/colors'
-import { ACCEPTED_FILTER_COLOR, IN_PROGRESS_FILTER_COLOR, SENT_FILTER_COLOR } from './styles/styles'
+import { CLOSED_FILTER_COLOR, IN_PROGRESS_FILTER_COLOR, SENT_FILTER_COLOR } from './styles/styles'
 
 export const searchTicketsColumns = ['family__name', 'ticket_comment__value']
 
@@ -14,5 +14,5 @@ interface TagType {
 export const StatusDictionary: { [key: string]: TagType } = {
     [StatusesEnum.SENT]: { text: 'Новое', color: SENT_FILTER_COLOR, antdColor: 'red' },
     [StatusesEnum.IN_PROGRESS]: { text: 'Открыто', color: IN_PROGRESS_FILTER_COLOR, antdColor: 'blue' },
-    [StatusesEnum.ACCEPTED]: { text: 'Закрыто', color: ACCEPTED_FILTER_COLOR, antdColor: 'green' },
+    [StatusesEnum.CLOSED]: { text: 'Закрыто', color: CLOSED_FILTER_COLOR, antdColor: 'green' },
 }

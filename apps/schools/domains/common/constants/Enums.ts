@@ -4,4 +4,5 @@ export enum StatusesEnum {
     IN_PROGRESS = 'IN_PROGRESS',
     DECLINED = 'DECLINED',
     CANCELED = 'CANCELED',
+    CLOSED = 'CLOSED',
 }
