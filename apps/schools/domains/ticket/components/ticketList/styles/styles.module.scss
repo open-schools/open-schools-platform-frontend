@@ -41,6 +41,29 @@
   right: 30px;
 }
 
+.unreadPoint {
+  width: 0;
+}
+
+.createdAtContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tableTicketList {
+  :global {
+    .ant-table-column-sorters .ant-table-column-title {
+      left: 24px !important;
+    }
+  }
+}
+
+.dateContainer {
+  position: relative;
+  left: 24px;
+}
+
 .cross {
   font-size: 100%;
   position: absolute;

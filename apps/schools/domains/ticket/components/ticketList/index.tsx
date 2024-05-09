@@ -24,6 +24,8 @@ import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/in
 import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import Image from 'next/image'
+import dot from '@public/icons/dot.svg'
 
 export function TicketList() {
     const [inputText, setInputText] = useState('')
@@ -124,73 +126,83 @@ export function TicketList() {
                 }
             />
             <BubbleFilter items={Object.values(bubbleFilterItems)} text={`Статусы обращений`} />
-            <Table<RowType, TableType>
-                loading={isTableLoading}
-                customType={'tableWithoutSearch'}
-                columnsTitlesAndKeys={[
-                    ['Создано', 'created_at'],
-                    ['Статус', 'status'],
-                    ['Содержание', 'last_message'],
-                    ['Отправитель', 'sender'],
-                ]}
-                customWidths={[10, 10, 40, 30]}
-                data={reformattedData}
-                isLoading={isTicketsLoading}
-                mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
-                searchFields={['created_at', 'last_message', 'sender']}
-                customFields={{
-                    created_at: ({ text, searchText }) => {
-                        const [date, time] = new Intl.DateTimeFormat('pt-BR', {
-                            dateStyle: 'short',
-                            timeStyle: 'short',
-                        })
-                            .format(new Date(text))
-                            .replaceAll('/', '.')
-                            .split(',')
+            <div className={styles.tableTicketList}>
+                <Table<RowType, TableType>
+                    loading={isTableLoading}
+                    customType={'tableWithoutSearch'}
+                    columnsTitlesAndKeys={[
+                        ['Создано', 'created_at'],
+                        ['Статус', 'status'],
+                        ['Содержание', 'last_message'],
+                        ['Отправитель', 'sender'],
+                    ]}
+                    customWidths={[10, 10, 40, 30]}
+                    data={reformattedData}
+                    isLoading={isTicketsLoading}
+                    mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
+                    searchFields={['created_at', 'last_message', 'sender']}
+                    customFields={{
+                        created_at: ({ text, searchText, index }) => {
+                            const [date, time] = new Intl.DateTimeFormat('pt-BR', {
+                                dateStyle: 'short',
+                                timeStyle: 'short',
+                            })
+                                .format(new Date(text))
+                                .replaceAll('/', '.')
+                                .split(',')
 
-                        return (
-                            <div>
-                                <div className={styles.additionalTextAddress}>
-                                    <HighlightText text={date} searchText={searchText} />
+                            return (
+                                <div className={styles.createdAtContainer}>
+                                    {reformattedData?.results[index].unread_sender_comments_count > 0 && (
+                                        <div className={styles.unreadPoint}>
+                                            <Image src={dot} alt={'Unread dot'} />
+                                        </div>
+                                    )}
+
+                                    <div className={styles.dateContainer}>
+                                        <div className={styles.additionalTextAddress}>
+                                            <HighlightText text={date} searchText={searchText} />
+                                        </div>
+
+                                        <div className={styles.textAddress}>
+                                            <HighlightText text={time} searchText={searchText} />
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div className={styles.textAddress}>
-                                    <HighlightText text={time} searchText={searchText} />
-                                </div>
-                            </div>
-                        )
-                    },
-                    status: ({ text }) => {
-                        return (
-                            <Tag color={StatusDictionary[text].antdColor} className={styles.tags} key={text}>
-                                {StatusDictionary[text].text}
-                            </Tag>
-                        )
-                    },
-                }}
-                customFilterFields={{
-                    status: {
-                        filters: Object.entries(StatusDictionary).map(([key, value]) => ({
-                            value: key,
-                            text: value.text,
-                        })),
-                        filteredValue: statuses ?? [],
-                        onFilter: (value, record) => {
-                            const obj = (record as any)['status']
-                            if (!isReactElement(obj)) return obj === value
-
-                            return obj.key === value
+                            )
                         },
-                    },
-                }}
-                sortFields={['created_at']}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
-                onChange={(pagination, filters, sorter) => {
-                    const localStatuses = [...(filters['status'] ?? [])] as string[]
-                    setStatuses(localStatuses.length === 0 ? null : localStatuses)
-                }}
-            />
+                        status: ({ text }) => {
+                            return (
+                                <Tag color={StatusDictionary[text].antdColor} className={styles.tags} key={text}>
+                                    {StatusDictionary[text].text}
+                                </Tag>
+                            )
+                        },
+                    }}
+                    customFilterFields={{
+                        status: {
+                            filters: Object.entries(StatusDictionary).map(([key, value]) => ({
+                                value: key,
+                                text: value.text,
+                            })),
+                            filteredValue: statuses ?? [],
+                            onFilter: (value, record) => {
+                                const obj = (record as any)['status']
+                                if (!isReactElement(obj)) return obj === value
+
+                                return obj.key === value
+                            },
+                        },
+                    }}
+                    sortFields={['created_at']}
+                    searchRequestText={searchRequestText}
+                    setSearchRequestText={setSearchRequestText}
+                    onChange={(pagination, filters, sorter) => {
+                        const localStatuses = [...(filters['status'] ?? [])] as string[]
+                        setStatuses(localStatuses.length === 0 ? null : localStatuses)
+                    }}
+                />
+            </div>
         </EmptyWrapper>
     )
 }
