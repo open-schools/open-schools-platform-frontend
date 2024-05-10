@@ -6,17 +6,11 @@ import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 import { RowType, TableType } from './interfaces'
 import { searchTicketsColumns, StatusDictionary } from './constants'
-import {
-    useGetAllJoinCircleQueriesQuery,
-    useGetAllTicketsQuery,
-    useGetOrganizationAnalyticsQuery,
-    useGetTicketsAnalyticsQuery,
-} from '@domains/organization/redux/organizationApi'
+import { useGetAllTicketsQuery, useGetTicketsAnalyticsQuery } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
-import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
@@ -26,7 +20,6 @@ import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
-import { filterTextShaper } from '@domains/common/utils/filterTextShaper'
 
 export function TicketList() {
     const [inputText, setInputText] = useState('')
@@ -78,6 +71,9 @@ export function TicketList() {
     const reformattedData = mapReturnedData(tickets, (query) => {
         const transformedQuery = structuredClone(query) as unknown as TableType
         transformedQuery.content = query.last_comment.value
+        if (transformedQuery.content.length > 200) {
+            transformedQuery.content = transformedQuery.content.slice(0, 200) + '…'
+        }
         transformedQuery.sender = 'Семья ' + query.sender?.name
         return transformedQuery
     })

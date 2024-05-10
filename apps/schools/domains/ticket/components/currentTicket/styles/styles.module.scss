@@ -8,7 +8,8 @@
   }
 
   .leftBlock {
-    max-width: 600px;
+    max-width: 800px;
+    width: 100%;
 
     .commentsBlock {
       margin-top: 40px;
@@ -24,7 +25,7 @@
       .sendMessageBlock {
         display: flex;
         flex-direction: column;
-        max-width: 600px;
+        max-width: 800px;
         width: 100%;
         gap: 12px;
 
@@ -43,7 +44,7 @@
           min-height: 64px;
           max-height: 300px;
           width: auto;
-          max-width: 600px;
+          max-width: 800px;
           border-radius: 12px;
         }
       }
@@ -100,12 +101,14 @@
   }
 
   .rightBlock {
+    width: auto;
+    margin-right: 30px;
     display: flex;
     flex-direction: column;
     gap: 82px;
     min-width: 560px;
 
-    @media (max-width: 1440px) {
+    @media (max-width: 1080px) {
       min-width: 125px;
     }
 
@@ -116,7 +119,7 @@
     }
 
     .image {
-      @media (max-width: 1440px) {
+      @media (max-width: 1080px) {
         display: none;
       }
     }

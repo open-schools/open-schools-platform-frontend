@@ -64,6 +64,11 @@
   left: 24px;
 }
 
+.text-overflow {
+  text-overflow: ellipsis;
+  line-break: auto;
+}
+
 .cross {
   font-size: 100%;
   position: absolute;
