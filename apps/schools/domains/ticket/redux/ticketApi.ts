@@ -10,6 +10,7 @@ const ticketApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
+            invalidatesTags: (result, error, arg) => ['Ticket'],
         }),
         CreateComment: build.mutation<{ ticket_comment: GetTicketComment }, CreateCommentData>({
             query: (data) => ({
