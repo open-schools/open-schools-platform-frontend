@@ -26,6 +26,7 @@ import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
+import { filterTextShaper } from '@domains/common/utils/filterTextShaper'
 
 export function TicketList() {
     const [inputText, setInputText] = useState('')
@@ -76,7 +77,7 @@ export function TicketList() {
 
     const reformattedData = mapReturnedData(tickets, (query) => {
         const transformedQuery = structuredClone(query) as unknown as TableType
-        transformedQuery.last_message = query.last_comment.value
+        transformedQuery.content = query.last_comment.value
         transformedQuery.sender = 'Семья ' + query.sender?.name
         return transformedQuery
     })
@@ -89,9 +90,9 @@ export function TicketList() {
 
     return (
         <EmptyWrapper
-            titleText={'Список заявок пока пуст'}
-            descriptionText={'Дождитесь первой заявки'}
-            pageTitle={'Заявки'}
+            titleText={'Список обращений пока пуст'}
+            descriptionText={'Дождитесь первого обращения'}
+            pageTitle={'Обращения'}
             data={tickets}
             isLoading={isTicketsLoading}
             searchTrigger={searchRequestText}
@@ -133,14 +134,14 @@ export function TicketList() {
                     columnsTitlesAndKeys={[
                         ['Создано', 'created_at'],
                         ['Статус', 'status'],
-                        ['Содержание', 'last_message'],
+                        ['Содержание', 'content'],
                         ['Отправитель', 'sender'],
                     ]}
                     customWidths={[10, 10, 40, 30]}
                     data={reformattedData}
                     isLoading={isTicketsLoading}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
-                    searchFields={['created_at', 'last_message', 'sender']}
+                    searchFields={['created_at', 'content', 'sender']}
                     customFields={{
                         created_at: ({ text, searchText, index }) => {
                             const [date, time] = new Intl.DateTimeFormat('pt-BR', {

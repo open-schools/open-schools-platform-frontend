@@ -116,7 +116,7 @@ const CurrentTicket = () => {
     const calculateHeight = (text: string): string => {
         const lineCount = text.split('\n').length
         const charCount = text.length - text.split('\n').length
-        const extraHeight = Math.floor(charCount / 99) * 22.5
+        const extraHeight = Math.floor(charCount / 67) * 22.5
 
         return `${lineCount * 22.5 + extraHeight}px`
     }
