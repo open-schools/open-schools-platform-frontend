@@ -6,17 +6,11 @@ import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 import { RowType, TableType } from './interfaces'
 import { searchTicketsColumns, StatusDictionary } from './constants'
-import {
-    useGetAllJoinCircleQueriesQuery,
-    useGetAllTicketsQuery,
-    useGetOrganizationAnalyticsQuery,
-    useGetTicketsAnalyticsQuery,
-} from '@domains/organization/redux/organizationApi'
+import { useGetAllTicketsQuery, useGetTicketsAnalyticsQuery } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
-import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
@@ -76,7 +70,10 @@ export function TicketList() {
 
     const reformattedData = mapReturnedData(tickets, (query) => {
         const transformedQuery = structuredClone(query) as unknown as TableType
-        transformedQuery.last_message = query.last_comment.value
+        transformedQuery.content = query.last_comment.value
+        if (transformedQuery.content.length > 200) {
+            transformedQuery.content = transformedQuery.content.slice(0, 200) + '…'
+        }
         transformedQuery.sender = 'Семья ' + query.sender?.name
         return transformedQuery
     })
@@ -89,9 +86,9 @@ export function TicketList() {
 
     return (
         <EmptyWrapper
-            titleText={'Список заявок пока пуст'}
-            descriptionText={'Дождитесь первой заявки'}
-            pageTitle={'Заявки'}
+            titleText={'Список обращений пока пуст'}
+            descriptionText={'Дождитесь первого обращения'}
+            pageTitle={'Обращения'}
             data={tickets}
             isLoading={isTicketsLoading}
             searchTrigger={searchRequestText}
@@ -133,14 +130,14 @@ export function TicketList() {
                     columnsTitlesAndKeys={[
                         ['Создано', 'created_at'],
                         ['Статус', 'status'],
-                        ['Содержание', 'last_message'],
+                        ['Содержание', 'content'],
                         ['Отправитель', 'sender'],
                     ]}
                     customWidths={[10, 10, 40, 30]}
                     data={reformattedData}
                     isLoading={isTicketsLoading}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
-                    searchFields={['created_at', 'last_message', 'sender']}
+                    searchFields={['created_at', 'content', 'sender']}
                     customFields={{
                         created_at: ({ text, searchText, index }) => {
                             const [date, time] = new Intl.DateTimeFormat('pt-BR', {

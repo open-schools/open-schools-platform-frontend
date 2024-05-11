@@ -8,7 +8,8 @@
   }
 
   .leftBlock {
-    max-width: 870px;
+    max-width: 800px;
+    width: 100%;
 
     .commentsBlock {
       margin-top: 40px;
@@ -24,6 +25,8 @@
       .sendMessageBlock {
         display: flex;
         flex-direction: column;
+        max-width: 800px;
+        width: 100%;
         gap: 12px;
 
         .utilityBlock {
@@ -40,8 +43,8 @@
         .textArea {
           min-height: 64px;
           max-height: 300px;
+          width: auto;
           max-width: 800px;
-          width: 800px;
           border-radius: 12px;
         }
       }
@@ -51,6 +54,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      padding-bottom: 60px;
 
       .commentBlock {
         display: flex;
@@ -97,14 +101,27 @@
   }
 
   .rightBlock {
+    width: auto;
+    margin-right: 30px;
     display: flex;
     flex-direction: column;
     gap: 82px;
+    min-width: 560px;
+
+    @media (max-width: 1080px) {
+      min-width: 125px;
+    }
 
     .selectContainer {
       display: flex;
       justify-content: start;
       align-items: start;
+    }
+
+    .image {
+      @media (max-width: 1080px) {
+        display: none;
+      }
     }
   }
 }

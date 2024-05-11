@@ -197,6 +197,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            providesTags: ['Ticket'],
         }),
     }),
 })
