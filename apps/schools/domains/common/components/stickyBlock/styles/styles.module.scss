@@ -1,9 +1,11 @@
+@import '@domains/common/components/styles/abstracts/_colors.scss';
+
 .affix {
   width: 100%;
   height: 80px !important;
   padding: 20px;
   border-radius: 16px;
-  background: #FFF;
-  box-shadow: 1px 20px 40px 0 rgba(0, 0, 0, 0.10);
+  background: $color-white;
+  box-shadow: 1px 20px 40px 0 $color-black-01;
   margin-bottom: 2em;
 }

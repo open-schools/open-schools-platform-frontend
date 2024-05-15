@@ -127,7 +127,7 @@
                 flex-direction: row;
                 gap: 4px;
                 min-width: 150px;
-                color: #222;
+                color: $color-field-value;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 16px;
                 font-style: normal;
@@ -140,7 +140,7 @@
               }
 
               .queryHistoryText {
-                color: #222;
+                color: $color-field-value;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 16px;
                 font-style: normal;

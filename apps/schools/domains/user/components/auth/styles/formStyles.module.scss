@@ -6,8 +6,8 @@
     padding: 48px;
     width: 560px;
     border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.1);
+    background: $color-white;
+    box-shadow: 0 20px 40px 0 $color-black-01;
     z-index: $z-content;
 }
 
