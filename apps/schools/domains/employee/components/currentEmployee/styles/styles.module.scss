@@ -14,15 +14,15 @@
   margin-bottom: 15px;
 
   .colorCountAllQueries {
-    color: #222
+    color: $color-field-value
   }
 
   .colorCountAllQueries {
-    color: #4CD174
+    color: $main-green-semi-lite-color
   }
 
   .colorCountInProgressQueries {
-    color: #2698FF
+    color: $main-blue-color
   }
 }
 
@@ -30,7 +30,7 @@
   bottom: -6px;
   flex: 1;
   position: relative;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.20);
+  border-bottom: solid 1px $color-black-02;
 }
 
 .headersBlock {
@@ -85,7 +85,7 @@
     flex-direction: row;
     height: auto;
     align-items: flex-start;
-    border: 1px solid rgba(0, 0, 0, 0.20);
+    border: 1px solid $color-black-02;
     position: relative;
 
     .text {

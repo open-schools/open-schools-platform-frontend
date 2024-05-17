@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
+  background: $color-white-02;
   margin-top: 18px;
 }
 
@@ -32,14 +32,14 @@
 }
 
 .trigger:hover {
-  color: $color-blue;
+  color: $main-blue-semi-color;
 }
 
 .triggerOutline {
   width: 24px ;
   height: 24px;
   border-radius: 100%;
-  border: 1px rgba(255, 255, 255, 0.2) solid;
+  border: 1px $color-white-02 solid;
   display: flex;
   justify-items: center;
   align-items: center;
