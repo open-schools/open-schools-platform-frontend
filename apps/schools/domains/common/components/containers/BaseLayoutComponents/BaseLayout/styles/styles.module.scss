@@ -76,8 +76,8 @@
     padding: 0 40px;
     height: 75px;
     width: 100vw;
-    border-bottom: 1px solid $main-blue-lite-color;
-    background-color: $main-blue-color;
+    border-bottom: 1px solid $color-main-stroke;
+    background-color: $color-main;
 
     .leftContainer {
       display: flex;
@@ -99,10 +99,10 @@
       align-items: center;
 
       .acceptButton {
-        color: $main-blue-color;
+        color: $color-main;
         padding: 8px 16px;
         border-radius: 8px;
-        border: 1px solid $second-blue-lite-color;
+        border: 1px solid $color-light-blue;
         background: $color-white;
 
         &:hover {
@@ -111,7 +111,7 @@
         }
 
         &:active {
-          background-color: $main-blue-semi-color;
+          background-color: $color-blue;
           color: $color-white;
         }
       }

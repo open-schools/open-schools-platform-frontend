@@ -40,16 +40,16 @@
 
   .cancelButton {
     background-color: white;
-    color: $main-blue-color;
+    color: $color-main;
     width: 79px;
-    border-color: $main-blue-color;
+    border-color: $color-main;
 
     &:hover {
       background-color: $background-blue-dark-color;
     }
 
     &:active {
-      background-color: $main-blue-semi-color;
+      background-color: $color-blue;
       color: $color-white;
     }
   }
