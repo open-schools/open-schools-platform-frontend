@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Tag, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
@@ -15,20 +15,17 @@ import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
 import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
-import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
-import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import SearchInput from '@domains/common/components/searchInput'
 
 export function QueryList() {
-    const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
+    const [searchRequestText, setSearchRequestText] = useState('')
     const [isTableLoading, setIsTableLoading] = useState(false)
-
-    const [inputText, setInputText] = useState('')
 
     const [statuses, setStatuses] = useQueryState(
         'statuses',
@@ -44,54 +41,69 @@ export function QueryList() {
         }),
     )
 
-    const bubbleFilterItems: any = {}
-
     const { data: analytics, isLoading: isAnalyticsLoading } = useGetOrganizationAnalyticsQuery({
         organization_id: organizationId,
     })
 
-    for (const key in StatusDictionary) {
-        const obj = StatusDictionary[key]
-
-        bubbleFilterItems[key] = {
-            key: key,
-            text: obj.text,
-            color: obj.color,
-            count: analytics ? (analytics.analytics as unknown as { [index: string]: number })[key] : 0,
-            isSelected: statuses?.includes(key) ?? false,
-            onClick: () => {
-                setStatuses((x) => [...(x ?? []), key])
-            },
-            onExit: () => {
-                setStatuses((x) => {
-                    const res = [...(x ?? []).filter((y) => y != key)]
-                    return res.length === 0 ? null : res
-                })
-            },
-        } as BubbleFilterListItem
-    }
+    const bubbleFilterItems = useMemo(() => {
+        const items: Record<string, BubbleFilterListItem> = {}
+        for (const key in StatusDictionary) {
+            const obj = StatusDictionary[key]
+            items[key] = {
+                key,
+                text: obj.text,
+                color: obj.color,
+                count: analytics ? (analytics.analytics as unknown as { [index: string]: number })[key] : 0,
+                isSelected: statuses?.includes(key) ?? false,
+                onClick: () => {
+                    setStatuses((x) => [...(x ?? []), key])
+                },
+                onExit: () => {
+                    setStatuses((x) => {
+                        const res = [...(x ?? []).filter((y) => y !== key)]
+                        return res.length === 0 ? null : res
+                    })
+                },
+            }
+        }
+        return items
+    }, [analytics, statuses])
 
     const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
     })
 
-    const countAllQueries = !isAnalyticsLoading && analytics ? sumObjectValues(analytics?.analytics) : 0
+    const countAllQueries = useMemo(
+        () => (!isAnalyticsLoading && analytics ? sumObjectValues(analytics.analytics) : 0),
+        [analytics, isAnalyticsLoading],
+    )
 
-    const reformattedData = mapReturnedData(queries, (query) => {
-        const transformedQuery = structuredClone(query) as unknown as TableType
-        transformedQuery.parent_name = query.additional.parent_name
-        transformedQuery.parent_phone = query.additional.parent_phone
-        transformedQuery.circle_name = query.recipient.name
-        transformedQuery.student_name = query.body.name
-        return transformedQuery
-    })
+    const reformattedData = useMemo(
+        () =>
+            mapReturnedData(queries, (query) => {
+                const transformedQuery = structuredClone(query) as unknown as TableType
+                transformedQuery.parent_name = query.additional.parent_name
+                transformedQuery.parent_phone = query.additional.parent_phone
+                transformedQuery.circle_name = query.recipient.name
+                transformedQuery.student_name = query.body.name
+                return transformedQuery
+            }),
+        [queries],
+    )
 
     useEffect(() => {
         if (!isQueriesLoading && queries) {
             setIsTableLoading(false)
         }
-    }, [queries])
+    }, [isQueriesLoading, queries])
+
+    const handleSearchChange = useCallback((value: string) => {
+        setIsTableLoading(true)
+        setTimeout(() => {
+            setSearchRequestText(value)
+        }, 1000)
+    }, [])
 
     return (
         <EmptyWrapper
@@ -105,32 +117,7 @@ export function QueryList() {
             <div className={styles.header}>
                 <Typography.Title level={1}>Заявки</Typography.Title>
             </div>
-            <Input
-                onChange={(text) => {
-                    setIsTableLoading(true)
-                    setInputText(text.target.value)
-                    setTimeout(() => {
-                        setSearchRequestText(text.target.value)
-                    }, 1000)
-                }}
-                customType={'inputSearch'}
-                placeholder={'Поиск'}
-                value={inputText}
-                children={
-                    <>
-                        <SearchOutlined className={styles.search} />
-                        {inputText && (
-                            <CloseCircleOutlined
-                                className={styles.cross}
-                                onClick={() => {
-                                    setInputText('')
-                                    setSearchRequestText('')
-                                }}
-                            />
-                        )}
-                    </>
-                }
-            />
+            <SearchInput onSearchChange={handleSearchChange} />
             <BubbleFilter items={Object.values(bubbleFilterItems)} text={`${countAllQueries} заявок`} />
             <Table<RowType, TableType>
                 loading={isTableLoading}
