@@ -5,7 +5,7 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
 import { AuthProvider } from '@domains/user/providers/authProvider'
-import React, { PropsWithChildren, StrictMode } from 'react'
+import React, { PropsWithChildren } from 'react'
 import Head from 'next/head'
 import { OrganizationProvider } from '@domains/organization/providers/organizationProvider'
 import { BaseLayout } from '@domains/common/components/containers/BaseLayoutComponents/BaseLayout'
@@ -45,25 +45,23 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
         )
 
     return (
-        <StrictMode>
-            <Provider store={store}>
-                <EventBusProvider>
-                    <AuthProvider>
-                        <LayoutContextProvider>
-                            <OrganizationProvider>
-                                <Head>
-                                    <title>Открытые школы</title>
-                                    <link rel='icon' href='/icons/logo.svg' sizes='any' />
-                                </Head>
-                                <LayoutComponent>
-                                    <Component {...pageProps} />
-                                </LayoutComponent>
-                            </OrganizationProvider>
-                        </LayoutContextProvider>
-                    </AuthProvider>
-                </EventBusProvider>
-            </Provider>
-        </StrictMode>
+        <Provider store={store}>
+            <EventBusProvider>
+                <AuthProvider>
+                    <LayoutContextProvider>
+                        <OrganizationProvider>
+                            <Head>
+                                <title>Открытые школы</title>
+                                <link rel='icon' href='/icons/logo.svg' sizes='any' />
+                            </Head>
+                            <LayoutComponent>
+                                <Component {...pageProps} />
+                            </LayoutComponent>
+                        </OrganizationProvider>
+                    </LayoutContextProvider>
+                </AuthProvider>
+            </EventBusProvider>
+        </Provider>
     )
 }
 
