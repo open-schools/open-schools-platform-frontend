@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Tag, Typography } from 'antd'
+import React, { useEffect, useState, useCallback } from 'react'
+import { TablePaginationConfig, Tag, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { Table } from '@domains/common/components/table'
@@ -11,8 +11,6 @@ import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
-import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
-import { Input } from '@domains/common/components/input'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import { useQueryState } from 'next-usequerystate'
@@ -20,6 +18,16 @@ import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
+import SearchInput from '@domains/common/components/searchInput'
+import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
+
+type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
+type HandleChange = (
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sorter: SorterResult<TableType> | SorterResult<TableType>[],
+    extra: TableCurrentDataSource<TableType>,
+) => void
 
 export function TicketList() {
     const [inputText, setInputText] = useState('')
@@ -66,8 +74,6 @@ export function TicketList() {
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
     })
 
-    console.log(tickets)
-
     const reformattedData = mapReturnedData(tickets, (query) => {
         const transformedQuery = structuredClone(query) as unknown as TableType
         transformedQuery.content = query.last_comment.value
@@ -79,10 +85,37 @@ export function TicketList() {
     })
 
     useEffect(() => {
-        if (!isTicketsLoading && tickets) {
+        if (!isTicketsLoading) {
             setIsTableLoading(false)
         }
-    }, [tickets])
+    }, [isTicketsLoading])
+
+    const handleInputChange: HandleInputChange = useCallback(
+        (text) => {
+            if (typeof text === 'string') {
+                setIsTableLoading(true)
+                setInputText(text)
+                setTimeout(() => {
+                    setSearchRequestText(text)
+                }, 1000)
+            } else {
+                setIsTableLoading(true)
+                setInputText(text.target.value)
+                setTimeout(() => {
+                    setSearchRequestText(text.target.value)
+                }, 1000)
+            }
+        },
+        [setIsTableLoading, setInputText, setSearchRequestText],
+    )
+
+    const handleChange: HandleChange = useCallback(
+        (pagination, filters, sorter) => {
+            const localStatuses = [...(filters['status'] ?? [])] as string[]
+            setStatuses(localStatuses.length === 0 ? null : localStatuses)
+        },
+        [setStatuses],
+    )
 
     return (
         <EmptyWrapper
@@ -96,32 +129,7 @@ export function TicketList() {
             <div className={styles.header}>
                 <Typography.Title level={1}>Обращения</Typography.Title>
             </div>
-            <Input
-                onChange={(text) => {
-                    setIsTableLoading(true)
-                    setInputText(text.target.value)
-                    setTimeout(() => {
-                        setSearchRequestText(text.target.value)
-                    }, 1000)
-                }}
-                customType={'inputSearch'}
-                placeholder={'Поиск'}
-                value={inputText}
-                children={
-                    <>
-                        <SearchOutlined className={styles.search} />
-                        {inputText && (
-                            <CloseCircleOutlined
-                                className={styles.cross}
-                                onClick={() => {
-                                    setInputText('')
-                                    setSearchRequestText('')
-                                }}
-                            />
-                        )}
-                    </>
-                }
-            />
+            <SearchInput onSearchChange={handleInputChange} />
             <BubbleFilter items={Object.values(bubbleFilterItems)} text={`Статусы обращений`} />
             <div className={styles.tableTicketList}>
                 <Table<RowType, TableType>
@@ -194,10 +202,7 @@ export function TicketList() {
                     sortFields={['created_at']}
                     searchRequestText={searchRequestText}
                     setSearchRequestText={setSearchRequestText}
-                    onChange={(pagination, filters, sorter) => {
-                        const localStatuses = [...(filters['status'] ?? [])] as string[]
-                        setStatuses(localStatuses.length === 0 ? null : localStatuses)
-                    }}
+                    onChange={handleChange}
                 />
             </div>
         </EmptyWrapper>
