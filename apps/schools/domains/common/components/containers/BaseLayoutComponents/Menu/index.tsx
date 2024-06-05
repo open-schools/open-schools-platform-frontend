@@ -1,6 +1,6 @@
 import { Menu } from 'antd'
 import { FileDoneOutlined, MailOutlined, ReadOutlined, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import styles from './styles/styles.module.scss'
 
@@ -31,29 +31,39 @@ const MenuCustom: React.FC = () => {
         setConditions({ isOrganizationSelected: organization.id !== undefined, permanentDisabled: false })
     }, [organization])
 
-    const memoizedMenuItems = useMemo(() => {
-        return menuList.map((el) => (
-            <Menu.Item disabled={el.isDisabled(conditions)} key={el.url} icon={el.icon} className={styles.menuItem}>
-                {el.name}
-            </Menu.Item>
-        ))
-    }, [conditions])
+    const { menuItems, selectedKeys } = useMemo(() => {
+        return menuList.reduce<{
+            menuItems: React.ReactNode[]
+            selectedKeys: string[]
+        }>(
+            (result, el) => {
+                const isDisabled = el.isDisabled(conditions)
+                result.menuItems.push(
+                    <Menu.Item disabled={isDisabled} key={el.url} icon={el.icon} className={styles.menuItem}>
+                        {el.name}
+                    </Menu.Item>,
+                )
+                if (!isDisabled && router.asPath.includes(el.url)) {
+                    result.selectedKeys.push(el.url)
+                }
+                return result
+            },
+            { menuItems: [], selectedKeys: [] },
+        )
+    }, [conditions, router.asPath])
+
+    const handleMenuClick = useCallback(
+        (e: { key: string }) => {
+            if (!router.asPath.endsWith(e.key)) {
+                router.push(`/${e.key}`)
+            }
+        },
+        [router],
+    )
 
     return (
-        <Menu
-            className={styles.menu}
-            theme='light'
-            mode='inline'
-            onClick={(e) => {
-                if (!router.asPath.endsWith(e.key)) {
-                    router.push(`/${e.key}`)
-                }
-            }}
-            selectedKeys={menuList
-                .filter((el) => router.asPath.includes(el.url) && !el.isDisabled(conditions))
-                .map((el) => el.url)}
-        >
-            {memoizedMenuItems}
+        <Menu className={styles.menu} theme='light' mode='inline' onClick={handleMenuClick} selectedKeys={selectedKeys}>
+            {menuItems}
         </Menu>
     )
 }
