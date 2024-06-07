@@ -11,12 +11,12 @@ import { Input } from '@domains/common/components/input'
 
 import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 
-
 import { ErrorType } from '@store/commonApi'
 import { useGetEmployeeQuery, useUpdateEmployeeByIdMutation } from '@domains/employee/redux/employeeApi'
 import { useChangeEmployeeFormValidators } from '@domains/employee/components/changeEmployeeForm/hooks'
 import { EMPLOYEE_NAME, EMPLOYEE_POSITION } from '@domains/employee/components/changeEmployeeForm/constants'
 import { handleSubmitForm } from '@domains/employee/handlers/employeePatch'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function ChangeEmployeeForm() {
     const uuid = getUuidFromUrl()
@@ -33,11 +33,11 @@ export function ChangeEmployeeForm() {
 
     useEffect(() => {
         if (employeeError && (employeeError as ErrorType).status == 404) {
-            router.push('/employee')
+            router.push(RoutePath[AppRoutes.EMPLOYEE_LIST])
         }
     }, [employeeError])
 
-    if (uuid.length === 0) router.push('/404')
+    if (uuid.length === 0) router.push(RoutePath[AppRoutes.NOT_FOUND])
 
     const validationCheck = () => {
         setIsFormValid(isValidFormCheck(form, [], initialValues))
@@ -60,7 +60,7 @@ export function ChangeEmployeeForm() {
                         onValuesChange={validationCheck}
                         onFinish={() => {
                             handleSubmitForm(uuid[0], form, mutation).then((isSuccess) => {
-                                if (isSuccess) router.push(`/employee/${uuid[0]}`)
+                                if (isSuccess) router.push(`${RoutePath[AppRoutes.EMPLOYEE_LIST]}/${uuid[0]}`)
                             })
                         }}
                         layout='vertical'
@@ -96,7 +96,7 @@ export function ChangeEmployeeForm() {
                                 type='schoolDefaultAuto'
                                 antdType={'default'}
                                 block
-                                onClick={() => router.push(`/employee/${uuid[0]}`)}
+                                onClick={() => router.push(`${RoutePath[AppRoutes.EMPLOYEE_LIST]}/${uuid[0]}`)}
                             >
                                 Отменить
                             </Button>

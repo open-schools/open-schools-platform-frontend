@@ -9,27 +9,24 @@ import { createSearchTextForRequest } from '@domains/common/utils/searchText'
 import { RowType, TableType } from './interfaces'
 import { searchInvitesColumns, searchStudentsColumns } from './constants'
 import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domains/organization/redux/organizationApi'
-import { QueryStatuses } from '@domains/common/constants/Enums'
+import { StatusesEnum } from '@domains/common/constants/Enums'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
-    const { data: invites, isLoading: isLoadingInvites } = useGetAllStudentInvitationsQuery(
-        {
-            circle__organization__id: organizationId,
-            status: QueryStatuses.SENT,
-            or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
-        },
-    )
+    const { data: invites, isLoading: isLoadingInvites } = useGetAllStudentInvitationsQuery({
+        circle__organization__id: organizationId,
+        status: StatusesEnum.SENT,
+        or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
+    })
 
-    const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery(
-        {
-            circle__organization: organizationId,
-            or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        },
-    )
+    const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
+        circle__organization: organizationId,
+        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+    })
 
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
@@ -68,7 +65,7 @@ export function StudentList() {
             pageTitle={'Обучающиеся'}
             data={data}
             isLoading={isLoadingStudents || isLoadingInvites}
-            handleRunTask={() => router.push('/student/create')}
+            handleRunTask={() => router.push(RoutePath[AppRoutes.STUDENT_CREATE])}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -78,7 +75,7 @@ export function StudentList() {
                     block
                     style={{ width: '14%' }}
                     className={styles.button}
-                    onClick={() => router.push('/student/create')}
+                    onClick={() => router.push(RoutePath[AppRoutes.STUDENT_CREATE])}
                 >
                     Добавить обучающегося
                 </Button>
@@ -93,7 +90,7 @@ export function StudentList() {
                 filterFields={['circle_name']}
                 data={data}
                 isLoading={isLoadingInvites || isLoadingStudents}
-                mainRoute={'/student'}
+                mainRoute={RoutePath[AppRoutes.STUDENT_LIST]}
                 searchFields={['student_name', 'student_phone', 'parent_phone', 'circle_name']}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}

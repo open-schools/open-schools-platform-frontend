@@ -1,0 +1,22 @@
+@import '@domains/common/components/styles/abstracts/_variables.scss';
+@import '@domains/common/components/styles/abstracts/_colors.scss';
+
+.emptyBackPage {
+  display: none;
+  visibility: hidden;
+}
+
+.backPage {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: $color-main;
+  position: relative;
+  top: -16px;
+
+  .text {
+    color: $color-main;
+  }
+}

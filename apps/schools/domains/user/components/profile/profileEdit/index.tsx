@@ -14,6 +14,7 @@ import { useChangeUserProfileFormValidators } from '@domains/user/components/pro
 import { useUpdateEmployeeProfileByIdMutation } from '@domains/employee/redux/employeeApi'
 import { handleSubmitForm } from '@domains/user/handlers/profile/profileEdit'
 import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function ProfileEdit() {
     const { emit } = useEventBus()
@@ -52,7 +53,7 @@ export function ProfileEdit() {
                             handleSubmitForm(user.employee_profile?.id ?? '', form, mutation).then((isSuccess) => {
                                 if (isSuccess) {
                                     emit(EventKey.RefetchProfileQuery)
-                                    router.push('/user')
+                                    router.push(RoutePath[AppRoutes.USER_LIST])
                                 }
                             })
                         }}
@@ -81,7 +82,7 @@ export function ProfileEdit() {
                         </Form.Item>
 
                         <Form.Item required={false} label={'Пароль'} className={styles.label}>
-                            <Link href={'/auth/forgot'}>Сбросить пароль</Link>
+                            <Link href={RoutePath[AppRoutes.AUTH_FORGOT]}>Сбросить пароль</Link>
                         </Form.Item>
 
                         <Row className={styles.buttonsContainer}>
@@ -93,7 +94,7 @@ export function ProfileEdit() {
                                 type='schoolDefaultAuto'
                                 antdType={'default'}
                                 block
-                                onClick={() => router.push('/user')}
+                                onClick={() => router.push(RoutePath[AppRoutes.USER_LIST])}
                             >
                                 Отменить
                             </Button>

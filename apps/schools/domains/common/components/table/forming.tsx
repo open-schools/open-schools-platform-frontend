@@ -118,11 +118,11 @@ export function objectReBuilder<DataItemType>(
 ): Array<Object> {
     let resultArray: Array<Object> = []
     const searchText = getSearchText(searchRequestText)
-    data.forEach((item: any) => {
+    data.forEach((item: any, index) => {
         const newItem: any = {}
         for (const field of fields) {
             if (field in customFields) {
-                newItem[field] = customFields[field]({ text: item[field], searchText: searchText })
+                newItem[field] = customFields[field]({ text: item[field], searchText: searchText, index: index })
             } else if (searchFields.includes(field))
                 newItem[field] = <HighlightText text={item[field] ?? ''} searchText={searchText} />
             else newItem[field] = item[field]

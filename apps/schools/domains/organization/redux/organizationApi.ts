@@ -17,12 +17,12 @@ import {
     GetOrganizationCircleListData,
     GetCurrentCircleData,
     AllStudentJoinCircleQueriesData,
-    GetOrganizationAnalyticsData,
 } from './interfaces'
 import { GetEmployee } from '../../employee/redux/interfaces'
 import {
     CreateOrganizationInviteEmployee,
     GetAnalytics,
+    GetAnalyticsData,
     GetCircleInviteStudent,
     GetOrganizationInviteEmployee,
     GetOrganizationSender,
@@ -32,6 +32,7 @@ import {
     GetTeacher,
     UpdateOrganizationInviteEmployee,
 } from '@domains/common/redux/serializers'
+import { GetTicket, GetTicketData, GetTicketsData } from '@domains/ticket/redux/serializers'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -166,13 +167,37 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
-        getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetOrganizationAnalyticsData>({
+        getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetAnalyticsData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/analytics`,
                 method: 'GET',
                 params: params,
             }),
             providesTags: ['StudentJoinCircleQuery'],
+        }),
+        getTicketsAnalytics: build.query<{ 'ticket-analytics': GetAnalytics }, GetAnalyticsData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/ticket-analytics`,
+                method: 'GET',
+                params: params,
+            }),
+            providesTags: ['Ticket'],
+        }),
+        getAllTickets: build.query<ReturnedData<GetTicket[]>, GetTicketsData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/family-tickets`,
+                method: 'GET',
+                params: params,
+            }),
+            providesTags: ['Ticket'],
+        }),
+        getTicket: build.query<{ ticket: GetTicket }, GetTicketData>({
+            query: (params) => ({
+                url: `/organization-management/organizations/${params.organization_id}/family-tickets/${params.ticket_id}`,
+                method: 'GET',
+                params: params,
+            }),
+            providesTags: ['Ticket'],
         }),
     }),
 })
@@ -197,4 +222,7 @@ export const {
     useGetAllCirclesQuery,
     useGetAllJoinCircleQueriesQuery,
     useGetOrganizationAnalyticsQuery,
+    useGetTicketsAnalyticsQuery,
+    useGetAllTicketsQuery,
+    useGetTicketQuery,
 } = organizationApi

@@ -10,7 +10,7 @@
   padding: 30px;
   border-radius: 16px;
   background: $color-white;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px 0 $color-black-015;
   z-index: $z-foreground;
 }
 
@@ -45,35 +45,35 @@
 
   .cancelButton {
     background-color: white;
-    color: #2698FF;
+    color: $color-main;
     width: auto;
     padding: 8px 16px;
-    border-color: #2698FF;
+    border-color: $color-main;
 
     &:hover {
-      background-color: rgba(24, 144, 255, 0.1);
+      background-color: $background-blue-dark-color;
     }
 
     &:active {
-      background-color: #1890FF;
-      color: #FFFFFF;
+      background-color: $color-blue;
+      color: $color-white;
     }
   }
 
   .changeAddressButton {
     background-color: white;
-    color: #2698FF;
+    color: $color-main;
     width: auto;
     padding: 8px 16px;
-    border-color: #2698FF;
+    border-color: $color-main;
 
     &:hover {
-      background-color: rgba(24, 144, 255, 0.1);
+      background-color: $background-blue-dark-color;
     }
 
     &:active {
-      background-color: #1890FF;
-      color: #FFFFFF;
+      background-color: $color-blue;
+      color: $color-white;
     }
   }
 

@@ -8,6 +8,7 @@ import { Button } from '@domains/common/components/button'
 import { loginHandler } from '@domains/user/handlers/auth/signin'
 import { useLoginMutation } from '@domains/user/redux/authenticationApi'
 import { useSignInFormValidators } from './hooks'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const SignInForm = (): React.ReactElement => {
     const validators = useSignInFormValidators()
@@ -61,7 +62,7 @@ export const SignInForm = (): React.ReactElement => {
                         <Col span={24}>
                             <Form.Item>
                                 Забыли пароль?&nbsp;
-                                <Typography.Link onClick={() => Router.push('/auth/forgot')}>
+                                <Typography.Link onClick={() => Router.push(RoutePath[AppRoutes.AUTH_FORGOT])}>
                                     {'Сбросить'}
                                 </Typography.Link>
                             </Form.Item>

@@ -1,17 +1,55 @@
 @import '../../../../common/components/styles/abstracts/colors';
 
 .mainRow {
+  display: flex;
   height: 100px;
   justify-content: space-between;
+  gap: 30px;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 
   .formContainer {
     width: 700px;
 
     .table {
-      max-width: 550px;
+      max-width: 700px;
 
       .requiredMark {
         color: $color-required-mark;
+      }
+
+      .nameInput {
+        max-width: 100%;
+        display: flex;
+
+        .tooltipContainer{
+          align-self: end;
+          height: auto;
+          width: 3%;
+        }
+
+        .inputWithTooltipContainer {
+          display: flex;
+          flex-direction: row;
+          justify-content: unset;
+        }
+
+        .inputWithTooltip {
+          width: 70%;
+          margin-right: 5px;
+          display: flex;
+        }
+
+        .label {
+          width: 100%;
+          font-family: 'Roboto', sans-serif;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 22px;
+        }
       }
 
       .label {
@@ -29,10 +67,10 @@
       }
 
       .complexInputContainer {
-        width: 125%;
+        width: 100%;
 
         .complexInput {
-          width: 76%;
+          width: 70%;
 
           .address {
             width: 65%;
@@ -55,16 +93,17 @@
         }
 
         .mapButton {
-          width: 24%;
+          width: 30%;
           margin-top: 38px;
-          color: $main-blue-color;
+          color: $color-main;
           padding-left: 1%;
         }
       }
 
 
       .button {
-        width: 40%;
+        width: auto;
+        padding: 8px 16px;
         text-align: center;
         font-family: 'Roboto', sans-serif;
         font-size: 16px;
@@ -76,6 +115,8 @@
   }
 
   .mobileApp {
+    display: flex;
+    flex-direction: column;
     padding-left: 60px;
     padding-right: 60px;
     padding-top: 30px;
@@ -84,6 +125,18 @@
     width: 505px;
     border-radius: 12px;
     background: linear-gradient(180deg, rgba(24, 144, 255, 0.3) 0%, rgba(245, 245, 245, 0.00) 100%);
+
+    .mobile {
+      align-self: center;
+    }
+
+    @media (max-width: 1440px) {
+      width: 400px;
+    }
+
+    @media (max-width: 1200px) {
+      width: 505px;
+    }
 
     .text{
       font-size: 24px;

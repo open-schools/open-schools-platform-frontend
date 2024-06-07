@@ -25,7 +25,7 @@ export const useRegisterFormValidators = () => {
                 {
                     message: PersonNameMustContainMsg,
                     // TODO: move code above regexps to constants
-                    pattern: /^[А-Яа-яA-Za-z]+(?: [А-Яа-яA-Za-z]+)*$/,
+                    pattern: /^[А-ЯЁа-яёA-Za-z]+(?: [А-ЯЁа-яёA-Za-z]+)*$/,
                 },
                 {
                     message: PersonNameMustNotStartOrAndMsg,

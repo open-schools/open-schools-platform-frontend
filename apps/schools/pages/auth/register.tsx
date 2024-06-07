@@ -4,9 +4,7 @@ import React, { useState } from 'react'
 
 import { Dictionary } from '@reduxjs/toolkit'
 import { ContainerPage } from '../_app'
-import AuthLayout, {
-    IAuthLayoutProps,
-} from '../../domains/user/components/auth/containers/AuthLayout'
+import AuthLayout, { IAuthLayoutProps } from '../../domains/user/components/auth/containers/AuthLayout'
 import { FormContainer } from '../../domains/user/components/auth/formContainer'
 import { InputPhoneForm } from '../../domains/user/components/auth/sharedForms/InputPhoneForm'
 import { TabsAuthAction } from '../../domains/user/components/auth/headerActions'
@@ -19,6 +17,7 @@ import {
     RegistrationPhoneButtonLabel,
 } from '../../domains/user/components/auth/constants/labels'
 import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptchaProvider'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
     const [step, setStep] = useState('inputPhone')
@@ -26,7 +25,7 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
     const steps: Dictionary<JSX.Element> = {
         inputPhone: (
             <>
-                <TabsAuthAction currentActiveKey="/auth/register" />
+                <TabsAuthAction currentActiveKey={RoutePath[AppRoutes.AUTH_REGISTER]} />
                 <InputPhoneForm
                     title={''}
                     nextUrl={'register'}
@@ -39,31 +38,28 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
         ),
         validatePhone: (
             <>
-                <TabsAuthAction
-                    currentActiveKey="/auth/register"
-                    title={'Регистрация'}
-                />
+                <TabsAuthAction currentActiveKey={RoutePath[AppRoutes.AUTH_REGISTER]} title={'Регистрация'} />
                 <ValidatePhoneForm
                     onFinish={() => setStep('register')}
                     onReset={() => {
                         setStep('inputPhone')
-                        Router.push('/auth/register')
+                        Router.push(RoutePath[AppRoutes.AUTH_REGISTER])
                     }}
                     onError={() => {
                         setStep('inputPhone')
-                        Router.push('/auth/register')
+                        Router.push(RoutePath[AppRoutes.AUTH_REGISTER])
                     }}
                 />
             </>
         ),
         register: (
             <>
-                <TabsAuthAction currentActiveKey="/auth/register" />
+                <TabsAuthAction currentActiveKey={RoutePath[AppRoutes.AUTH_REGISTER]} />
                 <RegisterForm
-                    onFinish={() => window.location.href = '/'}
+                    onFinish={() => (window.location.href = '/')}
                     onError={() => {
                         setStep('inputPhone')
-                        Router.push('/auth/register')
+                        Router.push(RoutePath[AppRoutes.AUTH_REGISTER])
                     }}
                 />
             </>
@@ -77,9 +73,7 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
             </Head>
             <Row className={CENTRALIZED}>
                 <FirebaseReCaptcha>
-                    <FormContainer width={step === 'register' ? 500 : 560}>
-                        {steps[step]}
-                    </FormContainer>
+                    <FormContainer width={step === 'register' ? 500 : 560}>{steps[step]}</FormContainer>
                 </FirebaseReCaptcha>
             </Row>
         </>

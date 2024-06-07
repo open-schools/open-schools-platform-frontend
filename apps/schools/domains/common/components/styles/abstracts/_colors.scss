@@ -1,27 +1,23 @@
 // default colors
 $color-white: #ffffff;
 $color-pink: #ff9ea2;
-$color-yellow: #ffc95f;
-$color-green: #def6b1;
+$color-yellow-lite: #FDFFE9;
 $color-black: #000000;
 $color-aqua: #6cc9d4;
 $color-brown: #8a3d24;
 $color-light-yellow: #f5f5dc;
-$color-red: #bc3f45;
 $color-light-red: #ffa9ad;
 $color-gray: #f5f5f5;
 $color-border-gray: #d9d9d9;
+$color-border-lite-gray: #f1f1f1;
 $color-required-mark: #F51D2C;
 $main-shadow: 4px 4px 8px 7px rgba(0, 0, 0, 0.1),
     -4px -4px 8px 7px rgba(0, 0, 0, 0.1);
 $img-shadow: 4px 4px 8px 7px rgba(0, 0, 0, 0.1);
 
-
-//base colors
-$color-blue: #1890ff;
-$main-blue-color: #2698FF;
-$color-field-name: rgba(67, 67, 67, 0.80);
-$color-field-value: #222;
+//background colors
+$background-blue-color: #096DD9;
+$background-blue-dark-color: rgba(24, 144, 255, 0.1);
 
 //auth layout colors
 $color-auth-layout-default: #DEDEDE;
@@ -61,12 +57,17 @@ $color-auth-layout-dictionary: #622A11;
 $color-auth-layout-robot: #B400EF;
 $color-auth-layout-rightBottomCloud: #131E39;
 $color-auth-layout-rightRocket: #F9812A;
+$color-auth-layout-success-button-active: rgb(189, 218, 252);
 
 
 //base layout colors
 $color-border-gray-base-layout: #D8D8D8;
 $color-unselected-item: #707695;
 $color-selected-organization: #434343;
+$color-border-right: rgba(10, 10, 10, 0.1);
+$color-blue-text-button: rgba(38, 152, 255, 0.9);
+$color-background-button: rgba(237, 246, 255, 0.9);
+$color-slider: rgba(10, 10, 10, 0.1);
 
 
 //table colors
@@ -75,3 +76,59 @@ $color-header-table: #F2F3F7;
 $color-search-highlight-text: #ffc95f;
 $color-background: #434343;
 $color-foreground: rgba(67, 67, 67, 0.80);
+
+//base rgba with opacity
+
+//black colors
+$color-black-01: rgba(0, 0, 0, 0.10);
+$color-black-015: rgba(0, 0, 0, 0.15);
+$color-black-02: rgba(0, 0, 0, 0.20);
+
+//white colors
+$color-white-01: rgba(255, 255, 255, 0.1);
+$color-white-015: rgba(255, 255, 255, 0.15);
+$color-white-02: rgba(255, 255, 255, 0.2);
+
+//figma colors
+
+//default colors
+$color-main: #2698FF;
+$color-blue: #1890FF;
+$color-light-blue: #EDF6FF;
+$color-green: #4CD174;
+$color-red: #F74A5C;
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-yellow-comment: #FDFFE9;
+
+//stroke colors
+$color-main-stroke: #D0D3E5;
+$color-gray-line: #D8D8D8;
+$color-gray-stroke: #D9D9D9;
+$color-gray-stroke-circle: #E5E5E5;
+$color-gray-bg: #F5F5F5;
+$color-hover-stroke: #40A9FF;
+$color-stroke-img: #D9D9D9;
+$color-flag-bg: #E6E8F1;
+$color-table-bg: #F2F3F7;
+
+//text colors
+$color-placeholder: rgba(0, 0, 0, 0.25);
+$color-text-title: #222222;
+$color-text-gray: #434343;
+$color-text-lite-gray: rgba(67, 67, 67, 0.80);
+$color-second-text: rgba(34, 34, 34, 0.60);
+
+//tag colors
+$color-tag-text-green: #52C41A;
+$color-tag-stroke-green: #B7EB8F;
+$color-tag-fill-green: #F6FFED;
+$color-tag-text-blue: #2F54EB;
+$color-tag-stroke-blue: #ADC6FF;
+$color-tag-fill-blue: #F0F5FF;
+$color-tag-text-crimson: #EB3468;
+$color-tag-stroke-crimson: #F7ACB4;
+$color-tag-fill-crimson: #FEF5F7;
+$color-tag-text-red: #F5222D;
+$color-tag-stroke-red: #FFA39E;
+$color-tag-fill-red: #FFF1F0;

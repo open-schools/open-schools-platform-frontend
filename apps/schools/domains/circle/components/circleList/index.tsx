@@ -13,17 +13,16 @@ import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
-    const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery(
-        {
-            organization_id: organizationId,
-            or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        },
-    )
+    const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
+        organization_id: organizationId,
+        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+    })
 
     const reformattedData = mapReturnedData(circles, (circle) => {
         const transformedCircle = structuredClone(circle) as unknown as TableType
@@ -39,7 +38,7 @@ export function CircleList() {
             pageTitle={'Кружки'}
             data={circles}
             isLoading={isFetching}
-            handleRunTask={() => router.push('/circle/create')}
+            handleRunTask={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -48,7 +47,7 @@ export function CircleList() {
                     type='schoolDefault'
                     block
                     className={styles.button}
-                    onClick={() => router.push('/circle/create')}
+                    onClick={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
                 >
                     Добавить кружок
                 </Button>
@@ -61,7 +60,7 @@ export function CircleList() {
                 ]}
                 data={reformattedData}
                 isLoading={isFetching}
-                mainRoute={'/circle'}
+                mainRoute={RoutePath[AppRoutes.CIRCLE_LIST]}
                 searchFields={['name', 'address']}
                 customFields={{
                     address: ({ text, searchText }) => {

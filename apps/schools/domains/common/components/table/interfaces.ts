@@ -8,6 +8,7 @@ export interface CustomFieldsProps {
     [key: string]: React.FC<{
         text: string
         searchText: string
+        index: number
     }>
 }
 

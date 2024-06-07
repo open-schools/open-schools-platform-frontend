@@ -97,5 +97,5 @@
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.3"
   },
-  "repository": "https://github.com/LamArt/open-schools-platform-frontend/tree/main/apps/schools"
+  "repository": "https://github.com/open-schools/open-schools-platform-frontend/tree/main/apps/schools"
 }

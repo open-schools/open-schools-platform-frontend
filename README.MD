@@ -4,11 +4,11 @@
 
 > **Node should be > 16.14.0** You can check node version using `node -v` command in your terminal.
 
-> **You need a raised [backend](https://github.com/LamArt/open-schools-platform/tree/dev) server nearby**
+> **You need a raised [backend](https://github.com/open-schools/open-schools-platform/tree/dev) server nearby**
 
 ```bash
 # 1) Clone the repo
-git clone git@github.com:LamArt/open-schools-platform-frontend.git
+git clone git@github.com:open-schools/open-schools-platform-frontend.git
 cd open-schools-platform-frontend
 
 # 2) Install dependencies for all project

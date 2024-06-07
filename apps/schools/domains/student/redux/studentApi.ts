@@ -17,9 +17,7 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Student', id: arg.student_id },
-            ],
+            invalidatesTags: (result, error, arg) => [{ type: 'Student', id: arg.student_id }],
         }),
     }),
 })

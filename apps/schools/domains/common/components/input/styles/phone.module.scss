@@ -1,5 +1,7 @@
+@import '../../styles/abstracts/_colors.scss';
+
 .input {
     height: 48px;
     border-radius: 12px;
-    border-color: #d9d9d9;
+    border-color: $color-border-gray;
 }

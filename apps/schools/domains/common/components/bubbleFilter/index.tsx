@@ -1,14 +1,11 @@
 import React from 'react'
-
 import { Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
-import { BubbleFilterProps } from '@domains/common/components/bubbleFilter/interface'
+import { BubbleFilterProps, BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import { CloseOutlined } from '@ant-design/icons'
 
-export const BubbleFilter: React.FC<BubbleFilterProps> = (params) => {
-    const { text, items } = params
-
-    const listItems = items.map((item) =>
+export const BubbleFilter: React.FC<BubbleFilterProps> = React.memo(({ text, items }) => {
+    const listItems = items.map((item: BubbleFilterListItem) =>
         item.count && item.count > 0 ? (
             <Row
                 className={item.isSelected ? styles.bubbleContainerSelected : styles.bubbleContainer}
@@ -24,9 +21,7 @@ export const BubbleFilter: React.FC<BubbleFilterProps> = (params) => {
                 <div className={styles.bubbleText}>{item.text}</div>
                 {item.isSelected && <CloseOutlined onClick={item.onExit} className={styles.closeIcon} />}
             </Row>
-        ) : (
-            <div key={item.key}></div>
-        ),
+        ) : null,
     )
 
     return (
@@ -35,4 +30,4 @@ export const BubbleFilter: React.FC<BubbleFilterProps> = (params) => {
             {listItems}
         </Row>
     )
-}
+})

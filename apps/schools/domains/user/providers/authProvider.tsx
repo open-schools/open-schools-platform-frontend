@@ -4,6 +4,7 @@ import { useGetUserQuery } from '../redux/authenticationApi'
 import Cookies from 'universal-cookie'
 import { GetUserProfiles } from '@domains/user/redux/interfaces'
 import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const UserProfileContext = createContext<{
     token: string
@@ -35,14 +36,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             refetch()
         })
 
-        if (router.pathname === '/mobile-recaptcha') return
+        if (router.pathname === RoutePath[AppRoutes.MOBILE_RECAPTCHA]) return
 
         const jwtToken = typeof window !== 'undefined' ? cookies.get('jwtToken') : null
 
         if (jwtToken) {
             setToken(jwtToken)
         } else {
-            router.push('/auth/signin')
+            router.push(RoutePath[AppRoutes.AUTH_SIGN_IN])
         }
 
         return () => {
@@ -55,10 +56,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [data])
 
     useEffect(() => {
-        if (router.pathname === '/mobile-recaptcha') return
+        if (router.pathname === RoutePath[AppRoutes.MOBILE_RECAPTCHA]) return
 
         if (error !== undefined && 'data' in error) {
-            router.push('/auth/signin')
+            router.push(RoutePath[AppRoutes.AUTH_SIGN_IN])
         }
     }, [error])
 

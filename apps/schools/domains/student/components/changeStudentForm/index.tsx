@@ -16,6 +16,7 @@ import { handleSubmitForm } from '@domains/student/handlers/studentPatch'
 import { useUpdateStudentByIdMutation } from '@domains/student/redux/studentApi'
 import { useChangeStudentFormValidators } from '@domains/student/components/changeStudentForm/hooks'
 import { ErrorType } from '@store/commonApi'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function ChangeStudentForm() {
     const uuid = getUuidFromUrl()
@@ -31,11 +32,11 @@ export function ChangeStudentForm() {
 
     useEffect(() => {
         if (studentError && (studentError as ErrorType).status == 404) {
-            router.push('/student')
+            router.push(RoutePath[AppRoutes.STUDENT_LIST])
         }
     }, [studentError])
 
-    if (uuid.length === 0) router.push('/404')
+    if (uuid.length === 0) router.push(RoutePath[AppRoutes.NOT_FOUND])
 
     const validationCheck = () => {
         setIsFormValid(isValidFormCheck(form, [], initialValues))
@@ -58,7 +59,7 @@ export function ChangeStudentForm() {
                         onValuesChange={validationCheck}
                         onFinish={() => {
                             handleSubmitForm(uuid[0], form, mutation).then((isSuccess) => {
-                                if (isSuccess) router.push(`/student/${uuid[0]}`)
+                                if (isSuccess) router.push(`${RoutePath[AppRoutes.STUDENT_LIST]}/${uuid[0]}`)
                             })
                         }}
                         layout='vertical'
@@ -83,7 +84,7 @@ export function ChangeStudentForm() {
                                 type='schoolDefaultAuto'
                                 antdType={'default'}
                                 block
-                                onClick={() => router.push(`/student/${uuid[0]}`)}
+                                onClick={() => router.push(`${RoutePath[AppRoutes.STUDENT_LIST]}/${uuid[0]}`)}
                             >
                                 Отменить
                             </Button>

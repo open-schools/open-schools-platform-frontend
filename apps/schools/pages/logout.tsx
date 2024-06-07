@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import {useUserProfile} from "@domains/user/providers/authProvider";
-import router from "next/router";
-
+import { useUserProfile } from '@domains/user/providers/authProvider'
+import Router from 'next/router'
+import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const LogoutPage = () => {
-    const {logout} = useUserProfile()
+    const { logout } = useUserProfile()
 
     useEffect(() => {
-        logout();
-        router.push('auth/signin');
+        logout()
+        Router.push(RoutePath[AppRoutes.AUTH_SIGN_IN])
     }, [])
 
     return <></>
