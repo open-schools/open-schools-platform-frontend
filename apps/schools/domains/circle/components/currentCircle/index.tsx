@@ -25,7 +25,7 @@ import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import { ErrorType } from '@store/commonApi'
-import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { AppRoutes, DynamicAppRoutes, DynamicRoutePath, RoutePath } from '@domains/common/constants/routerEnums'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -155,7 +155,7 @@ const CurrentCircle = () => {
                     actions={[
                         <Button
                             className={styles.changeButton}
-                            onClick={() => router.push(`${RoutePath[AppRoutes.CIRCLE_LIST]}/${uuid[0]}/change`)}
+                            onClick={() => router.push(DynamicRoutePath[DynamicAppRoutes.CIRCLE_CHANGE](uuid[0]))}
                         >
                             Редактировать данные кружка
                         </Button>,

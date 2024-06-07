@@ -19,7 +19,7 @@ import { GetStudent } from '@domains/common/redux/serializers'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import parentAcceptedPhone from '@public/icons/parentAcceptedMobile.svg'
 import parentDeclinedPhone from '@public/icons/parentDeclinedMobile.svg'
-import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { AppRoutes, DynamicAppRoutes, DynamicRoutePath, RoutePath } from '@domains/common/constants/routerEnums'
 
 const CurrentStudent = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -119,7 +119,7 @@ const CurrentStudent = () => {
                                                     className={styles.changeButton}
                                                     onClick={() =>
                                                         router.push(
-                                                            `${RoutePath[AppRoutes.STUDENT_LIST]}/${uuid[0]}/change`,
+                                                            DynamicRoutePath[DynamicAppRoutes.STUDENT_CHANGE](uuid[0]),
                                                         )
                                                     }
                                                 >

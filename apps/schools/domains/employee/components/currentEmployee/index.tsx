@@ -13,7 +13,7 @@ import { Field } from '@domains/common/components/field'
 import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
 import DeleteModal from '@domains/common/components/deleteModal'
 import { useDeleteEmployeeByIdMutation, useGetEmployeeQuery } from '@domains/employee/redux/employeeApi'
-import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { AppRoutes, DynamicAppRoutes, DynamicRoutePath, RoutePath } from '@domains/common/constants/routerEnums'
 
 const CurrentEmployee = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -72,7 +72,7 @@ const CurrentEmployee = () => {
                                         key={'edit'}
                                         className={styles.changeButton}
                                         onClick={() =>
-                                            router.push(`${RoutePath[AppRoutes.EMPLOYEE_LIST]}/${uuid[0]}/change`)
+                                            router.push(DynamicRoutePath[DynamicAppRoutes.EMPLOYEE_CHANGE](uuid[0]))
                                         }
                                     >
                                         Редактировать профиль
