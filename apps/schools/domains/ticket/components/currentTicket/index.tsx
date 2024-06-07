@@ -3,11 +3,6 @@ import { getUuidFromUrl } from '@domains/common/utils/getUuidFromUrl'
 import router from 'next/router'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
-import {
-    CLOSED_FILTER_COLOR,
-    IN_PROGRESS_FILTER_COLOR,
-    SENT_FILTER_COLOR,
-} from '@domains/ticket/components/ticketList/styles/styles'
 import { format } from 'date-fns'
 import { Checkbox, Spin, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
@@ -32,6 +27,7 @@ import {
 import { useUserProfile } from '@domains/user/providers/authProvider'
 import { handleCreateComment } from '@domains/ticket/handlers/createComment'
 import { useGetAllEmployeesQuery } from '@domains/employee/redux/employeeApi'
+import { Graph, StatusDictionary, TransformStatus } from '@domains/ticket/components/currentTicket/constants'
 
 interface CommentProps {
     sender?: string
@@ -42,29 +38,30 @@ interface CommentProps {
     comment: string
 }
 
-const CommentBlock: React.FC<CommentProps> = ({
-    is_sender,
-    familyName,
-    created_at,
-    is_internal_recipient,
-    comment,
-    sender,
-}) => {
-    return (
-        <div className={classnames(styles.commentBlock, is_internal_recipient && styles.privateComment)}>
-            <Image className={styles.image} src={is_sender ? family : employee} alt={'Sender icon'} />
-            <div className={styles.commentContainer}>
-                <div className={styles.titleComment}>
-                    <b>{is_sender ? `Семья ${familyName || 'не определена'}` : sender || 'Отправитель не определен'}</b>
-                    <span>{created_at ? format(new Date(created_at), 'dd.MM.yyyy HH:mm') : 'Время не определено'}</span>
-                    {is_internal_recipient && <Image src={lock} alt={'Lock icon'} />}
-                    <span>{is_internal_recipient ? 'Внутренний комментарий' : null}</span>
+const CommentBlock: React.FC<CommentProps> = React.memo(
+    ({ is_sender, familyName, created_at, is_internal_recipient, comment, sender }) => {
+        return (
+            <div className={classnames(styles.commentBlock, is_internal_recipient && styles.privateComment)}>
+                <Image className={styles.image} src={is_sender ? family : employee} alt={'Sender icon'} />
+                <div className={styles.commentContainer}>
+                    <div className={styles.titleComment}>
+                        <b>
+                            {is_sender
+                                ? `Семья ${familyName || 'не определена'}`
+                                : sender || 'Отправитель не определен'}
+                        </b>
+                        <span>
+                            {created_at ? format(new Date(created_at), 'dd.MM.yyyy HH:mm') : 'Время не определено'}
+                        </span>
+                        {is_internal_recipient && <Image src={lock} alt={'Lock icon'} />}
+                        <span>{is_internal_recipient ? 'Внутренний комментарий' : null}</span>
+                    </div>
+                    <div className={styles.comment}>{comment}</div>
                 </div>
-                <div className={styles.comment}>{comment}</div>
             </div>
-        </div>
-    )
-}
+        )
+    },
+)
 
 const CurrentTicket = () => {
     const [text, setText] = useState<string>('')
@@ -121,47 +118,18 @@ const CurrentTicket = () => {
         return `${lineCount * 22.5 + extraHeight}px`
     }
 
-    const statusTranslations: { [key: string]: { translate: string; color: string } } = {
-        SENT: {
-            translate: 'Новое',
-            color: SENT_FILTER_COLOR,
-        },
-        IN_PROGRESS: {
-            translate: 'Открыто',
-            color: IN_PROGRESS_FILTER_COLOR,
-        },
-        CLOSED: {
-            translate: 'Закрыто',
-            color: CLOSED_FILTER_COLOR,
-        },
-    }
-
-    const translateStatus = (status: string) => {
-        return statusTranslations[status]?.translate || status
-    }
-
-    const decorateStatus = (status: string) => {
-        return statusTranslations[status]?.color || '#fff'
-    }
-
-    const graph: { [key: string]: string[] } = {
-        Новое: ['Новое', 'Открыто', 'Закрыто'],
-        Открыто: ['Открыто', 'Закрыто'],
-        Закрыто: ['Закрыто'],
-    }
-
     const handleStatusChange = (value: string) => {
-        let translatedStatus = value
-        for (const key in statusTranslations) {
-            if (statusTranslations[key].translate === value) {
-                translatedStatus = key
+        let transformedStatus = value
+        for (const key in StatusDictionary) {
+            if (StatusDictionary[key].text === value) {
+                transformedStatus = key
                 break
             }
         }
-        handleQueryStatusChange(mutation, uuid[0], translatedStatus as QueriesTypes).then((changeStatus) => {
+        handleQueryStatusChange(mutation, uuid[0], transformedStatus as QueriesTypes).then((changeStatus) => {
             if (changeStatus) {
                 setCurrentStatus(value)
-                setCurrentDependencies(graph[value] || [])
+                setCurrentDependencies(Graph[value] || [])
             }
         })
     }
@@ -247,21 +215,21 @@ const CurrentTicket = () => {
                 <div className={styles.selectContainer}>
                     <Select
                         customType={'selectDefault'}
-                        value={currentStatus ? currentStatus : translateStatus(ticketData?.ticket?.status || '')}
+                        value={currentStatus ? currentStatus : TransformStatus(ticketData?.ticket?.status || '')}
                         placeholder='Статус отсутсвует'
                         className={styles.select}
                         options={
                             currentDependencies.length !== 0
                                 ? currentDependencies.map((status) => ({
-                                      value: status,
-                                      label: status,
+                                      value: TransformStatus(status),
+                                      label: TransformStatus(status),
                                   }))
-                                : (graph[translateStatus(ticketData?.ticket?.status || '')]
-                                      ? graph[translateStatus(ticketData?.ticket?.status || '')]
+                                : (Graph[ticketData?.ticket?.status || '']
+                                      ? Graph[ticketData?.ticket?.status || '']
                                       : []
                                   ).map((status) => ({
-                                      value: status,
-                                      label: status,
+                                      value: TransformStatus(status),
+                                      label: TransformStatus(status),
                                   }))
                         }
                         onChange={(value) => handleStatusChange(value)}

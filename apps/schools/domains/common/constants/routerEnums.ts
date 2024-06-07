@@ -1,21 +1,21 @@
 export const enum AppRoutes {
     AUTH = 'auth',
-    AUTH_SIGN_IN = 'auth_signin',
-    AUTH_REGISTER = 'auth_register',
-    AUTH_FORGOT = 'auth_forgot',
+    AUTH_SIGN_IN = 'authSignin',
+    AUTH_REGISTER = 'authRegister',
+    AUTH_FORGOT = 'authForgot',
     CIRCLE_LIST = 'circle',
-    CIRCLE_CREATE = 'circle_create',
-    EMPLOYEE_LIST = 'employee_list',
-    EMPLOYEE_CREATE = 'employee_create',
+    CIRCLE_CREATE = 'circleCreate',
+    EMPLOYEE_LIST = 'employeeList',
+    EMPLOYEE_CREATE = 'employeeCreate',
     MAIN = 'main',
-    MOBILE_RECAPTCHA = 'mobile_recaptcha',
-    TICKETS_LIST = 'tickets_list',
-    NOT_FOUND = 'not_found',
-    QUERY_LIST = 'query_list',
-    STUDENT_LIST = 'student_list',
-    STUDENT_CREATE = 'student_create',
-    USER_LIST = 'user_list',
-    USER_EDIT = 'user_edit',
+    MOBILE_RECAPTCHA = 'mobileRecaptcha',
+    TICKETS_LIST = 'ticketsList',
+    NOT_FOUND = 'notFound',
+    QUERY_LIST = 'queryList',
+    STUDENT_LIST = 'studentList',
+    STUDENT_CREATE = 'studentCreate',
+    USER_LIST = 'userList',
+    USER_EDIT = 'userEdit',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -36,4 +36,16 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.STUDENT_CREATE]: '/student/create',
     [AppRoutes.USER_LIST]: '/user',
     [AppRoutes.USER_EDIT]: '/user/edit',
+}
+
+export const enum DynamicAppRoutes {
+    CIRCLE_CHANGE = 'circleChange',
+    EMPLOYEE_CHANGE = 'employeeChange',
+    STUDENT_CHANGE = 'studentChange',
+}
+
+export const DynamicRoutePath: Record<DynamicAppRoutes, (...args: string[]) => string> = {
+    [DynamicAppRoutes.CIRCLE_CHANGE]: (id: string) => `/circle/${id}/change`,
+    [DynamicAppRoutes.EMPLOYEE_CHANGE]: (id: string) => `/employee/${id}/change`,
+    [DynamicAppRoutes.STUDENT_CHANGE]: (id: string) => `/student/${id}/change`,
 }
