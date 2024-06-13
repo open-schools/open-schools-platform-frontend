@@ -178,18 +178,14 @@ const organizationApi = commonApi.injectEndpoints({
                 params: params,
             }),
             transformResponse: (response: ReturnedData<GetStudentJoinCircle[]>) => {
-                return useMemo(
-                    () =>
-                        mapReturnedData(response, (query) => {
-                            const transformedQuery = structuredClone(query) as unknown as TableTypeQuery
-                            transformedQuery.parent_name = query.additional.parent_name
-                            transformedQuery.parent_phone = query.additional.parent_phone
-                            transformedQuery.circle_name = query.recipient.name
-                            transformedQuery.student_name = query.body.name
-                            return transformedQuery
-                        }),
-                    [response],
-                )!
+                return mapReturnedData(response, (query) => {
+                    const transformedQuery = structuredClone(query) as unknown as TableTypeQuery
+                    transformedQuery.parent_name = query.additional.parent_name
+                    transformedQuery.parent_phone = query.additional.parent_phone
+                    transformedQuery.circle_name = query.recipient.name
+                    transformedQuery.student_name = query.body.name
+                    return transformedQuery
+                })!
             },
             providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
