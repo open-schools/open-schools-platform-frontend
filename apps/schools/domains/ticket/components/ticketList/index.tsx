@@ -8,7 +8,6 @@ import { RowType, TableType } from './interfaces'
 import { searchTicketsColumns, StatusDictionary } from './constants'
 import { useGetAllTicketsQuery, useGetTicketsAnalyticsQuery } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
@@ -42,7 +41,7 @@ export function TicketList() {
         }),
     )
 
-    const { data: analytics, isLoading: isAnalyticsLoading } = useGetTicketsAnalyticsQuery({
+    const { data: analytics } = useGetTicketsAnalyticsQuery({
         organization_id: organizationId,
     })
 
@@ -74,21 +73,11 @@ export function TicketList() {
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
     })
 
-    const reformattedData = mapReturnedData(tickets, (query) => {
-        const transformedQuery = structuredClone(query) as unknown as TableType
-        transformedQuery.content = query.last_comment.value
-        if (transformedQuery.content.length > 200) {
-            transformedQuery.content = transformedQuery.content.slice(0, 200) + '…'
-        }
-        transformedQuery.sender = 'Семья ' + query.sender?.name
-        return transformedQuery
-    })
-
     useEffect(() => {
-        if (!isTicketsLoading) {
+        if (!isTicketsLoading && tickets) {
             setIsTableLoading(false)
         }
-    }, [isTicketsLoading])
+    }, [isTicketsLoading, tickets])
 
     const handleInputChange: HandleInputChange = useCallback(
         (text) => {
@@ -142,7 +131,7 @@ export function TicketList() {
                         ['Отправитель', 'sender'],
                     ]}
                     customWidths={[10, 10, 40, 30]}
-                    data={reformattedData}
+                    data={tickets}
                     isLoading={isTicketsLoading}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
                     searchFields={['created_at', 'content', 'sender']}
@@ -158,12 +147,11 @@ export function TicketList() {
 
                             return (
                                 <div className={styles.createdAtContainer}>
-                                    {reformattedData?.results[index].unread_sender_comments_count > 0 && (
+                                    {(tickets?.results[index] as TableType).unread_sender_comments_count > 0 && (
                                         <div className={styles.unreadPoint}>
                                             <Image src={dot} alt={'Unread dot'} />
                                         </div>
                                     )}
-
                                     <div className={styles.dateContainer}>
                                         <div className={styles.additionalTextAddress}>
                                             <HighlightText text={date} searchText={searchText} />

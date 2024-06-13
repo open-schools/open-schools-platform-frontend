@@ -24,12 +24,6 @@ export function CircleList() {
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
     })
 
-    const reformattedData = mapReturnedData(circles, (circle) => {
-        const transformedCircle = structuredClone(circle) as unknown as TableType
-        transformedCircle.accepted_count = circle.student_profile_queries.ACCEPTED
-        return transformedCircle
-    })
-
     return (
         <EmptyWrapper
             titleText={'Список кружков пока пуст'}
@@ -58,7 +52,7 @@ export function CircleList() {
                     ['Адрес', 'address'],
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
-                data={reformattedData}
+                data={circles}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.CIRCLE_LIST]}
                 searchFields={['name', 'address']}

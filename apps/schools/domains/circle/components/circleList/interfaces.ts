@@ -6,7 +6,7 @@ export interface RowType {
 }
 
 export interface TableType {
-    id?: string
+    id: string
     name: string
     address: string
     accepted_count: number

@@ -11,7 +11,6 @@ import {
     useGetOrganizationAnalyticsQuery,
 } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
 import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
@@ -79,19 +78,6 @@ export function QueryList() {
         [analytics, isAnalyticsLoading],
     )
 
-    const reformattedData = useMemo(
-        () =>
-            mapReturnedData(queries, (query) => {
-                const transformedQuery = structuredClone(query) as unknown as TableType
-                transformedQuery.parent_name = query.additional.parent_name
-                transformedQuery.parent_phone = query.additional.parent_phone
-                transformedQuery.circle_name = query.recipient.name
-                transformedQuery.student_name = query.body.name
-                return transformedQuery
-            }),
-        [queries],
-    )
-
     useEffect(() => {
         if (!isQueriesLoading && queries) {
             setIsTableLoading(false)
@@ -130,7 +116,7 @@ export function QueryList() {
                     ['Телефон родителя', 'parent_phone'],
                     ['Кружок', 'circle_name'],
                 ]}
-                data={reformattedData}
+                data={queries}
                 isLoading={isQueriesLoading}
                 mainRoute={RoutePath[AppRoutes.QUERY_LIST]}
                 searchFields={[
