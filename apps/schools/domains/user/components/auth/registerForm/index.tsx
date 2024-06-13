@@ -11,6 +11,8 @@ import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { registrationHandler } from '@domains/user/handlers/auth/register'
 import { useUsersMutation } from '@domains/user/redux/userApi'
+import {PARENT_EMAIL, STUDENT_PHONE} from "@domains/student/components/createStudentForm/constants";
+import {USER_EMAIL} from "@domains/user/components/profile/profileEdit/constants";
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -78,7 +80,9 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                                     data-cy='register-email-item'
                                     validateFirst
                                 >
-                                    <Input autoComplete='chrome-off' placeholder={'email@example.com'} />
+                                    <Input
+                                        autoComplete='chrome-off'
+                                        placeholder={'email@example.com'}/>
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>

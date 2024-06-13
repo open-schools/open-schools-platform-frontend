@@ -85,9 +85,14 @@ export async function registrationHandler(
     let token = localStorage.getItem('token')
     const cookies = new Cookies()
     cookies.remove('jwtToken')
+
+    const { email } = formComponent.getFieldsValue(['email']);
+    const { name } = formComponent.getFieldsValue(['name']);
+
     let response = await withLoadingMessage(LoadingMsg, userRegistrationMutation, {
         token: token,
-        name: phone,
+        name: name,
+        email: email,
         password: password,
     })
     if (!('error' in response)) {
