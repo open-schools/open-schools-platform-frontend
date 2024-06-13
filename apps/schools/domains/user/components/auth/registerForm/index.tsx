@@ -27,10 +27,11 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
+    const [sendEmail] = useUsersMutation();
 
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password'])
-        registrationHandler(phone, password, userRegistration, onFinish, onError, form)
+        await registrationHandler(phone, password, userRegistration, onFinish, onError, form, sendEmail)
     }, [form, signInByPhone])
 
     const initialValues = { phone }
@@ -80,7 +81,8 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                                 >
                                     <Input
                                         autoComplete='chrome-off'
-                                        placeholder={'email@example.com'}/>
+                                        placeholder={'email@example.com'}
+                                    />
                                 </Form.Item>
                             </RequiredFlagWrapper>
                         </Col>
