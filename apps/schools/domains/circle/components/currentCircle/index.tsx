@@ -13,14 +13,13 @@ import { useOrganization } from '@domains/organization/providers/organizationPro
 import { CARD_HEAD_STYLE } from '@domains/circle/components/currentCircle/styles/styles'
 import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
 import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
 
 import android from '@public/image/Android.svg'
 
 import { searchColumns } from './constants'
-import { CurrentCircleRowType } from './interfaces'
+import { RowType, TableType } from './interfaces'
 import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { StatusesEnum } from '@domains/common/constants/Enums'
@@ -124,7 +123,7 @@ const CurrentCircle = () => {
                 </Col>
             </Row>
             <div className={styles.tableContainer}>
-                <Table<CurrentCircleRowType, CurrentCircleRowType>
+                <Table<RowType, TableType>
                     columnsTitlesAndKeys={[
                         ['Ф. И. О обучающегося', 'student_name'],
                         ['Телефон обучающегося', 'student_phone'],

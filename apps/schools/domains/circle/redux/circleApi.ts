@@ -9,9 +9,8 @@ import {
     ChangeCircleData,
 } from './interfaces'
 import { GetCircle, GetQueryStatus, GetStudent } from '@domains/common/redux/serializers'
-import { BaseQueryMeta, BaseQueryResult } from '@reduxjs/toolkit/dist/query/baseQueryTypes'
 import { mapReturnedData } from '@domains/common/redux/utils'
-import { CurrentCircleRowType } from '@domains/circle/components/currentCircle/interfaces'
+import { TableType as CurrentCircleTableType } from '@domains/circle/components/currentCircle/interfaces'
 
 const circleApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -46,7 +45,7 @@ const circleApi = commonApi.injectEndpoints({
             }),
             providesTags: (result, error, arg) => [{ type: 'Circle', id: arg.circle_id }],
         }),
-        getCircleStudents: build.query<ReturnedData<CurrentCircleRowType[]>, CircleStudentsData>({
+        getCircleStudents: build.query<ReturnedData<CurrentCircleTableType[]>, CircleStudentsData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}/students`,
                 method: 'GET',

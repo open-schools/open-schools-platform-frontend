@@ -8,7 +8,6 @@ import { RowType, TableType } from './interfaces'
 import { searchTicketsColumns, StatusDictionary } from './constants'
 import { useGetAllTicketsQuery, useGetTicketsAnalyticsQuery } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
@@ -20,8 +19,6 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
-import { ReturnedData } from '@domains/common/redux/interfaces'
-import { GetTicket } from '@domains/ticket/redux/serializers'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -44,7 +41,7 @@ export function TicketList() {
         }),
     )
 
-    const { data: analytics, isLoading: isAnalyticsLoading } = useGetTicketsAnalyticsQuery({
+    const { data: analytics } = useGetTicketsAnalyticsQuery({
         organization_id: organizationId,
     })
 
@@ -77,10 +74,10 @@ export function TicketList() {
     })
 
     useEffect(() => {
-        if (!isTicketsLoading) {
+        if (!isTicketsLoading && tickets) {
             setIsTableLoading(false)
         }
-    }, [isTicketsLoading])
+    }, [isTicketsLoading, tickets])
 
     const handleInputChange: HandleInputChange = useCallback(
         (text) => {
@@ -134,7 +131,7 @@ export function TicketList() {
                         ['Отправитель', 'sender'],
                     ]}
                     customWidths={[10, 10, 40, 30]}
-                    data={tickets as ReturnedData<TableType[]>}
+                    data={tickets}
                     isLoading={isTicketsLoading}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
                     searchFields={['created_at', 'content', 'sender']}

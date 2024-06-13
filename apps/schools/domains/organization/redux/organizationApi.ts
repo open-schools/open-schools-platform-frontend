@@ -37,7 +37,6 @@ import { mapReturnedData } from '@domains/common/redux/utils'
 import { TableType as TableTypeCircle } from '@domains/circle/components/circleList/interfaces'
 import { TableType as TableTypeTickets } from '@domains/ticket/components/ticketList/interfaces'
 import { TableType as TableTypeQuery } from '@domains/query/components/queryList/interfaces'
-import { useMemo } from 'react'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -205,7 +204,7 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             providesTags: ['Ticket'],
         }),
-        getAllTickets: build.query<ReturnedData<GetTicket[]>, GetTicketsData>({
+        getAllTickets: build.query<ReturnedData<TableTypeTickets[]>, GetTicketsData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/family-tickets`,
                 method: 'GET',
