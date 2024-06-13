@@ -147,7 +147,7 @@ export function TicketList() {
 
                             return (
                                 <div className={styles.createdAtContainer}>
-                                    {parseInt(tickets?.results[index]?.unread_sender_comments_count ?? '0') > 0 && (
+                                    {(tickets?.results[index] as TableType).unread_sender_comments_count > 0 && (
                                         <div className={styles.unreadPoint}>
                                             <Image src={dot} alt={'Unread dot'} />
                                         </div>
