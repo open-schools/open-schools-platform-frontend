@@ -9,6 +9,9 @@ import {
     ChangeCircleData,
 } from './interfaces'
 import { GetCircle, GetQueryStatus, GetStudent } from '@domains/common/redux/serializers'
+import { BaseQueryMeta, BaseQueryResult } from '@reduxjs/toolkit/dist/query/baseQueryTypes'
+import { mapReturnedData } from '@domains/common/redux/utils'
+import { CurrentCircleRowType } from '@domains/circle/components/currentCircle/interfaces'
 
 const circleApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -43,12 +46,26 @@ const circleApi = commonApi.injectEndpoints({
             }),
             providesTags: (result, error, arg) => [{ type: 'Circle', id: arg.circle_id }],
         }),
-        getCircleStudents: build.query<ReturnedData<GetStudent[]>, CircleStudentsData>({
+        getCircleStudents: build.query<ReturnedData<CurrentCircleRowType[]>, CircleStudentsData>({
             query: (params) => ({
                 url: `/organization-management/circles/${params.circle_id}/students`,
                 method: 'GET',
                 params: params,
             }),
+            transformResponse: (response: ReturnedData<GetStudent[]>) => {
+                return mapReturnedData(response, (student: GetStudent) => {
+                    return {
+                        ...student,
+                        student_name: student.name,
+                        student_profile: {
+                            ...student.student_profile,
+                            phone: student.student_profile.phone,
+                            parent_names: student.student_profile.parent_names,
+                            parent_phones: student.student_profile.parent_phones,
+                        },
+                    }
+                })!
+            },
             providesTags: (result, error, arg) => [{ type: 'Circle', id: arg.circle_id }],
         }),
         deleteCircle: build.mutation<{ circle: GetCircle }, CircleData>({

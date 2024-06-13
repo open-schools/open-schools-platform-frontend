@@ -53,16 +53,6 @@ const CurrentCircle = () => {
         CANCELED: 0,
     }
 
-    const reformattedData = mapReturnedData(students, (student) => {
-        const transformedCircle = structuredClone(student) as unknown as CurrentCircleRowType
-        transformedCircle.id = student.id
-        transformedCircle.student_name = student.name
-        transformedCircle.student_phone = student.student_profile.phone
-        transformedCircle.parent_names = student.student_profile.parent_names?.replaceAll(',', ',\n')
-        transformedCircle.parent_phones = student.student_profile.parent_phones?.replaceAll(',', '\n')
-        return transformedCircle
-    })
-
     const countAllQueries = sumObjectValues(queriesCount)
     const addressVars = getVarsForAddressColumn(circle?.circle.address ?? '')
 
@@ -141,7 +131,7 @@ const CurrentCircle = () => {
                         ['Ф. И. О родителя', 'parent_names'],
                         ['Телефон родителя', 'parent_phones'],
                     ]}
-                    data={reformattedData}
+                    data={students}
                     mainRoute={RoutePath[AppRoutes.STUDENT_LIST]}
                     isLoading={isLoading}
                     needNumbering={true}

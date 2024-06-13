@@ -20,6 +20,8 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
+import { ReturnedData } from '@domains/common/redux/interfaces'
+import { GetTicket } from '@domains/ticket/redux/serializers'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -72,16 +74,6 @@ export function TicketList() {
     const { data: tickets, isLoading: isTicketsLoading } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
-    })
-
-    const reformattedData = mapReturnedData(tickets, (query) => {
-        const transformedQuery = structuredClone(query) as unknown as TableType
-        transformedQuery.content = query.last_comment.value
-        if (transformedQuery.content.length > 200) {
-            transformedQuery.content = transformedQuery.content.slice(0, 200) + '…'
-        }
-        transformedQuery.sender = 'Семья ' + query.sender?.name
-        return transformedQuery
     })
 
     useEffect(() => {
@@ -142,7 +134,7 @@ export function TicketList() {
                         ['Отправитель', 'sender'],
                     ]}
                     customWidths={[10, 10, 40, 30]}
-                    data={reformattedData}
+                    data={tickets as ReturnedData<TableType[]>}
                     isLoading={isTicketsLoading}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
                     searchFields={['created_at', 'content', 'sender']}
@@ -158,12 +150,11 @@ export function TicketList() {
 
                             return (
                                 <div className={styles.createdAtContainer}>
-                                    {reformattedData?.results[index].unread_sender_comments_count > 0 && (
+                                    {parseInt(tickets?.results[index]?.unread_sender_comments_count ?? '0') > 0 && (
                                         <div className={styles.unreadPoint}>
                                             <Image src={dot} alt={'Unread dot'} />
                                         </div>
                                     )}
-
                                     <div className={styles.dateContainer}>
                                         <div className={styles.additionalTextAddress}>
                                             <HighlightText text={date} searchText={searchText} />

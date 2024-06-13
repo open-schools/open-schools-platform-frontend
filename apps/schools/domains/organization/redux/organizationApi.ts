@@ -33,6 +33,11 @@ import {
     UpdateOrganizationInviteEmployee,
 } from '@domains/common/redux/serializers'
 import { GetTicket, GetTicketData, GetTicketsData } from '@domains/ticket/redux/serializers'
+import { mapReturnedData } from '@domains/common/redux/utils'
+import { TableType as TableTypeCircle } from '@domains/circle/components/circleList/interfaces'
+import { TableType as TableTypeTickets } from '@domains/ticket/components/ticketList/interfaces'
+import { TableType as TableTypeQuery } from '@domains/query/components/queryList/interfaces'
+import { useMemo } from 'react'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -68,12 +73,19 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             providesTags: (result) => providesList(result?.results, 'Student'),
         }),
-        getAllCircles: build.query<ReturnedData<GetOrganizationCircleList[]>, GetOrganizationCircleListData>({
+        getAllCircles: build.query<ReturnedData<TableTypeCircle[]>, GetOrganizationCircleListData>({
             query: (params) => ({
                 url: `/organization-management/organizations/${params.organization_id}/circles`,
                 method: 'GET',
                 params: params,
             }),
+            transformResponse: (response: ReturnedData<GetOrganizationCircleList[]>) => {
+                return mapReturnedData(response, (circle) => {
+                    const transformedCircle = structuredClone(circle) as unknown as TableTypeCircle
+                    transformedCircle.accepted_count = circle.student_profile_queries.ACCEPTED
+                    return transformedCircle
+                })!
+            },
             providesTags: (result) => providesList(result?.results, 'Circle'),
         }),
         getCurrentCircle: build.query<{ circle: GetOrganizationCircleList }, GetCurrentCircleData>({
@@ -165,6 +177,20 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            transformResponse: (response: ReturnedData<GetStudentJoinCircle[]>) => {
+                return useMemo(
+                    () =>
+                        mapReturnedData(response, (query) => {
+                            const transformedQuery = structuredClone(query) as unknown as TableTypeQuery
+                            transformedQuery.parent_name = query.additional.parent_name
+                            transformedQuery.parent_phone = query.additional.parent_phone
+                            transformedQuery.circle_name = query.recipient.name
+                            transformedQuery.student_name = query.body.name
+                            return transformedQuery
+                        }),
+                    [response],
+                )!
+            },
             providesTags: (result) => providesList(result?.results, 'StudentJoinCircleQuery'),
         }),
         getOrganizationAnalytics: build.query<{ analytics: GetAnalytics }, GetAnalyticsData>({
@@ -189,6 +215,19 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            transformResponse: (response: ReturnedData<GetTicket[]>) => {
+                return mapReturnedData(response, (query) => {
+                    return {
+                        ...query,
+                        content: query.last_comment.value,
+                        sender: 'Семья ' + query.sender?.name,
+                        contentTrimmed:
+                            query.last_comment.value.length > 200
+                                ? query.last_comment.value.slice(0, 200) + '…'
+                                : query.last_comment.value,
+                    } as TableTypeTickets
+                })!
+            },
             providesTags: ['Ticket'],
         }),
         getTicket: build.query<{ ticket: GetTicket }, GetTicketData>({
