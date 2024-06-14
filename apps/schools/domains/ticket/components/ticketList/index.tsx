@@ -128,7 +128,7 @@ export function TicketList() {
                         ['Создано', 'created_at'],
                         ['Статус', 'status'],
                         ['Содержание', 'content'],
-                        ['Отправитель', 'sender'],
+                        ['Семья', 'sender'],
                     ]}
                     customWidths={[10, 10, 40, 30]}
                     data={tickets}
