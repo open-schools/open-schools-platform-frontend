@@ -13,6 +13,7 @@ import {
 import { withLoadingMessage } from '@domains/common/utils/loading'
 import Cookies from 'universal-cookie'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { oneYearExpiresDate } from '@domains/common/constants/Cookies'
 
 export async function tokenHandler(
     recaptchaToken: string,
@@ -91,7 +92,7 @@ export async function registrationHandler(
         password: password,
     })
     if (!('error' in response)) {
-        cookies.set('jwtToken', response.data.token, { path: '/' })
+        cookies.set('jwtToken', response.data.token, { path: '/', expires: oneYearExpiresDate })
         message.success(SuccessRegistrationMsg)
         onFinish()
     } else if (response.error?.status === 401) {
