@@ -215,7 +215,7 @@ const organizationApi = commonApi.injectEndpoints({
                     return {
                         ...query,
                         content: query.last_comment.value,
-                        sender: 'Семья ' + query.sender?.name,
+                        sender: query.sender?.name,
                         contentTrimmed:
                             query.last_comment.value.length > 200
                                 ? query.last_comment.value.slice(0, 200) + '…'
