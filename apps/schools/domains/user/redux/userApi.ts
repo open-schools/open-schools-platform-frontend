@@ -54,8 +54,15 @@ const userApi = commonApi.injectEndpoints({
                 body: { otp: data.otp },
             }),
         }),
+        sendEmail: build.mutation<{}, {}>({
+            query: (data) => ({
+                url: '/organization-management/employees/employee-profile',
+                method: 'POST',
+                body: data,
+            }),
+        }),
     }),
 })
 
-export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation } =
+export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation, useSendEmailMutation} =
     userApi
