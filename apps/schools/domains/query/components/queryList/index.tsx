@@ -68,9 +68,14 @@ export function QueryList() {
         return items
     }, [analytics, statuses])
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(10)
+
     const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        page,
+        page_size: pageSize,
     })
 
     const countAllQueries = useMemo(
@@ -116,6 +121,15 @@ export function QueryList() {
                     ['Телефон родителя', 'parent_phone'],
                     ['Кружок', 'circle_name'],
                 ]}
+                pagination={{
+                    current: page,
+                    pageSize: pageSize,
+                    total: queries?.count,
+                    onChange: (page, pageSize) => {
+                        setPage(page)
+                        setPageSize(pageSize)
+                    },
+                }}
                 data={queries}
                 isLoading={isQueriesLoading}
                 mainRoute={RoutePath[AppRoutes.QUERY_LIST]}

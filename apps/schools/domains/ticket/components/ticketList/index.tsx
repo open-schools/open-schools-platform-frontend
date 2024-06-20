@@ -68,9 +68,14 @@ export function TicketList() {
         } as BubbleFilterListItem
     }
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(10)
+
     const { data: tickets, isLoading: isTicketsLoading } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
+        page,
+        page_size: pageSize,
     })
 
     useEffect(() => {
@@ -103,7 +108,7 @@ export function TicketList() {
             const localStatuses = [...(filters['status'] ?? [])] as string[]
             setStatuses(localStatuses.length === 0 ? null : localStatuses)
         },
-        [setStatuses],
+        [setPage, setPageSize, setStatuses],
     )
 
     return (
@@ -123,6 +128,15 @@ export function TicketList() {
             <div className={styles.tableTicketList}>
                 <Table<RowType, TableType>
                     loading={isTableLoading}
+                    pagination={{
+                        current: page,
+                        pageSize: pageSize,
+                        total: tickets?.count,
+                        onChange: (page, pageSize) => {
+                            setPage(page)
+                            setPageSize(pageSize)
+                        },
+                    }}
                     customType={'tableWithoutSearch'}
                     columnsTitlesAndKeys={[
                         ['Создано', 'created_at'],

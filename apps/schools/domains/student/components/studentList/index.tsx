@@ -23,9 +23,14 @@ export function StudentList() {
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
     })
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(10)
+
     const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        page,
+        page_size: pageSize,
     })
 
     const data = {
@@ -87,6 +92,15 @@ export function StudentList() {
                     ['Телефон обучающегося', 'student_phone'],
                     ['Телефон родителя', 'parent_phone'],
                 ]}
+                pagination={{
+                    current: page,
+                    pageSize: pageSize,
+                    total: students?.count,
+                    onChange: (page, pageSize) => {
+                        setPage(page)
+                        setPageSize(pageSize)
+                    },
+                }}
                 filterFields={['circle_name']}
                 data={data}
                 isLoading={isLoadingInvites || isLoadingStudents}

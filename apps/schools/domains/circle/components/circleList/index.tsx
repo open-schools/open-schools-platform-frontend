@@ -19,9 +19,14 @@ export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(10)
+
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        page,
+        page_size: pageSize,
     })
 
     return (
@@ -52,6 +57,15 @@ export function CircleList() {
                     ['Адрес', 'address'],
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
+                pagination={{
+                    current: page,
+                    pageSize: pageSize,
+                    total: circles?.count,
+                    onChange: (page, pageSize) => {
+                        setPage(page)
+                        setPageSize(pageSize)
+                    },
+                }}
                 data={circles}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.CIRCLE_LIST]}

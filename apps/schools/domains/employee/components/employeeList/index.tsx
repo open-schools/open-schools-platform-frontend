@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -16,9 +16,14 @@ export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(10)
+
     const { data, isLoading } = useGetAllEmployeesQuery({
         organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchColumns),
+        page,
+        page_size: pageSize,
     })
 
     return (
@@ -41,6 +46,15 @@ export function EmployeeList() {
                     ['Должность', 'position'],
                     ['Телефон', 'phone'],
                 ]}
+                pagination={{
+                    current: page,
+                    pageSize: pageSize,
+                    total: data?.count,
+                    onChange: (page, pageSize) => {
+                        setPage(page)
+                        setPageSize(pageSize)
+                    },
+                }}
                 data={data}
                 isLoading={isLoading}
                 mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
