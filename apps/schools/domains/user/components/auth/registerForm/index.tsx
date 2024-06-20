@@ -11,7 +11,7 @@ import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { registrationHandler } from '@domains/user/handlers/auth/register'
 import {useUsersMutation} from '@domains/user/redux/userApi'
-import {useUpdateEmployeeProfileByIdMutation} from "@domains/employee/redux/employeeApi";
+import {useGetAllEmployeesQuery, useUpdateEmployeeProfileByIdMutation} from "@domains/employee/redux/employeeApi";
 import {useUserProfile} from "@domains/user/providers/authProvider";
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
@@ -29,8 +29,13 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
+
     const [updateProfile] = useUpdateEmployeeProfileByIdMutation();
-    const { user } = useUserProfile();
+    const { user } = useUserProfile()
+    const { data: allEmployees, isLoading: employeesLoading } = useGetAllEmployeesQuery({
+        employee_profile: user.employee_profile?.id,
+    });
+
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password']);
 
@@ -39,13 +44,15 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                 const { email } = form.getFieldsValue(['email']);
                 const { name } = form.getFieldsValue(['name']);
 
-                if (user.employee_profile?.id) {
-                    const updateEmail = {
-                        employee_profile_id: user.employee_profile.id,
-                        name: name,
-                        email: email
+                if (!employeesLoading && allEmployees) {
+                    if (user.employee_profile?.id) {
+                        const updateEmail = {
+                            employee_profile_id: user.employee_profile.id,
+                            name: name,
+                            email: email
+                        }
+                        updateProfile(updateEmail);
                     }
-                    updateProfile(updateEmail);
                 }
             })
     }, [form, signInByPhone]);
