@@ -53,6 +53,7 @@ export function EmployeeList() {
                     onChange: (page, pageSize) => {
                         setPage(page)
                         setPageSize(pageSize)
+                        window.scrollTo({ top: 0, left: 0 })
                     },
                 }}
                 data={data}

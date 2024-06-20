@@ -128,6 +128,7 @@ export function QueryList() {
                     onChange: (page, pageSize) => {
                         setPage(page)
                         setPageSize(pageSize)
+                        window.scrollTo({ top: 0, left: 0 })
                     },
                 }}
                 data={queries}
