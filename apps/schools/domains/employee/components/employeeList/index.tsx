@@ -16,14 +16,16 @@ export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
+    const [state, setState] = useState({
+        page: 1,
+        pageSize: 10,
+    })
 
     const { data, isLoading } = useGetAllEmployeesQuery({
         organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchColumns),
-        page,
-        page_size: pageSize,
+        page: state.page,
+        page_size: state.pageSize,
     })
 
     return (
@@ -47,12 +49,14 @@ export function EmployeeList() {
                     ['Телефон', 'phone'],
                 ]}
                 pagination={{
-                    current: page,
-                    pageSize: pageSize,
+                    current: state.page,
+                    pageSize: state.pageSize,
                     total: data?.count,
                     onChange: (page, pageSize) => {
-                        setPage(page)
-                        setPageSize(pageSize)
+                        setState({
+                            page,
+                            pageSize,
+                        })
                         window.scrollTo({ top: 0, left: 0 })
                     },
                 }}

@@ -68,14 +68,16 @@ export function TicketList() {
         } as BubbleFilterListItem
     }
 
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
+    const [state, setState] = useState({
+        page: 1,
+        pageSize: 10,
+    })
 
     const { data: tickets, isLoading: isTicketsLoading } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
-        page,
-        page_size: pageSize,
+        page: state.page,
+        page_size: state.pageSize,
     })
 
     useEffect(() => {
@@ -108,7 +110,7 @@ export function TicketList() {
             const localStatuses = [...(filters['status'] ?? [])] as string[]
             setStatuses(localStatuses.length === 0 ? null : localStatuses)
         },
-        [setPage, setPageSize, setStatuses],
+        [setStatuses],
     )
 
     return (
@@ -129,12 +131,14 @@ export function TicketList() {
                 <Table<RowType, TableType>
                     loading={isTableLoading}
                     pagination={{
-                        current: page,
-                        pageSize: pageSize,
+                        current: state.page,
+                        pageSize: state.pageSize,
                         total: tickets?.count,
                         onChange: (page, pageSize) => {
-                            setPage(page)
-                            setPageSize(pageSize)
+                            setState({
+                                page,
+                                pageSize,
+                            })
                             window.scrollTo({ top: 0, left: 0 })
                         },
                     }}

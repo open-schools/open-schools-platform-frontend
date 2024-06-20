@@ -23,14 +23,16 @@ export function StudentList() {
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
     })
 
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
+    const [state, setState] = useState({
+        page: 1,
+        pageSize: 10,
+    })
 
     const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page,
-        page_size: pageSize,
+        page: state.page,
+        page_size: state.pageSize,
     })
 
     const data = {
@@ -93,12 +95,14 @@ export function StudentList() {
                     ['Телефон родителя', 'parent_phone'],
                 ]}
                 pagination={{
-                    current: page,
-                    pageSize: pageSize,
+                    current: state.page,
+                    pageSize: state.pageSize,
                     total: students?.count,
                     onChange: (page, pageSize) => {
-                        setPage(page)
-                        setPageSize(pageSize)
+                        setState({
+                            page,
+                            pageSize,
+                        })
                         window.scrollTo({ top: 0, left: 0 })
                     },
                 }}

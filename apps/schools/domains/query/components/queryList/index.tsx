@@ -68,14 +68,16 @@ export function QueryList() {
         return items
     }, [analytics, statuses])
 
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
+    const [state, setState] = useState({
+        page: 1,
+        pageSize: 10,
+    })
 
     const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page,
-        page_size: pageSize,
+        page: state.page,
+        page_size: state.pageSize,
     })
 
     const countAllQueries = useMemo(
@@ -122,12 +124,14 @@ export function QueryList() {
                     ['Кружок', 'circle_name'],
                 ]}
                 pagination={{
-                    current: page,
-                    pageSize: pageSize,
+                    current: state.page,
+                    pageSize: state.pageSize,
                     total: queries?.count,
                     onChange: (page, pageSize) => {
-                        setPage(page)
-                        setPageSize(pageSize)
+                        setState({
+                            page,
+                            pageSize,
+                        })
                         window.scrollTo({ top: 0, left: 0 })
                     },
                 }}
