@@ -76,23 +76,13 @@ export async function otpHandler(
     }
 }
 
-export async function sendEmail(token: string, email: string, sendEmailMutation: any) {
-    let response = await sendEmailMutation({ token, email });
-    if (!('error' in response)) {
-        message.success("Email successfully sent.");
-    } else {
-        message.error("Failed to send email.");
-    }
-}
-
 export async function registrationHandler(
     phone: string,
     password: string,
     userRegistrationMutation: any,
     onFinish: () => void,
     onError: () => void,
-    formComponent: FormInstance,
-    sendEmailMutation: any
+    formComponent: FormInstance
 ) {
     let token = localStorage.getItem('token')
     const cookies = new Cookies()
@@ -110,8 +100,6 @@ export async function registrationHandler(
     if (!('error' in response)) {
         cookies.set('jwtToken', response.data.token, { path: '/' })
         message.success(SuccessRegistrationMsg)
-        const { email } = formComponent.getFieldsValue(['email']);
-        await sendEmail(response.data.token, email, sendEmailMutation);
         onFinish()
     } else if (response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
