@@ -11,6 +11,8 @@ import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { registrationHandler } from '@domains/user/handlers/auth/register'
 import {useUsersMutation} from '@domains/user/redux/userApi'
+import {useGetAllEmployeesQuery, useUpdateEmployeeProfileByIdMutation} from "@domains/employee/redux/employeeApi";
+import {useUserProfile} from "@domains/user/providers/authProvider";
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -27,11 +29,29 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
-
+    const [updateProfile] = useUpdateEmployeeProfileByIdMutation();
+    const { user } = useUserProfile()
+    const { data: allEmployees, isLoading: employeesLoading } = useGetAllEmployeesQuery({employee_profile: user.employee_profile?.id,});
+    console.log(allEmployees);
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password']);
 
         await registrationHandler(phone, password, userRegistration, onFinish, onError, form)
+            .then(() => {
+                const { email } = form.getFieldsValue(['email']);
+                const { name } = form.getFieldsValue(['name']);
+
+                if (!employeesLoading && allEmployees) {
+                    if (user.employee_profile?.id) {
+                        const updateEmail = {
+                            employee_profile_id: user.employee_profile.id,
+                            name: name,
+                            email: email
+                        }
+                        updateProfile(updateEmail);
+                    }
+                }
+            })
     }, [form, signInByPhone]);
 
     const initialValues = {
