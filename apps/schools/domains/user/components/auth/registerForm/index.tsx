@@ -10,7 +10,8 @@ import { IRegisterFormProps } from './interfaces'
 import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { registrationHandler } from '@domains/user/handlers/auth/register'
-import {useSendEmailMutation, useUsersMutation} from '@domains/user/redux/userApi'
+import {useUsersMutation} from '@domains/user/redux/userApi'
+import {useUserProfile} from "@domains/user/providers/authProvider";
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -27,24 +28,17 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     const { signInByPhone } = /*useContext(AuthLayoutContext)*/ {
         signInByPhone: () => {},
     }
-    const [sendEmail] = useSendEmailMutation();
+    const { user } = useUserProfile();
 
     const registerComplete = useCallback(async () => {
-        const { password, email } = form.getFieldsValue(['password', 'email']);
-        await registrationHandler(phone, password, userRegistration, onFinish, onError, form, sendEmail)
-            .then(() => {
-                sendEmail({
-                    variables: {
-                        email: email
-                    }
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, [form, signInByPhone, sendEmail]);
+        const { password } = form.getFieldsValue(['password']);
 
-    const initialValues = { phone }
+        await registrationHandler(phone, password, userRegistration, onFinish, onError, form, sendEmail)
+    }, [form, signInByPhone]);
+
+    const initialValues = {
+        phone
+    }
 
     return (
         <Form
