@@ -30,9 +30,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
         signInByPhone: () => {},
     }
     const [updateProfile] = useUpdateEmployeeProfileByIdMutation();
-    const { user } = useUserProfile()
-    const { data: allEmployees, isLoading: employeesLoading } = useGetAllEmployeesQuery({employee_profile: user.employee_profile?.id,});
-    console.log(allEmployees);
+    const { user } = useUserProfile();
     const registerComplete = useCallback(async () => {
         const { password } = form.getFieldsValue(['password']);
 
@@ -41,15 +39,13 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                 const { email } = form.getFieldsValue(['email']);
                 const { name } = form.getFieldsValue(['name']);
 
-                if (!employeesLoading && allEmployees) {
-                    if (user.employee_profile?.id) {
-                        const updateEmail = {
-                            employee_profile_id: user.employee_profile.id,
-                            name: name,
-                            email: email
-                        }
-                        updateProfile(updateEmail);
+                if (user.employee_profile?.id) {
+                    const updateEmail = {
+                        employee_profile_id: user.employee_profile.id,
+                        name: name,
+                        email: email
                     }
+                    updateProfile(updateEmail);
                 }
             })
     }, [form, signInByPhone]);
