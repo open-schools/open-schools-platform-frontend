@@ -11,8 +11,7 @@ import { BUTTON_FORM_GUTTER_20 } from '../constants/styles'
 import { FirebaseReCaptchaContext } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { registrationHandler } from '@domains/user/handlers/auth/register'
 import {useUsersMutation} from '@domains/user/redux/userApi'
-import {useGetAllEmployeesQuery, useUpdateEmployeeProfileByIdMutation} from "@domains/employee/redux/employeeApi";
-import {useUserProfile} from "@domains/user/providers/authProvider";
+import {useUpdateEmployeeProfileByIdMutation} from "@domains/employee/redux/employeeApi";
 import {useLazyGetUserQuery} from "@domains/user/redux/authenticationApi";
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
