@@ -11,17 +11,18 @@ import { GetListEmployee } from '@domains/employee/redux/interfaces'
 import { RowType } from '@domains/employee/components/employeeList/interfaces'
 import { searchColumns } from '@domains/employee/components/employeeList/constants'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
     const [state, setState] = useState({
-        page: 1,
-        pageSize: 10,
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
     })
 
-    const { data, isLoading } = useGetAllEmployeesQuery({
+    const { data, isFetching } = useGetAllEmployeesQuery({
         organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchColumns),
         page: state.page,
@@ -61,7 +62,7 @@ export function EmployeeList() {
                     },
                 }}
                 data={data}
-                isLoading={isLoading}
+                isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 searchFields={searchColumns}
                 searchRequestText={searchRequestText}

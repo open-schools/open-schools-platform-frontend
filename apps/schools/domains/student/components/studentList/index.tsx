@@ -12,6 +12,7 @@ import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domai
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -24,11 +25,11 @@ export function StudentList() {
     })
 
     const [state, setState] = useState({
-        page: 1,
-        pageSize: 10,
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
     })
 
-    const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
+    const { data: students, isFetching: isFetchingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
         page: state.page,
@@ -71,7 +72,7 @@ export function StudentList() {
             buttonText={'Добавить обучающегося'}
             pageTitle={'Обучающиеся'}
             data={data}
-            isLoading={isLoadingStudents || isLoadingInvites}
+            isLoading={isFetchingStudents || isLoadingInvites}
             handleRunTask={() => router.push(RoutePath[AppRoutes.STUDENT_CREATE])}
             searchTrigger={searchRequestText}
         >
@@ -108,7 +109,7 @@ export function StudentList() {
                 }}
                 filterFields={['circle_name']}
                 data={data}
-                isLoading={isLoadingInvites || isLoadingStudents}
+                isLoading={isLoadingInvites || isFetchingStudents}
                 mainRoute={RoutePath[AppRoutes.STUDENT_LIST]}
                 searchFields={['student_name', 'student_phone', 'parent_phone', 'circle_name']}
                 searchRequestText={searchRequestText}

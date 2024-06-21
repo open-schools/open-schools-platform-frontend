@@ -19,6 +19,7 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -69,11 +70,11 @@ export function TicketList() {
     }
 
     const [state, setState] = useState({
-        page: 1,
-        pageSize: 10,
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
     })
 
-    const { data: tickets, isLoading: isTicketsLoading } = useGetAllTicketsQuery({
+    const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
         page: state.page,
@@ -81,10 +82,10 @@ export function TicketList() {
     })
 
     useEffect(() => {
-        if (!isTicketsLoading && tickets) {
+        if (!isTicketsFetching && tickets) {
             setIsTableLoading(false)
         }
-    }, [isTicketsLoading, tickets])
+    }, [isTicketsFetching, tickets])
 
     const handleInputChange: HandleInputChange = useCallback(
         (text) => {
@@ -119,7 +120,7 @@ export function TicketList() {
             descriptionText={'Дождитесь первого обращения'}
             pageTitle={'Обращения'}
             data={tickets}
-            isLoading={isTicketsLoading}
+            isLoading={isTicketsFetching}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -151,7 +152,7 @@ export function TicketList() {
                     ]}
                     customWidths={[10, 10, 40, 30]}
                     data={tickets}
-                    isLoading={isTicketsLoading}
+                    isLoading={isTicketsFetching}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
                     searchFields={['created_at', 'content', 'sender']}
                     customFields={{

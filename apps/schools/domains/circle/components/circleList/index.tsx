@@ -14,14 +14,15 @@ import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
     const [state, setState] = useState({
-        page: 1,
-        pageSize: 10,
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
     })
 
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({

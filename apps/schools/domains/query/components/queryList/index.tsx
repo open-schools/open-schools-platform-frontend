@@ -20,6 +20,7 @@ import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import SearchInput from '@domains/common/components/searchInput'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
@@ -69,11 +70,11 @@ export function QueryList() {
     }, [analytics, statuses])
 
     const [state, setState] = useState({
-        page: 1,
-        pageSize: 10,
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
     })
 
-    const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
+    const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
         page: state.page,
@@ -86,10 +87,10 @@ export function QueryList() {
     )
 
     useEffect(() => {
-        if (!isQueriesLoading && queries) {
+        if (!isQueriesFetching && queries) {
             setIsTableLoading(false)
         }
-    }, [isQueriesLoading, queries])
+    }, [isQueriesFetching, queries])
 
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
@@ -104,7 +105,7 @@ export function QueryList() {
             descriptionText={'Дождитесь первой заявки'}
             pageTitle={'Заявки'}
             data={queries}
-            isLoading={isQueriesLoading}
+            isLoading={isQueriesFetching}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -136,7 +137,7 @@ export function QueryList() {
                     },
                 }}
                 data={queries}
-                isLoading={isQueriesLoading}
+                isLoading={isQueriesFetching}
                 mainRoute={RoutePath[AppRoutes.QUERY_LIST]}
                 searchFields={[
                     'created_at',
