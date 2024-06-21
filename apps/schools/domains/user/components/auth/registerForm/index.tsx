@@ -1,5 +1,5 @@
 import { Col, Form, Row } from 'antd'
-import React, { PropsWithChildren, useCallback, useContext, useState } from 'react'
+import React, {PropsWithChildren, useCallback, useContext, useEffect, useState} from 'react'
 
 import styles from '../styles/formStyles.module.scss'
 import { ResponsiveCol } from '../containers/ResponsiveCol'
@@ -13,6 +13,7 @@ import { registrationHandler } from '@domains/user/handlers/auth/register'
 import {useUsersMutation} from '@domains/user/redux/userApi'
 import {useGetAllEmployeesQuery, useUpdateEmployeeProfileByIdMutation} from "@domains/employee/redux/employeeApi";
 import {useUserProfile} from "@domains/user/providers/authProvider";
+import {useLazyGetUserQuery} from "@domains/user/redux/authenticationApi";
 
 const RequiredFlagWrapper: React.FC<PropsWithChildren<any>> = (props) => {
     return <div className={styles.requiredField}>{props.children}</div>
@@ -31,31 +32,30 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     }
 
     const [updateProfile] = useUpdateEmployeeProfileByIdMutation();
-    const { user } = useUserProfile()
-    const { data: allEmployees, isLoading: employeesLoading } = useGetAllEmployeesQuery({
-        employee_profile: user.employee_profile?.id,
-    });
+    const [getLazyUser, {data}] = useLazyGetUserQuery();
 
-    const registerComplete = useCallback(async () => {
+    const registerComplete = useCallback(() => {
         const { password } = form.getFieldsValue(['password']);
 
-        await registrationHandler(phone, password, userRegistration, onFinish, onError, form)
-            .then(() => {
-                const { email } = form.getFieldsValue(['email']);
-                const { name } = form.getFieldsValue(['name']);
+        registrationHandler(phone, password, userRegistration, onFinish, onError, form)
+            .then(async () => {
+                await getLazyUser();
+            });
+    }, [form, signInByPhone, getLazyUser]);
 
-                if (!employeesLoading && allEmployees) {
-                    if (user.employee_profile?.id) {
-                        const updateEmail = {
-                            employee_profile_id: user.employee_profile.id,
-                            name: name,
-                            email: email
-                        }
-                        updateProfile(updateEmail);
-                    }
-                }
-            })
-    }, [form, signInByPhone]);
+    useEffect(() => {
+        const { email } = form.getFieldsValue(['email']);
+        const { name } = form.getFieldsValue(['name']);
+
+        if (data && data.user.employee_profile?.id) {
+            const updateEmail = {
+                employee_profile_id: data.user.employee_profile.id,
+                name: name,
+                email: email
+            };
+            updateProfile(updateEmail);
+        }
+    }, [data, updateProfile]);
 
     const initialValues = {
         phone
