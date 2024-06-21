@@ -38,7 +38,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
 
         registrationHandler(phone, password, userRegistration, onFinish, onError, form)
             .then(async () => {
-                await getLazyUser();
+                await getLazyUser({});
             });
     }, [form, signInByPhone, getLazyUser]);
 
