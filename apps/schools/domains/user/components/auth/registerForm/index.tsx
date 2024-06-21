@@ -36,7 +36,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     const registerComplete = useCallback(() => {
         const { password } = form.getFieldsValue(['password']);
 
-        registrationHandler(phone, password, userRegistration, onFinish, onError, form)
+        registrationHandler(phone, password, userRegistration, onError, form)
             .then(async () => {
                 await getLazyUser({});
             });
@@ -53,6 +53,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                 email: email
             };
             updateProfile(updateEmail);
+            onFinish();
         }
     }, [data, updateProfile]);
 

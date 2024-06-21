@@ -78,7 +78,6 @@ export async function registrationHandler(
     phone: string,
     password: string,
     userRegistrationMutation: any,
-    onFinish: () => void,
     onError: () => void,
     formComponent: FormInstance
 ) {
@@ -98,7 +97,6 @@ export async function registrationHandler(
     if (!('error' in response)) {
         cookies.set('jwtToken', response.data.token, { path: '/' })
         message.success(SuccessRegistrationMsg)
-        onFinish()
     } else if (response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
         onError()
