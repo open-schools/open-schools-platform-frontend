@@ -70,7 +70,7 @@ export function TicketList() {
         } as BubbleFilterListItem
     }
 
-    const [state, setState] = useState({
+    const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
         pageSize: defaultPaginationTablePageSize,
     })
@@ -78,8 +78,8 @@ export function TicketList() {
     const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
-        page: state.page,
-        page_size: state.pageSize,
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     useEffect(() => {
@@ -133,11 +133,11 @@ export function TicketList() {
                 <Table<RowType, TableType>
                     loading={isTableLoading}
                     pagination={{
-                        current: state.page,
-                        pageSize: state.pageSize,
+                        current: paginationParams.page,
+                        pageSize: paginationParams.pageSize,
                         total: tickets?.count,
                         onChange: (page, pageSize) => {
-                            setState({
+                            setPaginationParams({
                                 page,
                                 pageSize,
                             })

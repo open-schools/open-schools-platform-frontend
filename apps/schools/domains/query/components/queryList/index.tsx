@@ -70,7 +70,7 @@ export function QueryList() {
         return items
     }, [analytics, statuses])
 
-    const [state, setState] = useState({
+    const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
         pageSize: defaultPaginationTablePageSize,
     })
@@ -78,8 +78,8 @@ export function QueryList() {
     const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page: state.page,
-        page_size: state.pageSize,
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     const countAllQueries = useMemo(
@@ -126,11 +126,11 @@ export function QueryList() {
                     ['Кружок', 'circle_name'],
                 ]}
                 pagination={{
-                    current: state.page,
-                    pageSize: state.pageSize,
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
                     total: queries?.count,
                     onChange: (page, pageSize) => {
-                        setState({
+                        setPaginationParams({
                             page,
                             pageSize,
                         })

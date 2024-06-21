@@ -18,7 +18,7 @@ export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
-    const [state, setState] = useState({
+    const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
         pageSize: defaultPaginationTablePageSize,
     })
@@ -26,8 +26,8 @@ export function EmployeeList() {
     const { data, isFetching } = useGetAllEmployeesQuery({
         organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchColumns),
-        page: state.page,
-        page_size: state.pageSize,
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     return (
@@ -51,11 +51,11 @@ export function EmployeeList() {
                     ['Телефон', 'phone'],
                 ]}
                 pagination={{
-                    current: state.page,
-                    pageSize: state.pageSize,
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
                     total: data?.count,
                     onChange: (page, pageSize) => {
-                        setState({
+                        setPaginationParams({
                             page,
                             pageSize,
                         })

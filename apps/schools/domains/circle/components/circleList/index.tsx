@@ -21,7 +21,7 @@ export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
-    const [state, setState] = useState({
+    const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
         pageSize: defaultPaginationTablePageSize,
     })
@@ -29,8 +29,8 @@ export function CircleList() {
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page: state.page,
-        page_size: state.pageSize,
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     return (
@@ -62,11 +62,11 @@ export function CircleList() {
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
                 pagination={{
-                    current: state.page,
-                    pageSize: state.pageSize,
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
                     total: circles?.count,
                     onChange: (page, pageSize) => {
-                        setState({
+                        setPaginationParams({
                             page,
                             pageSize,
                         })

@@ -25,7 +25,7 @@ export function StudentList() {
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
     })
 
-    const [state, setState] = useState({
+    const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
         pageSize: defaultPaginationTablePageSize,
     })
@@ -33,8 +33,8 @@ export function StudentList() {
     const { data: students, isFetching: isFetchingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page: state.page,
-        page_size: state.pageSize,
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     const data = {
@@ -97,11 +97,11 @@ export function StudentList() {
                     ['Телефон родителя', 'parent_phone'],
                 ]}
                 pagination={{
-                    current: state.page,
-                    pageSize: state.pageSize,
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
                     total: students?.count,
                     onChange: (page, pageSize) => {
-                        setState({
+                        setPaginationParams({
                             page,
                             pageSize,
                         })
