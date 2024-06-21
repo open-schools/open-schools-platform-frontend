@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
