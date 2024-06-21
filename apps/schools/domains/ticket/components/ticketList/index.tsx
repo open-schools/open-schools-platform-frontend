@@ -19,6 +19,8 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -68,16 +70,23 @@ export function TicketList() {
         } as BubbleFilterListItem
     }
 
-    const { data: tickets, isLoading: isTicketsLoading } = useGetAllTicketsQuery({
+    const [paginationParams, setPaginationParams] = useState({
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
+    })
+
+    const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     useEffect(() => {
-        if (!isTicketsLoading && tickets) {
+        if (!isTicketsFetching && tickets) {
             setIsTableLoading(false)
         }
-    }, [isTicketsLoading, tickets])
+    }, [isTicketsFetching, tickets])
 
     const handleInputChange: HandleInputChange = useCallback(
         (text) => {
@@ -112,7 +121,7 @@ export function TicketList() {
             descriptionText={'Дождитесь первого обращения'}
             pageTitle={'Обращения'}
             data={tickets}
-            isLoading={isTicketsLoading}
+            isLoading={isTicketsFetching}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -123,6 +132,18 @@ export function TicketList() {
             <div className={styles.tableTicketList}>
                 <Table<RowType, TableType>
                     loading={isTableLoading}
+                    pagination={{
+                        current: paginationParams.page,
+                        pageSize: paginationParams.pageSize,
+                        total: tickets?.count,
+                        onChange: (page, pageSize) => {
+                            setPaginationParams({
+                                page,
+                                pageSize,
+                            })
+                            scrollToTop()
+                        },
+                    }}
                     customType={'tableWithoutSearch'}
                     columnsTitlesAndKeys={[
                         ['Создано', 'created_at'],
@@ -132,7 +153,7 @@ export function TicketList() {
                     ]}
                     customWidths={[10, 10, 40, 30]}
                     data={tickets}
-                    isLoading={isTicketsLoading}
+                    isLoading={isTicketsFetching}
                     mainRoute={RoutePath[AppRoutes.TICKETS_LIST]}
                     searchFields={['created_at', 'content', 'sender']}
                     customFields={{

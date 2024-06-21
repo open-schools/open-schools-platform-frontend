@@ -20,6 +20,8 @@ import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import SearchInput from '@domains/common/components/searchInput'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
@@ -68,9 +70,16 @@ export function QueryList() {
         return items
     }, [analytics, statuses])
 
-    const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
+    const [paginationParams, setPaginationParams] = useState({
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
+    })
+
+    const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     const countAllQueries = useMemo(
@@ -79,10 +88,10 @@ export function QueryList() {
     )
 
     useEffect(() => {
-        if (!isQueriesLoading && queries) {
+        if (!isQueriesFetching && queries) {
             setIsTableLoading(false)
         }
-    }, [isQueriesLoading, queries])
+    }, [isQueriesFetching, queries])
 
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
@@ -97,7 +106,7 @@ export function QueryList() {
             descriptionText={'Дождитесь первой заявки'}
             pageTitle={'Заявки'}
             data={queries}
-            isLoading={isQueriesLoading}
+            isLoading={isQueriesFetching}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -116,8 +125,20 @@ export function QueryList() {
                     ['Телефон родителя', 'parent_phone'],
                     ['Кружок', 'circle_name'],
                 ]}
+                pagination={{
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
+                    total: queries?.count,
+                    onChange: (page, pageSize) => {
+                        setPaginationParams({
+                            page,
+                            pageSize,
+                        })
+                        scrollToTop()
+                    },
+                }}
                 data={queries}
-                isLoading={isQueriesLoading}
+                isLoading={isQueriesFetching}
                 mainRoute={RoutePath[AppRoutes.QUERY_LIST]}
                 searchFields={[
                     'created_at',
