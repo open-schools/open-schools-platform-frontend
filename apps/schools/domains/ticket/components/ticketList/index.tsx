@@ -20,6 +20,7 @@ import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -140,7 +141,7 @@ export function TicketList() {
                                 page,
                                 pageSize,
                             })
-                            window.scrollTo({ top: 0, left: 0 })
+                            scrollToTop()
                         },
                     }}
                     customType={'tableWithoutSearch'}

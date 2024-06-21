@@ -12,6 +12,7 @@ import { RowType } from '@domains/employee/components/employeeList/interfaces'
 import { searchColumns } from '@domains/employee/components/employeeList/constants'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function EmployeeList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -58,7 +59,7 @@ export function EmployeeList() {
                             page,
                             pageSize,
                         })
-                        window.scrollTo({ top: 0, left: 0 })
+                        scrollToTop()
                     },
                 }}
                 data={data}

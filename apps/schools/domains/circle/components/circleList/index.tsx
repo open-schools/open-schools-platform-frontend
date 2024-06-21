@@ -15,6 +15,7 @@ import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -69,7 +70,7 @@ export function CircleList() {
                             page,
                             pageSize,
                         })
-                        window.scrollTo({ top: 0, left: 0 })
+                        scrollToTop()
                     },
                 }}
                 data={circles}

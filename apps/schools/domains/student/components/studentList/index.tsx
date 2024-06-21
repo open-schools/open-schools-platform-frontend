@@ -13,6 +13,7 @@ import { StatusesEnum } from '@domains/common/constants/Enums'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -104,7 +105,7 @@ export function StudentList() {
                             page,
                             pageSize,
                         })
-                        window.scrollTo({ top: 0, left: 0 })
+                        scrollToTop()
                     },
                 }}
                 filterFields={['circle_name']}
