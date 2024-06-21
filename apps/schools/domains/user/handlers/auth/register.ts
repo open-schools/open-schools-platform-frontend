@@ -21,8 +21,6 @@ export async function tokenHandler(
     registrationMutation: any,
     onFinish: () => void,
 ) {
-    console.log(formComponent.getFieldsValue())
-
     if (recaptchaToken === '') return
 
     let { phone: inputPhone } = formComponent.getFieldsValue(['phone'])
