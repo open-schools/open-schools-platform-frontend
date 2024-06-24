@@ -6,7 +6,7 @@ export interface GetTicket {
     last_comment: GetTicketComment
     recipient: GetOrganization
     created_at: string
-    unread_sender_comments_count?: string
+    unread_sender_comments_count: number
     unread_recipient_comments_count?: string
     sender?: GetFamily
     status?: QueriesTypes

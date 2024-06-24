@@ -2,6 +2,7 @@ import { FormInstance, message } from 'antd'
 import { LoadingMsg, SuccessSignInMsg, WrongLoginOrPasswordMsg } from '@domains/user/components/auth/constants/message'
 import { withLoadingMessage } from '@domains/common/utils/loading'
 import Cookies from 'universal-cookie'
+import { oneYearExpiresDate } from '@domains/common/constants/Cookies'
 
 export async function loginHandler(phone: string, password: string, login: any, formComponent: FormInstance) {
     const cookies = new Cookies()
@@ -11,7 +12,7 @@ export async function loginHandler(phone: string, password: string, login: any, 
         password: password,
     })
     if ('data' in response) {
-        cookies.set('jwtToken', response.data.token, { path: '/' })
+        cookies.set('jwtToken', response.data.token, { path: '/', expires: oneYearExpiresDate })
         message.success(SuccessSignInMsg)
         window.location.href = '/'
     } else if (response.error?.data.error.message.indexOf('non_field_errors') >= 0) {

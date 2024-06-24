@@ -7,6 +7,7 @@ import { Button } from '@domains/common/components/button'
 import { Typography } from 'antd'
 import Cookie from 'universal-cookie'
 import { COOKIE_AGREEMENT_KEY } from '@domains/user/components/auth/constants/variables'
+import { oneYearExpiresDate } from '@domains/common/constants/Cookies'
 
 export const PopupCookie = () => {
     const cookies = new Cookie()
@@ -15,7 +16,7 @@ export const PopupCookie = () => {
     const [cookiesNotAccepted, setCookiesNotAccepted] = useState(true)
 
     const acceptCookieAgreement = useCallback(() => {
-        cookies.set(COOKIE_AGREEMENT_KEY, 'true')
+        cookies.set(COOKIE_AGREEMENT_KEY, 'true', { expires: oneYearExpiresDate })
         setCookiesNotAccepted(false)
         setIsShown(false)
     }, [])

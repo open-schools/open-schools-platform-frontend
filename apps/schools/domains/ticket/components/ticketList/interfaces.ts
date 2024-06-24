@@ -12,4 +12,5 @@ export interface TableType {
     status?: string
     content?: string
     sender?: string
+    unread_sender_comments_count: number
 }

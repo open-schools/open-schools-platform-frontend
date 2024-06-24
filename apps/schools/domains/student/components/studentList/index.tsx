@@ -12,6 +12,8 @@ import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domai
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -23,9 +25,16 @@ export function StudentList() {
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
     })
 
-    const { data: students, isLoading: isLoadingStudents } = useGetAllStudentsQuery({
+    const [paginationParams, setPaginationParams] = useState({
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
+    })
+
+    const { data: students, isFetching: isFetchingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     const data = {
@@ -64,7 +73,7 @@ export function StudentList() {
             buttonText={'Добавить обучающегося'}
             pageTitle={'Обучающиеся'}
             data={data}
-            isLoading={isLoadingStudents || isLoadingInvites}
+            isLoading={isFetchingStudents || isLoadingInvites}
             handleRunTask={() => router.push(RoutePath[AppRoutes.STUDENT_CREATE])}
             searchTrigger={searchRequestText}
         >
@@ -87,9 +96,21 @@ export function StudentList() {
                     ['Телефон обучающегося', 'student_phone'],
                     ['Телефон родителя', 'parent_phone'],
                 ]}
+                pagination={{
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
+                    total: students?.count,
+                    onChange: (page, pageSize) => {
+                        setPaginationParams({
+                            page,
+                            pageSize,
+                        })
+                        scrollToTop()
+                    },
+                }}
                 filterFields={['circle_name']}
                 data={data}
-                isLoading={isLoadingInvites || isLoadingStudents}
+                isLoading={isLoadingInvites || isFetchingStudents}
                 mainRoute={RoutePath[AppRoutes.STUDENT_LIST]}
                 searchFields={['student_name', 'student_phone', 'parent_phone', 'circle_name']}
                 searchRequestText={searchRequestText}

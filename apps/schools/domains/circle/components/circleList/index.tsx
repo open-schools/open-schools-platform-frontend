@@ -14,20 +14,23 @@ import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
 
+    const [paginationParams, setPaginationParams] = useState({
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
+    })
+
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-    })
-
-    const reformattedData = mapReturnedData(circles, (circle) => {
-        const transformedCircle = structuredClone(circle) as unknown as TableType
-        transformedCircle.accepted_count = circle.student_profile_queries.ACCEPTED
-        return transformedCircle
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     return (
@@ -58,7 +61,19 @@ export function CircleList() {
                     ['Адрес', 'address'],
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
-                data={reformattedData}
+                pagination={{
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
+                    total: circles?.count,
+                    onChange: (page, pageSize) => {
+                        setPaginationParams({
+                            page,
+                            pageSize,
+                        })
+                        scrollToTop()
+                    },
+                }}
+                data={circles}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.CIRCLE_LIST]}
                 searchFields={['name', 'address']}

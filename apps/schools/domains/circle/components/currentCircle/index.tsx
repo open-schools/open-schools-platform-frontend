@@ -13,14 +13,13 @@ import { useOrganization } from '@domains/organization/providers/organizationPro
 import { CARD_HEAD_STYLE } from '@domains/circle/components/currentCircle/styles/styles'
 import { Table } from '@domains/common/components/table'
 import { createSearchTextForRequest } from '@domains/common/utils/searchText'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
 import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
 
 import android from '@public/image/Android.svg'
 
 import { searchColumns } from './constants'
-import { CurrentCircleRowType } from './interfaces'
+import { RowType, TableType } from './interfaces'
 import styles from './styles/styles.module.scss'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { StatusesEnum } from '@domains/common/constants/Enums'
@@ -52,16 +51,6 @@ const CurrentCircle = () => {
         DECLINED: 0,
         CANCELED: 0,
     }
-
-    const reformattedData = mapReturnedData(students, (student) => {
-        const transformedCircle = structuredClone(student) as unknown as CurrentCircleRowType
-        transformedCircle.id = student.id
-        transformedCircle.student_name = student.name
-        transformedCircle.student_phone = student.student_profile.phone
-        transformedCircle.parent_names = student.student_profile.parent_names?.replaceAll(',', ',\n')
-        transformedCircle.parent_phones = student.student_profile.parent_phones?.replaceAll(',', '\n')
-        return transformedCircle
-    })
 
     const countAllQueries = sumObjectValues(queriesCount)
     const addressVars = getVarsForAddressColumn(circle?.circle.address ?? '')
@@ -134,14 +123,14 @@ const CurrentCircle = () => {
                 </Col>
             </Row>
             <div className={styles.tableContainer}>
-                <Table<CurrentCircleRowType, CurrentCircleRowType>
+                <Table<RowType, TableType>
                     columnsTitlesAndKeys={[
                         ['Ф. И. О обучающегося', 'student_name'],
                         ['Телефон обучающегося', 'student_phone'],
                         ['Ф. И. О родителя', 'parent_names'],
                         ['Телефон родителя', 'parent_phones'],
                     ]}
-                    data={reformattedData}
+                    data={students}
                     mainRoute={RoutePath[AppRoutes.STUDENT_LIST]}
                     isLoading={isLoading}
                     needNumbering={true}

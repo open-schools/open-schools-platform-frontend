@@ -11,7 +11,6 @@ import {
     useGetOrganizationAnalyticsQuery,
 } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { isReactElement } from '@domains/common/utils/react'
 import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
@@ -21,6 +20,8 @@ import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import SearchInput from '@domains/common/components/searchInput'
+import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
@@ -69,9 +70,16 @@ export function QueryList() {
         return items
     }, [analytics, statuses])
 
-    const { data: queries, isLoading: isQueriesLoading } = useGetAllJoinCircleQueriesQuery({
+    const [paginationParams, setPaginationParams] = useState({
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
+    })
+
+    const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        page: paginationParams.page,
+        page_size: paginationParams.pageSize,
     })
 
     const countAllQueries = useMemo(
@@ -79,24 +87,11 @@ export function QueryList() {
         [analytics, isAnalyticsLoading],
     )
 
-    const reformattedData = useMemo(
-        () =>
-            mapReturnedData(queries, (query) => {
-                const transformedQuery = structuredClone(query) as unknown as TableType
-                transformedQuery.parent_name = query.additional.parent_name
-                transformedQuery.parent_phone = query.additional.parent_phone
-                transformedQuery.circle_name = query.recipient.name
-                transformedQuery.student_name = query.body.name
-                return transformedQuery
-            }),
-        [queries],
-    )
-
     useEffect(() => {
-        if (!isQueriesLoading && queries) {
+        if (!isQueriesFetching && queries) {
             setIsTableLoading(false)
         }
-    }, [isQueriesLoading, queries])
+    }, [isQueriesFetching, queries])
 
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
@@ -111,7 +106,7 @@ export function QueryList() {
             descriptionText={'Дождитесь первой заявки'}
             pageTitle={'Заявки'}
             data={queries}
-            isLoading={isQueriesLoading}
+            isLoading={isQueriesFetching}
             searchTrigger={searchRequestText}
         >
             <div className={styles.header}>
@@ -130,8 +125,20 @@ export function QueryList() {
                     ['Телефон родителя', 'parent_phone'],
                     ['Кружок', 'circle_name'],
                 ]}
-                data={reformattedData}
-                isLoading={isQueriesLoading}
+                pagination={{
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
+                    total: queries?.count,
+                    onChange: (page, pageSize) => {
+                        setPaginationParams({
+                            page,
+                            pageSize,
+                        })
+                        scrollToTop()
+                    },
+                }}
+                data={queries}
+                isLoading={isQueriesFetching}
                 mainRoute={RoutePath[AppRoutes.QUERY_LIST]}
                 searchFields={[
                     'created_at',

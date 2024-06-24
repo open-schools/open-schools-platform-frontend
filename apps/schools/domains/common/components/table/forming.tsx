@@ -1,5 +1,5 @@
 import { ColumnType } from 'antd/lib/table/interface'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styles from './styles/styles.module.scss'
 import { getSearchText } from '@domains/common/utils/searchText'
 import {
@@ -53,7 +53,7 @@ export function useGenerateFullColumns<RowType>(
                     const obj = (record as any)[column.dataIndex]
 
                     if (!isReactElement(obj)) return obj === value
-                    return obj.props.text === value
+                    return (obj as ReactElement).props.text === value
                 },
             }
         }
