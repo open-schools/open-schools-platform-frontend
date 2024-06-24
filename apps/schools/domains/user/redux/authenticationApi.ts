@@ -45,6 +45,7 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useGetUserQuery,
+    useLazyGetUserQuery,
     useUpdateUserMutation,
     useUpdatePasswordMutation,
 } = authenticationApi

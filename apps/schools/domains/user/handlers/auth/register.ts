@@ -79,22 +79,25 @@ export async function registrationHandler(
     phone: string,
     password: string,
     userRegistrationMutation: any,
-    onFinish: () => void,
     onError: () => void,
-    formComponent: FormInstance,
+    formComponent: FormInstance
 ) {
     let token = localStorage.getItem('token')
     const cookies = new Cookies()
     cookies.remove('jwtToken')
+
+    const { email } = formComponent.getFieldsValue(['email']);
+    const { name } = formComponent.getFieldsValue(['name']);
+
     let response = await withLoadingMessage(LoadingMsg, userRegistrationMutation, {
         token: token,
-        name: phone,
+        name: name,
+        email: email,
         password: password,
     })
     if (!('error' in response)) {
         cookies.set('jwtToken', response.data.token, { path: '/', expires: oneYearExpiresDate })
         message.success(SuccessRegistrationMsg)
-        onFinish()
     } else if (response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
         onError()
