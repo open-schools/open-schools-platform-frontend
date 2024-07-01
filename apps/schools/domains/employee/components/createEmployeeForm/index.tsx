@@ -7,9 +7,7 @@ import { useCreateEmployeeFormValidators } from './hooks'
 import { useInviteEmployeeMutation } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { handleSubmitForm } from '@domains/employee/handlers/employeeCreate'
-import router, { useRouter } from 'next/router'
-import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
-import { TOOLTIP_MARGIN } from '@domains/employee/components/createEmployeeForm/styles/styles'
+import { useRouter } from 'next/router'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import {
     EMPLOYEE_EMAIL,
@@ -45,55 +43,47 @@ export const CreateEmployeeForm = () => {
             }}
             layout='vertical'
         >
-            <Typography.Title level={1}>Добавление Сотрудника</Typography.Title>
-            <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
-                <Form.Item
-                    required={true}
-                    label={
-                        <span>
+            <Typography.Title level={1}>Добавление сотрудника</Typography.Title>
+            <Form.Item
+                required={true}
+                label={
+                    <span>
                             <span className={styles.requiredMark}>*</span> Телефон сотрудника
                         </span>
-                    }
-                    name={EMPLOYEE_PHONE}
-                    className={styles.label}
-                    rules={validators.phone}
-                >
-                    <Input required={true} customType='inputPhone' placeholder='Введите телефон сотрудника' />
-                </Form.Item>
-            </WithTooltip>
+                }
+                name={EMPLOYEE_PHONE}
+                className={styles.label}
+                rules={validators.phone}
+            >
+                <Input required={true} customType='inputPhone' placeholder='Введите телефон сотрудника' />
+            </Form.Item>
 
-            <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
-                <Form.Item
-                    required
-                    label={
-                        <span>
+            <Form.Item
+                required
+                label={
+                    <span>
                             <span className={styles.requiredMark}>*</span> Ф. И. О. сотрудника
                         </span>
-                    }
-                    name={EMPLOYEE_NAME}
-                    className={styles.label}
-                    rules={validators.name}
-                >
-                    <Input placeholder='Введите Ф. И. О. сотрудника' />
-                </Form.Item>
-            </WithTooltip>
+                }
+                name={EMPLOYEE_NAME}
+                className={styles.label}
+                rules={validators.name}
+            >
+                <Input placeholder='Введите Ф. И. О. сотрудника' />
+            </Form.Item>
 
-            <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
-                <Form.Item
-                    label='Email сотрудника'
-                    name={EMPLOYEE_EMAIL}
-                    className={styles.label}
-                    rules={validators.email}
-                >
-                    <Input type='email' placeholder='Введите email сотрудника' />
-                </Form.Item>
-            </WithTooltip>
+            <Form.Item
+                label='Email сотрудника'
+                name={EMPLOYEE_EMAIL}
+                className={styles.label}
+                rules={validators.email}
+            >
+                <Input type='email' placeholder='Введите email сотрудника' />
+            </Form.Item>
 
-            <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
-                <Form.Item label='Должность сотрудника' name={EMPLOYEE_POSITION} className={styles.label}>
-                    <Input placeholder='Введите должность сотрудника' />
-                </Form.Item>
-            </WithTooltip>
+            <Form.Item label='Должность сотрудника' name={EMPLOYEE_POSITION} className={styles.label}>
+                <Input placeholder='Введите должность сотрудника' />
+            </Form.Item>
 
             <Form.Item name='button'>
                 <Button

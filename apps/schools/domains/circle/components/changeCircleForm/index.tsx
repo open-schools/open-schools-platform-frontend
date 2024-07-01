@@ -6,8 +6,6 @@ import { Button } from '@domains/common/components/button'
 import { useChangeCircleFormValidators } from './hooks'
 import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
-import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
-import { TOOLTIP_MARGIN } from './styles/styles'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
@@ -80,22 +78,20 @@ export const ChangeCircleForm = () => {
                         layout='vertical'
                     >
                         <Typography.Title level={1}>Редактирование кружка</Typography.Title>
-                        <WithTooltip tooltipText={'Здесь будет текст тултипа'} margin={TOOLTIP_MARGIN}>
-                            <Form.Item
-                                required={true}
-                                label={
-                                    <span>
+                        <Form.Item
+                            required={true}
+                            label={
+                                <span>
                                         <span className={styles.requiredMark}>*</span> Название
                                     </span>
-                                }
-                                name={CIRCLE_NAME}
-                                className={styles.label}
-                                rules={validators.name}
-                                initialValue={initialValues[CIRCLE_NAME]}
-                            >
-                                <Input required={true} placeholder='Введите название кружка' />
-                            </Form.Item>
-                        </WithTooltip>
+                            }
+                            name={CIRCLE_NAME}
+                            className={styles.label}
+                            rules={validators.name}
+                            initialValue={initialValues[CIRCLE_NAME]}
+                        >
+                            <Input required={true} placeholder='Введите название кружка' />
+                        </Form.Item>
 
                         <Row className={styles.complexInputContainer}>
                             {!circlesData.isLoading ? (
