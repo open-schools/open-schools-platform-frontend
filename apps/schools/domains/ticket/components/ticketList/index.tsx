@@ -128,7 +128,7 @@ export function TicketList() {
                 <Typography.Title level={1}>Обращения</Typography.Title>
             </div>
             <SearchInput onSearchChange={handleInputChange} />
-            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`Статусы обращений`} />
+            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`Статусы обращений`} statuses={statuses} />
             <div className={styles.tableTicketList}>
                 <Table<RowType, TableType>
                     loading={isTableLoading}

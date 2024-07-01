@@ -11,4 +11,5 @@ export interface BubbleFilterListItem {
 export interface BubbleFilterProps {
     items: BubbleFilterListItem[]
     text?: string
+    statuses?: string[] | null
 }
