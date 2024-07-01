@@ -113,7 +113,11 @@ export function QueryList() {
                 <Typography.Title level={1}>Заявки</Typography.Title>
             </div>
             <SearchInput onSearchChange={handleSearchChange} />
-            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`${countAllQueries} заявок`} />
+            <BubbleFilter
+                text={`${countAllQueries} заявок`}
+                items={Object.values(bubbleFilterItems)}
+                statuses={statuses}
+            />
             <Table<RowType, TableType>
                 loading={isTableLoading}
                 customType={'tableWithoutSearch'}
