@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import { BubbleFilterProps, BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import { CloseOutlined } from '@ant-design/icons'
 
-export const BubbleFilter: React.FC<BubbleFilterProps> = ({ text, items }) => {
+export const BubbleFilter: React.FC<BubbleFilterProps> = React.memo(({ text, items }) => {
+    const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
+
+    useEffect(() => {
+        const storedStatuses = localStorage.getItem('selectedStatuses')
+        if (storedStatuses) {
+            setSelectedStatuses(JSON.parse(storedStatuses))
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('selectedStatuses', JSON.stringify(selectedStatuses))
+    }, [selectedStatuses])
+
     const listItems = items.map((item: BubbleFilterListItem) =>
         item.count && item.count > 0 ? (
             <Row
@@ -30,4 +43,4 @@ export const BubbleFilter: React.FC<BubbleFilterProps> = ({ text, items }) => {
             {listItems}
         </Row>
     )
-}
+})
