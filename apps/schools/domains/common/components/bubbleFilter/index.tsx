@@ -4,7 +4,7 @@ import styles from './styles/styles.module.scss'
 import { BubbleFilterProps, BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
 import { CloseOutlined } from '@ant-design/icons'
 
-export const BubbleFilter: React.FC<BubbleFilterProps> = React.memo(({ text, items }) => {
+export const BubbleFilter: React.FC<BubbleFilterProps> = ({ text, items }) => {
     const listItems = items.map((item: BubbleFilterListItem) =>
         item.count && item.count > 0 ? (
             <Row
@@ -30,4 +30,4 @@ export const BubbleFilter: React.FC<BubbleFilterProps> = React.memo(({ text, ite
             {listItems}
         </Row>
     )
-})
+}
