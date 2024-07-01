@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Row, Typography } from 'antd'
 import styles from './styles/styles.module.scss'
 import { BubbleFilterProps, BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
