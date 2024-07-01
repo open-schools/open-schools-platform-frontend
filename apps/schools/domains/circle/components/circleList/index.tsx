@@ -10,7 +10,6 @@ import { RowType, TableType } from './interfaces'
 import { searchStudentsColumns } from './constants'
 import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
@@ -97,6 +96,7 @@ export function CircleList() {
                 customWidths={[60, 25, 15]}
                 searchRequestText={searchRequestText}
                 setSearchRequestText={setSearchRequestText}
+                rowClassName={styles.tableRowPointer}
             />
         </EmptyWrapper>
     )
