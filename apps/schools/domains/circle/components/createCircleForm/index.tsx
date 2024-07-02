@@ -1,4 +1,4 @@
-import { Form, Typography, Input as AntdInput, Row, Spin, Tooltip } from 'antd'
+import { Form, Typography, Input as AntdInput, Row, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Input } from '@domains/common/components/input'
 import styles from './styles/styles.module.scss'
@@ -6,12 +6,10 @@ import { Button } from '@domains/common/components/button'
 import { useCreateCircleFormValidators } from './hooks'
 import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
-import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
-import { TOOLTIP_MARGIN } from './styles/styles'
 import { isValidFormCheck } from '@domains/common/utils/form'
 import { CIRCLE_NAME, CIRCLE_ADDRESS, ADDRESS_ROOM } from './constants'
 import classnames from 'classnames'
-import { AimOutlined, QuestionCircleFilled } from '@ant-design/icons'
+import { AimOutlined } from '@ant-design/icons'
 import { Select } from '@domains/common/components/select'
 import { useCreateCircleMutation } from '../../redux/circleApi'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
@@ -21,14 +19,6 @@ import { mapSteps } from '@domains/circle/interfaces/mapStepsType'
 import { FormMapSteps } from '@domains/circle/constants/Enums'
 import Image from 'next/image'
 import android from '@public/image/Android 11.png'
-import {
-    DEFAULT_ICON_SIZE,
-    DEFAULT_MARGIN,
-    DEFAULT_OVERLAY_INNER_COLOR,
-    DEFAULT_OVERLAY_INNER_STYLE,
-    ICON_SIZES,
-} from '@domains/common/components/tooltip/styles/styles'
-import { BackPage } from '@domains/common/components/backPage'
 
 export const CreateCircleForm = () => {
     const validators = useCreateCircleFormValidators()
@@ -93,28 +83,10 @@ export const CreateCircleForm = () => {
                             >
                                 <Input
                                     required={true}
-                                    inputContainerClass={styles.inputWithTooltipContainer}
-                                    className={styles.inputWithTooltip}
+                                    inputContainerClass={styles.inputContainer}
+                                    className={styles.input}
                                     placeholder='Введите название кружка'
-                                >
-                                    <div className={styles.tooltipContainer}>
-                                        <Tooltip
-                                            placement='right'
-                                            title={'Здесь будет текст тултипа'}
-                                            color={DEFAULT_OVERLAY_INNER_COLOR}
-                                            style={{ height: 'auto' }}
-                                            overlayInnerStyle={DEFAULT_OVERLAY_INNER_STYLE}
-                                        >
-                                            <QuestionCircleFilled
-                                                style={{
-                                                    top: `${TOOLTIP_MARGIN}`,
-                                                    marginBottom: '10px',
-                                                    fontSize: ICON_SIZES[DEFAULT_ICON_SIZE],
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                </Input>
+                                />
                             </Form.Item>
                         </div>
 
