@@ -66,8 +66,8 @@ export const CreateStudentForm = () => {
             <Form.Item
                 label={
                     <span>
-                            <span className={styles.requiredMark}>*</span> Ф. И. О. обучающегося
-                        </span>
+                        <span className={styles.requiredMark}>*</span> Ф. И. О. обучающегося
+                    </span>
                 }
                 name={STUDENT_NAME}
                 className={styles.label}
@@ -82,8 +82,8 @@ export const CreateStudentForm = () => {
             <Form.Item
                 label={
                     <span>
-                            <span className={styles.requiredMark}>*</span> Телефон родителя
-                        </span>
+                        <span className={styles.requiredMark}>*</span> Телефон родителя
+                    </span>
                 }
                 name={PARENT_PHONE}
                 className={styles.label}
@@ -122,8 +122,8 @@ export const CreateStudentForm = () => {
             <Form.Item
                 label={
                     <span>
-                            <span className={styles.requiredMark}>*</span> Название кружка
-                        </span>
+                        <span className={styles.requiredMark}>*</span> Название кружка
+                    </span>
                 }
                 name={CIRCLES}
                 className={styles.label}
