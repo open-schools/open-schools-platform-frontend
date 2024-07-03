@@ -34,6 +34,7 @@ export const useChangeUserProfileFormValidators = () => {
             ],
             [USER_EMAIL]: [
                 {
+                    required: true,
                     message: PleaseInputYourEmailMsg,
                     whitespace: true,
                     type: 'email',

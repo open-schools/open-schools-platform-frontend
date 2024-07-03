@@ -63,18 +63,18 @@ export function ProfileEdit() {
                             required={true}
                             label={'Ф. И. О.'}
                             name={USER_NAME}
-                            rules={validators[USER_NAME]}
+                            rules={[...validators[USER_NAME], { required: true, message: '' }]}
                             className={styles.label}
                             initialValue={initialValues[USER_NAME]}
                         >
-                            <Input required={true} placeholder='Введите имя' />
+                            <Input placeholder='Введите имя' />
                         </Form.Item>
 
                         <Form.Item
                             required={true}
                             label={'Email сотрудника'}
                             name={USER_EMAIL}
-                            rules={validators[USER_EMAIL]}
+                            rules={[...validators[USER_EMAIL], { required: true, message: '' }]}
                             className={styles.label}
                             initialValue={initialValues[USER_EMAIL]}
                         >
