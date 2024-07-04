@@ -110,7 +110,7 @@ export function StudentList() {
             pageSize: newPageSize,
         })
 
-        if (newPage < Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
+        if (newPage < Math.ceil((invites?.count ?? 0) / newPageSize)) {
             setQueryPaginationParams((prevParams) => ({
                 ...prevParams,
                 invites: {
@@ -118,7 +118,7 @@ export function StudentList() {
                     pageSize: newPageSize,
                 },
             }))
-        } else if (newPage === Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
+        } else if (newPage === Math.ceil((invites?.count ?? 0) / newPageSize)) {
             setQueryPaginationParams(() => ({
                 invites: {
                     page: newPage,
@@ -130,7 +130,7 @@ export function StudentList() {
                 },
             }))
         } else {
-            const nextPage = Math.abs(newPage - Math.ceil((invites?.count ?? 0) / paginationParams.pageSize))
+            const nextPage = Math.abs(newPage - Math.ceil((invites?.count ?? 0) / newPageSize))
             setQueryPaginationParams(() => ({
                 invites: {
                     page: defaultPaginationTablePage,
