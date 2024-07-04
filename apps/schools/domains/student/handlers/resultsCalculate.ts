@@ -39,14 +39,17 @@ export const calculateResults = (
             })
     } else {
         const temp = paginationParams.pageSize - ((invites?.count ?? 0) % paginationParams.pageSize)
-        return (students?.results ?? []).slice(temp).map((x) => {
-            return {
+        const mapper = (x: any) =>
+            ({
                 id: x.id,
                 student_name: x.name,
                 student_phone: x.student_profile.phone,
                 parent_phone: x.student_profile.parent_phones?.replaceAll(',', '\n'),
                 circle_name: x.circle.name,
-            } as RowType
-        })
+            }) as RowType
+
+        return students?.results.length === 1
+            ? [mapper(students?.results[0])]
+            : (students?.results ?? []).slice(temp).map(mapper)
     }
 }
