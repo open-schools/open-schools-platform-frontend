@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -50,7 +50,7 @@ export function StudentList() {
         pageSize: defaultPaginationTablePageSize,
     })
 
-    const resultsCalc = (): RowType[] => {
+    const resultsCalc = useCallback((): RowType[] => {
         if (paginationParams.page < Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
             return (invites?.results ?? []).map((x) => {
                 return {
@@ -95,7 +95,7 @@ export function StudentList() {
                 } as RowType
             })
         }
-    }
+    }, [queryPaginationParams, paginationParams, invites, students])
 
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
@@ -138,7 +138,7 @@ export function StudentList() {
                 },
                 students: {
                     page: nextPage,
-                    pageSize: paginationParams.pageSize,
+                    pageSize: 2 * paginationParams.pageSize - ((invites?.count ?? 0) % newPageSize),
                 },
             }))
         }
