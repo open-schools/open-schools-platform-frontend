@@ -16,14 +16,15 @@ import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@dom
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function StudentList() {
-    const [invitesPaginationParams, setInvitesPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
-
-    const [studentsPaginationParams, setStudentsPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
+    const [queryPaginationParams, setQueryPaginationParams] = useState({
+        invites: {
+            page: defaultPaginationTablePage,
+            pageSize: defaultPaginationTablePageSize,
+        },
+        students: {
+            page: defaultPaginationTablePage,
+            pageSize: defaultPaginationTablePageSize,
+        },
     })
 
     const [searchRequestText, setSearchRequestText] = useState('')
@@ -33,23 +34,25 @@ export function StudentList() {
         circle__organization__id: organizationId,
         status: StatusesEnum.SENT,
         or_search: createSearchTextForRequest(searchRequestText, searchInvitesColumns),
-        page: invitesPaginationParams.page,
-        page_size: invitesPaginationParams.pageSize,
+        page: queryPaginationParams.invites.page,
+        page_size: queryPaginationParams.invites.pageSize,
     })
 
     const { data: students, isFetching: isFetchingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page: studentsPaginationParams.page,
-        page_size: studentsPaginationParams.pageSize,
+        page: queryPaginationParams.students.page,
+        page_size: queryPaginationParams.students.pageSize,
     })
 
-    const data = {
-        count: (invites?.count ?? 0) + (students?.count ?? 0),
-        next: invites?.next ?? '',
-        previous: invites?.previous ?? '',
-        results: [...(invites?.results ?? []), ...(students?.results ?? [])].map((x) => {
-            if ('body' in x) {
+    const [paginationParams, setPaginationParams] = useState({
+        page: defaultPaginationTablePage,
+        pageSize: defaultPaginationTablePageSize,
+    })
+
+    const resultsCalc = (): RowType[] => {
+        if (paginationParams.page < Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
+            return (invites?.results ?? []).map((x) => {
                 return {
                     id: x.body.id,
                     student_name: x.body.name,
@@ -57,7 +60,32 @@ export function StudentList() {
                     parent_phone: x.recipient.parent_phones.replaceAll(',', '\n'),
                     circle_name: x.sender.name,
                 } as RowType
-            } else {
+            })
+        } else if (paginationParams.page === Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
+            return [...(invites?.results ?? []), ...(students?.results ?? [])]
+                .slice(0, paginationParams.pageSize)
+                .map((x) => {
+                    if ('body' in x) {
+                        return {
+                            id: x.body.id,
+                            student_name: x.body.name,
+                            student_phone: x.additional.phone,
+                            parent_phone: x.recipient.parent_phones.replaceAll(',', '\n'),
+                            circle_name: x.sender.name,
+                        } as RowType
+                    } else {
+                        return {
+                            id: x.id,
+                            student_name: x.name,
+                            student_phone: x.student_profile.phone,
+                            parent_phone: x.student_profile.parent_phones?.replaceAll(',', '\n'),
+                            circle_name: x.circle.name,
+                        } as RowType
+                    }
+                })
+        } else {
+            const temp = paginationParams.pageSize - ((invites?.count ?? 0) % paginationParams.pageSize)
+            return (students?.results ?? []).slice(temp).map((x) => {
                 return {
                     id: x.id,
                     student_name: x.name,
@@ -65,25 +93,54 @@ export function StudentList() {
                     parent_phone: x.student_profile.parent_phones?.replaceAll(',', '\n'),
                     circle_name: x.circle.name,
                 } as RowType
-            }
-        }),
+            })
+        }
     }
 
-    const [currentPage, setCurrentPage] = useState(defaultPaginationTablePage)
-    const [currentPageSize, setCurrentPageSize] = useState(defaultPaginationTablePageSize)
+    const data = {
+        count: (invites?.count ?? 0) + (students?.count ?? 0),
+        next: invites?.next ?? '',
+        previous: invites?.previous ?? '',
+        results: resultsCalc(),
+    }
 
     const handlePageChange = (newPage: number, newPageSize: number) => {
-        setCurrentPage(newPage)
-        setCurrentPageSize(newPageSize)
+        setPaginationParams({
+            page: newPage,
+            pageSize: newPageSize,
+        })
 
-        if (newPage <= Math.ceil(invites?.count ?? 0 / defaultPaginationTablePageSize)) {
-            setInvitesPaginationParams({ page: newPage, pageSize: newPageSize })
+        if (newPage < Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
+            setQueryPaginationParams((prevParams) => ({
+                ...prevParams,
+                invites: {
+                    page: newPage,
+                    pageSize: newPageSize,
+                },
+            }))
+        } else if (newPage === Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
+            setQueryPaginationParams(() => ({
+                invites: {
+                    page: newPage,
+                    pageSize: newPageSize,
+                },
+                students: {
+                    page: 1,
+                    pageSize: paginationParams.pageSize - ((invites?.count ?? 0) % newPageSize),
+                },
+            }))
         } else {
-            const invitesCount = invites?.count ?? 0
-            const studentsPage =
-                Math.ceil((newPage * defaultPaginationTablePageSize - invitesCount) / defaultPaginationTablePageSize) +
-                1
-            setStudentsPaginationParams({ page: studentsPage, pageSize: newPageSize })
+            const nextPage = Math.abs(newPage - Math.ceil((invites?.count ?? 0) / paginationParams.pageSize))
+            setQueryPaginationParams(() => ({
+                invites: {
+                    page: defaultPaginationTablePage,
+                    pageSize: defaultPaginationTablePageSize,
+                },
+                students: {
+                    page: nextPage,
+                    pageSize: paginationParams.pageSize,
+                },
+            }))
         }
         scrollToTop()
     }
@@ -119,9 +176,9 @@ export function StudentList() {
                     ['Телефон родителя', 'parent_phone'],
                 ]}
                 pagination={{
-                    current: currentPage,
-                    pageSize: currentPageSize,
-                    total: data.count,
+                    current: paginationParams.page,
+                    pageSize: paginationParams.pageSize,
+                    total: (invites?.count ?? 0) + (students?.count ?? 0),
                     onChange: (page, pageSize) => {
                         handlePageChange(page, pageSize)
                     },
