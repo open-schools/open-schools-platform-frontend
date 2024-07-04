@@ -14,6 +14,7 @@ import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
+import { handlePaginationChange } from '@domains/common/handlers/paginationChange'
 
 export function StudentList() {
     const [queryPaginationParams, setQueryPaginationParams] = useState({
@@ -50,7 +51,7 @@ export function StudentList() {
         pageSize: defaultPaginationTablePageSize,
     })
 
-    const resultsCalc = useCallback((): RowType[] => {
+    const resultsCalculate = useCallback((): RowType[] => {
         if (paginationParams.page < Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
             return (invites?.results ?? []).map((x) => {
                 return {
@@ -101,48 +102,20 @@ export function StudentList() {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
         next: invites?.next ?? '',
         previous: invites?.previous ?? '',
-        results: resultsCalc(),
+        results: resultsCalculate(),
     }
 
     const handlePageChange = (newPage: number, newPageSize: number) => {
-        setPaginationParams({
-            page: newPage,
-            pageSize: newPageSize,
-        })
-
-        if (newPage < Math.ceil((invites?.count ?? 0) / newPageSize)) {
-            setQueryPaginationParams((prevParams) => ({
-                ...prevParams,
-                invites: {
-                    page: newPage,
-                    pageSize: newPageSize,
-                },
-            }))
-        } else if (newPage === Math.ceil((invites?.count ?? 0) / newPageSize)) {
-            setQueryPaginationParams(() => ({
-                invites: {
-                    page: newPage,
-                    pageSize: newPageSize,
-                },
-                students: {
-                    page: defaultPaginationTablePage,
-                    pageSize: newPageSize - ((invites?.count ?? 0) % newPageSize),
-                },
-            }))
-        } else {
-            const nextPage = Math.abs(newPage - Math.ceil((invites?.count ?? 0) / newPageSize))
-            setQueryPaginationParams(() => ({
-                invites: {
-                    page: defaultPaginationTablePage,
-                    pageSize: defaultPaginationTablePageSize,
-                },
-                students: {
-                    page: nextPage,
-                    pageSize: 2 * newPageSize - ((invites?.count ?? 0) % newPageSize),
-                },
-            }))
-        }
-        scrollToTop()
+        handlePaginationChange(
+            setPaginationParams,
+            setQueryPaginationParams,
+            invites?.count,
+            newPage,
+            newPageSize,
+            defaultPaginationTablePage,
+            defaultPaginationTablePageSize,
+            scrollToTop,
+        )
     }
 
     return (
