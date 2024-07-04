@@ -15,6 +15,7 @@ import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 import { handlePaginationChange } from '@domains/common/handlers/paginationChange'
+import { calculateResults } from '@domains/student/handlers/resultsCalculate'
 
 export function StudentList() {
     const [queryPaginationParams, setQueryPaginationParams] = useState({
@@ -51,52 +52,12 @@ export function StudentList() {
         pageSize: defaultPaginationTablePageSize,
     })
 
-    const resultsCalculate = useCallback((): RowType[] => {
-        if (paginationParams.page < Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
-            return (invites?.results ?? []).map((x) => {
-                return {
-                    id: x.body.id,
-                    student_name: x.body.name,
-                    student_phone: x.additional.phone,
-                    parent_phone: x.recipient.parent_phones.replaceAll(',', '\n'),
-                    circle_name: x.sender.name,
-                } as RowType
-            })
-        } else if (paginationParams.page === Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
-            return [...(invites?.results ?? []), ...(students?.results ?? [])]
-                .slice(0, paginationParams.pageSize)
-                .map((x) => {
-                    if ('body' in x) {
-                        return {
-                            id: x.body.id,
-                            student_name: x.body.name,
-                            student_phone: x.additional.phone,
-                            parent_phone: x.recipient.parent_phones.replaceAll(',', '\n'),
-                            circle_name: x.sender.name,
-                        } as RowType
-                    } else {
-                        return {
-                            id: x.id,
-                            student_name: x.name,
-                            student_phone: x.student_profile.phone,
-                            parent_phone: x.student_profile.parent_phones?.replaceAll(',', '\n'),
-                            circle_name: x.circle.name,
-                        } as RowType
-                    }
-                })
-        } else {
-            const temp = paginationParams.pageSize - ((invites?.count ?? 0) % paginationParams.pageSize)
-            return (students?.results ?? []).slice(temp).map((x) => {
-                return {
-                    id: x.id,
-                    student_name: x.name,
-                    student_phone: x.student_profile.phone,
-                    parent_phone: x.student_profile.parent_phones?.replaceAll(',', '\n'),
-                    circle_name: x.circle.name,
-                } as RowType
-            })
-        }
-    }, [queryPaginationParams, paginationParams, invites, students])
+    const resultsCalculate = useCallback(
+        () => calculateResults(paginationParams, invites, students),
+        [paginationParams, invites, students],
+    )
+
+    console.log(resultsCalculate())
 
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
