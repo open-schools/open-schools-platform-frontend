@@ -61,9 +61,13 @@ export function ProfileEdit() {
                     >
                         <Form.Item
                             required={true}
-                            label={'Ф. И. О.'}
+                            label={
+                                <span>
+                                        <span className={styles.requiredMark}>*</span> Ф.И.О.
+                                </span>
+                            }
                             name={USER_NAME}
-                            rules={[...validators[USER_NAME], { required: true, message: '' }]}
+                            rules={validators[USER_NAME]}
                             className={styles.label}
                             initialValue={initialValues[USER_NAME]}
                         >
@@ -72,9 +76,13 @@ export function ProfileEdit() {
 
                         <Form.Item
                             required={true}
-                            label={'Email сотрудника'}
+                            label={
+                                <span>
+                                        <span className={styles.requiredMark}>*</span> Email сотрудника
+                                </span>
+                            }
                             name={USER_EMAIL}
-                            rules={[...validators[USER_EMAIL], { required: true, message: '' }]}
+                            rules={validators[USER_EMAIL]}
                             className={styles.label}
                             initialValue={initialValues[USER_EMAIL]}
                         >

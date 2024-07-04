@@ -1,3 +1,5 @@
+@import  '../../../../../common/components/styles/abstracts/colors';
+
 .baseRowContainer {
   padding-bottom: 50px;
 
@@ -18,4 +20,8 @@
       margin-top: 50px;
     }
   }
+}
+
+.requiredMark{
+  color: $color-required-mark;
 }
