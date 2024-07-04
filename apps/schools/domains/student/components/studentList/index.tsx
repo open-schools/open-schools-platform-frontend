@@ -126,7 +126,7 @@ export function StudentList() {
                 },
                 students: {
                     page: defaultPaginationTablePage,
-                    pageSize: paginationParams.pageSize - ((invites?.count ?? 0) % newPageSize),
+                    pageSize: newPageSize - ((invites?.count ?? 0) % newPageSize),
                 },
             }))
         } else {
@@ -138,7 +138,7 @@ export function StudentList() {
                 },
                 students: {
                     page: nextPage,
-                    pageSize: 2 * paginationParams.pageSize - ((invites?.count ?? 0) % newPageSize),
+                    pageSize: 2 * newPageSize - ((invites?.count ?? 0) % newPageSize),
                 },
             }))
         }
