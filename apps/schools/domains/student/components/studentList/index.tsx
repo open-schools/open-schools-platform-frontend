@@ -125,7 +125,7 @@ export function StudentList() {
                     pageSize: newPageSize,
                 },
                 students: {
-                    page: 1,
+                    page: defaultPaginationTablePage,
                     pageSize: paginationParams.pageSize - ((invites?.count ?? 0) % newPageSize),
                 },
             }))
