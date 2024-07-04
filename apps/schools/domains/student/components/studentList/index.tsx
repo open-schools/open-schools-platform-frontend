@@ -57,8 +57,6 @@ export function StudentList() {
         [paginationParams, invites, students],
     )
 
-    console.log(resultsCalculate())
-
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
         next: invites?.next ?? '',
