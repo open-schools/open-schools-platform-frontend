@@ -25,8 +25,14 @@ import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequest, setSearchRequest] = useQueryState('search')
     const [isTableLoading, setIsTableLoading] = useState(false)
+
+    useEffect(() => {
+        localStorage.setItem('search', searchRequest)
+    }, [searchRequest]);
+
+    const searchRequestText = localStorage.getItem('search') ? localStorage.getItem('search') : searchRequest;
 
     const [statuses, setStatuses] = useQueryState(
         'statuses',
@@ -77,7 +83,7 @@ export function QueryList() {
 
     const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
         page: paginationParams.page,
         page_size: paginationParams.pageSize,
     })
@@ -96,7 +102,7 @@ export function QueryList() {
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
         setTimeout(() => {
-            setSearchRequestText(value)
+            setSearchRequest(value)
         }, 1000)
     }, [])
 
@@ -107,7 +113,7 @@ export function QueryList() {
             pageTitle={'Заявки'}
             data={queries}
             isLoading={isQueriesFetching}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequestText || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Заявки</Typography.Title>
@@ -202,8 +208,8 @@ export function QueryList() {
                     },
                 }}
                 sortFields={['created_at']}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequestText || ''}
+                setSearchRequestText={(text) => setSearchRequest(text)}
                 onChange={(pagination, filters, sorter) => {
                     const localStatuses = [...(filters['status'] ?? [])] as string[]
                     setStatuses(localStatuses.length === 0 ? null : localStatuses)
