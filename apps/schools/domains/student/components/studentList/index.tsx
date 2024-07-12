@@ -67,9 +67,12 @@ export function StudentList() {
     const handlePageChange = (newPage: number, newPageSize: number) => {
         handlePaginationChange(
             setPaginationParams,
-            setQueryPaginationParams,
-            invites?.count,
-            invites?.count,
+            setQueryPaginationParams as any,
+            {
+                invites: invites?.count,
+                teachers: invites?.count,
+                students: students?.count,
+            },
             newPage,
             newPageSize,
             defaultPaginationTablePage,

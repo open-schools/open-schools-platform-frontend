@@ -1,12 +1,7 @@
 export const handlePaginationChange = (
     setPaginationParams: (params: { page: number; pageSize: number }) => void,
-    setQueryPaginationParams: (params: {
-        invites: { page: number; pageSize: number }
-        teachers: { page: number; pageSize: number }
-        students: { page: number; pageSize: number }
-    }) => void,
-    invitesCount: number | undefined,
-    teachersCount: number | undefined,
+    setQueryPaginationParams: (params: { [key: string]: { page: number; pageSize: number } }) => void,
+    counts: { [key: string]: number | undefined },
     newPage: number,
     newPageSize: number,
     defaultPaginationTablePage: number,
@@ -18,60 +13,30 @@ export const handlePaginationChange = (
         pageSize: newPageSize,
     })
 
-    let newQueryParams: {
-        invites: { page: number; pageSize: number }
-        teachers: { page: number; pageSize: number }
-        students: { page: number; pageSize: number }
-    }
+    const newQueryParams: { [key: string]: { page: number; pageSize: number } } = {}
 
-    if (newPage <= Math.ceil((invitesCount ?? 0) / newPageSize)) {
-        newQueryParams = {
-            invites: {
-                page: newPage,
+    let currentPage = newPage
+    let currentOffset = 0
+
+    Object.keys(counts).forEach((key, index) => {
+        const count = counts[key] ?? 0
+        const maxPages = Math.ceil(count / newPageSize)
+
+        if (currentPage <= maxPages) {
+            newQueryParams[key] = {
+                page: currentPage,
                 pageSize: newPageSize,
-            },
-            teachers: {
+            }
+        } else {
+            currentPage -= maxPages
+            newQueryParams[key] = {
                 page: defaultPaginationTablePage,
                 pageSize: defaultPaginationTablePageSize,
-            },
-            students: {
-                page: defaultPaginationTablePage,
-                pageSize: defaultPaginationTablePageSize,
-            },
+            }
         }
-    } else if (newPage <= Math.ceil(((teachersCount ?? 0) + (invitesCount ?? 0)) / newPageSize)) {
-        const nextPage = Math.abs(newPage - Math.ceil((invitesCount ?? 0) / newPageSize))
-        newQueryParams = {
-            invites: {
-                page: defaultPaginationTablePage,
-                pageSize: defaultPaginationTablePageSize,
-            },
-            teachers: {
-                page: nextPage,
-                pageSize: newPageSize,
-            },
-            students: {
-                page: defaultPaginationTablePage,
-                pageSize: defaultPaginationTablePageSize,
-            },
-        }
-    } else {
-        const nextPage = Math.abs(newPage - Math.ceil(((teachersCount ?? 0) + (invitesCount ?? 0)) / newPageSize))
-        newQueryParams = {
-            invites: {
-                page: defaultPaginationTablePage,
-                pageSize: defaultPaginationTablePageSize,
-            },
-            teachers: {
-                page: defaultPaginationTablePage,
-                pageSize: defaultPaginationTablePageSize,
-            },
-            students: {
-                page: nextPage,
-                pageSize: newPageSize,
-            },
-        }
-    }
+
+        currentOffset += count
+    })
 
     setQueryPaginationParams(newQueryParams)
     scrollToTop()
