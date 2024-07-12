@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import { Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -19,10 +19,6 @@ export function EmployeeList() {
     const { organizationId } = useOrganization()
     const [searchRequest, setSearchRequest] = useQueryState('search')
 
-    useEffect(() => {
-        localStorage.setItem('search', searchRequest)
-    }, [searchRequest]);
-
     const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
         pageSize: defaultPaginationTablePageSize,
@@ -34,8 +30,6 @@ export function EmployeeList() {
         page: paginationParams.page,
         page_size: paginationParams.pageSize,
     })
-
-    const searchRequestText = localStorage.getItem('search') ? localStorage.getItem('search') : searchRequest;
 
     return (
         <>
@@ -73,7 +67,7 @@ export function EmployeeList() {
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 searchFields={searchColumns}
-                searchRequestText={searchRequestText || ''}
+                searchRequestText={searchRequest || ''}
                 setSearchRequestText={(text) => setSearchRequest(text)}
             />
         </>

@@ -36,12 +36,6 @@ export function TicketList() {
     const { organizationId } = useOrganization()
     const [searchRequest, setSearchRequest] = useQueryState('search')
 
-    useEffect(() => {
-        localStorage.setItem('search', searchRequest)
-    }, [searchRequest]);
-
-    const searchRequestText = localStorage.getItem('search') ? localStorage.getItem('search') : searchRequest;
-
     const [statuses, setStatuses] = useQueryState(
         'statuses',
         parseAsArrayOf(parseAsString).withOptions({
@@ -83,7 +77,7 @@ export function TicketList() {
 
     const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText || '', searchTicketsColumns),
+        or_search: createSearchTextForRequest(searchRequest || '', searchTicketsColumns),
         page: paginationParams.page,
         page_size: paginationParams.pageSize,
     })
@@ -128,7 +122,7 @@ export function TicketList() {
             pageTitle={'Обращения'}
             data={tickets}
             isLoading={isTicketsFetching}
-            searchTrigger={searchRequestText || ''}
+            searchTrigger={searchRequest || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Обращения</Typography.Title>
@@ -215,7 +209,7 @@ export function TicketList() {
                         },
                     }}
                     sortFields={['created_at']}
-                    searchRequestText={searchRequestText || ''}
+                    searchRequestText={searchRequest || ''}
                     setSearchRequestText={(text) => setSearchRequest(text)}
                     onChange={handleChange}
                 />
