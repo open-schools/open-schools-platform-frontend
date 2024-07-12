@@ -18,7 +18,7 @@ export const handlePaginationChange = (
 
     let newQueryParams: { invites: { page: number; pageSize: number }; students: { page: number; pageSize: number } }
 
-    if (newPage < Math.ceil((invitesCount ?? 0) / newPageSize)) {
+    if (newPage <= Math.ceil((invitesCount ?? 0) / newPageSize)) {
         newQueryParams = {
             invites: {
                 page: newPage,
@@ -27,17 +27,6 @@ export const handlePaginationChange = (
             students: {
                 page: defaultPaginationTablePage,
                 pageSize: defaultPaginationTablePageSize,
-            },
-        }
-    } else if (newPage === Math.ceil((invitesCount ?? 0) / newPageSize)) {
-        newQueryParams = {
-            invites: {
-                page: newPage,
-                pageSize: newPageSize,
-            },
-            students: {
-                page: defaultPaginationTablePage,
-                pageSize: newPageSize - ((invitesCount ?? 0) % newPageSize),
             },
         }
     } else {
@@ -49,7 +38,7 @@ export const handlePaginationChange = (
             },
             students: {
                 page: nextPage,
-                pageSize: 2 * newPageSize - ((invitesCount ?? 0) % newPageSize),
+                pageSize: newPageSize,
             },
         }
     }

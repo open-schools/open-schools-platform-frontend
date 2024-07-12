@@ -110,7 +110,9 @@ export function StudentList() {
                 pagination={{
                     current: paginationParams.page,
                     pageSize: paginationParams.pageSize,
-                    total: (invites?.count ?? 0) + (students?.count ?? 0),
+                    total:
+                        Math.ceil((invites?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize +
+                        Math.ceil((students?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize,
                     onChange: (page, pageSize) => {
                         handlePageChange(page, pageSize)
                     },
