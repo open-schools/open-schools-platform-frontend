@@ -2,17 +2,22 @@ import { RowType } from '@domains/student/components/studentList/interfaces'
 
 export const calculateResults = (
     paginationParams: { page: number; pageSize: number },
-    invites: { count: number | undefined; results: any[] } | undefined,
-    teachers: { count: number | undefined; results: any[] } | undefined,
-    students: { count: number | undefined; results: any[] } | undefined,
+    data: {
+        [key: string]: { count: number | undefined; results: any[] } | undefined
+    },
 ): RowType[] => {
-    if (paginationParams.page <= Math.ceil((invites?.count ?? 0) / paginationParams.pageSize)) {
-        return invites?.results ?? []
-    } else if (
-        paginationParams.page <= Math.ceil(((teachers?.count ?? 0) + (invites?.count ?? 0)) / paginationParams.pageSize)
-    ) {
-        return teachers?.results ?? []
-    } else {
-        return students?.results ?? []
+    const dataArray = Object.values(data)
+    const pageIndex = paginationParams.page - 1
+    let offset = 0
+
+    for (const item of dataArray) {
+        const count = item?.count ?? 0
+        const pageCount = Math.ceil(count / paginationParams.pageSize)
+        if (pageIndex < offset + pageCount) {
+            return item?.results ?? []
+        }
+        offset += pageCount
     }
+
+    return []
 }

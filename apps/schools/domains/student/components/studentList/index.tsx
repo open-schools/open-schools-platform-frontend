@@ -53,7 +53,7 @@ export function StudentList() {
     })
 
     const resultsCalculate = useCallback(
-        () => calculateResults(paginationParams, invites, invites, students),
+        () => calculateResults(paginationParams, { invites, teachers: invites, students }),
         [paginationParams, invites, students],
     )
 
