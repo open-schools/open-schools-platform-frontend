@@ -16,6 +16,7 @@ import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@dom
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 import { handlePaginationChange } from '@domains/common/handlers/paginationChange'
 import { calculateResults } from '@domains/student/handlers/resultsCalculate'
+import { getTotalPages } from '@domains/common/utils/getTotalPages'
 
 export function StudentList() {
     const [queryPaginationParams, setQueryPaginationParams] = useState({
@@ -113,9 +114,10 @@ export function StudentList() {
                 pagination={{
                     current: paginationParams.page,
                     pageSize: paginationParams.pageSize,
-                    total:
-                        Math.ceil((invites?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize +
-                        Math.ceil((students?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize,
+                    total: getTotalPages(
+                        { invites: { count: invites?.count }, students: { count: students?.count } },
+                        paginationParams.pageSize,
+                    ),
                     onChange: (page, pageSize) => {
                         handlePageChange(page, pageSize)
                     },
