@@ -53,7 +53,7 @@ export function StudentList() {
     })
 
     const resultsCalculate = useCallback(
-        () => calculateResults(paginationParams, { invites, teachers: invites, students }),
+        () => calculateResults(paginationParams, { invites, students }),
         [paginationParams, invites, students],
     )
 
@@ -70,7 +70,6 @@ export function StudentList() {
             setQueryPaginationParams as any,
             {
                 invites: invites?.count,
-                teachers: invites?.count,
                 students: students?.count,
             },
             newPage,
@@ -115,7 +114,6 @@ export function StudentList() {
                     current: paginationParams.page,
                     pageSize: paginationParams.pageSize,
                     total:
-                        Math.ceil((invites?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize +
                         Math.ceil((invites?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize +
                         Math.ceil((students?.count ?? 0) / paginationParams.pageSize) * paginationParams.pageSize,
                     onChange: (page, pageSize) => {
