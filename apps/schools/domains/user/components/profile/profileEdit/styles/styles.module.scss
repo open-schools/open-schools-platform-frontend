@@ -1,3 +1,5 @@
+@import  '../../../../../common/components/styles/abstracts/colors';
+
 .baseRowContainer {
   padding-bottom: 50px;
 
@@ -15,6 +17,11 @@
 
     .buttonsContainer {
       gap: 20px;
+      margin-top: 50px;
     }
   }
+}
+
+.requiredMark{
+  color: $color-required-mark;
 }
