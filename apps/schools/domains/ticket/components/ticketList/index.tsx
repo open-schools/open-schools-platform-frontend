@@ -93,15 +93,11 @@ export function TicketList() {
             if (typeof text === 'string') {
                 setIsTableLoading(true)
                 setInputText(text)
-                setTimeout(() => {
-                    setSearchRequest(text)
-                }, 1000)
+                setSearchRequest(text)
             } else {
                 setIsTableLoading(true)
                 setInputText(text.target.value)
-                setTimeout(() => {
-                    setSearchRequest(text.target.value)
-                }, 1000)
+                setSearchRequest(text.target.value)
             }
         },
         [setIsTableLoading, setInputText, setSearchRequest],

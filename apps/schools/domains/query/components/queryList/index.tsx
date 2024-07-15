@@ -95,9 +95,7 @@ export function QueryList() {
 
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
-        setTimeout(() => {
-            setSearchRequest(value)
-        }, 1000)
+        setSearchRequest(value)
     }, [])
 
     return (

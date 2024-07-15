@@ -15,9 +15,10 @@ import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
+import {useQueryState} from "next-usequerystate";
 
 export function CircleList() {
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const { organizationId } = useOrganization()
 
     const [paginationParams, setPaginationParams] = useState({
@@ -27,7 +28,7 @@ export function CircleList() {
 
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
         organization_id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
         page: paginationParams.page,
         page_size: paginationParams.pageSize,
     })
@@ -41,7 +42,7 @@ export function CircleList() {
             data={circles}
             isLoading={isFetching}
             handleRunTask={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequestText || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Кружки</Typography.Title>
@@ -94,8 +95,8 @@ export function CircleList() {
                     },
                 }}
                 customWidths={[60, 25, 15]}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequestText || ''}
+                setSearchRequestText={(text) => setSearchRequestText(text)}
                 rowClassName={styles.tableRowPointer}
             />
         </EmptyWrapper>
