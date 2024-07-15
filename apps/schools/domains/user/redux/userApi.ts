@@ -53,9 +53,9 @@ const userApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: { otp: data.otp },
             }),
-        })
+        }),
     }),
 })
 
-export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation} =
+export const { useTokenMutation, useVerifyMutation, useUsersMutation, useResetPasswordMutation, useResendMutation } =
     userApi
