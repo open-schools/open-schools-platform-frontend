@@ -1,4 +1,4 @@
-FROM node:18-alpine AS runner
+FROM node:18.17.0-alpine AS runner
 
 RUN node -v
 
