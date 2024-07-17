@@ -15,12 +15,11 @@ import { Field } from '@domains/common/components/field'
 import { useDeleteStudentMutation } from '@domains/student/redux/studentApi'
 import { ActionBar } from '@domains/common/components/stickyBlock/actionBar'
 import DeleteModal from '@domains/common/components/deleteModal'
-import { GetCircleInviteStudent, GetStudent } from '@domains/common/redux/serializers'
+import { GetStudent } from '@domains/common/redux/serializers'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import parentAcceptedPhone from '@public/icons/parentAcceptedMobile.svg'
 import parentDeclinedPhone from '@public/icons/parentDeclinedMobile.svg'
 import { AppRoutes, DynamicAppRoutes, DynamicRoutePath, RoutePath } from '@domains/common/constants/routerEnums'
-import { ReturnedData } from '@domains/common/redux/interfaces'
 
 const CurrentStudent = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)

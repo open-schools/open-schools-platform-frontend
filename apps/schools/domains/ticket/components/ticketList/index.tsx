@@ -19,8 +19,6 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (

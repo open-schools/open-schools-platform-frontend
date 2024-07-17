@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -12,12 +12,6 @@ import { useGetAllStudentInvitationsQuery, useGetAllStudentsQuery } from '@domai
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
-import { handlePaginationChange } from '@domains/common/handlers/paginationChange'
-import { calculateResults } from '@domains/student/handlers/resultsCalculate'
-import { getTotalPages } from '@domains/common/utils/getTotalPages'
-import { ReturnedData } from '@domains/common/redux/interfaces'
 
 export function StudentList() {
     const [searchRequestText, setSearchRequestText] = useState('')

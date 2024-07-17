@@ -20,8 +20,6 @@ import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import SearchInput from '@domains/common/components/searchInput'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
