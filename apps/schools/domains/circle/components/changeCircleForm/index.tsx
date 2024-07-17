@@ -82,8 +82,8 @@ export const ChangeCircleForm = () => {
                             required={true}
                             label={
                                 <span>
-                                        <span className={styles.requiredMark}>*</span> Название
-                                    </span>
+                                    <span className={styles.requiredMark}>*</span> Название
+                                </span>
                             }
                             name={CIRCLE_NAME}
                             className={styles.label}

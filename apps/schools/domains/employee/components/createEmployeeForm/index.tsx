@@ -48,8 +48,8 @@ export const CreateEmployeeForm = () => {
                 required={true}
                 label={
                     <span>
-                            <span className={styles.requiredMark}>*</span> Телефон сотрудника
-                        </span>
+                        <span className={styles.requiredMark}>*</span> Телефон сотрудника
+                    </span>
                 }
                 name={EMPLOYEE_PHONE}
                 className={styles.label}
@@ -62,8 +62,8 @@ export const CreateEmployeeForm = () => {
                 required
                 label={
                     <span>
-                            <span className={styles.requiredMark}>*</span> Ф. И. О. сотрудника
-                        </span>
+                        <span className={styles.requiredMark}>*</span> Ф. И. О. сотрудника
+                    </span>
                 }
                 name={EMPLOYEE_NAME}
                 className={styles.label}
@@ -72,12 +72,7 @@ export const CreateEmployeeForm = () => {
                 <Input placeholder='Введите Ф. И. О. сотрудника' />
             </Form.Item>
 
-            <Form.Item
-                label='Email сотрудника'
-                name={EMPLOYEE_EMAIL}
-                className={styles.label}
-                rules={validators.email}
-            >
+            <Form.Item label='Email сотрудника' name={EMPLOYEE_EMAIL} className={styles.label} rules={validators.email}>
                 <Input type='email' placeholder='Введите email сотрудника' />
             </Form.Item>
 

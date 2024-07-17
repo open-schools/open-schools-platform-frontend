@@ -125,10 +125,10 @@ interface GetStudentProfile {
     id?: string
     name: string
     age?: number
-    phone?: string
+    phone: string
     photo: GetPhoto
     parent_names?: string
-    parent_phones?: string
+    parent_phones: string
 }
 
 export interface GetAnalytics {
