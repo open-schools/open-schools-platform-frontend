@@ -39,23 +39,23 @@ export function ProfileInfo() {
                     </div>
                 ) : (
                     results.data?.results.map((employee) => (
-                        <div key={employee.id}>
+                        <div key={employee.id} className={styles.organizationContainer}>
                             <Field
                                 fieldName={'Организация:'}
                                 fieldValue={employee.organization__name}
-                                type={'center'}
+                                type={'right'}
                             />
                             <Field
                                 fieldName={'Должность:'}
                                 fieldValue={employee.position}
                                 defaultValue={'Не определено'}
-                                type={'center'}
+                                type={'right'}
                             />
                         </div>
                     ))
                 )}
 
-                <Button type='schoolDefaultAuto' block onClick={() => router.push(RoutePath[AppRoutes.USER_EDIT])}>
+                <Button className={styles.editButton} type='schoolDefaultAuto' block onClick={() => router.push(RoutePath[AppRoutes.USER_EDIT])}>
                     Редактировать профиль
                 </Button>
             </Col>
