@@ -16,7 +16,7 @@ import { isReactElement } from '@domains/common/utils/react'
 import { sumObjectValues } from '@domains/common/utils/sumObjectValues'
 import { BubbleFilter } from '@domains/common/components/bubbleFilter'
 import { BubbleFilterListItem } from '@domains/common/components/bubbleFilter/interface'
-import { parseAsArrayOf, parseAsString, useQueryState } from 'next-usequerystate'
+import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import SearchInput from '@domains/common/components/searchInput'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
@@ -67,7 +67,7 @@ export function QueryList() {
             }
         }
         return items
-    }, [analytics, statuses])
+    }, [analytics, statuses, setStatuses])
 
     const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
