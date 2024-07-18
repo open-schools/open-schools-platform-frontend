@@ -63,7 +63,7 @@ export function ProfileEdit() {
                             required={true}
                             label={
                                 <span>
-                                        <span className={styles.requiredMark}>*</span> Ф.И.О.
+                                    <span className={styles.requiredMark}>*</span> Ф.И.О.
                                 </span>
                             }
                             name={USER_NAME}
@@ -78,7 +78,7 @@ export function ProfileEdit() {
                             required={true}
                             label={
                                 <span>
-                                        <span className={styles.requiredMark}>*</span> Email сотрудника
+                                    <span className={styles.requiredMark}>*</span> Email сотрудника
                                 </span>
                             }
                             name={USER_EMAIL}

@@ -40,11 +40,7 @@ export function ProfileInfo() {
                 ) : (
                     results.data?.results.map((employee) => (
                         <div key={employee.id} className={styles.organizationContainer}>
-                            <Field
-                                fieldName={'Организация:'}
-                                fieldValue={employee.organization__name}
-                                type={'right'}
-                            />
+                            <Field fieldName={'Организация:'} fieldValue={employee.organization__name} type={'right'} />
                             <Field
                                 fieldName={'Должность:'}
                                 fieldValue={employee.position}
@@ -55,7 +51,12 @@ export function ProfileInfo() {
                     ))
                 )}
 
-                <Button className={styles.editButton} type='schoolDefaultAuto' block onClick={() => router.push(RoutePath[AppRoutes.USER_EDIT])}>
+                <Button
+                    className={styles.editButton}
+                    type='schoolDefaultAuto'
+                    block
+                    onClick={() => router.push(RoutePath[AppRoutes.USER_EDIT])}
+                >
                     Редактировать профиль
                 </Button>
             </Col>
