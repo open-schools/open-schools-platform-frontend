@@ -23,7 +23,7 @@ import SearchInput from '@domains/common/components/searchInput'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequest, setSearchRequest] = useQueryState('search')
     const [isTableLoading, setIsTableLoading] = useState(false)
 
     const [statuses, setStatuses] = useQueryState(
@@ -70,7 +70,7 @@ export function QueryList() {
 
     const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
+        or_search: createSearchTextForRequest(searchRequest || '', searchStudentsColumns)
     })
 
     const countAllQueries = useMemo(
@@ -86,9 +86,7 @@ export function QueryList() {
 
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
-        setTimeout(() => {
-            setSearchRequestText(value)
-        }, 1000)
+        setSearchRequest(value)
     }, [])
 
     return (
@@ -98,7 +96,7 @@ export function QueryList() {
             pageTitle={'Заявки'}
             data={queries}
             isLoading={isQueriesFetching}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequest || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Заявки</Typography.Title>
@@ -181,8 +179,8 @@ export function QueryList() {
                     },
                 }}
                 sortFields={['created_at']}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequest || ''}
+                setSearchRequestText={(text) => setSearchRequest(text)}
                 onChange={(pagination, filters, sorter) => {
                     const localStatuses = [...(filters['status'] ?? [])] as string[]
                     setStatuses(localStatuses.length === 0 ? null : localStatuses)

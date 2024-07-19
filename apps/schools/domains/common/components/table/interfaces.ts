@@ -3,6 +3,7 @@ import { ReturnedData } from '@domains/common/redux/interfaces'
 import { TableProps } from 'antd'
 import { ColumnFilterItem } from 'antd/lib/table/interface'
 import { Key } from 'antd/es/table/interface'
+import {Options} from "next-usequerystate";
 
 export interface CustomFieldsProps {
     [key: string]: React.FC<{
@@ -30,7 +31,10 @@ export interface CustomTableProps<RowType, DataItemType> extends TableProps<any>
     customFields?: CustomFieldsProps
     searchRequestText: string
     needNumbering?: boolean
-    setSearchRequestText: React.Dispatch<React.SetStateAction<string>>
+    setSearchRequestText: <Shallow>(
+        value: string | ((old: string | null) => string | null) | null,
+        options?: Options<Shallow> | undefined,
+    ) => Promise<URLSearchParams>
     mainRoute: string
     sortFields?: string[]
     customFilterFields?: CustomFilterFieldsProps<RowType>

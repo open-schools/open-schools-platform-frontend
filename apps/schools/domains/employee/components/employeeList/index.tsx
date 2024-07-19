@@ -11,14 +11,16 @@ import { GetListEmployee } from '@domains/employee/redux/interfaces'
 import { RowType } from '@domains/employee/components/employeeList/interfaces'
 import { searchColumns } from '@domains/employee/components/employeeList/constants'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+import { useQueryState } from 'next-usequerystate'
+import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function EmployeeList() {
-    const [searchRequestText, setSearchRequestText] = useState('')
+  const [searchRequest, setSearchRequest] = useQueryState('search')
     const { organizationId } = useOrganization()
 
     const { data, isFetching } = useGetAllEmployeesQuery({
         organization: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchColumns),
+      or_search: createSearchTextForRequest(searchRequest || '', searchColumns),
     })
 
     return (
@@ -45,8 +47,8 @@ export function EmployeeList() {
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 searchFields={searchColumns}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequest || ''}
+                setSearchRequestText={(text) => setSearchRequest(text)}
             />
         </>
     )
