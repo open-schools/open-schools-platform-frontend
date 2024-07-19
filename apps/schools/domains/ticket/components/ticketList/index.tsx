@@ -29,10 +29,10 @@ type HandleChange = (
 ) => void
 
 export function TicketList() {
-  const [inputText, setInputText] = useState('')
-  const [isTableLoading, setIsTableLoading] = useState(false)
-  const { organizationId } = useOrganization()
-  const [searchRequest, setSearchRequest] = useQueryState('search')
+    const [inputText, setInputText] = useState('')
+    const [isTableLoading, setIsTableLoading] = useState(false)
+    const { organizationId } = useOrganization()
+    const [searchRequest, setSearchRequest] = useQueryState('search')
 
     const [statuses, setStatuses] = useQueryState(
         'statuses',

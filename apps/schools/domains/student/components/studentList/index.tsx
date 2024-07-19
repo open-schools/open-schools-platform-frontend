@@ -17,10 +17,10 @@ import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 import { handlePaginationChange } from '@domains/common/handlers/paginationChange'
 import { calculateResults } from '@domains/student/handlers/resultsCalculate'
 import { getTotalPages } from '@domains/common/utils/getTotalPages'
-import { useQueryState } from "next-usequerystate"
+import { useQueryState } from 'next-usequerystate'
 
 export function StudentList() {
-  const [searchRequestText, setSearchRequestText] = useQueryState('search')
+    const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const { organizationId } = useOrganization()
 
     const { data: invites, isLoading: isLoadingInvites } = useGetAllStudentInvitationsQuery({

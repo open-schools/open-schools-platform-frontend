@@ -70,7 +70,7 @@ export function QueryList() {
 
     const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
-        or_search: createSearchTextForRequest(searchRequest || '', searchStudentsColumns)
+        or_search: createSearchTextForRequest(searchRequest || '', searchStudentsColumns),
     })
 
     const countAllQueries = useMemo(

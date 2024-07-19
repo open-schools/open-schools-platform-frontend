@@ -13,15 +13,15 @@ import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { useQueryState } from "next-usequerystate";
+import { useQueryState } from 'next-usequerystate'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const { organizationId } = useOrganization()
 
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
-      organization_id: organizationId,
-      or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
+        organization_id: organizationId,
+        or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
     })
 
     return (

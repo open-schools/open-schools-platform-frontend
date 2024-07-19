@@ -15,12 +15,12 @@ import { useQueryState } from 'next-usequerystate'
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function EmployeeList() {
-  const [searchRequest, setSearchRequest] = useQueryState('search')
+    const [searchRequest, setSearchRequest] = useQueryState('search')
     const { organizationId } = useOrganization()
 
     const { data, isFetching } = useGetAllEmployeesQuery({
         organization: organizationId,
-      or_search: createSearchTextForRequest(searchRequest || '', searchColumns),
+        or_search: createSearchTextForRequest(searchRequest || '', searchColumns),
     })
 
     return (

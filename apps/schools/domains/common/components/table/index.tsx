@@ -9,7 +9,7 @@ import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
 import { ColumnType } from 'antd/lib/table/interface'
-import { useQueryState } from "next-usequerystate";
+import { useQueryState } from 'next-usequerystate'
 
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
