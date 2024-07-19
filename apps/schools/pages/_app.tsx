@@ -10,7 +10,8 @@ import Head from 'next/head'
 import { OrganizationProvider } from '@domains/organization/providers/organizationProvider'
 import { BaseLayout } from '@domains/common/components/containers/BaseLayoutComponents/BaseLayout'
 import { LayoutContextProvider } from '@domains/user/providers/baseLayoutProvider'
-import { message } from 'antd'
+import { ConfigProvider, message } from 'antd'
+import ru_RU from 'antd/lib/locale/ru_RU'
 import { EventBusProvider } from '@domains/common/providers/eventBusProvider'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
@@ -49,17 +50,19 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
             <Provider store={store}>
                 <EventBusProvider>
                     <AuthProvider>
-                        <LayoutContextProvider>
-                            <OrganizationProvider>
-                                <Head>
-                                    <title>Открытые школы</title>
-                                    <link rel='icon' href='/icons/logo.svg' sizes='any' />
-                                </Head>
-                                <LayoutComponent>
-                                    <Component {...pageProps} />
-                                </LayoutComponent>
-                            </OrganizationProvider>
-                        </LayoutContextProvider>
+                        <ConfigProvider locale={ru_RU}>
+                            <LayoutContextProvider>
+                                <OrganizationProvider>
+                                    <Head>
+                                        <title>Открытые школы</title>
+                                        <link rel='icon' href='/icons/logo.svg' sizes='any' />
+                                    </Head>
+                                    <LayoutComponent>
+                                        <Component {...pageProps} />
+                                    </LayoutComponent>
+                                </OrganizationProvider>
+                            </LayoutContextProvider>
+                        </ConfigProvider>
                     </AuthProvider>
                 </EventBusProvider>
             </Provider>
