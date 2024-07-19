@@ -32,9 +32,9 @@ type HandleChange = (
 
 export function TicketList() {
     const [inputText, setInputText] = useState('')
-    const [searchRequestText, setSearchRequestText] = useState('')
     const [isTableLoading, setIsTableLoading] = useState(false)
     const { organizationId } = useOrganization()
+    const [searchRequest, setSearchRequest] = useQueryState('search')
 
     const [statuses, setStatuses] = useQueryState(
         'statuses',
@@ -77,7 +77,7 @@ export function TicketList() {
 
     const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
+        or_search: createSearchTextForRequest(searchRequest || '', searchTicketsColumns),
         page: paginationParams.page,
         page_size: paginationParams.pageSize,
     })
@@ -93,18 +93,14 @@ export function TicketList() {
             if (typeof text === 'string') {
                 setIsTableLoading(true)
                 setInputText(text)
-                setTimeout(() => {
-                    setSearchRequestText(text)
-                }, 1000)
+                setSearchRequest(text)
             } else {
                 setIsTableLoading(true)
                 setInputText(text.target.value)
-                setTimeout(() => {
-                    setSearchRequestText(text.target.value)
-                }, 1000)
+                setSearchRequest(text.target.value)
             }
         },
-        [setIsTableLoading, setInputText, setSearchRequestText],
+        [setIsTableLoading, setInputText, setSearchRequest],
     )
 
     const handleChange: HandleChange = useCallback(
@@ -122,7 +118,7 @@ export function TicketList() {
             pageTitle={'Обращения'}
             data={tickets}
             isLoading={isTicketsFetching}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequest || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Обращения</Typography.Title>
@@ -209,8 +205,8 @@ export function TicketList() {
                         },
                     }}
                     sortFields={['created_at']}
-                    searchRequestText={searchRequestText}
-                    setSearchRequestText={setSearchRequestText}
+                    searchRequestText={searchRequest || ''}
+                    setSearchRequestText={(text) => setSearchRequest(text)}
                     onChange={handleChange}
                 />
             </div>

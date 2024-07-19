@@ -1,14 +1,15 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { ChangeEvent } from 'react'
 import { Input } from '@domains/common/components/input'
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import styles from './styles/styles.module.scss'
+import { useQueryState } from 'next-usequerystate'
 
 interface SearchInputProps {
     onSearchChange: (value: string) => void
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ onSearchChange }) => {
-    const [inputText, setInputText] = useState('')
+    const [inputText, setInputText] = useQueryState('search')
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
@@ -21,7 +22,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearchChange }) => {
             onChange={handleInputChange}
             customType={'inputSearch'}
             placeholder={'Поиск'}
-            value={inputText}
+            value={inputText || ''}
             children={
                 <>
                     <SearchOutlined className={styles.search} />

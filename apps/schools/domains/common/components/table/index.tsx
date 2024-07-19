@@ -9,6 +9,7 @@ import { typeTable } from '@domains/common/constants/Table'
 import { CustomTableProps } from '@domains/common/components/table/interfaces'
 import { calculateAverageWidth } from '@domains/common/utils/calculateAverageWidth'
 import { ColumnType } from 'antd/lib/table/interface'
+import { useQueryState } from "next-usequerystate";
 
 export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, DataItemType>) => {
     const {
@@ -64,7 +65,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
     ]
 
     const [isTableLoading, setIsTableLoading] = useState(false)
-    const [inputText, setInputText] = useState('')
+    const [inputText, setInputText] = useQueryState('search')
     const [dataSource, setDataSource] = useState<any[]>([])
     const router = useRouter()
 
@@ -134,7 +135,7 @@ export const Table = <RowType, DataItemType>(props: CustomTableProps<RowType, Da
                     }}
                     customType={'inputSearch'}
                     placeholder={'Поиск'}
-                    value={inputText}
+                    value={inputText || ''}
                     children={
                         <>
                             <SearchOutlined className={styles.search} />

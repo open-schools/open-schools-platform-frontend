@@ -13,10 +13,11 @@ import { searchColumns } from '@domains/employee/components/employeeList/constan
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
+import { useQueryState } from 'next-usequerystate'
 
 export function EmployeeList() {
-    const [searchRequestText, setSearchRequestText] = useState('')
     const { organizationId } = useOrganization()
+    const [searchRequest, setSearchRequest] = useQueryState('search')
 
     const [paginationParams, setPaginationParams] = useState({
         page: defaultPaginationTablePage,
@@ -25,7 +26,7 @@ export function EmployeeList() {
 
     const { data, isFetching } = useGetAllEmployeesQuery({
         organization: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchColumns),
+        or_search: createSearchTextForRequest(searchRequest || '', searchColumns),
         page: paginationParams.page,
         page_size: paginationParams.pageSize,
     })
@@ -58,16 +59,16 @@ export function EmployeeList() {
                         setPaginationParams({
                             page,
                             pageSize,
-                        })
-                        scrollToTop()
+                        });
+                        scrollToTop();
                     },
                 }}
                 data={data}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 searchFields={searchColumns}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequest || ''}
+                setSearchRequestText={(text) => setSearchRequest(text)}
             />
         </>
     )
