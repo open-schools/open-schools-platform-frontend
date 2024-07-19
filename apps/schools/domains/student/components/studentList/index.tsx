@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Typography } from 'antd'
 import router from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -17,20 +17,9 @@ import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 import { handlePaginationChange } from '@domains/common/handlers/paginationChange'
 import { calculateResults } from '@domains/student/handlers/resultsCalculate'
 import { getTotalPages } from '@domains/common/utils/getTotalPages'
-import { useQueryState } from "next-usequerystate"
+import { useQueryState } from 'next-usequerystate'
 
 export function StudentList() {
-    const [queryPaginationParams, setQueryPaginationParams] = useState({
-        invites: {
-            page: defaultPaginationTablePage,
-            pageSize: defaultPaginationTablePageSize,
-        },
-        students: {
-            page: defaultPaginationTablePage,
-            pageSize: defaultPaginationTablePageSize,
-        },
-    })
-
     const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const { organizationId } = useOrganization()
 
@@ -38,48 +27,18 @@ export function StudentList() {
         circle__organization__id: organizationId,
         status: StatusesEnum.SENT,
         or_search: createSearchTextForRequest(searchRequestText || '', searchInvitesColumns),
-        page: queryPaginationParams.invites.page,
-        page_size: queryPaginationParams.invites.pageSize,
     })
 
     const { data: students, isFetching: isFetchingStudents } = useGetAllStudentsQuery({
         circle__organization: organizationId,
         or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
-        page: queryPaginationParams.students.page,
-        page_size: queryPaginationParams.students.pageSize,
     })
-
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
-
-    const resultsCalculate = useCallback(
-        () => calculateResults(paginationParams, { invites, students }),
-        [paginationParams, invites, students],
-    )
 
     const data = {
         count: (invites?.count ?? 0) + (students?.count ?? 0),
         next: invites?.next ?? '',
         previous: invites?.previous ?? '',
-        results: resultsCalculate(),
-    }
-
-    const handlePageChange = (newPage: number, newPageSize: number) => {
-        handlePaginationChange(
-            setPaginationParams,
-            setQueryPaginationParams as any,
-            {
-                invites: invites?.count,
-                students: students?.count,
-            },
-            newPage,
-            newPageSize,
-            defaultPaginationTablePage,
-            defaultPaginationTablePageSize,
-            scrollToTop,
-        )
+        results: [...((invites?.results ?? []) as unknown as TableType[]), ...(students?.results ?? [])],
     }
 
     return (
@@ -112,17 +71,6 @@ export function StudentList() {
                     ['Телефон обучающегося', 'student_phone'],
                     ['Телефон родителя', 'parent_phone'],
                 ]}
-                pagination={{
-                    current: paginationParams.page,
-                    pageSize: paginationParams.pageSize,
-                    total: getTotalPages(
-                        { invites: { count: invites?.count }, students: { count: students?.count } },
-                        paginationParams.pageSize,
-                    ),
-                    onChange: (page, pageSize) => {
-                        handlePageChange(page, pageSize)
-                    },
-                }}
                 filterFields={['circle_name']}
                 data={data}
                 isLoading={isLoadingInvites || isFetchingStudents}

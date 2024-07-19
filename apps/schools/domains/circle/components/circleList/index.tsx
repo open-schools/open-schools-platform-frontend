@@ -13,24 +13,15 @@ import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
-import {useQueryState} from "next-usequerystate";
+import { useQueryState } from 'next-usequerystate'
 
 export function CircleList() {
     const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const { organizationId } = useOrganization()
 
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
-
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
-        page: paginationParams.page,
-        page_size: paginationParams.pageSize,
     })
 
     return (
@@ -61,18 +52,6 @@ export function CircleList() {
                     ['Адрес', 'address'],
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
-                pagination={{
-                    current: paginationParams.page,
-                    pageSize: paginationParams.pageSize,
-                    total: circles?.count,
-                    onChange: (page, pageSize) => {
-                        setPaginationParams({
-                            page,
-                            pageSize,
-                        })
-                        scrollToTop()
-                    },
-                }}
                 data={circles}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.CIRCLE_LIST]}

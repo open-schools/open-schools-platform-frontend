@@ -19,8 +19,6 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -70,16 +68,9 @@ export function TicketList() {
         } as BubbleFilterListItem
     }
 
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
-
     const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
         or_search: createSearchTextForRequest(searchRequest || '', searchTicketsColumns),
-        page: paginationParams.page,
-        page_size: paginationParams.pageSize,
     })
 
     useEffect(() => {
@@ -128,18 +119,6 @@ export function TicketList() {
             <div className={styles.tableTicketList}>
                 <Table<RowType, TableType>
                     loading={isTableLoading}
-                    pagination={{
-                        current: paginationParams.page,
-                        pageSize: paginationParams.pageSize,
-                        total: tickets?.count,
-                        onChange: (page, pageSize) => {
-                            setPaginationParams({
-                                page,
-                                pageSize,
-                            })
-                            scrollToTop()
-                        },
-                    }}
                     customType={'tableWithoutSearch'}
                     columnsTitlesAndKeys={[
                         ['Создано', 'created_at'],

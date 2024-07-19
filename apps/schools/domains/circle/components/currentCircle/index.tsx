@@ -25,7 +25,7 @@ import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import { ErrorType } from '@store/commonApi'
 import { AppRoutes, DynamicAppRoutes, DynamicRoutePath, RoutePath } from '@domains/common/constants/routerEnums'
-import {useQueryState} from "next-usequerystate";
+import { useQueryState } from 'next-usequerystate'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)

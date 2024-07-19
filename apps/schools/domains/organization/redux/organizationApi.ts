@@ -65,7 +65,7 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getAllStudents: build.query<ReturnedData<GetStudent[]>, AllStudentsData>({
+        getAllStudents: build.query<ReturnedData<TableTypeStudent[]>, AllStudentsData>({
             query: (params) => ({
                 url: '/organization-management/organizations/students',
                 method: 'GET',
@@ -73,7 +73,7 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             transformResponse: (response: ReturnedData<GetStudent[]>) => {
                 return mapReturnedData(response, (query) => {
-                    const transformedQuery = structuredClone(query) as unknown as TableTypeStudent
+                    const transformedQuery = structuredClone(query)
                     transformedQuery.id = query.id
                     transformedQuery.student_name = query.name
                     transformedQuery.student_phone = query.student_profile.phone
@@ -182,8 +182,8 @@ const organizationApi = commonApi.injectEndpoints({
             }),
             transformResponse: (response: ReturnedData<GetCircleInviteStudent[]>) => {
                 return mapReturnedData(response, (query) => {
-                    const transformedQuery = structuredClone(query) as unknown as TableTypeStudent
-                    transformedQuery.id = query.body.id
+                    const transformedQuery = structuredClone(query)
+                    transformedQuery.id = query.body.id || ''
                     transformedQuery.student_name = query.body.name
                     transformedQuery.student_phone = query.additional.phone
                     transformedQuery.parent_phone = query.recipient.parent_phones.replaceAll(',', '\n')
