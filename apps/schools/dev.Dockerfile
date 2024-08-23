@@ -2,6 +2,7 @@ FROM node:18-alpine AS runner
 
 RUN node -v
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
