@@ -109,6 +109,7 @@ export async function registrationHandler(
             },
         ])
     }
+    return response
 }
 
 export async function resendOtpHandler(recaptchaToken: string, resendOtpMutation: any, onError: () => void) {

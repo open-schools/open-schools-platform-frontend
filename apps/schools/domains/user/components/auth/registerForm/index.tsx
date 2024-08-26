@@ -36,8 +36,10 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
     const registerComplete = useCallback(() => {
         const { password } = form.getFieldsValue(['password'])
 
-        registrationHandler(phone, password, userRegistration, onError, form).then(async () => {
-            await getLazyUser({})
+        registrationHandler(phone, password, userRegistration, onError, form).then(async (response) => {
+            if (!('error' in response)) {
+                await getLazyUser({})
+            }
         })
     }, [form, signInByPhone, getLazyUser])
 
