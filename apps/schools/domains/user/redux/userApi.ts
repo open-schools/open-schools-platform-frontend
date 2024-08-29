@@ -19,6 +19,7 @@ const userApi = commonApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
         }),
         resetPassword: build.mutation<{}, PasswordReset>({
             query: (data) => ({

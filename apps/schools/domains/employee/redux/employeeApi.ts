@@ -44,7 +44,7 @@ const employeeApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
-            invalidatesTags: ['Employee'],
+            invalidatesTags: ['Employee', 'User'],
         }),
         deleteEmployeeById: build.mutation<{}, DeleteEmployeeByIdData>({
             query: (data) => ({

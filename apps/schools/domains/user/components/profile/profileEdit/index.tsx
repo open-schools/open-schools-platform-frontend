@@ -13,11 +13,9 @@ import Link from 'next/link'
 import { useChangeUserProfileFormValidators } from '@domains/user/components/profile/profileEdit/hooks'
 import { useUpdateEmployeeProfileByIdMutation } from '@domains/employee/redux/employeeApi'
 import { handleSubmitForm } from '@domains/user/handlers/profile/profileEdit'
-import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export function ProfileEdit() {
-    const { emit } = useEventBus()
     const { user } = useUserProfile()
 
     const [form] = Form.useForm()
@@ -52,7 +50,6 @@ export function ProfileEdit() {
                         onFinish={() => {
                             handleSubmitForm(user.employee_profile?.id ?? '', form, mutation).then((isSuccess) => {
                                 if (isSuccess) {
-                                    emit(EventKey.RefetchProfileQuery)
                                     router.push(RoutePath[AppRoutes.USER_LIST])
                                 }
                             })

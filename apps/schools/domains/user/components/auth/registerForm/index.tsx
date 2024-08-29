@@ -53,8 +53,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = ({ onFinish, onError }
                 name: name,
                 email: email,
             }
-            updateProfile(updateEmail)
-            onFinish()
+            updateProfile(updateEmail).then(() => onFinish())
         }
     }, [data, updateProfile])
 

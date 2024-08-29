@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useGetUserQuery } from '../redux/authenticationApi'
 import Cookies from 'universal-cookie'
 import { GetUserProfiles } from '@domains/user/redux/interfaces'
-import { EventKey, useEventBus } from '@domains/common/providers/eventBusProvider'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 export const UserProfileContext = createContext<{
@@ -24,18 +23,13 @@ export const useUserProfile = () => useContext(UserProfileContext)
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const router = useRouter()
-    const { on } = useEventBus()
     const [token, setToken] = useState('')
     const [user, setUser] = useState({})
 
-    const { data, error, refetch } = useGetUserQuery({})
+    const { data, error } = useGetUserQuery({})
     const cookies = new Cookies()
 
     useEffect(() => {
-        const unsubscribeOnRefetchProfileQuery = on(EventKey.RefetchProfileQuery, () => {
-            refetch()
-        })
-
         if (router.pathname === RoutePath[AppRoutes.MOBILE_RECAPTCHA]) return
 
         const jwtToken = typeof window !== 'undefined' ? cookies.get('jwtToken') : null
@@ -44,10 +38,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setToken(jwtToken)
         } else {
             router.push(RoutePath[AppRoutes.AUTH_SIGN_IN])
-        }
-
-        return () => {
-            unsubscribeOnRefetchProfileQuery()
         }
     }, [])
 
