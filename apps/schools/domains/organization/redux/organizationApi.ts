@@ -37,6 +37,7 @@ import { mapReturnedData } from '@domains/common/redux/utils'
 import { TableType as TableTypeCircle } from '@domains/circle/components/circleList/interfaces'
 import { TableType as TableTypeTickets } from '@domains/ticket/components/ticketList/interfaces'
 import { TableType as TableTypeQuery } from '@domains/query/components/queryList/interfaces'
+import { TableType as TableTypeStudent } from '@domains/student/components/studentList/interfaces'
 
 const organizationApi = commonApi.injectEndpoints({
     endpoints: (build) => ({
@@ -64,12 +65,23 @@ const organizationApi = commonApi.injectEndpoints({
                 body: data,
             }),
         }),
-        getAllStudents: build.query<ReturnedData<GetStudent[]>, AllStudentsData>({
+        getAllStudents: build.query<ReturnedData<TableTypeStudent[]>, AllStudentsData>({
             query: (params) => ({
                 url: '/organization-management/organizations/students',
                 method: 'GET',
                 params: params,
             }),
+            transformResponse: (response: ReturnedData<GetStudent[]>) => {
+                return mapReturnedData(response, (query) => {
+                    const transformedQuery = structuredClone(query) as unknown as TableTypeStudent
+                    transformedQuery.id = query.id
+                    transformedQuery.student_name = query.name
+                    transformedQuery.student_phone = query.student_profile.phone
+                    transformedQuery.parent_phone = query.student_profile.parent_phones?.replaceAll(',', '\n')
+                    transformedQuery.circle_name = query.circle.name
+                    return transformedQuery
+                })!
+            },
             providesTags: (result) => providesList(result?.results, 'Student'),
         }),
         getAllCircles: build.query<ReturnedData<TableTypeCircle[]>, GetOrganizationCircleListData>({
@@ -168,6 +180,17 @@ const organizationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 params: params,
             }),
+            transformResponse: (response: ReturnedData<GetCircleInviteStudent[]>) => {
+                return mapReturnedData(response, (query) => {
+                    const transformedQuery = structuredClone(query) as unknown as TableTypeStudent
+                    transformedQuery.id = query.body.id || ''
+                    transformedQuery.student_name = query.body.name
+                    transformedQuery.student_phone = query.additional.phone
+                    transformedQuery.parent_phone = query.recipient.parent_phones.replaceAll(',', '\n')
+                    transformedQuery.circle_name = query.sender.name
+                    return transformedQuery
+                })!
+            },
             providesTags: (result) => providesList(result?.results, 'Student'),
         }),
         getAllJoinCircleQueries: build.query<ReturnedData<GetStudentJoinCircle[]>, AllStudentJoinCircleQueriesData>({

@@ -5,18 +5,15 @@ import React, { useState } from 'react'
 import { Dictionary } from '@reduxjs/toolkit'
 import { ContainerPage } from '../_app'
 import AuthLayout, { IAuthLayoutProps } from '../../domains/user/components/auth/containers/AuthLayout'
-import { FormContainer } from '../../domains/user/components/auth/formContainer'
-import { InputPhoneForm } from '../../domains/user/components/auth/sharedForms/InputPhoneForm'
-import { TabsAuthAction } from '../../domains/user/components/auth/headerActions'
-import { ValidatePhoneForm } from '../../domains/user/components/auth/sharedForms/ValidatePhoneForm'
-import { RegisterForm } from '../../domains/user/components/auth/registerForm'
-import { CENTRALIZED } from '../../domains/common/components/styles/constantStyles'
+import { FormContainer } from '@domains/user/components/auth/formContainer'
+import { InputPhoneForm } from '@domains/user/components/auth/sharedForms/InputPhoneForm'
+import { TabsAuthAction } from '@domains/user/components/auth/headerActions'
+import { ValidatePhoneForm } from '@domains/user/components/auth/sharedForms/ValidatePhoneForm'
+import { RegisterForm } from '@domains/user/components/auth/registerForm'
+import { CENTRALIZED } from '@domains/common/components/styles/constantStyles'
 import { Row } from 'antd'
-import {
-    RegistrationDisclaimer,
-    RegistrationPhoneButtonLabel,
-} from '../../domains/user/components/auth/constants/labels'
-import { FirebaseReCaptcha } from '../../domains/user/providers/firebaseReCaptchaProvider'
+import { RegistrationDisclaimer, RegistrationPhoneButtonLabel } from '@domains/user/components/auth/constants/labels'
+import { FirebaseReCaptcha } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 
 const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
@@ -56,7 +53,7 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
             <>
                 <TabsAuthAction currentActiveKey={RoutePath[AppRoutes.AUTH_REGISTER]} />
                 <RegisterForm
-                    onFinish={() => (window.location.href = '/')}
+                    onFinish={() => Router.push(RoutePath[AppRoutes.USER_LIST])}
                     onError={() => {
                         setStep('inputPhone')
                         Router.push(RoutePath[AppRoutes.AUTH_REGISTER])

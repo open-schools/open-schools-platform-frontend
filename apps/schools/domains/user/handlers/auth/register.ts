@@ -80,14 +80,14 @@ export async function registrationHandler(
     password: string,
     userRegistrationMutation: any,
     onError: () => void,
-    formComponent: FormInstance
+    formComponent: FormInstance,
 ) {
     let token = localStorage.getItem('token')
     const cookies = new Cookies()
     cookies.remove('jwtToken')
 
-    const { email } = formComponent.getFieldsValue(['email']);
-    const { name } = formComponent.getFieldsValue(['name']);
+    const { email } = formComponent.getFieldsValue(['email'])
+    const { name } = formComponent.getFieldsValue(['name'])
 
     let response = await withLoadingMessage(LoadingMsg, userRegistrationMutation, {
         token: token,
@@ -109,6 +109,7 @@ export async function registrationHandler(
             },
         ])
     }
+    return response
 }
 
 export async function resendOtpHandler(recaptchaToken: string, resendOtpMutation: any, onError: () => void) {

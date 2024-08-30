@@ -9,6 +9,7 @@ const authenticationApi = commonApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
         }),
         logout: build.mutation<{}, {}>({
             query: (data) => ({
@@ -16,6 +17,7 @@ const authenticationApi = commonApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
         }),
         getUser: build.query<{ user: GetUserProfiles }, {}>({
             query: (data) => ({
@@ -23,6 +25,7 @@ const authenticationApi = commonApi.injectEndpoints({
                 method: 'GET',
                 data: data,
             }),
+            providesTags: ['User'],
         }),
         updateUser: build.mutation<{ user: GetUser }, UpdateUserData>({
             query: (data) => ({
@@ -30,6 +33,7 @@ const authenticationApi = commonApi.injectEndpoints({
                 method: 'PATCH',
                 body: data,
             }),
+            invalidatesTags: ['User'],
         }),
         updatePassword: build.mutation<{}, UpdatePasswordData>({
             query: (data) => ({

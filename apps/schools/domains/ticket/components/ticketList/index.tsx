@@ -19,8 +19,6 @@ import Image from 'next/image'
 import dot from '@public/icons/dot.svg'
 import SearchInput from '@domains/common/components/searchInput'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 type HandleInputChange = (text: React.ChangeEvent<HTMLInputElement> | string) => void
 type HandleChange = (
@@ -32,9 +30,9 @@ type HandleChange = (
 
 export function TicketList() {
     const [inputText, setInputText] = useState('')
-    const [searchRequestText, setSearchRequestText] = useState('')
     const [isTableLoading, setIsTableLoading] = useState(false)
     const { organizationId } = useOrganization()
+    const [searchRequest, setSearchRequest] = useQueryState('search')
 
     const [statuses, setStatuses] = useQueryState(
         'statuses',
@@ -70,16 +68,9 @@ export function TicketList() {
         } as BubbleFilterListItem
     }
 
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
-
     const { data: tickets, isFetching: isTicketsFetching } = useGetAllTicketsQuery({
         organization_id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchTicketsColumns),
-        page: paginationParams.page,
-        page_size: paginationParams.pageSize,
+        or_search: createSearchTextForRequest(searchRequest || '', searchTicketsColumns),
     })
 
     useEffect(() => {
@@ -93,18 +84,14 @@ export function TicketList() {
             if (typeof text === 'string') {
                 setIsTableLoading(true)
                 setInputText(text)
-                setTimeout(() => {
-                    setSearchRequestText(text)
-                }, 1000)
+                setSearchRequest(text)
             } else {
                 setIsTableLoading(true)
                 setInputText(text.target.value)
-                setTimeout(() => {
-                    setSearchRequestText(text.target.value)
-                }, 1000)
+                setSearchRequest(text.target.value)
             }
         },
-        [setIsTableLoading, setInputText, setSearchRequestText],
+        [setIsTableLoading, setInputText, setSearchRequest],
     )
 
     const handleChange: HandleChange = useCallback(
@@ -122,28 +109,16 @@ export function TicketList() {
             pageTitle={'Обращения'}
             data={tickets}
             isLoading={isTicketsFetching}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequest || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Обращения</Typography.Title>
             </div>
             <SearchInput onSearchChange={handleInputChange} />
-            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`Статусы обращений`} />
+            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`Статусы обращений`} statuses={statuses} />
             <div className={styles.tableTicketList}>
                 <Table<RowType, TableType>
                     loading={isTableLoading}
-                    pagination={{
-                        current: paginationParams.page,
-                        pageSize: paginationParams.pageSize,
-                        total: tickets?.count,
-                        onChange: (page, pageSize) => {
-                            setPaginationParams({
-                                page,
-                                pageSize,
-                            })
-                            scrollToTop()
-                        },
-                    }}
                     customType={'tableWithoutSearch'}
                     columnsTitlesAndKeys={[
                         ['Создано', 'created_at'],
@@ -209,8 +184,8 @@ export function TicketList() {
                         },
                     }}
                     sortFields={['created_at']}
-                    searchRequestText={searchRequestText}
-                    setSearchRequestText={setSearchRequestText}
+                    searchRequestText={searchRequest || ''}
+                    setSearchRequestText={(text) => setSearchRequest(text)}
                     onChange={handleChange}
                 />
             </div>

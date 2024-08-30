@@ -10,27 +10,18 @@ import { RowType, TableType } from './interfaces'
 import { searchStudentsColumns } from './constants'
 import { useGetAllCirclesQuery } from '@domains/organization/redux/organizationApi'
 import EmptyWrapper from '@domains/common/components/containers/EmptyWrapper'
-import { mapReturnedData } from '@domains/common/redux/utils'
 import { HighlightText } from '@domains/common/components/table/forming'
 import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
+import { useQueryState } from 'next-usequerystate'
 
 export function CircleList() {
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const { organizationId } = useOrganization()
-
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
 
     const { data: circles, isFetching: isFetching } = useGetAllCirclesQuery({
         organization_id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page: paginationParams.page,
-        page_size: paginationParams.pageSize,
+        or_search: createSearchTextForRequest(searchRequestText || '', searchStudentsColumns),
     })
 
     return (
@@ -42,7 +33,7 @@ export function CircleList() {
             data={circles}
             isLoading={isFetching}
             handleRunTask={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequestText || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Кружки</Typography.Title>
@@ -61,18 +52,6 @@ export function CircleList() {
                     ['Адрес', 'address'],
                     ['Кол-во принятых заявок', 'accepted_count'],
                 ]}
-                pagination={{
-                    current: paginationParams.page,
-                    pageSize: paginationParams.pageSize,
-                    total: circles?.count,
-                    onChange: (page, pageSize) => {
-                        setPaginationParams({
-                            page,
-                            pageSize,
-                        })
-                        scrollToTop()
-                    },
-                }}
                 data={circles}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.CIRCLE_LIST]}
@@ -95,8 +74,9 @@ export function CircleList() {
                     },
                 }}
                 customWidths={[60, 25, 15]}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequestText || ''}
+                setSearchRequestText={(text) => setSearchRequestText(text)}
+                rowClassName={styles.tableRowPointer}
             />
         </EmptyWrapper>
     )

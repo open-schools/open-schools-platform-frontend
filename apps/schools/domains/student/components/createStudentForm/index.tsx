@@ -16,8 +16,6 @@ import {
     STUDENT_PHONE,
 } from '@domains/student/components/createStudentForm/constants'
 import { handleSubmitForm } from '@domains/student/handlers/studentCreate'
-import { WithTooltip } from '@domains/common/components/tooltip/withTooltip'
-import { TOOLTIP_MARGIN_TOP } from '@domains/student/components/createStudentForm/styles/constants'
 import { Select } from '@domains/common/components/select'
 import router from 'next/router'
 import { DROPDOWN_STYLE } from '@domains/common/components/containers/BaseLayoutComponents/OrganizationSelect/styles/styles'
@@ -65,125 +63,101 @@ export const CreateStudentForm = () => {
             onValuesChange={validationCheck}
         >
             <Typography.Title level={1}>Добавление обучающегося</Typography.Title>
-            <WithTooltip
-                tooltipText={'Ф. И. О. ученика необходимо для ведения отчетности и добавления его в списки.'}
-                margin={TOOLTIP_MARGIN_TOP}
-            >
-                <Form.Item
-                    label={
-                        <span>
-                            <span className={styles.requiredMark}>*</span> Ф. И. О. обучающегося
-                        </span>
-                    }
-                    name={STUDENT_NAME}
-                    className={styles.label}
-                    rules={validators.name}
-                >
-                    <Input
-                        onChange={() => localStorage.setItem(STUDENT_NAME, form.getFieldValue(STUDENT_NAME))}
-                        placeholder='Введите Ф. И. О. обучающегося'
-                    />
-                </Form.Item>
-            </WithTooltip>
-            <WithTooltip
-                tooltipText={
-                    'Телефон родителя или законного' +
-                    'представителя необходим для связи и донесения важной информации. '
+            <Form.Item
+                label={
+                    <span>
+                        <span className={styles.requiredMark}>*</span> Ф. И. О. обучающегося
+                    </span>
                 }
-                margin={TOOLTIP_MARGIN_TOP}
+                name={STUDENT_NAME}
+                className={styles.label}
+                rules={validators.name}
             >
-                <Form.Item
-                    label={
-                        <span>
-                            <span className={styles.requiredMark}>*</span> Телефон родителя
-                        </span>
-                    }
-                    name={PARENT_PHONE}
-                    className={styles.label}
-                    rules={validators.parentPhone}
-                >
-                    <Input
-                        onChange={() => localStorage.setItem(PARENT_PHONE, form.getFieldValue(PARENT_PHONE))}
-                        valueName={PARENT_PHONE}
-                        customType='inputPhone'
-                        placeholder='Введите телефон родителя'
-                    />
-                </Form.Item>
-            </WithTooltip>
+                <Input
+                    onChange={() => localStorage.setItem(STUDENT_NAME, form.getFieldValue(STUDENT_NAME))}
+                    placeholder='Введите Ф. И. О. обучающегося'
+                />
+            </Form.Item>
 
-            <WithTooltip
-                tooltipText={
-                    'E-mail родителя или законного представителя' +
-                    ' необходим для связи и донесения важной информации.'
+            <Form.Item
+                label={
+                    <span>
+                        <span className={styles.requiredMark}>*</span> Телефон родителя
+                    </span>
                 }
-                margin={TOOLTIP_MARGIN_TOP}
+                name={PARENT_PHONE}
+                className={styles.label}
+                rules={validators.parentPhone}
             >
-                <Form.Item label='Email родителя' name={PARENT_EMAIL} className={styles.label} rules={validators.email}>
-                    <Input
-                        onChange={() => localStorage.setItem(PARENT_EMAIL, form.getFieldValue(PARENT_EMAIL))}
-                        type='email'
-                        placeholder='Введите email родителя'
-                    />
-                </Form.Item>
-            </WithTooltip>
-            <WithTooltip
-                tooltipText={'Для связи с учеником при возникновении нештатной ситуации.'}
-                margin={TOOLTIP_MARGIN_TOP}
+                <Input
+                    onChange={() => localStorage.setItem(PARENT_PHONE, form.getFieldValue(PARENT_PHONE))}
+                    valueName={PARENT_PHONE}
+                    customType='inputPhone'
+                    placeholder='Введите телефон родителя'
+                />
+            </Form.Item>
+
+            <Form.Item label='Email родителя' name={PARENT_EMAIL} className={styles.label} rules={validators.email}>
+                <Input
+                    onChange={() => localStorage.setItem(PARENT_EMAIL, form.getFieldValue(PARENT_EMAIL))}
+                    type='email'
+                    placeholder='Введите email родителя'
+                />
+            </Form.Item>
+
+            <Form.Item
+                label='Телефон обучающегося'
+                name={STUDENT_PHONE}
+                className={styles.label}
+                rules={validators.studentPhone}
             >
-                <Form.Item
-                    label='Телефон обучающегося'
-                    name={STUDENT_PHONE}
-                    className={styles.label}
-                    rules={validators.studentPhone}
-                >
-                    <Input
-                        onChange={() => localStorage.setItem(STUDENT_PHONE, form.getFieldValue(STUDENT_PHONE))}
-                        valueName={STUDENT_PHONE}
-                        customType='inputPhone'
-                        placeholder='Введите телефон обучающегося'
-                    />
-                </Form.Item>
-            </WithTooltip>
-            <WithTooltip tooltipText={'Укажите кружок, на который будет ходить ученик.'} margin={TOOLTIP_MARGIN_TOP}>
-                <Form.Item
-                    label={
-                        <span>
-                            <span className={styles.requiredMark}>*</span> Название кружка
-                        </span>
-                    }
-                    name={CIRCLES}
-                    className={styles.label}
-                    rules={validators.select}
-                >
-                    <Select
-                        mode='multiple'
-                        customType={'selectMultiple'}
-                        placeholder='Выберите кружок'
-                        className={styles.select}
-                        loading={circlesData.isLoading}
-                        dropdownStyle={DROPDOWN_STYLE}
-                        dropdownRender={(menu) => (
-                            <div className={styles.dropdown}>
-                                {menu}
-                                <Button
-                                    type='schoolDefault'
-                                    block
-                                    className={styles.button}
-                                    onClick={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
-                                >
-                                    Добавить кружок
-                                </Button>
-                            </div>
-                        )}
-                        options={circlesData?.data?.results.map((x) => {
-                            return {
-                                value: x.id,
-                                label: x.name,
-                            }
-                        })}
-                    />
-                </Form.Item>
-            </WithTooltip>
+                <Input
+                    onChange={() => localStorage.setItem(STUDENT_PHONE, form.getFieldValue(STUDENT_PHONE))}
+                    valueName={STUDENT_PHONE}
+                    customType='inputPhone'
+                    placeholder='Введите телефон обучающегося'
+                />
+            </Form.Item>
+
+            <Form.Item
+                label={
+                    <span>
+                        <span className={styles.requiredMark}>*</span> Название кружка
+                    </span>
+                }
+                name={CIRCLES}
+                className={styles.label}
+                rules={validators.select}
+            >
+                <Select
+                    mode='multiple'
+                    customType={'selectMultiple'}
+                    placeholder='Выберите кружок'
+                    className={styles.select}
+                    loading={circlesData.isLoading}
+                    dropdownStyle={DROPDOWN_STYLE}
+                    dropdownRender={(menu) => (
+                        <div className={styles.dropdown}>
+                            {menu}
+                            <Button
+                                type='schoolDefault'
+                                block
+                                className={styles.button}
+                                onClick={() => router.push(RoutePath[AppRoutes.CIRCLE_CREATE])}
+                            >
+                                Добавить кружок
+                            </Button>
+                        </div>
+                    )}
+                    options={circlesData?.data?.results.map((x) => {
+                        return {
+                            value: x.id,
+                            label: x.name,
+                        }
+                    })}
+                />
+            </Form.Item>
+
             <Form.Item name='button'>
                 <Button
                     disabled={!isFormValid}

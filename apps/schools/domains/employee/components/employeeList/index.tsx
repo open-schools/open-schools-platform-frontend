@@ -11,23 +11,16 @@ import { GetListEmployee } from '@domains/employee/redux/interfaces'
 import { RowType } from '@domains/employee/components/employeeList/interfaces'
 import { searchColumns } from '@domains/employee/components/employeeList/constants'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
+import { useQueryState } from 'next-usequerystate'
 import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function EmployeeList() {
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequest, setSearchRequest] = useQueryState('search')
     const { organizationId } = useOrganization()
-
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
 
     const { data, isFetching } = useGetAllEmployeesQuery({
         organization: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchColumns),
-        page: paginationParams.page,
-        page_size: paginationParams.pageSize,
+        or_search: createSearchTextForRequest(searchRequest || '', searchColumns),
     })
 
     return (
@@ -50,24 +43,12 @@ export function EmployeeList() {
                     ['Должность', 'position'],
                     ['Телефон', 'phone'],
                 ]}
-                pagination={{
-                    current: paginationParams.page,
-                    pageSize: paginationParams.pageSize,
-                    total: data?.count,
-                    onChange: (page, pageSize) => {
-                        setPaginationParams({
-                            page,
-                            pageSize,
-                        })
-                        scrollToTop()
-                    },
-                }}
                 data={data}
                 isLoading={isFetching}
                 mainRoute={RoutePath[AppRoutes.EMPLOYEE_LIST]}
                 searchFields={searchColumns}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequest || ''}
+                setSearchRequestText={(text) => setSearchRequest(text)}
             />
         </>
     )

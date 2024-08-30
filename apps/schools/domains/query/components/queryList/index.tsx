@@ -20,12 +20,10 @@ import { useQueryState } from 'next-usequerystate'
 import { parseAsArrayOf, parseAsString } from 'next-usequerystate'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import SearchInput from '@domains/common/components/searchInput'
-import { defaultPaginationTablePage, defaultPaginationTablePageSize } from '@domains/common/constants/Table'
-import { scrollToTop } from '@domains/common/utils/scrollInDirection'
 
 export function QueryList() {
     const { organizationId } = useOrganization()
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequest, setSearchRequest] = useQueryState('search')
     const [isTableLoading, setIsTableLoading] = useState(false)
 
     const [statuses, setStatuses] = useQueryState(
@@ -70,16 +68,9 @@ export function QueryList() {
         return items
     }, [analytics, statuses])
 
-    const [paginationParams, setPaginationParams] = useState({
-        page: defaultPaginationTablePage,
-        pageSize: defaultPaginationTablePageSize,
-    })
-
     const { data: queries, isFetching: isQueriesFetching } = useGetAllJoinCircleQueriesQuery({
         circle__organization__id: organizationId,
-        or_search: createSearchTextForRequest(searchRequestText, searchStudentsColumns),
-        page: paginationParams.page,
-        page_size: paginationParams.pageSize,
+        or_search: createSearchTextForRequest(searchRequest || '', searchStudentsColumns),
     })
 
     const countAllQueries = useMemo(
@@ -95,9 +86,7 @@ export function QueryList() {
 
     const handleSearchChange = useCallback((value: string) => {
         setIsTableLoading(true)
-        setTimeout(() => {
-            setSearchRequestText(value)
-        }, 1000)
+        setSearchRequest(value)
     }, [])
 
     return (
@@ -107,13 +96,17 @@ export function QueryList() {
             pageTitle={'Заявки'}
             data={queries}
             isLoading={isQueriesFetching}
-            searchTrigger={searchRequestText}
+            searchTrigger={searchRequest || ''}
         >
             <div className={styles.header}>
                 <Typography.Title level={1}>Заявки</Typography.Title>
             </div>
             <SearchInput onSearchChange={handleSearchChange} />
-            <BubbleFilter items={Object.values(bubbleFilterItems)} text={`${countAllQueries} заявок`} />
+            <BubbleFilter
+                text={`${countAllQueries} заявок`}
+                items={Object.values(bubbleFilterItems)}
+                statuses={statuses}
+            />
             <Table<RowType, TableType>
                 loading={isTableLoading}
                 customType={'tableWithoutSearch'}
@@ -125,18 +118,6 @@ export function QueryList() {
                     ['Телефон родителя', 'parent_phone'],
                     ['Кружок', 'circle_name'],
                 ]}
-                pagination={{
-                    current: paginationParams.page,
-                    pageSize: paginationParams.pageSize,
-                    total: queries?.count,
-                    onChange: (page, pageSize) => {
-                        setPaginationParams({
-                            page,
-                            pageSize,
-                        })
-                        scrollToTop()
-                    },
-                }}
                 data={queries}
                 isLoading={isQueriesFetching}
                 mainRoute={RoutePath[AppRoutes.QUERY_LIST]}
@@ -198,8 +179,8 @@ export function QueryList() {
                     },
                 }}
                 sortFields={['created_at']}
-                searchRequestText={searchRequestText}
-                setSearchRequestText={setSearchRequestText}
+                searchRequestText={searchRequest || ''}
+                setSearchRequestText={(text) => setSearchRequest(text)}
                 onChange={(pagination, filters, sorter) => {
                     const localStatuses = [...(filters['status'] ?? [])] as string[]
                     setStatuses(localStatuses.length === 0 ? null : localStatuses)

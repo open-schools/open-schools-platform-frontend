@@ -43,6 +43,15 @@ export const commonApi = createApi({
             return headers
         },
     }) as BaseQueryFn<string | FetchArgs, unknown, ErrorType, {}>,
-    tagTypes: ['Circle', 'Student', 'StudentJoinCircleQuery', 'Organization', 'Employee', 'Ticket', 'TicketComments'],
+    tagTypes: [
+        'Circle',
+        'Student',
+        'StudentJoinCircleQuery',
+        'Organization',
+        'Employee',
+        'Ticket',
+        'TicketComments',
+        'User',
+    ],
     endpoints: (_) => ({}),
 })

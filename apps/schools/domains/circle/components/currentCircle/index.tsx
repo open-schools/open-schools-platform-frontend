@@ -25,10 +25,11 @@ import { getVarsForAddressColumn } from '@domains/common/utils/geo'
 import { StatusesEnum } from '@domains/common/constants/Enums'
 import { ErrorType } from '@store/commonApi'
 import { AppRoutes, DynamicAppRoutes, DynamicRoutePath, RoutePath } from '@domains/common/constants/routerEnums'
+import { useQueryState } from 'next-usequerystate'
 
 const CurrentCircle = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [searchRequestText, setSearchRequestText] = useState('')
+    const [searchRequestText, setSearchRequestText] = useQueryState('search')
     const [mutation, isDeleteFinished] = useDeleteCircleMutation()
     const uuid = getUuidFromUrl()
     const router = useRouter()
@@ -40,7 +41,7 @@ const CurrentCircle = () => {
     const { data: circle, error: circleError } = useGetCircleQuery({ circle_id: uuid[0] })
     const { data: students, isLoading } = useGetCircleStudentsQuery({
         circle_id: uuid[0],
-        or_search: createSearchTextForRequest(searchRequestText, searchColumns),
+        or_search: createSearchTextForRequest(searchRequestText || '', searchColumns),
     })
     const { data: queryData } = useGetCurrentCircleQuery({ circle_id: uuid[0], organization_id: organizationId })
 
@@ -135,8 +136,8 @@ const CurrentCircle = () => {
                     isLoading={isLoading}
                     needNumbering={true}
                     searchFields={['student_name', 'student_phone', 'parent_names', 'parent_phones']}
-                    searchRequestText={searchRequestText}
-                    setSearchRequestText={setSearchRequestText}
+                    searchRequestText={searchRequestText || ''}
+                    setSearchRequestText={(text) => setSearchRequestText(text)}
                 />
             </div>
             <Col span={24} className={styles.buttonBar}>
