@@ -15,6 +15,9 @@ const menuList: MenuItemObj[] = [
     new MenuItemObj('employee', 'Сотрудники', <UserAddOutlined style={{ fontSize: '150%' }} />, [
         isOrganizationSelected,
     ]),
+    new MenuItemObj('teacher', 'Преподаватели', <UserAddOutlined style={{ fontSize: '150%' }} />, [
+        isOrganizationSelected,
+    ]),
     new MenuItemObj('ticket', 'Обращения', <MailOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
 ]
 

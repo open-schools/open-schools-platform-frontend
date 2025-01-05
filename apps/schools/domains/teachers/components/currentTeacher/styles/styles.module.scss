@@ -1,0 +1,141 @@
+@import '@domains/common/components/styles/abstracts/_colors.scss';
+@import '@domains/common/components/styles/abstracts/typography.scss';
+
+.tableContainer {
+  :global .ant-table-empty {
+    margin-bottom: 50px;
+  }
+}
+
+.Row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  .colorCountAllQueries {
+    color: $color-text-title
+  }
+
+  .colorCountAllQueries {
+    color: $color-green
+  }
+
+  .colorCountInProgressQueries {
+    color: $color-main
+  }
+}
+
+.Row span {
+  bottom: -6px;
+  flex: 1;
+  position: relative;
+  border-bottom: solid 1px $color-black-02;
+}
+
+.headersBlock {
+  height: initial;
+  margin-bottom: 42px;
+
+  .infoBlock {
+    padding-right: 30px;
+
+    @media (max-width: 992px) {
+      padding-right: unset;
+      margin-bottom: 15px;
+    }
+  }
+
+  .baseRowContainer {
+    .image {
+      @media (max-width: 1700px) {
+        display: none;
+      }
+    }
+
+    .infoContainer {
+      max-width: 750px;
+      margin-left: 70px;
+
+      @media (max-width: 1700px) {
+        max-width: 1920px;
+        margin-left: 0;
+      }
+
+      .title {
+        margin-bottom: 50px;
+      }
+
+      .itemContainer {
+        margin-bottom: 30px;
+      }
+
+      .buttonsContainer {
+        gap: 20px;
+      }
+
+      .stickyBlock {
+        margin-top: 60px;
+      }
+    }
+  }
+
+  .card {
+    border-radius: 16px;
+    flex-direction: row;
+    height: auto;
+    align-items: flex-start;
+    border: 1px solid $color-black-02;
+    position: relative;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 30px 23px 0 30px;
+      position: relative;
+    }
+
+    & .ant-card-head {
+      padding: 0 28px;
+    }
+
+    :global .ant-card-body {
+      padding: 0 28px 15px 28px !important;
+    }
+
+    .mobile {
+      position: relative;
+      overflow-y: hidden;
+      width: 50%;
+      height: 100%;
+      flex: 0 0 182px;
+
+      .mobileImage {
+        position: absolute;
+      }
+    }
+  }
+}
+
+.name {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -1.5px;
+}
+
+.buttonBar {
+  margin-bottom: 50px;
+}
+
+
+.deleteButton {
+  width: 160px;
+}
+
+.changeButton {
+  width: 268px;
+}
