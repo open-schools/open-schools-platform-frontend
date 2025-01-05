@@ -18,6 +18,40 @@ body {
     box-shadow: black;
 }
 
+.rc-virtual-list-holder-inner {
+    div[title="Принята"] {
+        color: #6CDC15 !important;
+    }
+
+    div[title="Отклонена"] {
+        color: #EB3468 !important;
+    }
+
+    div[title="Новое"] {
+        color: #EB3468 !important;
+    }
+
+    div[title="Отправлена"] {
+        color: #FF9500 !important;
+    }
+
+    div[title="Открыто"] {
+        color: #2F54EB !important;
+    }
+
+    div[title="Закрыто"] {
+        color: #52C41A !important;
+    }
+
+    div[title="На рассмотрении"] {
+        color: #2F54EB !important;
+    }
+
+    div[title="Отменена"] {
+        color: #b4710d !important;
+    }
+}
+
 .centralized {
     justify-content: center;
     align-items: center;

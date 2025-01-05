@@ -8,6 +8,37 @@
     top: -64px;
     position: absolute;
     left: 18vw;
+
+    :global {
+      .ant-select-selector:has(span[title="Отправлена"]) {
+        color: white !important;
+        background: #FF9500 !important;
+      }
+
+      .ant-select-selector:has(span[title="Принята"]) {
+        color: white !important;
+        background: #6CDC15 !important;
+      }
+
+      .ant-select-selector:has(span[title="На рассмотрении"]) {
+        color: white !important;
+        background: #2F54EB !important;
+      }
+
+      .ant-select-selector:has(span[title="Отклонена"]) {
+        color: white !important;
+        background: #EB3468 !important;
+      }
+
+      .ant-select-selector:has(span[title="Отменена"]) {
+        color: white !important;
+        background: #b4710d !important;
+      }
+
+      .ant-select-arrow {
+        color: black;
+      }
+    }
   }
 }
 

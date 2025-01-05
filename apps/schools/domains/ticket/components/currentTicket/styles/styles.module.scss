@@ -118,6 +118,27 @@
       display: flex;
       justify-content: start;
       align-items: start;
+
+      :global {
+        .ant-select-selector:has(span[title="Закрыто"]) {
+          color: white !important;
+          background: #6CDC15 !important;
+        }
+
+        .ant-select-selector:has(span[title="Открыто"]) {
+          color: white !important;
+          background: #2F54EB !important;
+        }
+
+        .ant-select-selector:has(span[title="Новое"]) {
+          color: white !important;
+          background: #EB3468 !important;
+        }
+
+        .ant-select-arrow {
+          color: black;
+        }
+      }
     }
 
     .image {
