@@ -11,10 +11,12 @@ import { TabsAuthAction } from '@domains/user/components/auth/headerActions'
 import { ValidatePhoneForm } from '@domains/user/components/auth/sharedForms/ValidatePhoneForm'
 import { RegisterForm } from '@domains/user/components/auth/registerForm'
 import { CENTRALIZED } from '@domains/common/components/styles/constantStyles'
-import { Row } from 'antd'
+import { Row, Button, Typography } from 'antd'
 import { RegistrationDisclaimer, RegistrationPhoneButtonLabel } from '@domains/user/components/auth/constants/labels'
 import { FirebaseReCaptcha } from '@domains/user/providers/firebaseReCaptchaProvider'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
+
+const { Text } = Typography
 
 const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
     const [step, setStep] = useState('inputPhone')
@@ -70,7 +72,23 @@ const RegisterPage: ContainerPage<IAuthLayoutProps> = (props) => {
             </Head>
             <Row className={CENTRALIZED}>
                 <FirebaseReCaptcha>
-                    <FormContainer width={step === 'register' ? 500 : 560}>{steps[step]}</FormContainer>
+                    <FormContainer width={step === 'register' ? 500 : 560}>
+                        {steps[step]}
+                        <div style={{ marginTop: 24, textAlign: 'center' }}>
+                            <Text style={{ fontSize: 14, color: '#595959', display: 'block', marginBottom: 8 }}>
+                                Если вы хотите разместить приложение, свяжитесь с нашей службой поддержки.
+                            </Text>
+                            <Button
+                                type="link"
+                                href="https://help.lamart.site"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ padding: 0, height: 'auto', fontSize: 14 }}
+                            >
+                                Связаться с поддержкой
+                            </Button>
+                        </div>
+                    </FormContainer>
                 </FirebaseReCaptcha>
             </Row>
         </>

@@ -16,6 +16,7 @@ export const enum AppRoutes {
     STUDENT_CREATE = 'studentCreate',
     USER_LIST = 'userList',
     USER_EDIT = 'userEdit',
+    MARKETPLACE = 'marketplace',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -36,16 +37,19 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.STUDENT_CREATE]: '/student/create',
     [AppRoutes.USER_LIST]: '/user',
     [AppRoutes.USER_EDIT]: '/user/edit',
+    [AppRoutes.MARKETPLACE]: '/marketplace',
 }
 
 export const enum DynamicAppRoutes {
     CIRCLE_CHANGE = 'circleChange',
     EMPLOYEE_CHANGE = 'employeeChange',
     STUDENT_CHANGE = 'studentChange',
+    MARKETPLACE_APP = 'marketplaceApp',
 }
 
 export const DynamicRoutePath: Record<DynamicAppRoutes, (...args: string[]) => string> = {
     [DynamicAppRoutes.CIRCLE_CHANGE]: (id: string) => `/circle/${id}/change`,
     [DynamicAppRoutes.EMPLOYEE_CHANGE]: (id: string) => `/employee/${id}/change`,
     [DynamicAppRoutes.STUDENT_CHANGE]: (id: string) => `/student/${id}/change`,
+    [DynamicAppRoutes.MARKETPLACE_APP]: (id: string) => `/marketplace/${id}`,
 }

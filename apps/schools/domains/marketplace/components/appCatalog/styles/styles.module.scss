@@ -1,0 +1,105 @@
+.container {
+    padding: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.title {
+    margin: 0;
+}
+
+.searchAndFilters {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.searchInput {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.categoryFilter {
+    min-width: 200px;
+}
+
+.typeFilter {
+    min-width: 150px;
+}
+
+.appsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 64px 24px;
+    background: #fafafa;
+    border-radius: 12px;
+}
+
+.emptyTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #262626;
+}
+
+.emptyDescription {
+    color: #8c8c8c;
+    font-size: 14px;
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    padding: 64px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.supportSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 48px;
+    padding: 24px;
+    background: #fafafa;
+    border-radius: 12px;
+}
+
+.supportText {
+    font-size: 14px;
+    color: #595959;
+    text-align: center;
+}
+
+.supportButton {
+    padding: 0;
+    height: auto;
+    font-size: 14px;
+}
+
+

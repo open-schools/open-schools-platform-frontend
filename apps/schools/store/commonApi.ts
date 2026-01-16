@@ -52,6 +52,10 @@ export const commonApi = createApi({
         'Ticket',
         'TicketComments',
         'User',
+        'App',
+        'Category',
+        'Review',
+        'Installation',
     ],
     endpoints: (_) => ({}),
 })

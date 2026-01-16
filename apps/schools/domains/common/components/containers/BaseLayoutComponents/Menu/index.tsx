@@ -1,5 +1,5 @@
 import { Menu } from 'antd'
-import { FileDoneOutlined, MailOutlined, ReadOutlined, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
+import { FileDoneOutlined, MailOutlined, ReadOutlined, TeamOutlined, UserAddOutlined, AppstoreOutlined } from '@ant-design/icons'
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import styles from './styles/styles.module.scss'
@@ -7,6 +7,8 @@ import styles from './styles/styles.module.scss'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { MenuItemObj } from '../classes'
 import { isOrganizationSelected, RulesDictionary } from '@domains/common/access/rules'
+
+const { SubMenu } = Menu
 
 const menuList: MenuItemObj[] = [
     new MenuItemObj('circle', 'Кружки', <ReadOutlined style={{ fontSize: '150%' }} />, [isOrganizationSelected]),
@@ -25,44 +27,98 @@ const MenuCustom: React.FC = () => {
         isOrganizationSelected: false,
         permanentDisabled: false,
     })
+    const [openKeys, setOpenKeys] = useState<string[]>([])
     const { organization } = useOrganization()
 
     useEffect(() => {
         setConditions({ isOrganizationSelected: organization.id !== undefined, permanentDisabled: false })
     }, [organization])
 
+    useEffect(() => {
+        if (router.asPath.includes('marketplace')) {
+            setOpenKeys(['marketplace'])
+        }
+    }, [router.asPath])
+
     const { menuItems, selectedKeys } = useMemo(() => {
-        return menuList.reduce<{
+        const result = menuList.reduce<{
             menuItems: React.ReactNode[]
             selectedKeys: string[]
         }>(
-            (result, el) => {
+            (acc, el) => {
                 const isDisabled = el.isDisabled(conditions)
-                result.menuItems.push(
+                acc.menuItems.push(
                     <Menu.Item disabled={isDisabled} key={el.url} icon={el.icon} className={styles.menuItem}>
                         {el.name}
                     </Menu.Item>,
                 )
                 if (!isDisabled && router.asPath.includes(el.url)) {
-                    result.selectedKeys.push(el.url)
+                    acc.selectedKeys.push(el.url)
                 }
-                return result
+                return acc
             },
             { menuItems: [], selectedKeys: [] },
         )
-    }, [conditions, router.asPath])
+
+        const isMarketplaceActive = router.asPath.includes('marketplace')
+        const isMarketplaceDisabled = !conditions.isOrganizationSelected
+        
+        if (!isMarketplaceDisabled) {
+            const marketplaceSubMenu = (
+                <SubMenu key="marketplace" icon={<AppstoreOutlined style={{ fontSize: '150%' }} />} title="Маркетплейс">
+                    <Menu.Item key="marketplace" className={styles.menuItem}>
+                        Все приложения
+                    </Menu.Item>
+                    <Menu.Item key="marketplace?installed=true" className={styles.menuItem}>
+                        Установленные
+                    </Menu.Item>
+                </SubMenu>
+            )
+            result.menuItems.push(marketplaceSubMenu)
+            
+            if (isMarketplaceActive) {
+                const query = router.query
+                if (query.installed === 'true') {
+                    result.selectedKeys.push('marketplace?installed=true')
+                } else {
+                    result.selectedKeys.push('marketplace')
+                }
+            }
+        }
+
+        return result
+    }, [conditions, router.asPath, router.query])
 
     const handleMenuClick = useCallback(
         (e: { key: string }) => {
-            if (!router.asPath.endsWith(e.key)) {
+            if (e.key === 'marketplace') {
+                router.push('/marketplace')
+            } else if (e.key === 'marketplace?installed=true') {
+                router.push('/marketplace?installed=true')
+            } else if (!router.asPath.endsWith(e.key)) {
                 router.push(`/${e.key}`)
             }
         },
         [router],
     )
 
+    const handleOpenChange = useCallback(
+        (keys: string[]) => {
+            setOpenKeys(keys)
+        },
+        [],
+    )
+
     return (
-        <Menu className={styles.menu} theme='light' mode='inline' onClick={handleMenuClick} selectedKeys={selectedKeys}>
+        <Menu 
+            className={styles.menu} 
+            theme='light' 
+            mode='inline' 
+            onClick={handleMenuClick} 
+            selectedKeys={selectedKeys}
+            openKeys={openKeys}
+            onOpenChange={handleOpenChange}
+        >
             {menuItems}
         </Menu>
     )

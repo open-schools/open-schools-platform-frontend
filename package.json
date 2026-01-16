@@ -105,5 +105,8 @@
       "jest/prefer-to-have-length": "warn",
       "jest/valid-expect": "error"
     }
+  },
+  "dependencies": {
+    "react": "^19.2.3"
   }
 }
