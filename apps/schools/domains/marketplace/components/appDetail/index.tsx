@@ -19,7 +19,7 @@ interface AppDetailProps {
 
 export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
     const { data, isLoading } = useGetAppQuery({ app_id: appId })
-    const { data: reviewsData } = useGetAppReviewsQuery({ app_id: appId, page: 1 })
+    const { data: reviewsData } = useGetAppReviewsQuery({ app_id: appId, limit: 3, offset: 0 })
     const { 
         isInstalling, 
         isUninstalling,
@@ -72,7 +72,7 @@ export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
                 <AppDetailSidebar app={app} />
             </div>
 
-            <AppReviews reviews={reviews} />
+            <AppReviews reviews={reviews} appId={appId} totalCount={reviewsData?.count} />
 
             <ScreenshotModal screenshot={selectedScreenshot} onClose={() => setSelectedScreenshot(null)} />
         </div>

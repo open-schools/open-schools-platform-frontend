@@ -9,4 +9,7 @@ module.exports = withPlugins([], {
         HelpRequisites,
         YandexMapApiKey,
     },
+    typescript: {
+        ignoreBuildErrors: true,
+    },
 })

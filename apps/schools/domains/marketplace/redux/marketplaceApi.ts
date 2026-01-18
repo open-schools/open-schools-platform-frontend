@@ -76,17 +76,23 @@ const marketplaceApi = commonApi.injectEndpoints({
             }),
             providesTags: ['Category'],
         }),
-        getAppReviews: build.query<ReturnedData<Review[]>, GetAppData & { page?: number }>({
-            query: (params) => ({
-                url: `/apps/${params.app_id}/reviews`,
-                method: 'GET',
-                params: { page: params.page },
-            }),
+        getAppReviews: build.query<ReturnedData<Review[]>, GetAppData & { limit?: number; offset?: number }>({
+            query: (params) => {
+                const queryParams: Record<string, any> = {}
+                if (params.limit !== undefined) queryParams.limit = params.limit
+                if (params.offset !== undefined) queryParams.offset = params.offset
+
+                return {
+                    url: `/marketplace-management/marketplace/apps/${params.app_id}/reviews`,
+                    method: 'GET',
+                    params: queryParams,
+                }
+            },
             providesTags: (result) => providesList(result?.results, 'Review'),
         }),
-        createReview: build.mutation<{ review: Review }, CreateReviewData>({
+        createReview: build.mutation<{ rating: number; message?: string }, CreateReviewData>({
             query: (data) => ({
-                url: `/apps/${data.app_id}/reviews`,
+                url: `/marketplace-management/marketplace/apps/${data.app_id}/reviews`,
                 method: 'POST',
                 body: {
                     rating: data.rating,
