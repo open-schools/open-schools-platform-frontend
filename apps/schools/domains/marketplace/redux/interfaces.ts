@@ -54,6 +54,8 @@ export interface App {
     latest_published_release?: AppRelease
     rating?: number
     reviews_count?: number
+    required_scopes: string[]
+    optional_scopes: string[]
 }
 
 export interface Installation {
@@ -70,6 +72,7 @@ export interface Installation {
     deleted_by_cascade?: boolean
     school?: { id: string; name: string }
     status?: boolean
+    granted_scopes: string
 }
 
 export interface GetAllAppsData extends BasePaginationData {
@@ -92,6 +95,7 @@ export interface InstallAppData {
     organization: string
     user?: string
     config_data?: Record<string, any>
+    scopes?: string[]
 }
 
 export interface UninstallAppData {
@@ -105,5 +109,3 @@ export interface CreateReviewData {
     rating: number
     message?: string
 }
-
-

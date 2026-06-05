@@ -1,10 +1,12 @@
 import React from 'react'
 import { Typography, Rate, Button } from 'antd'
-import { DownloadOutlined, DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons'
+import { DownloadOutlined, DeleteOutlined, PlayCircleOutlined, CheckOutlined } from '@ant-design/icons'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import router from 'next/router'
 import { App } from '../../redux/interfaces'
 import styles from '../appDetail/styles/styles.module.scss'
+
+// ... весь остальной код компонента остается без изменений
 
 const { Title, Text } = Typography
 

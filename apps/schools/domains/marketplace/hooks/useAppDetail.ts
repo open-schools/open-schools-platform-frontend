@@ -10,6 +10,7 @@ export const useAppDetail = (appId: string) => {
     const [installApp, { isLoading: isInstalling }] = useInstallAppMutation()
     const [uninstallApp, { isLoading: isUninstalling }] = useUninstallAppMutation()
     const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null)
+    const [isConsentModalOpen, setIsConsentModalOpen] = useState<boolean>(false)
     
     const { data: installation } = useCheckAppInstallationQuery(
         { 
@@ -21,7 +22,15 @@ export const useAppDetail = (appId: string) => {
     
     const isInstalled = !!installation
 
-    const handleInstall = async () => {
+    const handleInstall = () => {
+        if (!organizationId) {
+            message.error('Организация не выбрана')
+            return
+        }
+        setIsConsentModalOpen(true)
+    }
+
+    const handleConfirmInstall = async (scopes: string[]) => {
         if (!organizationId) {
             message.error('Организация не выбрана')
             return
@@ -31,14 +40,18 @@ export const useAppDetail = (appId: string) => {
             await installApp({
                 app: appId,
                 organization: organizationId,
+                scopes, 
             }).unwrap()
+            
             message.success('Приложение успешно установлено!')
+            setIsConsentModalOpen(false) 
         } catch (err: any) {
             const errorMessage = err?.data?.error?.message || ''
             const violations = err?.data?.error?.violations || []
             
             if (violations.includes('unique') || errorMessage.includes('unique') || errorMessage.includes('already installed')) {
                 message.warning('Это приложение уже установлено для данной организации')
+                setIsConsentModalOpen(false)
             } else {
                 message.error(errorMessage || 'Ошибка при установке приложения')
             }
@@ -66,9 +79,11 @@ export const useAppDetail = (appId: string) => {
         isInstalled,
         installation,
         selectedScreenshot,
-        handleInstall,
+        isConsentModalOpen,          
+        setIsConsentModalOpen,       
+        handleInstall,               
+        handleConfirmInstall,        
         handleUninstall,
         setSelectedScreenshot,
     }
 }
-
