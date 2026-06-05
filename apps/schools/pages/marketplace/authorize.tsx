@@ -3,11 +3,10 @@ import { useRouter } from 'next/router'
 import { Spin, Card, Button, Typography, Result, Row, Col, Alert } from 'antd'
 import { DownloadOutlined, SafetyCertificateOutlined } from '@ant-design/icons'
 
-// Импорты из твоей кодовой базы
 import { 
     useCheckAppInstallationQuery, 
     useInstallAppMutation,
-    useGetAppQuery // Предполагаем стандартное имя экшена получения данных приложения
+    useGetAppQuery 
 } from '../../domains/marketplace/redux/marketplaceApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { ConsentModal } from '../../domains/marketplace/components/consentModal'
@@ -18,16 +17,13 @@ export const OAuth2AuthorizePage = () => {
     const router = useRouter()
     const { organizationId } = useOrganization()
     
-    // 1. Извлекаем query-параметры OAuth2
     const { client_id, response_type, redirect_uri, scope, state } = router.query
     
     const [isConsentOpen, setIsConsentOpen] = useState(false)
     const [installApp, { isLoading: isInstalling }] = useInstallAppMutation()
 
-    // В OAuth2 client_id чаще всего соответствует id приложения в системе
     const appId = client_id as string
 
-    // 2. Проверяем, установлено ли приложение в текущей организации
     const { 
         data: installation, 
         isLoading: isCheckLoading, 
@@ -40,19 +36,16 @@ export const OAuth2AuthorizePage = () => {
         { skip: !organizationId || !appId }
     )
 
-    // 3. Загружаем данные приложения (нужно для Сценария 2 — показать карточку перед установкой)
     const { 
         data: app, 
         isLoading: isAppLoading 
     } = useGetAppQuery(
         { app_id: appId },
-        { skip: !appId || !!installation } // Пропускаем, если приложение уже стоит
+        { skip: !appId || !!installation }
     )
 
-    // Базовый URL бэкенда (подставь используемую в проекте переменную, например process.env.NEXT_PUBLIC_API_URL)
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.open-schools.ru'
 
-    // Функция перенаправления на бэкенд для завершения OAuth2-авторизации
     const redirectToBackendAuthorize = () => {
         const searchParams = new URLSearchParams({
             client_id: appId,
@@ -62,18 +55,15 @@ export const OAuth2AuthorizePage = () => {
         if (scope) searchParams.append('scope', scope as string)
         if (state) searchParams.append('state', state as string)
 
-        // Сценарий 1: Уводим пользователя на бэкенд
         window.location.href = `${API_BASE_URL}/api/marketplace/oauth2/authorize?${searchParams.toString()}`
     }
 
-    // Следим за статусом проверки установки: если приложение УЖЕ стоит — редиректим сразу
     useEffect(() => {
         if (installation && router.isReady) {
             redirectToBackendAuthorize()
         }
     }, [installation, router.isReady])
 
-    // Валидация обязательных параметров
     if (router.isReady && (!client_id || !redirect_uri)) {
         return (
             <Result
@@ -84,7 +74,6 @@ export const OAuth2AuthorizePage = () => {
         )
     }
 
-    // Состояние загрузки (идёт проверка или редирект)
     if (!router.isReady || isCheckLoading || (installation && !checkError)) {
         return (
             <Row justify="center" align="middle" style={{ minHeight: '80vh', flexDirection: 'column' }}>
@@ -96,27 +85,22 @@ export const OAuth2AuthorizePage = () => {
         )
     }
 
-    // Обработка успешного согласия в ConsentModal
     const handleConfirmInstall = async (scopes: string[]) => {
         if (!organizationId || !appId) return
 
         try {
-            // Устанавливаем приложение с выбранными скоупами
             await installApp({
                 app: appId,
                 organization: organizationId,
                 scopes,
             }).unwrap()
 
-            // После успешной установки бэкенд обновит кэш RTK Query, 
-            // сработает useEffect выше и автоматически перенаправит на Сценарий 1.
             setIsConsentOpen(false)
         } catch (err) {
             console.error('Ошибка при установке в процессе OAuth2:', err)
         }
     }
 
-    // Сценарий 2: Приложение НЕ установлено. Показываем интерфейс запроса на установку.
     return (
         <Row justify="center" align="middle" style={{ minHeight: '90vh', padding: '24px' }}>
             <Col xs={24} sm={18} md={12} lg={10}>
@@ -198,5 +182,4 @@ export const OAuth2AuthorizePage = () => {
     )
 }
 
-// Экспортируем страницу по умолчанию для Next.js роутинга
-default export OAuth2AuthorizePage
+export default OAuth2AuthorizePage

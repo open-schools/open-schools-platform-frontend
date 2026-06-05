@@ -6,7 +6,6 @@ import router from 'next/router'
 import { App } from '../../redux/interfaces'
 import styles from '../appDetail/styles/styles.module.scss'
 
-// ... весь остальной код компонента остается без изменений
 
 const { Title, Text } = Typography
 
