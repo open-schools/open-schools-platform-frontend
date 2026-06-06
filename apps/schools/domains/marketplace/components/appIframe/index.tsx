@@ -9,13 +9,27 @@ const { Title } = Typography
 
 interface AppIframeProps {
     app: App
+    organizationId?: string | null
 }
 
-export const AppIframe: React.FC<AppIframeProps> = ({ app }) => {
+export const AppIframe: React.FC<AppIframeProps> = ({ app, organizationId }) => {
     const iframeRef = useRef<HTMLIFrameElement>(null)
     const [generateAuthCode] = useGenerateAuthCodeMutation()
 
     const entry = app.app_url || app.latest_published_release?.manifest?.entry || app.latest_release?.manifest?.entry
+    
+    const getIframeUrl = () => {
+        if (!entry) return ''
+        try {
+            const url = new URL(entry)
+            if (organizationId) {
+                url.searchParams.set('org_id', organizationId)
+            }
+            return url.toString()
+        } catch {
+            return entry
+        }
+    }
 
     useEffect(() => {
         const handleMessage = async (event: MessageEvent) => {
@@ -28,6 +42,7 @@ export const AppIframe: React.FC<AppIframeProps> = ({ app }) => {
                             client_id: app.client_id,
                             code_challenge,
                             code_challenge_method: code_challenge_method || 'S256',
+                            organization: organizationId || undefined,
                         }).unwrap()
 
                         iframeRef.current?.contentWindow?.postMessage(
@@ -52,7 +67,7 @@ export const AppIframe: React.FC<AppIframeProps> = ({ app }) => {
 
         window.addEventListener('message', handleMessage)
         return () => window.removeEventListener('message', handleMessage)
-    }, [app.client_id, generateAuthCode])
+    }, [app.client_id, generateAuthCode, organizationId])
 
     if (!entry) return null
 
@@ -70,8 +85,9 @@ export const AppIframe: React.FC<AppIframeProps> = ({ app }) => {
                 />
             </div>
             <iframe
+                key={organizationId}
                 ref={iframeRef}
-                src={entry}
+                src={getIframeUrl()}
                 className={styles.iframe}
                 allow="camera; microphone; geolocation; fullscreen"
             />

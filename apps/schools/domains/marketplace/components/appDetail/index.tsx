@@ -19,7 +19,10 @@ interface AppDetailProps {
     appId: string
 }
 
+import { useOrganization } from '@domains/organization/providers/organizationProvider'
+
 export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
+    const { organizationId } = useOrganization()
     const { data, isLoading } = useGetAppQuery({ app_id: appId })
     const { data: reviewsData } = useGetAppReviewsQuery({ app_id: appId, limit: 3, offset: 0 })
     const { 
@@ -77,7 +80,7 @@ export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
             />
 
             {viewMode === 'app' ? (
-                <AppIframe app={app} />
+                <AppIframe app={app} organizationId={organizationId} />
             ) : (
                 <>
                     <div className={styles.content}>

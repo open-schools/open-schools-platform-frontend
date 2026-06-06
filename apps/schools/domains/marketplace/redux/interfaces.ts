@@ -112,6 +112,7 @@ export interface GenerateAuthCodeData {
     client_id: string
     code_challenge: string
     code_challenge_method?: string
+    organization?: string
 }
 
 export interface GenerateAuthCodeResponse {

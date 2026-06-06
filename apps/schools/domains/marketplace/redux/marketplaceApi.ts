@@ -51,6 +51,7 @@ const marketplaceApi = commonApi.injectEndpoints({
                         app: data.app,
                         organization: data.organization,
                         config_data: data.config_data,
+                        scopes: data.scopes,
                     },
                 }
             },
