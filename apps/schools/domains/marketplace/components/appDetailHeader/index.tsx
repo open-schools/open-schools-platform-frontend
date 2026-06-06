@@ -14,6 +14,8 @@ interface AppDetailHeaderProps {
     isInstalling: boolean
     isUninstalling: boolean
     isInstalled: boolean
+    viewMode?: 'store' | 'app'
+    onViewModeChange?: (mode: 'store' | 'app') => void
     onInstall: () => void
     onUninstall: () => void
 }
@@ -23,6 +25,8 @@ export const AppDetailHeader: React.FC<AppDetailHeaderProps> = ({
     isInstalling, 
     isUninstalling,
     isInstalled,
+    viewMode,
+    onViewModeChange,
     onInstall,
     onUninstall 
 }) => {
@@ -68,21 +72,27 @@ export const AppDetailHeader: React.FC<AppDetailHeaderProps> = ({
                 <div className={styles.actions}>
                     {isInstalled ? (
                         <>
-                            {app.type === 'internal' && (app.latest_release?.manifest?.entry || app.latest_published_release?.manifest?.entry) ? (
-                                <Button
-                                    type='primary'
-                                    size='large'
-                                    icon={<PlayCircleOutlined />}
-                                    className={styles.installButton}
-                                    onClick={() => {
-                                        const entry = app.latest_published_release?.manifest?.entry || app.latest_release?.manifest?.entry
-                                        if (entry) {
-                                            router.push(entry)
-                                        }
-                                    }}
-                                >
-                                    Открыть
-                                </Button>
+                            {(app.app_url || app.latest_release?.manifest?.entry || app.latest_published_release?.manifest?.entry) ? (
+                                viewMode === 'app' ? (
+                                    <Button
+                                        type='default'
+                                        size='large'
+                                        className={styles.installButton}
+                                        onClick={() => onViewModeChange?.('store')}
+                                    >
+                                        В магазин
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        type='primary'
+                                        size='large'
+                                        icon={<PlayCircleOutlined />}
+                                        className={styles.installButton}
+                                        onClick={() => onViewModeChange?.('app')}
+                                    >
+                                        Открыть
+                                    </Button>
+                                )
                             ) : (
                                 <Button
                                     type='default'

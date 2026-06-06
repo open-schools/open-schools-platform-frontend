@@ -10,6 +10,8 @@ const SCOPE_DESCRIPTIONS: Record<string, { title: string; desc: string }> = {
     profile: { title: 'Профиль сотрудника', desc: 'Доступ к ФИО, должности и аватарке.' },
     email: { title: 'Email адрес', desc: 'Чтение основного адреса электронной почты.' },
     phone: { title: 'Номер телефона', desc: 'Доступ к вашему контактному номеру телефона.' },
+    'read:organizations': { title: 'Чтение организаций', desc: 'Доступ к списку ваших организаций.' },
+    'read:organization_members': { title: 'Чтение членов организаций', desc: 'Доступ к списку участников в ваших организациях.' },
 }
 
 interface ConsentModalProps {
@@ -57,7 +59,7 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
                 <div style={{ marginLeft: 12 }}>
                     <Text strong>{info.title}</Text>
                     <br />
-                    <Text type="secondary" size="small">{info.desc}</Text>
+                    <Text type="secondary" style={{ fontSize: '12px' }}>{info.desc}</Text>
                 </div>
             </div>
         )

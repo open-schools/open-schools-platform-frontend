@@ -10,16 +10,6 @@ interface AppDetailSidebarProps {
     app: App
 }
 
-const getStatusText = (status: string) => {
-    const statusMap: Record<string, string> = {
-        published: 'Опубликовано',
-        draft: 'Черновик',
-        moderation: 'На модерации',
-        rejected: 'Отклонено',
-    }
-    return statusMap[status] || status
-}
-
 export const AppDetailSidebar: React.FC<AppDetailSidebarProps> = ({ app }) => {
     return (
         <div className={styles.sidebar}>
@@ -27,16 +17,6 @@ export const AppDetailSidebar: React.FC<AppDetailSidebarProps> = ({ app }) => {
                 <Title level={4} className={styles.sectionTitle}>
                     Информация
                 </Title>
-                <div className={styles.infoRow}>
-                    <Text className={styles.infoLabel}>Тип:</Text>
-                    <Text className={styles.infoValue}>
-                        {app.type === 'internal' ? 'Внутреннее' : 'Внешнее'}
-                    </Text>
-                </div>
-                <div className={styles.infoRow}>
-                    <Text className={styles.infoLabel}>Статус:</Text>
-                    <Text className={styles.infoValue}>{getStatusText(app.status)}</Text>
-                </div>
                 {app.latest_release && (
                     <>
                         <div className={styles.infoRow}>

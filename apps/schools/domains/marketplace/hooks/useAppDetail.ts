@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { message } from 'antd'
 import { useInstallAppMutation, useCheckAppInstallationQuery, useUninstallAppMutation } from '../redux/marketplaceApi'
 import { useOrganization } from '@domains/organization/providers/organizationProvider'
@@ -8,10 +8,6 @@ export const useAppDetail = (appId: string) => {
     const { organizationId } = useOrganization()
     const { user } = useUserProfile()
     const [installApp, { isLoading: isInstalling }] = useInstallAppMutation()
-    const [uninstallApp, { isLoading: isUninstalling }] = useUninstallAppMutation()
-    const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null)
-    const [isConsentModalOpen, setIsConsentModalOpen] = useState<boolean>(false)
-    
     const { data: installation } = useCheckAppInstallationQuery(
         { 
             app_id: appId,
@@ -21,6 +17,20 @@ export const useAppDetail = (appId: string) => {
     )
     
     const isInstalled = !!installation
+
+    const [uninstallApp, { isLoading: isUninstalling }] = useUninstallAppMutation()
+    const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null)
+    const [isConsentModalOpen, setIsConsentModalOpen] = useState<boolean>(false)
+    const [viewMode, setViewMode] = useState<'store' | 'app'>(isInstalled ? 'app' : 'store')
+
+    // Automatically switch to 'app' view when installation status changes to true
+    useEffect(() => {
+        if (isInstalled) {
+            setViewMode('app')
+        } else {
+            setViewMode('store')
+        }
+    }, [isInstalled])
 
     const handleInstall = () => {
         if (!organizationId) {
@@ -85,5 +95,7 @@ export const useAppDetail = (appId: string) => {
         handleConfirmInstall,        
         handleUninstall,
         setSelectedScreenshot,
+        viewMode,
+        setViewMode,
     }
 }

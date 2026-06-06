@@ -131,7 +131,7 @@ export const OAuth2AuthorizePage = () => {
                                 <Col>
                                     <Text strong style={{ fontSize: 16 }}>{app.name}</Text>
                                     <br />
-                                    <Text type="secondary" size="small">Разработчик: {app.DeveloperProfile?.email || 'Не указан'}</Text>
+                                    <Text type="secondary" style={{ fontSize: '12px' }}>Разработчик: {app.DeveloperProfile?.email || 'Не указан'}</Text>
                                 </Col>
                             </Row>
                         </Card>

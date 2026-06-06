@@ -9,23 +9,19 @@ const { Option } = Select
 interface CatalogFiltersProps {
     search: string
     selectedCategories: string[]
-    selectedType: string
     categories: Category[]
     isLoadingCategories: boolean
     onSearchChange: (value: string) => void
     onCategoryChange: (value: string[]) => void
-    onTypeChange: (value: string) => void
 }
 
 export const CatalogFilters: React.FC<CatalogFiltersProps> = ({
     search,
     selectedCategories,
-    selectedType,
     categories,
     isLoadingCategories,
     onSearchChange,
     onCategoryChange,
-    onTypeChange,
 }) => {
     return (
         <div className={styles.searchAndFilters}>
@@ -57,16 +53,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({
                     ))}
                 </Select>
 
-                <Select
-                    className={styles.typeFilter}
-                    placeholder='Тип приложения'
-                    allowClear
-                    value={selectedType || undefined}
-                    onChange={onTypeChange}
-                >
-                    <Option value='internal'>Внутренние</Option>
-                    <Option value='external'>Внешние</Option>
-                </Select>
             </div>
         </div>
     )

@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { AppType } from '../redux/interfaces'
 
 export const useCatalogFilters = () => {
     const router = useRouter()
     const [search, setSearch] = useState<string>('')
     const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-    const [selectedType, setSelectedType] = useState<string>('')
     const [page, setPage] = useState(1)
     const pageSize = 12
 
@@ -21,9 +19,6 @@ export const useCatalogFilters = () => {
             if (query.categories) {
                 const categories = Array.isArray(query.categories) ? query.categories : [query.categories]
                 setSelectedCategories(categories.filter((c): c is string => typeof c === 'string'))
-            }
-            if (query.type && typeof query.type === 'string') {
-                setSelectedType(query.type)
             }
             if (query.page && typeof query.page === 'string') {
                 const pageNum = parseInt(query.page, 10)
@@ -63,12 +58,6 @@ export const useCatalogFilters = () => {
         updateURL({ categories: value.length > 0 ? value : null })
     }
 
-    const handleTypeChange = (value: string) => {
-        setSelectedType(value || '')
-        setPage(1)
-        updateURL({ type: value || null })
-    }
-
     const handleSearchChange = (value: string) => {
         setSearch(value)
         setPage(1)
@@ -85,13 +74,11 @@ export const useCatalogFilters = () => {
     return {
         search,
         selectedCategories,
-        selectedType,
         page,
         pageSize,
         categoryId,
         installedOnly,
         handleCategoryChange,
-        handleTypeChange,
         handleSearchChange,
         handlePageChange,
     }

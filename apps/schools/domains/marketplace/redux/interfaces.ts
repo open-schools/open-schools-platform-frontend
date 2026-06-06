@@ -1,7 +1,5 @@
 import { BasePaginationData } from '@domains/common/redux/interfaces'
 
-export type AppType = 'internal' | 'external'
-export type AppStatus = 'draft' | 'moderation' | 'published' | 'rejected'
 export type InstallationStatus = 'active' | 'inactive' | 'pending'
 
 export interface DeveloperProfile {
@@ -41,12 +39,13 @@ export interface App {
     id: string
     name: string
     description: string
-    type: AppType
-    status: AppStatus
     icon_url?: string
     screenshots?: string[]
     DeveloperProfile: DeveloperProfile
-    Category: Category[]
+    Category?: Category[]
+    client_id: string
+    is_internal?: boolean
+    app_url?: string
     visibility_scope?: string
     created_at: string
     updated_at: string
@@ -79,7 +78,6 @@ export interface GetAllAppsData extends BasePaginationData {
     category_id?: number
     developer_profile_id?: string
     sort?: string
-    type?: AppType
     q?: string
     page?: number
     page_size?: number
@@ -108,4 +106,14 @@ export interface CreateReviewData {
     app_id: string
     rating: number
     message?: string
+}
+
+export interface GenerateAuthCodeData {
+    client_id: string
+    code_challenge: string
+    code_challenge_method?: string
+}
+
+export interface GenerateAuthCodeResponse {
+    code: string
 }
