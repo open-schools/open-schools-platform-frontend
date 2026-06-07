@@ -50,10 +50,10 @@ export const AppDetailHeader: React.FC<AppDetailHeaderProps> = ({
                 )}
 
                 <div className={styles.ratingSection}>
-                    {app.rating !== undefined && (
+                    {app.average_rating !== undefined && (
                         <div className={styles.rating}>
-                            <Rate disabled value={app.rating} allowHalf style={{ fontSize: 20 }} />
-                            <Text strong>{app.rating.toFixed(1)}</Text>
+                            <Rate disabled value={app.average_rating} allowHalf style={{ fontSize: 20 }} />
+                            <Text strong>{app.average_rating.toFixed(1)}</Text>
                             <Text type='secondary'>({app.reviews_count || 0} отзывов)</Text>
                         </div>
                     )}

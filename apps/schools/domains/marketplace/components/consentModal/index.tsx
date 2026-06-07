@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Checkbox, Typography, Space, Divider } from 'antd'
+import { Modal, Checkbox, Typography, Divider } from 'antd'
 import { App } from '../../redux/interfaces'
 
 const { Text, Paragraph } = Typography
@@ -37,31 +37,51 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
     onClose,
     onConfirm,
 }) => {
-    // Храним только выбранные опциональные скоупы
     const [selectedOptional, setSelectedOptional] = useState<string[]>([])
 
-    // При открытии модалки сбрасываем состояние — по умолчанию выбраны все опциональные
     useEffect(() => {
-        if (visible && app.optional_scopes) {
-            setSelectedOptional(app.optional_scopes)
+        if (visible) {
+            const rawOptional = app.optional_scopes
+            const optionalArray = Array.isArray(rawOptional)
+                ? rawOptional
+                : typeof rawOptional === 'string'
+                ? rawOptional.trim().split(/[\s,]+/).filter(Boolean)
+                : []
+            
+            setSelectedOptional(optionalArray)
         }
     }, [visible, app.optional_scopes])
 
     const handleConfirm = () => {
-        // Объединяем обязательные скоупы и выбранные пользователем опциональные
-        const totalScopes = [...(app.required_scopes || []), ...selectedOptional]
+        const rawRequired = app.required_scopes
+        const requiredArray = Array.isArray(rawRequired)
+            ? rawRequired
+            : typeof rawRequired === 'string'
+            ? rawRequired.trim().split(/[\s,]+/).filter(Boolean)
+            : []
+
+        const totalScopes = [...requiredArray, ...selectedOptional]
         onConfirm(totalScopes)
+    }
+
+    const handleOptionalChange = (scope: string, checked: boolean) => {
+        if (checked) {
+            setSelectedOptional((prev) => [...prev, scope])
+        } else {
+            setSelectedOptional((prev) => prev.filter((s) => s !== scope))
+        }
     }
 
     const renderScopeItem = (scope: string, isDisabled: boolean) => {
         const info = SCOPE_DESCRIPTIONS[scope] || { title: scope, desc: 'Дополнительное разрешение приложения.' }
+        const isChecked = isDisabled ? true : selectedOptional.includes(scope)
         
         return (
             <div key={scope} style={{ marginBottom: 12, display: 'flex', alignItems: 'flex-start' }}>
                 <Checkbox 
-                    value={scope} 
                     disabled={isDisabled} 
-                    checked={isDisabled ? true : undefined} // Для disabled форсируем true
+                    checked={isChecked}
+                    onChange={(e) => !isDisabled && handleOptionalChange(scope, e.target.checked)}
                     style={{ marginTop: 4 }}
                 />
                 <div style={{ marginLeft: 12 }}>
@@ -72,6 +92,20 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
             </div>
         )
     }
+
+    const rawRequired = app.required_scopes
+    const requiredArray = Array.isArray(rawRequired)
+        ? rawRequired
+        : typeof rawRequired === 'string'
+        ? rawRequired.trim().split(/[\s,]+/).filter(Boolean)
+        : []
+
+    const rawOptional = app.optional_scopes
+    const optionalArray = Array.isArray(rawOptional)
+        ? rawOptional
+        : typeof rawOptional === 'string'
+        ? rawOptional.trim().split(/[\s,]+/).filter(Boolean)
+        : []
 
     return (
         <Modal
@@ -90,23 +124,19 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
 
             <Divider orientation="left" plain style={{ margin: '12px 0' }}>Обязательные права</Divider>
             <div style={{ paddingLeft: 8 }}>
-                {app.required_scopes && app.required_scopes.length > 0 ? (
-                    app.required_scopes.map((scope) => renderScopeItem(scope, true))
+                {requiredArray.length > 0 ? (
+                    requiredArray.map((scope) => renderScopeItem(scope, true))
                 ) : (
                     <Text type="secondary">Обязательные права отсутствуют</Text>
                 )}
             </div>
 
-            {app.optional_scopes && app.optional_scopes.length > 0 && (
+            {optionalArray.length > 0 && (
                 <>
                     <Divider orientation="left" plain style={{ margin: '12px 0' }}>Дополнительные права</Divider>
-                    <Checkbox.Group 
-                        value={selectedOptional} 
-                        onChange={(checkedValues) => setSelectedOptional(checkedValues as string[])}
-                        style={{ width: '100%', flexDirection: 'column', paddingLeft: 8 }}
-                    >
-                        {app.optional_scopes.map((scope) => renderScopeItem(scope, false))}
-                    </Checkbox.Group>
+                    <div style={{ paddingLeft: 8 }}>
+                        {optionalArray.map((scope) => renderScopeItem(scope, false))}
+                    </div>
                 </>
             )}
         </Modal>

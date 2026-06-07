@@ -1,12 +1,10 @@
 import React from 'react'
-import { Typography, Rate, Button, message } from 'antd'
+import { Typography, Rate, Button } from 'antd'
 import { DownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { App } from '../../redux/interfaces'
 import styles from './styles/styles.module.scss'
 import router from 'next/router'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { useCheckAppInstallationQuery, useInstallAppMutation } from '../../redux/marketplaceApi'
-import { useOrganization } from '@domains/organization/providers/organizationProvider'
 import { useAppDetail } from '../../hooks/useAppDetail'
 import { ConsentModal } from '../consentModal'
 
@@ -59,12 +57,10 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
                     {app.DeveloperProfile?.email && (
                         <Text className={styles.developer}>{app.DeveloperProfile.email}</Text>
                     )}
-                    {app.rating !== undefined && (
-                        <div className={styles.rating}>
-                            <Rate disabled value={app.rating} allowHalf style={{ fontSize: 14 }} />
-                            <Text>({app.reviews_count || 0})</Text>
-                        </div>
-                    )}
+                    <div className={styles.rating}>
+                        <Rate disabled value={app.average_rating || 0} allowHalf style={{ fontSize: 14 }} />
+                        <Text style={{ marginLeft: 4 }}>({app.reviews_count || 0})</Text>
+                    </div>
                 </div>
             </div>
 
@@ -114,11 +110,10 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
                     visible={isConsentModalOpen}
                     app={app}
                     isInstalling={isInstalling}
-                    onClose={() => setIsConsentModalOpen(false)}
+                    onClose={() => setIsConsentOpen(false)}
                     onConfirm={handleConfirmInstall}
                 />
             </div>
         </div>
     )
 }
-

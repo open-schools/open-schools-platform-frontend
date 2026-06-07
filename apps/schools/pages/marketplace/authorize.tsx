@@ -37,7 +37,7 @@ export const OAuth2AuthorizePage = () => {
     )
 
     const { 
-        data: app, 
+        data: fetchedApp, 
         isLoading: isAppLoading 
     } = useGetAppQuery(
         { app_id: appId },
@@ -45,6 +45,17 @@ export const OAuth2AuthorizePage = () => {
     )
 
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.open-schools.ru'
+
+    const app = React.useMemo(() => {
+        if (!fetchedApp) return undefined
+        if (!scope) return fetchedApp
+
+        return {
+            ...fetchedApp,
+            required_scopes: (scope as string).trim().split(/[\s,]+/).filter(Boolean),
+            optional_scopes: []
+        }
+    }, [fetchedApp, scope])
 
     const redirectToBackendAuthorize = () => {
         const searchParams = new URLSearchParams({
@@ -92,7 +103,7 @@ export const OAuth2AuthorizePage = () => {
             await installApp({
                 app: appId,
                 organization: organizationId,
-                scopes,
+                granted_scopes: scopes.join(' '),
             }).unwrap()
 
             setIsConsentOpen(false)
@@ -112,7 +123,7 @@ export const OAuth2AuthorizePage = () => {
                         <SafetyCertificateOutlined style={{ fontSize: 40, color: '#1890ff' }} />
                         <Title level={3} style={{ marginTop: 16 }}>Запрос на авторизацию</Title>
                         <Paragraph type="secondary">
-                            Стороннее приложение запрашивает доступ к вашему аккаунту Open-Schools
+                            Стороннее обеспечение запрашивает доступ к вашему аккаунту Open-Schools
                         </Paragraph>
                     </div>
 

@@ -51,7 +51,7 @@ export interface App {
     updated_at: string
     latest_release?: AppRelease
     latest_published_release?: AppRelease
-    rating?: number
+    average_rating?: number // <-- ИСПРАВЛЕНО (было rating)
     reviews_count?: number
     required_scopes: string[]
     optional_scopes: string[]
