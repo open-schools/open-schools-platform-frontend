@@ -42,7 +42,7 @@ export interface App {
     icon_url?: string
     screenshots?: string[]
     DeveloperProfile: DeveloperProfile
-    Category?: Category[]
+    category?: Category
     client_id: string
     is_internal?: boolean
     app_url?: string
@@ -75,7 +75,7 @@ export interface Installation {
 }
 
 export interface GetAllAppsData extends BasePaginationData {
-    category_id?: number
+    category_id?: string
     developer_profile_id?: string
     sort?: string
     q?: string

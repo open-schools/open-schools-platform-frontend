@@ -37,6 +37,14 @@ export const AppDetailSidebar: React.FC<AppDetailSidebarProps> = ({ app }) => {
                         {format(new Date(app.created_at), 'dd MMMM yyyy')}
                     </Text>
                 </div>
+                {app.category && (
+                    <div className={styles.infoRow}>
+                        <Text className={styles.infoLabel}>Категория:</Text>
+                        <Text className={styles.infoValue}>
+                            <span className={styles.categoryTag}>{app.category.name}</span>
+                        </Text>
+                    </div>
+                )}
             </div>
         </div>
     )

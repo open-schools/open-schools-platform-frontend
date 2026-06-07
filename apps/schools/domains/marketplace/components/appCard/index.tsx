@@ -66,18 +66,15 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
 
             {app.description && <Text className={styles.description}>{app.description}</Text>}
 
-            {app.Category && app.Category.length > 0 && (
-                <div className={styles.categories}>
-                    {app.Category.map((category) => (
-                        <span key={category.id} className={styles.categoryTag}>
-                            {category.name}
-                        </span>
-                    ))}
-                </div>
-            )}
+
 
             <div className={styles.footer}>
                 <div className={styles.footerLeft}>
+                    {app.category && (
+                        <span className={styles.categoryTag}>
+                            {app.category.name}
+                        </span>
+                    )}
                 </div>
                 <div className={styles.actions}>
                     {isInstalled ? (
