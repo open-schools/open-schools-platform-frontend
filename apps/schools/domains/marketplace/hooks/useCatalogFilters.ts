@@ -32,12 +32,7 @@ export const useCatalogFilters = () => {
         }
     }, [router.isReady, router.query])
 
-    const categoryId = selectedCategories?.[0]
-        ? (() => {
-              const parsed = parseInt(selectedCategories[0], 10)
-              return isNaN(parsed) ? undefined : parsed
-          })()
-        : undefined
+    const categoryId = selectedCategories?.[0] || undefined
 
     const updateURL = (updates: Record<string, string | string[] | null>) => {
         const query = { ...router.query }
