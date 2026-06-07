@@ -38,6 +38,9 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
     onConfirm,
 }) => {
     const [selectedOptional, setSelectedOptional] = useState<string[]>([])
+    
+    const hasLegalDocs = !!(app.privacy_policy_url || app.eula_url)
+    const [isAgreed, setIsAgreed] = useState(!hasLegalDocs)
 
     useEffect(() => {
         if (visible) {
@@ -49,8 +52,9 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
                 : []
             
             setSelectedOptional(optionalArray)
+            setIsAgreed(!hasLegalDocs)
         }
-    }, [visible, app.optional_scopes])
+    }, [visible, app.optional_scopes, hasLegalDocs])
 
     const handleConfirm = () => {
         const rawRequired = app.required_scopes
@@ -114,6 +118,7 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
             onCancel={onClose}
             onOk={handleConfirm}
             confirmLoading={isInstalling}
+            okButtonProps={{ disabled: hasLegalDocs && !isAgreed }}
             okText="Подтвердить установку"
             cancelText="Отмена"
             destroyOnClose
@@ -138,6 +143,21 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
                         {optionalArray.map((scope) => renderScopeItem(scope, false))}
                     </div>
                 </>
+            )}
+
+            {hasLegalDocs && (
+                <div style={{ marginTop: 24, padding: 12, backgroundColor: '#f5f5f5', borderRadius: 8 }}>
+                    <Checkbox 
+                        checked={isAgreed} 
+                        onChange={(e) => setIsAgreed(e.target.checked)}
+                    >
+                        Я ознакомлен(а) и согласен(на) с{' '}
+                        {app.eula_url && <a href={app.eula_url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>Пользовательским соглашением</a>}
+                        {app.eula_url && app.privacy_policy_url && ' и '}
+                        {app.privacy_policy_url && <a href={app.privacy_policy_url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>Политикой конфиденциальности</a>}
+                        {' '}разработчика приложения.
+                    </Checkbox>
+                </div>
             )}
         </Modal>
     )
