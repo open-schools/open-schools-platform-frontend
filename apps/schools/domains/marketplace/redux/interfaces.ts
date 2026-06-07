@@ -43,6 +43,8 @@ export interface App {
     screenshots?: string[]
     DeveloperProfile: DeveloperProfile
     category?: Category
+    privacy_policy_url?: string
+    eula_url?: string
     client_id: string
     is_internal?: boolean
     app_url?: string

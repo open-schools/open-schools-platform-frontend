@@ -45,6 +45,27 @@ export const AppDetailSidebar: React.FC<AppDetailSidebarProps> = ({ app }) => {
                         </Text>
                     </div>
                 )}
+                {app.privacy_policy_url && (
+                    <div className={styles.infoRow}>
+                        <Text className={styles.infoLabel}>Документы:</Text>
+                        <Text className={styles.infoValue}>
+                            <a href={app.privacy_policy_url} target="_blank" rel="noreferrer" className={styles.link}>
+                                Политика конфиденциальности
+                            </a>
+                        </Text>
+                    </div>
+                )}
+                {app.eula_url && (
+                    <div className={styles.infoRow}>
+                        {/* Empty label for alignment if both exist, otherwise Documenty */}
+                        <Text className={styles.infoLabel}>{app.privacy_policy_url ? '' : 'Документы:'}</Text>
+                        <Text className={styles.infoValue}>
+                            <a href={app.eula_url} target="_blank" rel="noreferrer" className={styles.link}>
+                                Пользовательское соглашение
+                            </a>
+                        </Text>
+                    </div>
+                )}
             </div>
         </div>
     )
