@@ -110,7 +110,7 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
                     visible={isConsentModalOpen}
                     app={app}
                     isInstalling={isInstalling}
-                    onClose={() => setIsConsentOpen(false)}
+                    onClose={() => setIsConsentModalOpen(false)}
                     onConfirm={handleConfirmInstall}
                 />
             </div>
