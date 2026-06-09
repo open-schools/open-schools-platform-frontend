@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography } from 'antd'
 import { format } from 'date-fns'
+import { ru } from 'date-fns/locale'
 import { App } from '../../redux/interfaces'
 import styles from '../appDetail/styles/styles.module.scss'
 
@@ -26,7 +27,7 @@ export const AppDetailSidebar: React.FC<AppDetailSidebarProps> = ({ app }) => {
                         <div className={styles.infoRow}>
                             <Text className={styles.infoLabel}>Дата релиза:</Text>
                             <Text className={styles.infoValue}>
-                                {format(new Date(app.latest_release.date), 'dd MMMM yyyy')}
+                                {format(new Date(app.latest_release.date), 'dd MMMM yyyy', { locale: ru })}
                             </Text>
                         </div>
                     </>
@@ -34,7 +35,7 @@ export const AppDetailSidebar: React.FC<AppDetailSidebarProps> = ({ app }) => {
                 <div className={styles.infoRow}>
                     <Text className={styles.infoLabel}>Создано:</Text>
                     <Text className={styles.infoValue}>
-                        {format(new Date(app.created_at), 'dd MMMM yyyy')}
+                        {format(new Date(app.created_at), 'dd MMMM yyyy', { locale: ru })}
                     </Text>
                 </div>
                 {app.category && (

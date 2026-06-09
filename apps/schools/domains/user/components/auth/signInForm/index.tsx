@@ -27,8 +27,12 @@ export const SignInForm = (): React.ReactElement => {
 
     const initialValues = { password: '', phone: '' }
 
+    const onFinish = () => {
+        loginHandler(phone, password, login, form)
+    }
+
     return (
-        <Form form={form} name='signin' initialValues={initialValues} requiredMark={false} layout='vertical'>
+        <Form form={form} name='signin' initialValues={initialValues} requiredMark={false} layout='vertical' onFinish={onFinish}>
             <Row className={styles.rowStyles}>
                 <ResponsiveCol span={24}>
                     <Row>
@@ -76,7 +80,6 @@ export const SignInForm = (): React.ReactElement => {
                                     loading={isLoading}
                                     block
                                     data-cy='signin-button'
-                                    onClick={() => loginHandler(phone, password, login, form)}
                                 >
                                     Войти
                                 </Button>

@@ -23,7 +23,7 @@ export const useAppDetail = (appId: string) => {
     const [isConsentModalOpen, setIsConsentModalOpen] = useState<boolean>(false)
     const [viewMode, setViewMode] = useState<'store' | 'app'>(isInstalled ? 'app' : 'store')
 
-    // Automatically switch to 'app' view when installation status changes to true
+    // Автоматически переключаемся на вид 'app', когда статус установки меняется на true
     useEffect(() => {
         if (isInstalled) {
             setViewMode('app')

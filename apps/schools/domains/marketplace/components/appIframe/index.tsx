@@ -33,7 +33,7 @@ export const AppIframe: React.FC<AppIframeProps> = ({ app, organizationId }) => 
 
     useEffect(() => {
         const handleMessage = async (event: MessageEvent) => {
-            // Check if message is related to auth flow
+            // Проверяем, связано ли сообщение с процессом авторизации
             if (event.data?.type === 'GET_AUTH_CODE') {
                     const { code_challenge, code_challenge_method } = event.data
 
@@ -53,11 +53,11 @@ export const AppIframe: React.FC<AppIframeProps> = ({ app, organizationId }) => 
                             '*'
                         )
                     } catch (error) {
-                        console.error('Failed to generate auth code:', error)
+                        console.error('Не удалось сгенерировать код авторизации:', error)
                         iframeRef.current?.contentWindow?.postMessage(
                             {
                                 type: 'AUTH_CODE_ERROR',
-                                error: 'Failed to generate code',
+                                error: 'Не удалось сгенерировать код',
                             },
                             '*'
                         )
