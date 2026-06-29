@@ -11,6 +11,8 @@ import {
     Category,
     Review,
     Installation,
+    GenerateAuthCodeData,
+    GenerateAuthCodeResponse,
 } from './interfaces'
 
 const marketplaceApi = commonApi.injectEndpoints({
@@ -21,7 +23,6 @@ const marketplaceApi = commonApi.injectEndpoints({
                 if (params.category_id !== undefined) queryParams.category_id = params.category_id
                 if (params.developer_profile_id) queryParams.developer_profile_id = params.developer_profile_id
                 if (params.sort) queryParams.sort = params.sort
-                if (params.type) queryParams.type = params.type
                 if (params.q) queryParams.q = params.q
                 if (params.page) queryParams.page = params.page
                 if (params.page_size) queryParams.page_size = params.page_size
@@ -50,6 +51,7 @@ const marketplaceApi = commonApi.injectEndpoints({
                         app: data.app,
                         organization: data.organization,
                         config_data: data.config_data,
+                        scopes: data.scopes,
                     },
                 }
             },
@@ -125,6 +127,13 @@ const marketplaceApi = commonApi.injectEndpoints({
             },
             providesTags: (result, error, arg) => [{ type: 'Installation', id: result?.id || 'none' }],
         }),
+        generateAuthCode: build.mutation<GenerateAuthCodeResponse, GenerateAuthCodeData>({
+            query: (data) => ({
+                url: `/marketplace-management/marketplace/auth/generate_code`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
     }),
 })
 
@@ -140,6 +149,7 @@ export const {
     useCreateReviewMutation,
     useGetOrganizationInstallationsQuery,
     useCheckAppInstallationQuery,
+    useGenerateAuthCodeMutation,
 } = marketplaceApi
 
 

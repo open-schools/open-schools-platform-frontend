@@ -8,7 +8,9 @@ import { AppDetailHeader } from '../appDetailHeader'
 import { AppDetailContent } from '../appDetailContent'
 import { AppDetailSidebar } from '../appDetailSidebar'
 import { AppReviews } from '../appReviews'
+import { AppIframe } from '../appIframe'
 import { ScreenshotModal } from '../screenshotModal'
+import { ConsentModal } from '../consentModal'
 import styles from './styles/styles.module.scss'
 
 const { Title } = Typography
@@ -17,7 +19,10 @@ interface AppDetailProps {
     appId: string
 }
 
+import { useOrganization } from '@domains/organization/providers/organizationProvider'
+
 export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
+    const { organizationId } = useOrganization()
     const { data, isLoading } = useGetAppQuery({ app_id: appId })
     const { data: reviewsData } = useGetAppReviewsQuery({ app_id: appId, limit: 3, offset: 0 })
     const { 
@@ -27,7 +32,12 @@ export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
         selectedScreenshot, 
         handleInstall,
         handleUninstall,
-        setSelectedScreenshot 
+        setSelectedScreenshot,
+        isConsentModalOpen,
+        setIsConsentModalOpen,
+        handleConfirmInstall,
+        viewMode,
+        setViewMode,
     } = useAppDetail(appId)
 
     const app = data
@@ -46,7 +56,7 @@ export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
     if (!app) {
         return (
             <div className={styles.container}>
-                <BackPage route={RoutePath[AppRoutes.MARKETPLACE]} />
+                <BackPage path={RoutePath[AppRoutes.MARKETPLACE]} />
                 <div style={{ textAlign: 'center', padding: '64px' }}>
                     <Title level={3}>Приложение не найдено</Title>
                 </div>
@@ -56,7 +66,7 @@ export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
 
     return (
         <div className={styles.container}>
-            <BackPage route={RoutePath[AppRoutes.MARKETPLACE]} />
+            <BackPage path={RoutePath[AppRoutes.MARKETPLACE]} />
 
             <AppDetailHeader 
                 app={app} 
@@ -65,16 +75,31 @@ export const AppDetail: React.FC<AppDetailProps> = ({ appId }) => {
                 isInstalled={isInstalled}
                 onInstall={handleInstall}
                 onUninstall={handleUninstall}
+                viewMode={viewMode}
+                onViewModeChange={setViewMode}
             />
 
-            <div className={styles.content}>
-                <AppDetailContent app={app} onScreenshotClick={setSelectedScreenshot} />
-                <AppDetailSidebar app={app} />
-            </div>
-
-            <AppReviews reviews={reviews} appId={appId} totalCount={reviewsData?.count} />
+            {viewMode === 'app' ? (
+                <AppIframe app={app} organizationId={organizationId} />
+            ) : (
+                <>
+                    <div className={styles.content}>
+                        <AppDetailContent app={app} onScreenshotClick={setSelectedScreenshot} />
+                        <AppDetailSidebar app={app} />
+                    </div>
+                    <AppReviews reviews={reviews} appId={appId} totalCount={reviewsData?.count} />
+                </>
+            )}
 
             <ScreenshotModal screenshot={selectedScreenshot} onClose={() => setSelectedScreenshot(null)} />
+
+            <ConsentModal
+                visible={isConsentModalOpen}
+                app={app}
+                isInstalling={isInstalling}
+                onClose={() => setIsConsentModalOpen(false)}
+                onConfirm={handleConfirmInstall}
+            />
         </div>
     )
 }

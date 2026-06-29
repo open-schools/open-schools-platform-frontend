@@ -101,7 +101,7 @@ export async function registrationHandler(
     } else if (response.error?.status === 401) {
         message.error(PleaseReloadPageMsg)
         onError()
-    } else if (response.error?.data.error.code === 'AlreadyExists') {
+    } else if (response.error?.data?.error?.code === 'AlreadyExists') {
         formComponent.setFields([
             {
                 name: 'phone',

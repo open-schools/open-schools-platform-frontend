@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import { Typography, Rate, Form, Input, Button, message, Modal, Spin } from 'antd'
 import { format } from 'date-fns'
+import { ru } from 'date-fns/locale'
 import { Review } from '../../redux/interfaces'
 import { useCreateReviewMutation, useGetAppReviewsQuery } from '../../redux/marketplaceApi'
 import { useUserProfile } from '@domains/user/providers/authProvider'
@@ -151,9 +152,9 @@ export const AppReviews: React.FC<AppReviewsProps> = ({ reviews, appId, totalCou
                             <div className={styles.reviewUserInfo}>
                                 <Text className={styles.reviewUser}>Мой отзыв</Text>
                             </div>
-                            <Text className={styles.reviewDate}>
-                                {format(new Date(userReview.created_at), 'dd MMMM yyyy')}
-                            </Text>
+                                <Text className={styles.reviewDate}>
+                                    {format(new Date(userReview.created_at), 'dd MMMM yyyy', { locale: ru })}
+                                </Text>
                         </div>
                         <div className={styles.reviewRating}>
                             <Rate disabled value={userReview.rating} />
@@ -178,7 +179,7 @@ export const AppReviews: React.FC<AppReviewsProps> = ({ reviews, appId, totalCou
                                     </Text>
                                 </div>
                                 <Text className={styles.reviewDate}>
-                                    {format(new Date(review.created_at), 'dd MMMM yyyy')}
+                                    {format(new Date(review.created_at), 'dd MMMM yyyy', { locale: ru })}
                                 </Text>
                             </div>
                             <div className={styles.reviewRating}>
@@ -216,7 +217,7 @@ export const AppReviews: React.FC<AppReviewsProps> = ({ reviews, appId, totalCou
                                     </Text>
                                 </div>
                                 <Text className={styles.reviewDate}>
-                                    {format(new Date(review.created_at), 'dd MMMM yyyy')}
+                                    {format(new Date(review.created_at), 'dd MMMM yyyy', { locale: ru })}
                                 </Text>
                             </div>
                             <div className={styles.reviewRating}>

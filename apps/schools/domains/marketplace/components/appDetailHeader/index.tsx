@@ -1,10 +1,11 @@
 import React from 'react'
 import { Typography, Rate, Button } from 'antd'
-import { DownloadOutlined, DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons'
+import { DownloadOutlined, DeleteOutlined, PlayCircleOutlined, CheckOutlined } from '@ant-design/icons'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
 import router from 'next/router'
 import { App } from '../../redux/interfaces'
 import styles from '../appDetail/styles/styles.module.scss'
+
 
 const { Title, Text } = Typography
 
@@ -13,6 +14,8 @@ interface AppDetailHeaderProps {
     isInstalling: boolean
     isUninstalling: boolean
     isInstalled: boolean
+    viewMode?: 'store' | 'app'
+    onViewModeChange?: (mode: 'store' | 'app') => void
     onInstall: () => void
     onUninstall: () => void
 }
@@ -22,6 +25,8 @@ export const AppDetailHeader: React.FC<AppDetailHeaderProps> = ({
     isInstalling, 
     isUninstalling,
     isInstalled,
+    viewMode,
+    onViewModeChange,
     onInstall,
     onUninstall 
 }) => {
@@ -45,10 +50,10 @@ export const AppDetailHeader: React.FC<AppDetailHeaderProps> = ({
                 )}
 
                 <div className={styles.ratingSection}>
-                    {app.rating !== undefined && (
+                    {app.average_rating !== undefined && (
                         <div className={styles.rating}>
-                            <Rate disabled value={app.rating} allowHalf style={{ fontSize: 20 }} />
-                            <Text strong>{app.rating.toFixed(1)}</Text>
+                            <Rate disabled value={app.average_rating} allowHalf style={{ fontSize: 20 }} />
+                            <Text strong>{app.average_rating.toFixed(1)}</Text>
                             <Text type='secondary'>({app.reviews_count || 0} отзывов)</Text>
                         </div>
                     )}
@@ -67,21 +72,27 @@ export const AppDetailHeader: React.FC<AppDetailHeaderProps> = ({
                 <div className={styles.actions}>
                     {isInstalled ? (
                         <>
-                            {app.type === 'internal' && (app.latest_release?.manifest?.entry || app.latest_published_release?.manifest?.entry) ? (
-                                <Button
-                                    type='primary'
-                                    size='large'
-                                    icon={<PlayCircleOutlined />}
-                                    className={styles.installButton}
-                                    onClick={() => {
-                                        const entry = app.latest_published_release?.manifest?.entry || app.latest_release?.manifest?.entry
-                                        if (entry) {
-                                            router.push(entry)
-                                        }
-                                    }}
-                                >
-                                    Открыть
-                                </Button>
+                            {(app.app_url || app.latest_release?.manifest?.entry || app.latest_published_release?.manifest?.entry) ? (
+                                viewMode === 'app' ? (
+                                    <Button
+                                        type='default'
+                                        size='large'
+                                        className={styles.installButton}
+                                        onClick={() => onViewModeChange?.('store')}
+                                    >
+                                        В магазин
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        type='primary'
+                                        size='large'
+                                        icon={<PlayCircleOutlined />}
+                                        className={styles.installButton}
+                                        onClick={() => onViewModeChange?.('app')}
+                                    >
+                                        Открыть
+                                    </Button>
+                                )
                             ) : (
                                 <Button
                                     type='default'

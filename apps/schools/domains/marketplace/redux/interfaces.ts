@@ -1,7 +1,5 @@
 import { BasePaginationData } from '@domains/common/redux/interfaces'
 
-export type AppType = 'internal' | 'external'
-export type AppStatus = 'draft' | 'moderation' | 'published' | 'rejected'
 export type InstallationStatus = 'active' | 'inactive' | 'pending'
 
 export interface DeveloperProfile {
@@ -41,19 +39,24 @@ export interface App {
     id: string
     name: string
     description: string
-    type: AppType
-    status: AppStatus
     icon_url?: string
     screenshots?: string[]
     DeveloperProfile: DeveloperProfile
-    Category: Category[]
+    category?: Category
+    privacy_policy_url?: string
+    eula_url?: string
+    client_id: string
+    is_internal?: boolean
+    app_url?: string
     visibility_scope?: string
     created_at: string
     updated_at: string
     latest_release?: AppRelease
     latest_published_release?: AppRelease
-    rating?: number
+    average_rating?: number // <-- ИСПРАВЛЕНО (было rating)
     reviews_count?: number
+    required_scopes: string[]
+    optional_scopes: string[]
 }
 
 export interface Installation {
@@ -70,13 +73,13 @@ export interface Installation {
     deleted_by_cascade?: boolean
     school?: { id: string; name: string }
     status?: boolean
+    granted_scopes: string
 }
 
 export interface GetAllAppsData extends BasePaginationData {
-    category_id?: number
+    category_id?: string
     developer_profile_id?: string
     sort?: string
-    type?: AppType
     q?: string
     page?: number
     page_size?: number
@@ -92,6 +95,7 @@ export interface InstallAppData {
     organization: string
     user?: string
     config_data?: Record<string, any>
+    scopes?: string[]
 }
 
 export interface UninstallAppData {
@@ -106,4 +110,13 @@ export interface CreateReviewData {
     message?: string
 }
 
+export interface GenerateAuthCodeData {
+    client_id: string
+    code_challenge: string
+    code_challenge_method?: string
+    organization?: string
+}
 
+export interface GenerateAuthCodeResponse {
+    code: string
+}

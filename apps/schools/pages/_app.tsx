@@ -4,6 +4,7 @@ import 'antd/dist/antd.css'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
+const ReduxProvider = Provider as any
 import { AuthProvider } from '@domains/user/providers/authProvider'
 import React, { PropsWithChildren, StrictMode } from 'react'
 import Head from 'next/head'
@@ -34,7 +35,7 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
 
     if (router.pathname === RoutePath[AppRoutes.MOBILE_RECAPTCHA])
         return (
-            <Provider store={store}>
+            <ReduxProvider store={store}>
                 <Head>
                     <title>Открытые школы</title>
                     <link rel='icon' href='/icons/logo.svg' sizes='any' />
@@ -42,12 +43,12 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
                 <LayoutComponent>
                     <Component {...pageProps} />
                 </LayoutComponent>
-            </Provider>
+            </ReduxProvider>
         )
 
     return (
         <StrictMode>
-            <Provider store={store}>
+            <ReduxProvider store={store}>
                 <EventBusProvider>
                     <AuthProvider>
                         <ConfigProvider locale={ru_RU}>
@@ -65,7 +66,7 @@ function MyApp({ Component, pageProps }: CustomAppProps): JSX.Element {
                         </ConfigProvider>
                     </AuthProvider>
                 </EventBusProvider>
-            </Provider>
+            </ReduxProvider>
         </StrictMode>
     )
 }

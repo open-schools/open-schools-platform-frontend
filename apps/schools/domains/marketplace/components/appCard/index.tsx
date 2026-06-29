@@ -1,12 +1,12 @@
 import React from 'react'
-import { Typography, Rate, Button, message } from 'antd'
+import { Typography, Rate, Button } from 'antd'
 import { DownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { App } from '../../redux/interfaces'
 import styles from './styles/styles.module.scss'
 import router from 'next/router'
 import { AppRoutes, RoutePath } from '@domains/common/constants/routerEnums'
-import { useCheckAppInstallationQuery, useInstallAppMutation } from '../../redux/marketplaceApi'
-import { useOrganization } from '@domains/organization/providers/organizationProvider'
+import { useAppDetail } from '../../hooks/useAppDetail'
+import { ConsentModal } from '../consentModal'
 
 interface AppCardProps {
     app: App
@@ -15,48 +15,24 @@ interface AppCardProps {
 const { Title, Text } = Typography
 
 export const AppCard: React.FC<AppCardProps> = ({ app }) => {
-    const { organizationId } = useOrganization()
-    const [installApp, { isLoading: isInstalling }] = useInstallAppMutation()
-    
-    const { data: installation } = useCheckAppInstallationQuery(
-        { 
-            app_id: app.id,
-            organization_id: organizationId || '' 
-        },
-        { skip: !organizationId || !app.id }
-    )
-    
-    const isInstalled = !!installation
-    const entry = app.latest_published_release?.manifest?.entry || app.latest_release?.manifest?.entry
+    const { 
+        isInstalling, 
+        isInstalled,
+        handleInstall: baseHandleInstall,
+        isConsentModalOpen,
+        setIsConsentModalOpen,
+        handleConfirmInstall,
+    } = useAppDetail(app.id)
+
+    const entry = app.app_url || app.latest_published_release?.manifest?.entry || app.latest_release?.manifest?.entry
 
     const handleClick = () => {
         router.push(`${RoutePath[AppRoutes.MARKETPLACE]}/${app.id}`)
     }
 
-    const handleInstall = async (e: React.MouseEvent) => {
+    const handleInstall = (e: React.MouseEvent) => {
         e.stopPropagation()
-        
-        if (!organizationId) {
-            message.error('Организация не выбрана')
-            return
-        }
-
-        try {
-            await installApp({
-                app: app.id,
-                organization: organizationId,
-            }).unwrap()
-            message.success('Приложение успешно установлено!')
-        } catch (err: any) {
-            const errorMessage = err?.data?.error?.message || ''
-            const violations = err?.data?.error?.violations || []
-            
-            if (violations.includes('unique') || errorMessage.includes('unique') || errorMessage.includes('already installed')) {
-                message.warning('Это приложение уже установлено для данной организации')
-            } else {
-                message.error(errorMessage || 'Ошибка при установке приложения')
-            }
-        }
+        baseHandleInstall()
     }
 
     const handleOpen = (e: React.MouseEvent) => {
@@ -64,16 +40,6 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
         if (entry) {
             router.push(entry)
         }
-    }
-
-    const getStatusText = (status: string) => {
-        const statusMap: Record<string, string> = {
-            published: 'Опубликовано',
-            draft: 'Черновик',
-            moderation: 'На модерации',
-            rejected: 'Отклонено',
-        }
-        return statusMap[status] || status
     }
 
     return (
@@ -91,41 +57,28 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
                     {app.DeveloperProfile?.email && (
                         <Text className={styles.developer}>{app.DeveloperProfile.email}</Text>
                     )}
-                    {app.rating !== undefined && (
-                        <div className={styles.rating}>
-                            <Rate disabled value={app.rating} allowHalf style={{ fontSize: 14 }} />
-                            <Text>({app.reviews_count || 0})</Text>
-                        </div>
-                    )}
+                    <div className={styles.rating}>
+                        <Rate disabled value={app.average_rating || 0} allowHalf style={{ fontSize: 14 }} />
+                        <Text style={{ marginLeft: 4 }}>({app.reviews_count || 0})</Text>
+                    </div>
                 </div>
             </div>
 
             {app.description && <Text className={styles.description}>{app.description}</Text>}
 
-            {app.Category && app.Category.length > 0 && (
-                <div className={styles.categories}>
-                    {app.Category.map((category) => (
-                        <span key={category.id} className={styles.categoryTag}>
-                            {category.name}
-                        </span>
-                    ))}
-                </div>
-            )}
+
 
             <div className={styles.footer}>
                 <div className={styles.footerLeft}>
-                    <div className={styles.footerInfo}>
-                        <span className={`${styles.status} ${styles[app.status]}`}>
-                            {getStatusText(app.status)}
+                    {app.category && (
+                        <span className={styles.categoryTag}>
+                            {app.category.name}
                         </span>
-                        <Text type='secondary' className={styles.type}>
-                            {app.type === 'internal' ? 'Внутреннее' : 'Внешнее'}
-                        </Text>
-                    </div>
+                    )}
                 </div>
                 <div className={styles.actions}>
                     {isInstalled ? (
-                        app.type === 'internal' && entry ? (
+                        entry ? (
                             <Button
                                 type="primary"
                                 size="small"
@@ -148,7 +101,16 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
                     )}
                 </div>
             </div>
+            
+            <div onClick={(e) => e.stopPropagation()}>
+                <ConsentModal
+                    visible={isConsentModalOpen}
+                    app={app}
+                    isInstalling={isInstalling}
+                    onClose={() => setIsConsentModalOpen(false)}
+                    onConfirm={handleConfirmInstall}
+                />
+            </div>
         </div>
     )
 }
-

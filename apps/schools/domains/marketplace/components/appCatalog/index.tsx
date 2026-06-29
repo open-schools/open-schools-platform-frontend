@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { Typography, Button } from 'antd'
 import { useGetAllAppsQuery, useGetAllCategoriesQuery, useGetOrganizationInstallationsQuery } from '../../redux/marketplaceApi'
-import { AppType } from '../../redux/interfaces'
 import { useCatalogFilters } from '../../hooks/useCatalogFilters'
 import { CatalogFilters } from '../catalogFilters'
 import { AppsList } from '../appsList'
@@ -15,13 +14,11 @@ export const AppCatalog: React.FC = () => {
     const {
         search,
         selectedCategories,
-        selectedType,
         page,
         pageSize,
         categoryId,
         installedOnly,
         handleCategoryChange,
-        handleTypeChange,
         handleSearchChange,
         handlePageChange,
     } = useCatalogFilters()
@@ -30,7 +27,6 @@ export const AppCatalog: React.FC = () => {
         {
             q: search || undefined,
             category_id: categoryId,
-            type: (selectedType as AppType) || undefined,
             page: page,
             page_size: pageSize,
         },
@@ -78,12 +74,10 @@ export const AppCatalog: React.FC = () => {
             <CatalogFilters
                 search={search}
                 selectedCategories={selectedCategories}
-                selectedType={selectedType}
                 categories={categories}
                 isLoadingCategories={isLoadingCategories}
                 onSearchChange={handleSearchChange}
                 onCategoryChange={handleCategoryChange}
-                onTypeChange={handleTypeChange}
             />
 
             <AppsList

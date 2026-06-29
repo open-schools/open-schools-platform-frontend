@@ -20,7 +20,7 @@ export const InternalModuleGuard: React.FC<InternalModuleGuardProps> = ({ entry,
     )
 
     const { data: appsData, isLoading: isLoadingApps } = useGetAllAppsQuery(
-        { type: 'internal' },
+        {},
         { skip: !organizationId }
     )
 
@@ -54,7 +54,7 @@ export const InternalModuleGuard: React.FC<InternalModuleGuardProps> = ({ entry,
     const installedApp = installations.find((installation) => {
         const appId = typeof installation.app === 'string' ? installation.app : installation.app?.id
         const app = apps.find((a) => a.id === appId)
-        const appEntry = app?.latest_published_release?.manifest?.entry || app?.latest_release?.manifest?.entry
+        const appEntry = app?.app_url || app?.latest_published_release?.manifest?.entry || app?.latest_release?.manifest?.entry
         return appEntry === entry
     })
 
